@@ -52,7 +52,7 @@ export default function Hero() {
 
                 <Image
 
-                    src="/images/hero-banner.jpeg"
+                    src="/images/hero-image.jpeg"
 
                     alt="Luxury Electric Vehicle"
 
