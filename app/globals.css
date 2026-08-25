@@ -3,23 +3,31 @@
 @import "tailwindcss";
 
 
+
 :root {
 
-  --background: #050b14;
+  --background: #080808;
 
   --foreground: #ffffff;
 
 }
 
 
+
+
+
+
 @theme inline {
+
 
   --color-background: var(--background);
 
   --color-foreground: var(--foreground);
 
 
-  --font-sans: "Inter",
+
+  --font-sans:
+  "Inter",
   system-ui,
   -apple-system,
   BlinkMacSystemFont,
@@ -29,18 +37,32 @@
   sans-serif;
 
 
-  --font-mono: "Courier New", monospace;
+
+  --font-mono:
+  "Courier New",
+  monospace;
+
 
 }
 
 
+
+
+
+
+
 /* GLOBAL RESET */
+
 
 * {
 
   box-sizing: border-box;
 
 }
+
+
+
+
 
 
 html {
@@ -50,116 +72,366 @@ html {
 }
 
 
+
+
+
+
 html,
 body {
 
-  margin: 0;
+  margin:0;
 
-  padding: 0;
+  padding:0;
 
-  min-height: 100%;
+  min-height:100%;
 
 }
+
+
+
+
+
 
 
 body {
 
-  background: #050b14;
 
-  color: #ffffff;
+  background:#080808;
 
-  font-family: var(--font-sans);
+  color:#ffffff;
 
-  -webkit-font-smoothing: antialiased;
 
-  -moz-osx-font-smoothing: grayscale;
+  font-family:var(--font-sans);
+
+
+  -webkit-font-smoothing:antialiased;
+
+  -moz-osx-font-smoothing:grayscale;
+
 
 }
+
+
+
+
+
+
+
+/* REMOVE HORIZONTAL SCROLL */
+
+
+body {
+
+  overflow-x:hidden;
+
+}
+
+
+
+
 
 
 
 /* TEXT SELECTION */
 
+
 ::selection {
 
-  background: #0066ff;
 
-  color: white;
+  background:#A65E2E;
+
+  color:white;
+
 
 }
+
+
+
+
+
 
 
 
 /* BUTTONS */
 
+
 button {
 
-  cursor: pointer;
 
-  font-family: inherit;
+  cursor:pointer;
+
+  font-family:inherit;
+
 
 }
 
+
+
+
+
+
+
+
+/* INPUTS */
 
 
 input,
 textarea,
 select {
 
-  font-family: inherit;
+
+  font-family:inherit;
+
 
 }
+
+
+
+
+
 
 
 
 /* IMAGES */
 
+
 img {
 
-  max-width: 100%;
 
-  height: auto;
+  max-width:100%;
 
-  display: block;
+  height:auto;
 
-  image-rendering: -webkit-optimize-contrast;
+  display:block;
+
 
 }
+
+
+
+
+
 
 
 
 /* LINKS */
 
+
 a {
 
-  text-decoration: none;
 
-  color: inherit;
+  text-decoration:none;
+
+  color:inherit;
+
 
 }
 
 
 
-/* SCROLLBAR PREMIUM LOOK */
+
+
+
+
+
+/* PREMIUM SCROLLBAR */
+
 
 ::-webkit-scrollbar {
 
-  width: 8px;
+
+  width:8px;
+
 
 }
+
+
+
 
 
 ::-webkit-scrollbar-track {
 
-  background: #050b14;
+
+  background:#080808;
+
 
 }
 
 
+
+
+
 ::-webkit-scrollbar-thumb {
 
-  background: #1d4ed8;
 
-  border-radius: 10px;
+  background:#333333;
+
+
+  border-radius:20px;
+
+
+}
+
+
+
+
+
+::-webkit-scrollbar-thumb:hover {
+
+
+  background:#A65E2E;
+
+
+}
+
+
+
+
+
+
+
+
+/* FIREFOX SCROLLBAR */
+
+
+html {
+
+
+  scrollbar-width:thin;
+
+
+  scrollbar-color:#333333 #080808;
+
+
+}
+
+
+
+
+
+
+
+
+/* HIDE HORIZONTAL SCROLLBAR FOR SLIDERS */
+
+
+.scrollbar-hide::-webkit-scrollbar {
+
+
+  display:none;
+
+
+}
+
+
+.scrollbar-hide {
+
+
+  -ms-overflow-style:none;
+
+  scrollbar-width:none;
+
+
+}
+
+
+
+
+
+
+
+
+/* SMOOTH IMAGE RENDERING */
+
+
+img {
+
+
+  image-rendering:auto;
+
+
+}
+
+
+
+
+
+
+
+
+/* REMOVE DEFAULT FOCUS STYLE */
+
+
+button:focus,
+a:focus {
+
+
+  outline:none;
+
+
+}
+
+
+
+
+
+
+
+
+/* PREMIUM TRANSITIONS */
+
+
+button,
+a {
+
+
+  transition-duration:300ms;
+
+
+}
+
+
+
+
+
+
+
+
+/* SELECTION COLORS */
+
+
+::selection {
+
+
+  background:#A65E2E;
+
+  color:#ffffff;
+
+
+}
+
+@keyframes marquee {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+
+}
+
+
+.marquee {
+
+  animation: marquee 25s linear infinite;
+
+}
+
+
+.marquee:hover {
+
+  animation-play-state: paused;
 
 }

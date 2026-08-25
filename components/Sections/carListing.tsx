@@ -6,88 +6,85 @@ import { motion } from "framer-motion";
 
 const cars = [
 
-    {
-        name:"Ferrari 488 GTB",
-        tag:"Luxury Sports",
-        image:"/images/cars/ferrari.jpeg",
-        price:"£175,000",
-        year:"2023",
-        mileage:"2,500 Miles",
-        transmission:"Automatic"
-    },
+{
+name:"Ferrari 488 GTB",
+tag:"Luxury Sports",
+image:"/images/cars/ferrari.jpeg",
+price:"£175,000",
+year:"2023",
+mileage:"2,500 Miles",
+transmission:"Automatic"
+},
 
+{
+name:"Porsche 911 Turbo S",
+tag:"Performance",
+image:"/images/cars/porsche.jpeg",
+price:"£125,000",
+year:"2022",
+mileage:"8,900 Miles",
+transmission:"Automatic"
+},
 
-    {
-        name:"Porsche 911 Turbo S",
-        tag:"Performance",
-        image:"/images/cars/porsche.jpeg",
-        price:"£125,000",
-        year:"2022",
-        mileage:"8,900 Miles",
-        transmission:"Automatic"
-    },
+{
+name:"Rolls Royce Cullinan",
+tag:"Premium SUV",
+image:"/images/cars/Rolls Royce Cullinan.jpeg",
+price:"£325,000",
+year:"2023",
+mileage:"5,200 Miles",
+transmission:"Automatic"
+},
 
+{
+name:"Lamborghini Aventador",
+tag:"Supercar",
+image:"/images/cars/Lamborghini.jpeg",
+price:"£420,000",
+year:"2022",
+mileage:"3,500 Miles",
+transmission:"Automatic"
+},
 
-    {
-        name:"Rolls Royce Cullinan",
-        tag:"Premium SUV",
-        image:"/images/cars/Rolls Royce Cullinan.jpeg",
-        price:"£325,000",
-        year:"2023",
-        mileage:"5,200 Miles",
-        transmission:"Automatic"
-    },
+{
+name:"Range Rover Sport",
+tag:"Luxury SUV",
+image:"/images/cars/Range Rover.jpeg",
+price:"£89,500",
+year:"2024",
+mileage:"7,800 Miles",
+transmission:"Automatic"
+},
 
+{
+name:"Mercedes AMG GT",
+tag:"Performance",
+image:"/images/cars/Mercedes-gt.jpeg",
+price:"£98,000",
+year:"2023",
+mileage:"6,400 Miles",
+transmission:"Automatic"
+},
 
-    {
-        name:"Lamborghini Aventador",
-        tag:"Supercar",
-        image:"/images/cars/Lamborghini.jpeg",
-        price:"£420,000",
-        year:"2022",
-        mileage:"3,500 Miles",
-        transmission:"Automatic"
-    },
+{
+name:"Ford Mustang",
+tag:"Muscle Car",
+image:"/images/cars/Mustang.jpeg",
+price:"£42,000",
+year:"2021",
+mileage:"23,000 Miles",
+transmission:"Automatic"
+},
 
-
-    {
-        name:"Range Rover Sport",
-        tag:"Luxury SUV",
-        image:"/images/cars/Range Rover.jpeg",
-        price:"£89,500",
-        year:"2024",
-        mileage:"7,800 Miles",
-        transmission:"Automatic"
-    },
-
-
-    {
-        name:"Mercedes AMG GT",
-        tag:"Performance",
-        image:"/images/cars/Mercedes-gt.jpeg",
-        price:"£98,000",
-        year:"2023",
-        mileage:"6,400 Miles",
-        transmission:"Automatic"
-    },
-    {
-        name:"Ford Mustang",
-        tag:"Muscle Car",
-        image:"/images/cars/Mustang.jpeg",
-        price:"£42,000",
-        year:"2021",
-        mileage:"23,00 Miles",
-        transmission:"Automatic"
-    },
-    {
-        name:"Mercedes Cls 63",
-        tag:"Drift Car",
-        image:"/images/cars/Mercedes-cls.jpeg",
-        price:"£54,000",
-        year:"2022",
-        mileage:"12,40 Miles",
-        transmission:"Automatic"
-    }
+{
+name:"Mercedes CLS 63",
+tag:"AMG",
+image:"/images/cars/Mercedes-cls.jpeg",
+price:"£54,000",
+year:"2022",
+mileage:"12,400 Miles",
+transmission:"Automatic"
+}
 
 ];
 
@@ -104,12 +101,13 @@ return (
 className="
 relative
 bg-[#080808]
+py-10
 overflow-hidden
 "
 >
 
 
-{/* BACKGROUND GLOW */}
+{/* GLOW */}
 
 <div
 className="
@@ -117,14 +115,13 @@ absolute
 right-0
 top-0
 
-w-[500px]
-h-[500px]
+w-[350px]
+h-[350px]
 
 bg-[#A65E2E]/10
 
-blur-[160px]
+blur-[140px]
 
-rounded-full
 "
 />
 
@@ -141,7 +138,7 @@ max-w-[1440px]
 
 mx-auto
 
-px-6
+px-5
 sm:px-8
 lg:px-10
 
@@ -155,11 +152,12 @@ lg:px-10
 {/* HEADING */}
 
 
+
 <motion.div
 
 initial={{
 opacity:0,
-y:60
+y:40
 }}
 
 whileInView={{
@@ -168,16 +166,15 @@ y:0
 }}
 
 viewport={{
-once:true,
-amount:.3
+once:true
 }}
 
 transition={{
-duration:.8
+duration:.7
 }}
 
 className="
-max-w-2xl
+max-w-xl
 "
 
 >
@@ -193,10 +190,12 @@ tracking-[5px]
 
 text-xs
 
-mb-5
+mb-3
 "
 >
+
 Premium Collection
+
 </p>
 
 
@@ -206,23 +205,38 @@ className="
 text-white
 
 text-3xl
+
 sm:text-4xl
+
 lg:text-5xl
 
 font-semibold
-
-leading-tight
 "
 >
 
-Featured
-Vehicles
+Featured Vehicles
 
 </h2>
 
 
 
+<p
+className="
+text-gray-400
 
+mt-3
+
+text-sm
+
+sm:text-base
+
+"
+>
+
+Luxury vehicles selected for performance,
+comfort and style.
+
+</p>
 
 
 </motion.div>
@@ -234,7 +248,7 @@ Vehicles
 
 
 
-{/* CAR CONTAINER */}
+{/* CAR GRID */}
 
 
 
@@ -242,29 +256,34 @@ Vehicles
 
 className="
 
-mt-14
-
-flex
-
-gap-6
+mt-8
 
 
-overflow-x-auto
+grid
 
-snap-x
+grid-cols-1
 
-snap-mandatory
+sm:grid-cols-2
 
+lg:grid-cols-3
 
-pb-6
-
-
-lg:grid
-
-lg:grid-cols-4
+xl:grid-cols-4
 
 
-lg:overflow-visible
+gap-5
+
+
+
+max-sm:flex
+
+max-sm:overflow-x-auto
+
+max-sm:snap-x
+
+max-sm:snap-mandatory
+
+
+max-sm:pb-5
 
 
 scrollbar-hide
@@ -281,58 +300,45 @@ cars.map((car,index)=>(
 
 <motion.div
 
-
 key={car.name}
 
 
 initial={{
 opacity:0,
-y:80
+y:50
 }}
-
 
 whileInView={{
 opacity:1,
 y:0
 }}
 
-
 viewport={{
 once:true,
 amount:.2
 }}
 
-
 transition={{
-duration:.6,
-delay:index*.12
+duration:.5,
+delay:index*.08
 }}
 
 
 
 className="
 
-snap-start
+max-sm:min-w-[300px]
 
-
-min-w-[300px]
-
-sm:min-w-[330px]
-
-
-lg:min-w-0
+max-sm:snap-start
 
 
 group
 
 
-bg-[#121212]
+bg-white/[0.05]
 
 
-rounded-2xl
-
-
-overflow-hidden
+backdrop-blur-xl
 
 
 border
@@ -340,11 +346,10 @@ border
 border-white/10
 
 
-hover:border-[#A65E2E]/60
+hover:border-[#A65E2E]/50
 
 
 transition-all
-
 
 duration-500
 
@@ -354,7 +359,11 @@ duration-500
 
 
 
+
+
+
 {/* IMAGE */}
+
 
 
 <div
@@ -363,12 +372,11 @@ className="
 
 relative
 
-h-[220px]
+h-[210px]
 
 overflow-hidden
 
 "
-
 
 >
 
@@ -391,7 +399,7 @@ transition
 duration-700
 
 
-group-hover:scale-110
+group-hover:scale-105
 
 "
 
@@ -399,10 +407,59 @@ group-hover:scale-110
 
 
 
+
+
+
 {/* TAG */}
 
 
-<span
+<div
+
+className="
+
+absolute
+
+top-4
+
+left-4
+
+
+bg-black/60
+
+backdrop-blur-md
+
+
+px-3
+
+py-1
+
+
+text-[10px]
+
+uppercase
+
+tracking-wider
+
+text-white
+
+"
+
+>
+
+{car.tag}
+
+</div>
+
+
+
+
+
+
+
+{/* MILEAGE */}
+
+
+<div
 
 className="
 
@@ -415,20 +472,7 @@ right-4
 
 bg-black/70
 
-
 backdrop-blur-md
-
-
-text-white
-
-
-text-[10px]
-
-
-uppercase
-
-
-tracking-wider
 
 
 px-3
@@ -436,19 +480,25 @@ px-3
 py-1
 
 
-rounded
+text-xs
 
+text-white
 
 "
 
 >
 
-{car.tag}
+{car.mileage}
 
-</span>
+</div>
+
+
+
 
 
 </div>
+
+
 
 
 
@@ -464,11 +514,12 @@ rounded
 
 className="
 
-p-5
+p-4
 
 "
 
 >
+
 
 
 
@@ -508,8 +559,9 @@ font-semibold
 
 {car.name}
 
-
 </h3>
+
+
 
 
 <p
@@ -533,7 +585,10 @@ mt-2
 </p>
 
 
+
 </div>
+
+
 
 
 
@@ -553,21 +608,17 @@ text-sm
 
 
 <p
+
 className="
+
 text-white
+
 "
+
 >
+
 {car.year}
-</p>
 
-
-<p
-className="
-text-gray-400
-mt-1
-"
->
-{car.mileage}
 </p>
 
 
@@ -582,6 +633,12 @@ mt-1
 
 
 
+
+
+
+
+
+{/* SPECS */}
 
 
 
@@ -599,16 +656,18 @@ border-t
 border-white/10
 
 
-mt-5
+mt-4
 
-pt-4
+pt-3
 
 "
 
 >
 
 
+
 <div>
+
 
 <p
 
@@ -616,56 +675,79 @@ className="
 
 text-gray-500
 
-text-xs
+text-[11px]
 
 "
 
 >
+
 Transmission
+
 </p>
 
 
 <p
 
 className="
+
 text-white
+
 text-sm
+
 mt-1
+
 "
 
 >
+
 {car.transmission}
+
 </p>
 
 
 </div>
+
+
+
 
 
 
 <div>
 
+
 <p
 
 className="
+
 text-gray-500
-text-xs
+
+text-[11px]
+
 "
 
 >
+
 Condition
+
 </p>
 
 
 <p
 
 className="
+
 text-white
+
 text-sm
+
 mt-1
+
 "
 
 >
+
 Excellent
+
 </p>
 
 
@@ -673,49 +755,10 @@ Excellent
 
 
 
+
+
 </div>
 
-
-
-
-
-<button
-
-className="
-
-mt-5
-
-w-full
-
-py-3
-
-rounded-lg
-
-
-bg-white
-
-
-text-black
-
-
-font-medium
-
-
-hover:bg-[#A65E2E]
-
-
-hover:text-white
-
-
-transition
-
-"
-
->
-
-View Details
-
-</button>
 
 
 
@@ -736,6 +779,7 @@ View Details
 
 
 </div>
+
 
 
 
