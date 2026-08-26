@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Logo from "../Header/Logo";
 
 
 export default function Footer(){
@@ -41,12 +42,10 @@ export default function Footer(){
 
           <div>
 
-            <h3 className="text-white text-xl font-semibold mb-5">
-              PRIME MOTORS
-            </h3>
+          <Logo/>
 
 
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-400 mt-10 text-sm leading-relaxed">
               Premium automotive experience delivering luxury vehicles, trusted service and exceptional driving experiences.
             </p>
 

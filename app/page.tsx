@@ -5,6 +5,8 @@ import BrandMarquee from "@/components/Sections/brandmarquee";
 import CarListing from "@/components/Sections/carListing";
 
 import Footer from "@/components/Layout/Footer/footer";
+import WhyChooseUs from "@/components/Sections/whychooseus";
+import FinanceSection from "@/components/Sections/financesection";
 
 
 const Home = () => {
@@ -22,6 +24,8 @@ const Home = () => {
 
       <CarListing />
       <BrandMarquee />
+      <WhyChooseUs/>
+      <FinanceSection/>
 
    
 

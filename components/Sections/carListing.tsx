@@ -3,162 +3,117 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-
-const cars = [
-  {name:"Ferrari 488 GTB",tag:"Luxury Sports",image:"/images/cars/ferrari.jpeg",price:"£175,000",year:"2023",mileage:"2,500 Miles",transmission:"Automatic"},
-  {name:"Porsche 911 Turbo S",tag:"Performance",image:"/images/cars/porsche.jpeg",price:"£125,000",year:"2022",mileage:"8,900 Miles",transmission:"Automatic"},
-  {name:"Rolls Royce Cullinan",tag:"Premium SUV",image:"/images/cars/Rolls Royce Cullinan.jpeg",price:"£325,000",year:"2023",mileage:"5,200 Miles",transmission:"Automatic"},
-  {name:"Lamborghini Aventador",tag:"Supercar",image:"/images/cars/Lamborghini.jpeg",price:"£420,000",year:"2022",mileage:"3,500 Miles",transmission:"Automatic"},
-  {name:"Range Rover Sport",tag:"Luxury SUV",image:"/images/cars/Range Rover.jpeg",price:"£89,500",year:"2024",mileage:"7,800 Miles",transmission:"Automatic"},
-  {name:"Mercedes AMG GT",tag:"Performance",image:"/images/cars/Mercedes-gt.jpeg",price:"£98,000",year:"2023",mileage:"6,400 Miles",transmission:"Automatic"},
-  {name:"Ford Mustang",tag:"Muscle Car",image:"/images/cars/Mustang.jpeg",price:"£42,000",year:"2021",mileage:"23,000 Miles",transmission:"Automatic"},
-  {name:"Mercedes CLS 63",tag:"AMG",image:"/images/cars/Mercedes-cls.jpeg",price:"£54,000",year:"2022",mileage:"12,400 Miles",transmission:"Automatic"}
+const cars=[
+{name:"Ferrari 488 GTB",tag:"Luxury Sports",image:"/images/cars/ferrari.jpeg",price:"£175,000",year:"2023",mileage:"2,500 Miles",transmission:"Automatic"},
+{name:"Porsche 911 Turbo S",tag:"Performance",image:"/images/cars/porsche.jpeg",price:"£125,000",year:"2022",mileage:"8,900 Miles",transmission:"Automatic"},
+{name:"Rolls Royce Cullinan",tag:"Premium SUV",image:"/images/cars/Rolls Royce Cullinan.jpeg",price:"£325,000",year:"2023",mileage:"5,200 Miles",transmission:"Automatic"},
+{name:"Lamborghini Aventador",tag:"Supercar",image:"/images/cars/Lamborghini.jpeg",price:"£420,000",year:"2022",mileage:"3,500 Miles",transmission:"Automatic"}
 ];
-
 
 export default function CarListing(){
 
-  return (
+return(
 
-    <section className="relative bg-[#05070a] py-20 overflow-hidden">
+<section className="relative bg-[#05070a] py-20 overflow-hidden">
 
+<div className="absolute right-0 top-0 w-[400px] h-[400px] bg-[#8ea6c5]/10 blur-[150px]"/>
 
-      <div className="absolute right-0 top-0 w-[350px] h-[350px] bg-[#8ea6c5]/10 blur-[140px]" />
+<div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-10">
 
+<motion.div initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:.7}}>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-10">
+<p className="text-[#9db4d2] uppercase tracking-[5px] text-xs mb-3">
+Premium Collection
+</p>
 
+<h2 className="text-white text-4xl lg:text-6xl font-semibold">
+Featured Vehicles
+</h2>
 
-        <motion.div initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:.7}} className="max-w-xl">
+<p className="text-gray-400 mt-4 max-w-lg">
+Explore our hand selected luxury vehicles built for performance and comfort.
+</p>
 
+</motion.div>
 
-          <p className="text-[#9db4d2] uppercase tracking-[5px] text-xs mb-3">
-            Premium Collection
-          </p>
+<div className="mt-12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 max-sm:flex max-sm:overflow-x-auto scrollbar-hide">
 
+{cars.map((car,index)=>(
 
-          <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl font-semibold">
-            Featured Vehicles
-          </h2>
+<motion.div key={car.name} initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:.5,delay:index*.08}} className="max-sm:min-w-[320px] group bg-white/[0.04] backdrop-blur-xl border border-white/10 hover:border-[#8ea6c5]/60 transition duration-500 hover:-translate-y-2 overflow-hidden">
 
+<div className="relative h-[250px] overflow-hidden">
 
-          <p className="text-gray-400 mt-3 text-sm sm:text-base">
-            Luxury vehicles selected for performance, comfort and style.
-          </p>
+<Image src={car.image} alt={car.name} fill className="object-cover transition duration-700 group-hover:scale-110"/>
 
+<div className="absolute inset-0 bg-gradient-to-t from-[#05070a] to-transparent"/>
 
-        </motion.div>
+<div className="absolute top-4 left-4 bg-black/60 px-3 py-2 text-[10px] text-white uppercase tracking-widest">
+{car.tag}
+</div>
 
+</div>
 
+<div className="p-5">
 
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 max-sm:flex max-sm:overflow-x-auto max-sm:snap-x max-sm:snap-mandatory scrollbar-hide">
+<div className="flex justify-between">
 
+<div>
 
-          {cars.map((car,index)=>(
+<h3 className="text-white text-lg font-semibold">
+{car.name}
+</h3>
 
+<p className="text-[#9db4d2] text-xl font-bold mt-2">
+{car.price}
+</p>
 
-            <motion.div key={car.name} initial={{opacity:0,y:50}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.2}} transition={{duration:.5,delay:index*.08}} className="max-sm:min-w-[300px] max-sm:snap-start group bg-white/[0.05] backdrop-blur-xl border border-white/10 hover:border-[#8ea6c5]/50 transition-all duration-500">
+</div>
 
+<span className="text-gray-400 text-sm">
+{car.year}
+</span>
 
-              <div className="relative h-[220px] overflow-hidden">
+</div>
 
+<div className="border-t border-white/10 mt-5 pt-4 flex justify-between">
 
-                <Image src={car.image} alt={car.name} fill className="object-cover transition duration-700 group-hover:scale-105" />
+<div>
+<p className="text-gray-500 text-xs">
+Mileage
+</p>
+<p className="text-white text-sm">
+{car.mileage}
+</p>
+</div>
 
+<div>
+<p className="text-gray-500 text-xs">
+Gear
+</p>
+<p className="text-white text-sm">
+{car.transmission}
+</p>
+</div>
 
-                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 text-[10px] uppercase tracking-wider text-white">
-                  {car.tag}
-                </div>
+</div>
 
+<button className="mt-5 w-full py-3 border border-[#8ea6c5] text-white text-xs uppercase tracking-widest hover:bg-[#8ea6c5] hover:text-black transition">
+View Details
+</button>
 
-                <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md px-3 py-1 text-xs text-white">
-                  {car.mileage}
-                </div>
+</div>
 
+</motion.div>
 
-              </div>
+))}
 
+</div>
 
+</div>
 
-              <div className="p-5">
+</section>
 
-
-                <div className="flex justify-between items-start gap-3">
-
-
-                  <div>
-
-                    <h3 className="text-white text-lg font-semibold">
-                      {car.name}
-                    </h3>
-
-
-                    <p className="text-[#9db4d2] text-xl font-bold mt-2">
-                      {car.price}
-                    </p>
-
-                  </div>
-
-
-                  <p className="text-white text-sm">
-                    {car.year}
-                  </p>
-
-
-                </div>
-
-
-
-                <div className="flex justify-between border-t border-white/10 mt-5 pt-4">
-
-
-                  <div>
-
-                    <p className="text-gray-500 text-[11px]">
-                      Transmission
-                    </p>
-
-                    <p className="text-white text-sm mt-1">
-                      {car.transmission}
-                    </p>
-
-                  </div>
-
-
-
-                  <div>
-
-                    <p className="text-gray-500 text-[11px]">
-                      Condition
-                    </p>
-
-                    <p className="text-white text-sm mt-1">
-                      Excellent
-                    </p>
-
-                  </div>
-
-
-                </div>
-
-
-              </div>
-
-
-            </motion.div>
-
-
-          ))}
-
-
-        </div>
-
-
-      </div>
-
-
-    </section>
-
-  );
+);
 
 }
