@@ -2,365 +2,140 @@
 
 import { useState } from "react";
 import Logo from "./Logo";
+import { GB, DE } from "country-flag-icons/react/3x2";
 
 
-export default function Header() {
+export default function Header(){
 
+  const [mobile,setMobile]=useState(false);
+  const [language,setLanguage]=useState(false);
 
-    const [open, setOpen] = useState(false);
 
+  const menuItems=[
+    "Home",
+    "Find Car",
+    "Finance",
+    "Offers",
+    "About",
+    "Contact"
+  ];
 
-    const menuItems = [
-        "MODELS",
-        "OFFERS",
-        "OWNERSHIP",
-        "SERVICES",
-        "DEALERSHIP",
-        "ABOUT US",
-        "CONTACT"
-    ];
 
+  return (
 
+    <header className="fixed top-0 left-0 w-full z-50">
 
-    return (
 
+      {/* HEADER */}
 
-        <header
-            className="
-            fixed
-            top-0
-            left-0
-            z-50
-            w-full
+      <div className="w-full bg-transparent">
 
-            bg-gradient-to-b
-            from-black/70
-            to-transparent
 
-            backdrop-blur-[8px]
-            "
-        >
+        <div className="h-[90px] flex items-center justify-between px-5 sm:px-8 lg:px-14">
 
 
+          <Logo />
 
-            <div
-                className="
-                max-w-[1440px]
-                mx-auto
 
-                px-5
-                sm:px-8
-                "
-            >
 
+          {/* DESKTOP MENU */}
 
 
-                <div
-                    className="
-                    h-[72px]
+          <nav className="hidden lg:flex items-center gap-10">
 
-                    flex
-                    items-center
-                    justify-between
-                    "
-                >
 
+            {menuItems.map((item,index)=>(
 
+              <a key={item} href="#" className={`text-[13px] uppercase tracking-[1.5px] transition ${index===0?"text-white":"text-white/75 hover:text-white"}`}>
 
+                {item}
 
+              </a>
 
-                    {/* LOGO */}
+            ))}
 
-                    <Logo />
 
+          </nav>
 
 
 
 
 
+          {/* DESKTOP RIGHT */}
 
-                    {/* DESKTOP NAVIGATION */}
 
-                    <nav
-                        className="
-                        hidden
-                        lg:flex
+          <div className="hidden lg:flex items-center gap-7">
 
-                        items-center
 
-                        h-full
-                        "
-                    >
 
+            {/* PHONE */}
 
-                        {
-                            menuItems.map((item,index)=>(
 
+            <div className="flex items-center gap-3 text-white text-sm whitespace-nowrap">
 
-                                <a
-                                    key={item}
 
-                                    href="#"
+              <svg className="w-5 h-5 shrink-0 text-[#8ea6c5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-                                    className={`
-                                    h-full
+                <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 5h2l3 7-2 2c2 4 4 6 8 8l2-2 7 3v2a2 2 0 0 1-2 2C10 27 1 18 1 7a2 2 0 0 1 2-2Z"/>
 
-                                    flex
-                                    items-center
+              </svg>
 
-                                    px-4
 
-                                    text-[12px]
+              <span>
+                +44 20 7946 0990
+              </span>
 
-                                    font-semibold
 
-                                    tracking-[1px]
+            </div>
 
-                                    transition
 
-                                    ${
-                                        index === 0
-                                        ?
-                                        "text-white"
-                                        :
-                                        "text-white/70 hover:text-white"
-                                    }
 
-                                    `}
-                                >
 
-                                    {item}
 
+            {/* LANGUAGE */}
 
-                                </a>
 
+            <div className="relative">
 
-                            ))
-                        }
 
+              <button onClick={()=>setLanguage(!language)} className="flex items-center gap-3 text-white text-sm">
 
-                    </nav>
 
+                <GB className="w-6 h-4" />
 
+                English
 
 
+              </button>
 
 
 
+              {language && (
 
+                <div className="absolute right-0 top-10 w-44 bg-black/80 backdrop-blur-xl">
 
-                    {/* RIGHT DESKTOP */}
 
+                  <button className="w-full flex items-center gap-3 px-5 py-3 text-white hover:bg-white/10 transition">
 
-                    <div
-                        className="
-                        hidden
-                        lg:flex
+                    <GB className="w-6 h-4" />
 
-                        items-center
+                    English
 
-                        gap-7
-                        "
-                    >
+                  </button>
 
 
+                  <button className="w-full flex items-center gap-3 px-5 py-3 text-white hover:bg-white/10 transition">
 
+                    <DE className="w-6 h-4" />
 
+                    Deutsch
 
-                        <div
-                            className="
-                            flex
-                            items-center
-
-                            gap-2
-
-                            text-white/70
-
-                            text-sm
-                            "
-                        >
-
-
-                            <svg
-                                className="
-                                w-4
-                                h-4
-                                text-white
-                                "
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-
-                                <path
-
-                                    strokeWidth="2"
-
-                                    strokeLinecap="round"
-
-                                    d="
-                                    M3 5
-                                    h2
-                                    l3 7
-                                    -2 2
-                                    c2 4 4 6 8 8
-                                    l2-2
-                                    7 3
-                                    v2
-                                    "
-
-                                />
-
-                            </svg>
-
-
-                            +44 20 7946 0990
-
-
-                        </div>
-
-
-
-
-
-
-                        <button
-                            className="
-                            bg-[#A65E2E]
-
-                            hover:bg-[#B96C38]
-
-                            transition
-
-                            text-white
-
-                            px-6
-
-                            py-2.5
-
-                            rounded-md
-
-                            text-[12px]
-
-                            font-semibold
-
-                            tracking-wide
-                            "
-                        >
-
-                            BOOK A TEST DRIVE
-
-
-                        </button>
-
-
-
-                    </div>
-
-
-
-
-
-
-
-
-
-                    {/* MOBILE TOGGLE */}
-
-
-                    <button
-
-                        onClick={() => setOpen(!open)}
-
-                        className="
-                        lg:hidden
-
-                        text-white
-
-                        "
-
-                    >
-
-
-                        {
-                            open ?
-
-                            (
-
-                                <svg
-                                    className="w-7 h-7"
-
-                                    fill="none"
-
-                                    stroke="currentColor"
-
-                                    viewBox="0 0 24 24"
-                                >
-
-                                    <path
-
-                                        strokeWidth="2"
-
-                                        strokeLinecap="round"
-
-                                        d="
-                                        M6 6
-                                        l12 12
-                                        M18 6
-                                        l-12 12
-                                        "
-
-                                    />
-
-                                </svg>
-
-                            )
-
-                            :
-
-                            (
-
-                                <svg
-
-                                    className="w-7 h-7"
-
-                                    fill="none"
-
-                                    stroke="currentColor"
-
-                                    viewBox="0 0 24 24"
-
-                                >
-
-                                    <path
-
-                                        strokeWidth="2"
-
-                                        strokeLinecap="round"
-
-                                        d="
-                                        M4 7h16
-                                        M4 12h16
-                                        M4 17h16
-                                        "
-
-                                    />
-
-                                </svg>
-
-                            )
-
-                        }
-
-
-                    </button>
-
+                  </button>
 
 
                 </div>
 
-
-
+              )}
 
 
             </div>
@@ -369,192 +144,116 @@ export default function Header() {
 
 
 
+            {/* BUTTON */}
 
 
+            <button className="px-7 py-3 rounded-md bg-[#8ea6c5] text-white text-xs font-semibold uppercase tracking-widest hover:bg-[#a9bfdc] transition duration-300">
 
+              Enquire Now
 
-            {/* FULL SCREEN MOBILE MENU */}
+            </button>
 
 
+          </div>
 
-            <div
 
-                className={`
-                lg:hidden
 
-                fixed
 
-                top-[72px]
 
-                left-0
+          {/* MOBILE BUTTON */}
 
-                w-full
 
-                h-[calc(100vh-72px)]
+          <button onClick={()=>setMobile(!mobile)} className="lg:hidden text-white text-3xl">
 
-                bg-black/95
+            {mobile ? "×" : "☰"}
 
-                backdrop-blur-xl
+          </button>
 
 
-                transition-all
+        </div>
 
-                duration-500
 
-                ease-in-out
+      </div>
 
 
-                ${
-                    open
 
-                    ?
 
-                    "opacity-100 visible"
 
-                    :
+      {/* MOBILE MENU ONLY WHEN OPEN */}
 
-                    "opacity-0 invisible"
 
-                }
+      {mobile && (
 
+        <div className="lg:hidden fixed inset-0 top-0 bg-black/80 backdrop-blur-xl">
 
-                `}
 
-            >
+          <div className="pt-[110px] px-8">
 
 
+            <nav className="flex flex-col gap-8">
 
 
-                <nav
+              {menuItems.map(item=>(
 
-                    className="
-                    flex
+                <a key={item} href="#" className="text-white text-xl uppercase tracking-widest">
 
-                    flex-col
+                  {item}
 
-                    gap-8
+                </a>
 
-                    px-6
+              ))}
 
-                    pt-12
 
-                    "
 
-                >
+              <div className="flex items-center gap-3 text-white mt-5">
 
 
+                <svg className="w-5 h-5 shrink-0 text-[#8ea6c5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-                    {
-                        menuItems.map((item,index)=>(
+                  <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 5h2l3 7-2 2c2 4 4 6 8 8l2-2 7 3v2a2 2 0 0 1-2 2C10 27 1 18 1 7a2 2 0 0 1 2-2Z"/>
 
+                </svg>
 
-                            <a
 
-                                key={item}
+                +44 20 7946 0990
 
-                                href="#"
 
-                                className={`
-                                text-white/90
+              </div>
 
-                                text-lg
 
-                                font-semibold
 
-                                tracking-wide
+              <div className="flex gap-4 mt-5">
 
 
-                                transform
+                <GB className="w-8 h-5" />
 
-                                transition-all
+                <DE className="w-8 h-5" />
 
-                                duration-500
 
+              </div>
 
-                                ${
-                                    open
 
-                                    ?
 
-                                    "translate-x-0"
+              <button className="mt-5 px-7 py-4 rounded-md bg-[#8ea6c5] text-white font-semibold uppercase tracking-widest hover:bg-[#a9bfdc] transition">
 
-                                    :
+                Enquire Now
 
-                                    "-translate-x-10"
+              </button>
 
-                                }
 
-                                `}
+            </nav>
 
-                                style={{
-                                    transitionDelay:`${index * 50}ms`
-                                }}
 
-                            >
+          </div>
 
-                                {item}
 
+        </div>
 
-                            </a>
+      )}
 
 
-                        ))
-                    }
+    </header>
 
-
-
-
-
-
-
-                    <button
-
-                        className="
-                        mt-5
-
-                        bg-[#A65E2E]
-
-                        hover:bg-[#B96C38]
-
-                        transition
-
-                        text-white
-
-                        py-4
-
-                        rounded-md
-
-                        font-semibold
-
-                        tracking-wide
-
-                        "
-
-                    >
-
-                        BOOK A TEST DRIVE
-
-
-                    </button>
-
-
-
-
-                </nav>
-
-
-
-
-
-            </div>
-
-
-
-
-
-        </header>
-
-
-    );
+  );
 
 }

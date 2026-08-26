@@ -5,605 +5,203 @@ import { motion } from "framer-motion";
 
 export default function Footer(){
 
+  return (
 
-return (
+    <footer className="relative bg-[#05070a] overflow-hidden pt-16">
 
-<footer
-className="
-relative
-bg-[#050505]
-overflow-hidden
-pt-16
-"
->
 
+      <div className="absolute left-0 bottom-0 w-[450px] h-[450px] bg-[#8ea6c5]/10 blur-[150px] rounded-full" />
 
-{/* GLOW */}
 
-<div
-className="
-absolute
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-10">
 
-left-0
-bottom-0
 
-w-[450px]
-h-[450px]
+        <motion.div initial={{opacity:0,y:50}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:.8}} className="pb-12 border-b border-white/10">
 
-bg-[#A65E2E]/10
 
-blur-[150px]
+          <h2 className="text-white text-3xl sm:text-5xl lg:text-6xl font-semibold leading-tight max-w-3xl">
+            Drive The Future.
+            <br />
+            Experience Luxury.
+          </h2>
 
-rounded-full
 
-"
-/>
+          <p className="text-gray-400 mt-5 max-w-xl text-sm sm:text-base">
+            Discover premium vehicles with exceptional performance, advanced technology and timeless design.
+          </p>
 
 
+        </motion.div>
 
 
 
-<div
-className="
-relative
-z-10
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 py-12">
 
-max-w-[1440px]
 
-mx-auto
 
-px-6
-sm:px-8
-lg:px-10
+          <div>
 
-"
->
+            <h3 className="text-white text-xl font-semibold mb-5">
+              PRIME MOTORS
+            </h3>
 
 
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Premium automotive experience delivering luxury vehicles, trusted service and exceptional driving experiences.
+            </p>
 
+          </div>
 
 
 
 
-{/* TOP BRAND */}
+          <div>
 
+            <h4 className="text-white font-medium mb-5">
+              Vehicles
+            </h4>
 
 
-<motion.div
+            <ul className="space-y-3 text-gray-400 text-sm">
 
-initial={{
-opacity:0,
-y:50
-}}
+              <li className="hover:text-white transition">
+                Models
+              </li>
 
-whileInView={{
-opacity:1,
-y:0
-}}
+              <li className="hover:text-white transition">
+                Luxury SUVs
+              </li>
 
-viewport={{
-once:true
-}}
+              <li className="hover:text-white transition">
+                Sports Cars
+              </li>
 
-transition={{
-duration:.8
-}}
+              <li className="hover:text-white transition">
+                Premium Collection
+              </li>
 
-className="
-pb-12
+            </ul>
 
-border-b
 
-border-white/10
+          </div>
 
-"
 
->
 
 
-<h2
-className="
-text-white
+          <div>
 
-text-3xl
-sm:text-5xl
-lg:text-6xl
+            <h4 className="text-white font-medium mb-5">
+              Company
+            </h4>
 
-font-semibold
 
-leading-tight
+            <ul className="space-y-3 text-gray-400 text-sm">
 
-max-w-3xl
+              <li className="hover:text-white transition">
+                About Us
+              </li>
 
-"
->
+              <li className="hover:text-white transition">
+                Dealership
+              </li>
 
-Drive The Future.
-<br/>
+              <li className="hover:text-white transition">
+                Careers
+              </li>
 
-Experience Luxury.
+              <li className="hover:text-white transition">
+                Contact
+              </li>
 
+            </ul>
 
-</h2>
 
+          </div>
 
 
-<p
-className="
-text-gray-400
 
-mt-5
 
-max-w-xl
+          <div>
 
-text-sm
-sm:text-base
+            <h4 className="text-white font-medium mb-5">
+              Contact
+            </h4>
 
-"
->
 
-Discover premium vehicles engineered with
-performance, technology and timeless design.
+            <div className="space-y-3 text-gray-400 text-sm">
 
-</p>
+              <p>
+                +44 20 7946 0990
+              </p>
 
+              <p>
+                info@primemotors.com
+              </p>
 
-</motion.div>
+              <p>
+                London, United Kingdom
+              </p>
 
+            </div>
 
 
 
+            <div className="flex gap-3 mt-6">
 
+              {["F","I","X"].map(item=>(
 
+                <div key={item} className="w-10 h-10 flex items-center justify-center border border-white/20 text-white text-sm hover:bg-[#8ea6c5] hover:text-black transition">
 
+                  {item}
 
+                </div>
 
-{/* FOOTER LINKS */}
+              ))}
 
 
+            </div>
 
 
+          </div>
 
-<div
 
-className="
 
-grid
+        </div>
 
-grid-cols-1
 
-sm:grid-cols-2
 
-lg:grid-cols-4
 
 
-gap-10
+        <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row justify-between gap-4 text-gray-500 text-sm">
 
 
-py-12
+          <p>
+            © 2026 Prime Motors. All rights reserved.
+          </p>
 
-"
 
->
+          <div className="flex gap-6">
 
+            <span>
+              Privacy Policy
+            </span>
 
+            <span>
+              Terms
+            </span>
 
+          </div>
 
 
+        </div>
 
 
 
-{/* BRAND */}
+      </div>
 
 
+    </footer>
 
-<div>
-
-
-<h3
-className="
-text-white
-
-text-xl
-
-font-semibold
-
-mb-5
-
-"
->
-
-VINFAST
-
-</h3>
-
-
-<p
-className="
-text-gray-400
-
-text-sm
-
-leading-relaxed
-
-"
->
-
-Premium automotive experience delivering
-innovation, performance and luxury mobility.
-
-</p>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* VEHICLES */}
-
-
-
-<div>
-
-
-<h4
-className="
-text-white
-
-font-medium
-
-mb-5
-
-"
->
-
-Vehicles
-
-</h4>
-
-
-
-<ul
-className="
-space-y-3
-
-text-gray-400
-
-text-sm
-
-"
->
-
-<li className="hover:text-white transition">
-Models
-</li>
-
-<li className="hover:text-white transition">
-SUV Collection
-</li>
-
-<li className="hover:text-white transition">
-Luxury Cars
-</li>
-
-<li className="hover:text-white transition">
-Electric Vehicles
-</li>
-
-</ul>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* COMPANY */}
-
-
-
-<div>
-
-
-<h4
-className="
-text-white
-
-font-medium
-
-mb-5
-
-"
->
-
-Company
-
-</h4>
-
-
-
-<ul
-className="
-space-y-3
-
-text-gray-400
-
-text-sm
-
-"
->
-
-<li className="hover:text-white transition">
-About Us
-</li>
-
-
-<li className="hover:text-white transition">
-Careers
-</li>
-
-
-<li className="hover:text-white transition">
-Dealership
-</li>
-
-
-<li className="hover:text-white transition">
-Contact
-</li>
-
-
-</ul>
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* CONTACT */}
-
-
-
-<div>
-
-
-<h4
-className="
-text-white
-
-font-medium
-
-mb-5
-
-"
->
-
-Contact
-
-</h4>
-
-
-
-<div
-className="
-space-y-3
-
-text-gray-400
-
-text-sm
-
-"
->
-
-
-<p>
-+44 20 7946 0990
-</p>
-
-
-<p>
-info@vinfast.com
-</p>
-
-
-<p>
-London, United Kingdom
-</p>
-
-
-</div>
-
-
-
-
-
-
-{/* SOCIAL */}
-
-<div
-className="
-flex
-
-gap-3
-
-mt-6
-
-"
->
-
-
-{
-["F","I","X"].map((item)=>(
-
-
-<div
-
-key={item}
-
-className="
-w-9
-h-9
-
-flex
-items-center
-justify-center
-
-
-border
-
-border-white/20
-
-
-text-white
-
-
-text-sm
-
-
-hover:bg-[#A65E2E]
-
-
-hover:border-[#A65E2E]
-
-
-transition
-
-"
-
->
-
-{item}
-
-
-</div>
-
-
-))
-}
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* BOTTOM */}
-
-
-
-<div
-
-className="
-border-t
-
-border-white/10
-
-
-py-6
-
-
-flex
-
-flex-col
-
-sm:flex-row
-
-
-justify-between
-
-
-gap-4
-
-
-text-gray-500
-
-
-text-sm
-
-"
-
->
-
-
-<p>
-© 2026 VinFast. All rights reserved.
-</p>
-
-
-
-<div
-className="
-flex
-
-gap-6
-
-"
->
-
-<span>
-Privacy Policy
-</span>
-
-<span>
-Terms
-</span>
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-</footer>
-
-);
-
+  );
 
 }
