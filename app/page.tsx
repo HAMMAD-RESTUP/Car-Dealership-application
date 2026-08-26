@@ -7,6 +7,7 @@ import CarListing from "@/components/Sections/carListing";
 import Footer from "@/components/Layout/Footer/footer";
 import WhyChooseUs from "@/components/Sections/whychooseus";
 import FinanceSection from "@/components/Sections/financesection";
+import VideoSection from "@/components/Sections/videosection";
 
 
 const Home = () => {
@@ -24,8 +25,10 @@ const Home = () => {
 
       <CarListing />
       <BrandMarquee />
+      <VideoSection/>
       <WhyChooseUs/>
       <FinanceSection/>
+      
 
    
 
