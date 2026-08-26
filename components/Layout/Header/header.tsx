@@ -2,16 +2,43 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  Menu,
+  X,
+} from "lucide-react";
+
 import Logo from "./Logo";
 
 const links = [
-  { label: "Used Cars", href: "#stock" },
-  { label: "Finance", href: "#finance" },
-  { label: "Sell Your Car", href: "#sell" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  {
+    label: "Home",
+    href: "#home",
+    active: true,
+  },
+  {
+    label: "Used Cars",
+    href: "#stock",
+  },
+  {
+    label: "Finance",
+    href: "#finance",
+  },
+  {
+    label: "Sell Your Car",
+    href: "#sell",
+  },
+  {
+    label: "About",
+    href: "#about",
+  },
+  {
+    label: "Contact",
+    href: "#contact",
+  },
 ];
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function Header() {
   const [mobile, setMobile] = useState(false);
@@ -23,7 +50,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 25);
+      setScrolled(window.scrollY > 24);
     };
 
     handleScroll();
@@ -38,7 +65,7 @@ export default function Header() {
   }, []);
 
   /* =====================================================
-     BODY LOCK + ESC
+     MOBILE BODY LOCK + ESC
   ====================================================== */
 
   useEffect(() => {
@@ -59,7 +86,7 @@ export default function Header() {
   }, [mobile]);
 
   /* =====================================================
-     AUTO CLOSE MENU ON DESKTOP RESIZE
+     CLOSE MOBILE MENU ON DESKTOP
   ====================================================== */
 
   useEffect(() => {
@@ -89,15 +116,15 @@ export default function Header() {
       <motion.header
         initial={{
           opacity: 0,
-          y: -18,
+          y: -14,
         }}
         animate={{
           opacity: 1,
           y: 0,
         }}
         transition={{
-          duration: 0.75,
-          ease: [0.22, 1, 0.36, 1],
+          duration: 0.7,
+          ease,
         }}
         className="
           fixed
@@ -110,44 +137,46 @@ export default function Header() {
         <div
           className={`
             relative
-            flex
             w-full
-            items-center
 
             transition-all
             duration-500
 
             ${
-              scrolled || mobile
+              scrolled
                 ? `
-                    h-[66px]
+                    h-[68px]
 
                     border-b
-                    border-white/[0.08]
+                    border-white/[0.055]
 
-                    bg-[#050505]/82
+                    bg-[#08111A]/[0.92]
 
-                    shadow-[0_12px_45px_rgba(0,0,0,0.28)]
+                    shadow-[0_14px_45px_rgba(0,0,0,0.20)]
 
                     backdrop-blur-2xl
+                    backdrop-saturate-150
                   `
                 : `
                     h-[76px]
-                    bg-black/45
-                    backdrop-blur-[3px]
+
+                    border-b
+                    border-white/[0.035]
+
+                    bg-[#08111A]/[0.34]
+
+                    backdrop-blur-[8px]
                   `
             }
 
             sm:h-[78px]
-
-            md:h-[78px]
-
-            lg:h-[80px]
-
-            xl:h-[82px]
+            md:h-[80px]
+            lg:h-[82px]
           `}
         >
-          {/* subtle header gradient */}
+          {/* =================================================
+              SUBTLE BLUE ATMOSPHERE
+          ================================================== */}
 
           <div
             className="
@@ -155,14 +184,30 @@ export default function Header() {
               absolute
               inset-0
 
-              bg-gradient-to-b
-              from-black/25
+              bg-[linear-gradient(90deg,rgba(87,136,181,0.045)_0%,rgba(8,17,26,0)_42%,rgba(87,136,181,0.025)_100%)]
+            "
+          />
+
+          {/* top reflection */}
+
+          <div
+            className="
+              pointer-events-none
+              absolute
+              inset-x-0
+              top-0
+
+              h-px
+
+              bg-gradient-to-r
+              from-transparent
+              via-white/[0.09]
               to-transparent
             "
           />
 
           {/* =================================================
-              INNER
+              HEADER INNER
           ================================================== */}
 
           <div
@@ -171,10 +216,11 @@ export default function Header() {
               z-10
 
               mx-auto
+
               flex
               h-full
               w-full
-              max-w-[1800px]
+              max-w-[1720px]
 
               items-center
               justify-between
@@ -182,14 +228,9 @@ export default function Header() {
               px-4
 
               sm:px-6
-
               md:px-8
-
-              lg:px-10
-
-              xl:px-12
-
-              2xl:px-14
+              lg:px-12
+              xl:px-16
             "
           >
             {/* =================================================
@@ -197,14 +238,15 @@ export default function Header() {
             ================================================== */}
 
             <motion.a
-              href="/"
+              href="#home"
               onClick={closeMenu}
-              aria-label="YM Motors home"
+              aria-label="YM Motors Home"
               whileHover={{
-                scale: 1.015,
+                x: 2,
               }}
               transition={{
-                duration: 0.25,
+                duration: 0.3,
+                ease,
               }}
               className="
                 relative
@@ -212,23 +254,18 @@ export default function Header() {
 
                 origin-left
 
-                scale-[0.84]
+                scale-[0.86]
 
-                sm:scale-[0.9]
+                sm:scale-[0.92]
 
-                md:scale-[0.92]
-
-                lg:scale-[0.96]
-
-                xl:scale-100
+                lg:scale-100
               "
             >
               <Logo />
             </motion.a>
 
             {/* =================================================
-                DESKTOP / TABLET NAV
-                FROM 768PX+
+                DESKTOP NAVIGATION
             ================================================== */}
 
             <nav
@@ -238,17 +275,18 @@ export default function Header() {
                 top-1/2
 
                 hidden
+
                 -translate-x-1/2
                 -translate-y-1/2
 
                 items-center
 
                 md:flex
-                md:gap-1
+                md:gap-0
 
-                lg:gap-2
+                lg:gap-1
 
-                xl:gap-3
+                xl:gap-2
               "
             >
               {links.map((item) => (
@@ -260,53 +298,24 @@ export default function Header() {
                     relative
 
                     flex
-                    h-[42px]
+                    h-[44px]
+
                     items-center
                     justify-center
 
                     whitespace-nowrap
 
-                    rounded-full
+                    px-2.5
 
-                    px-3
+                    lg:px-3.5
 
-                    lg:px-4
-
-                    xl:px-5
+                    xl:px-[18px]
                   "
                 >
-                  {/* HOVER PILL */}
+                  {/* NAV TEXT */}
 
                   <span
-                    className="
-                      absolute
-                      inset-0
-
-                      scale-[0.88]
-
-                      rounded-full
-
-                      border
-                      border-white/0
-
-                      bg-white/0
-
-                      opacity-0
-
-                      transition-all
-                      duration-300
-
-                      group-hover:scale-100
-                      group-hover:border-white/[0.08]
-                      group-hover:bg-white/[0.055]
-                      group-hover:opacity-100
-                    "
-                  />
-
-                  {/* TEXT */}
-
-                  <span
-                    className="
+                    className={`
                       relative
                       z-10
 
@@ -315,57 +324,175 @@ export default function Header() {
                       text-[10px]
                       font-semibold
 
-                      tracking-[-0.02em]
-
-                      text-white/72
-
-                      transition-colors
-                      duration-300
-
-                      group-hover:text-white
-
-                      lg:text-[11px]
-
-                      xl:text-[12px]
-                    "
-                  >
-                    {item.label}
-                  </span>
-
-                  {/* TINY DOT */}
-
-                  <span
-                    className="
-                      absolute
-                      bottom-[4px]
-                      left-1/2
-
-                      h-[3px]
-                      w-[3px]
-
-                      -translate-x-1/2
-                      translate-y-[5px]
-
-                      rounded-full
-
-                      bg-[#8FB3D4]
-
-                      opacity-0
+                      tracking-[0.005em]
 
                       transition-all
                       duration-300
 
-                      group-hover:translate-y-0
-                      group-hover:opacity-100
-                    "
+                      lg:text-[11px]
+
+                      xl:text-[12px]
+
+                      ${
+                        item.active
+                          ? `
+                              text-[#A9C8E3]
+                            `
+                          : `
+                              text-white/46
+                              group-hover:text-white/78
+                            `
+                      }
+                    `}
+                  >
+                    {item.label}
+                  </span>
+
+                  {/* ===========================================
+                      ACTIVE / HOVER BOTTOM LINE
+                  ============================================ */}
+
+                  <span
+                    className={`
+                      absolute
+                      bottom-[4px]
+                      left-1/2
+
+                      h-[2px]
+
+                      -translate-x-1/2
+
+                      rounded-full
+
+                      bg-[#5788B5]
+
+                      shadow-[0_0_9px_rgba(87,136,181,0.48)]
+
+                      transition-all
+                      duration-300
+                      ease-out
+
+                      ${
+                        item.active
+                          ? `
+                              w-[20px]
+                              opacity-100
+                            `
+                          : `
+                              w-0
+                              opacity-0
+
+                              group-hover:w-[16px]
+                              group-hover:opacity-75
+                            `
+                      }
+                    `}
                   />
+
+                  {/* MICRO GLOW ON ACTIVE */}
+
+                  {item.active && (
+                    <span
+                      className="
+                        pointer-events-none
+
+                        absolute
+                        bottom-[1px]
+                        left-1/2
+
+                        h-[10px]
+                        w-[38px]
+
+                        -translate-x-1/2
+
+                        bg-[#5788B5]/10
+
+                        blur-[7px]
+                      "
+                    />
+                  )}
                 </a>
               ))}
             </nav>
 
             {/* =================================================
-                MOBILE TOGGLE ONLY
-                HIDDEN FROM MD+
+                DESKTOP CTA
+            ================================================== */}
+
+            <div
+              className="
+                ml-auto
+
+                hidden
+
+                items-center
+
+                lg:flex
+              "
+            >
+              <a
+                href="#contact"
+                className="
+                  group
+
+                  hidden
+                  h-[44px]
+
+                  items-center
+                  justify-center
+                  gap-4
+
+                  rounded-[5px]
+
+                  bg-[#5788B5]
+
+                  px-5
+
+                  font-sans
+
+                  text-[10px]
+                  font-bold
+                  uppercase
+
+                  tracking-[0.05em]
+
+                  text-white
+
+                  shadow-[0_12px_35px_rgba(87,136,181,0.20)]
+
+                  transition-all
+                  duration-300
+
+                  hover:-translate-y-[1px]
+                  hover:bg-[#6A9BC6]
+                  hover:shadow-[0_16px_45px_rgba(87,136,181,0.28)]
+
+                  lg:flex
+
+                  xl:px-6
+                  xl:text-[11px]
+                "
+              >
+                Enquire Now
+
+                <ArrowUpRight
+                  strokeWidth={1.7}
+                  className="
+                    h-[15px]
+                    w-[15px]
+
+                    transition-transform
+                    duration-300
+
+                    group-hover:-translate-y-[2px]
+                    group-hover:translate-x-[2px]
+                  "
+                />
+              </a>
+            </div>
+
+            {/* =================================================
+                MOBILE TOGGLE
             ================================================== */}
 
             <button
@@ -374,8 +501,6 @@ export default function Header() {
               aria-label={mobile ? "Close menu" : "Open menu"}
               aria-expanded={mobile}
               className="
-                group
-
                 relative
                 z-[230]
 
@@ -386,99 +511,92 @@ export default function Header() {
                 items-center
                 justify-center
 
-                rounded-full
+                bg-transparent
 
-                border
-                border-white/[0.12]
-
-                bg-black/20
-
-                backdrop-blur-xl
+                text-[#D9E1E7]
 
                 transition-all
                 duration-300
 
-                active:scale-95
+                active:scale-90
 
                 md:hidden
               "
             >
-              <span
-                className="
-                  relative
-                  block
-                  h-[16px]
-                  w-[25px]
-                "
+              <AnimatePresence
+                mode="wait"
+                initial={false}
               >
-                {/* TOP LINE */}
-
-                <motion.span
-                  animate={
-                    mobile
-                      ? {
-                          rotate: 45,
-                          y: 6,
-                          width: "25px",
-                        }
-                      : {
-                          rotate: 0,
-                          y: 0,
-                          width: "25px",
-                        }
-                  }
-                  transition={{
-                    duration: 0.32,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="
-                    absolute
-                    left-0
-                    top-[2px]
-
-                    block
-                    h-[1.5px]
-
-                    rounded-full
-
-                    bg-white
-                  "
-                />
-
-                {/* BOTTOM LINE */}
-
-                <motion.span
-                  animate={
-                    mobile
-                      ? {
-                          rotate: -45,
-                          y: -6,
-                          width: "25px",
-                        }
-                      : {
-                          rotate: 0,
-                          y: 0,
-                          width: "18px",
-                        }
-                  }
-                  transition={{
-                    duration: 0.32,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="
-                    absolute
-                    bottom-[2px]
-                    right-0
-
-                    block
-                    h-[1.5px]
-
-                    rounded-full
-
-                    bg-white
-                  "
-                />
-              </span>
+                {mobile ? (
+                  <motion.span
+                    key="close"
+                    initial={{
+                      opacity: 0,
+                      rotate: -30,
+                      scale: 0.8,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      rotate: 0,
+                      scale: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      rotate: 30,
+                      scale: 0.8,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      ease,
+                    }}
+                    className="
+                      flex
+                      items-center
+                      justify-center
+                    "
+                  >
+                    <X
+                      strokeWidth={1.6}
+                      className="
+                        h-[28px]
+                        w-[28px]
+                      "
+                    />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="menu"
+                    initial={{
+                      opacity: 0,
+                      scale: 0.85,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.85,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                    }}
+                    className="
+                      flex
+                      items-center
+                      justify-center
+                    "
+                  >
+                    <Menu
+                      strokeWidth={1.6}
+                      className="
+                        h-[27px]
+                        w-[27px]
+                      "
+                    />
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </button>
           </div>
         </div>
@@ -499,31 +617,27 @@ export default function Header() {
             }}
             exit={{
               opacity: 0,
-              transition: {
-                duration: 0.3,
-              },
             }}
             transition={{
-              duration: 0.4,
+              duration: 0.3,
             }}
             className="
               fixed
               inset-0
               z-[180]
 
-              flex
               min-h-[100svh]
 
               overflow-hidden
 
-              bg-[#050505]
+              bg-[#08111A]
 
               md:hidden
             "
           >
-            {/* =============================================
-                GRAPHITE BACKGROUND
-            ============================================== */}
+            {/* =================================================
+                SAME NAVBAR THEME BACKGROUND
+            ================================================== */}
 
             <div
               className="
@@ -531,85 +645,53 @@ export default function Header() {
                 absolute
                 inset-0
 
-                bg-[radial-gradient(circle_at_50%_35%,rgba(130,130,130,0.11),transparent_30%),radial-gradient(circle_at_100%_0%,rgba(87,136,181,0.055),transparent_27%),linear-gradient(180deg,#050505_0%,#101113_52%,#050505_100%)]
+                bg-[linear-gradient(180deg,#08111A_0%,#0A141D_52%,#08111A_100%)]
               "
             />
 
-            {/* GLOW */}
+            {/* VERY SUBTLE BLUE AMBIENCE */}
 
-            <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0.7,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-              }}
-              exit={{
-                opacity: 0,
-              }}
-              transition={{
-                duration: 0.9,
-              }}
+            <div
               className="
                 pointer-events-none
                 absolute
-                left-1/2
-                top-1/2
+
+                right-[-180px]
+                top-[10%]
 
                 h-[420px]
                 w-[420px]
 
-                -translate-x-1/2
-                -translate-y-1/2
-
                 rounded-full
 
-                bg-white/[0.025]
+                bg-[#5788B5]/[0.07]
 
-                blur-[100px]
+                blur-[130px]
               "
             />
 
-            {/* subtle vertical light */}
-
-            <motion.div
-              initial={{
-                scaleY: 0,
-              }}
-              animate={{
-                scaleY: 1,
-              }}
-              exit={{
-                scaleY: 0,
-              }}
-              transition={{
-                duration: 0.8,
-                delay: 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+            <div
               className="
                 pointer-events-none
                 absolute
-                left-1/2
-                top-[17%]
 
-                h-[66%]
-                w-px
+                bottom-[-180px]
+                left-[-200px]
 
-                origin-top
+                h-[420px]
+                w-[420px]
 
-                bg-gradient-to-b
-                from-transparent
-                via-white/[0.06]
-                to-transparent
+                rounded-full
+
+                bg-[#5788B5]/[0.035]
+
+                blur-[130px]
               "
             />
 
-            {/* =============================================
-                MAIN MOBILE MENU CONTENT
-            ============================================== */}
+            {/* =================================================
+                MOBILE CONTENT
+            ================================================== */}
 
             <div
               className="
@@ -622,17 +704,17 @@ export default function Header() {
 
                 flex-col
 
-                px-5
-                pb-6
-                pt-[92px]
+                px-6
+                pb-7
+                pt-[90px]
 
-                sm:px-7
-                sm:pt-[100px]
+                sm:px-8
+                sm:pt-[98px]
               "
             >
-              {/* ===========================================
-                  CENTER NAVIGATION
-              ============================================ */}
+              {/* =================================================
+                  NAV LINKS
+              ================================================== */}
 
               <div
                 className="
@@ -647,75 +729,17 @@ export default function Header() {
                   className="
                     flex
                     w-full
-                    max-w-[420px]
+                    max-w-[360px]
 
                     flex-col
                     items-center
-                    justify-center
+
+                    gap-2
+
+                    sm:max-w-[390px]
+                    sm:gap-3
                   "
                 >
-                  {/* MICRO LABEL */}
-
-                  <motion.div
-                    initial={{
-                      opacity: 0,
-                      y: 16,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    transition={{
-                      delay: 0.12,
-                      duration: 0.55,
-                    }}
-                    className="
-                      mb-7
-
-                      flex
-                      items-center
-                      justify-center
-                      gap-3
-                    "
-                  >
-                    <span
-                      className="
-                        h-px
-                        w-7
-
-                        bg-gradient-to-r
-                        from-transparent
-                        to-[#5788B5]
-                      "
-                    />
-
-                    <span
-                      className="
-                        text-[8px]
-                        font-bold
-                        uppercase
-                        tracking-[0.26em]
-
-                        text-[#8FB3D4]
-                      "
-                    >
-                      Navigation
-                    </span>
-
-                    <span
-                      className="
-                        h-px
-                        w-7
-
-                        bg-gradient-to-l
-                        from-transparent
-                        to-[#5788B5]
-                      "
-                    />
-                  </motion.div>
-
-                  {/* LINKS */}
-
                   {links.map((item, index) => (
                     <div
                       key={item.label}
@@ -729,8 +753,8 @@ export default function Header() {
                         onClick={closeMenu}
                         initial={{
                           opacity: 0,
-                          y: 65,
-                          filter: "blur(8px)",
+                          y: 38,
+                          filter: "blur(5px)",
                         }}
                         animate={{
                           opacity: 1,
@@ -739,189 +763,193 @@ export default function Header() {
                         }}
                         exit={{
                           opacity: 0,
-                          y: 25,
+                          y: 12,
                         }}
                         transition={{
-                          delay: 0.1 + index * 0.075,
-                          duration: 0.65,
-                          ease: [0.22, 1, 0.36, 1],
+                          delay: 0.05 + index * 0.065,
+                          duration: 0.55,
+                          ease,
+                        }}
+                        whileTap={{
+                          scale: 0.975,
                         }}
                         className="
                           group
-
                           relative
 
+                          mx-auto
+
                           flex
+                          min-h-[54px]
                           w-full
 
                           items-center
                           justify-center
 
-                          py-[12px]
+                          px-4
+                          py-3
 
                           text-center
-
-                          sm:py-[14px]
                         "
                       >
-                        {/* NUMBER */}
+                        {/* MOBILE NAV TEXT */}
 
                         <span
-                          className="
-                            absolute
-                            left-[8px]
-                            top-1/2
+                          className={`
+                            relative
 
-                            -translate-y-1/2
-
-                            text-[7px]
-                            font-semibold
-                            tracking-[0.12em]
-
-                            text-white/18
-                          "
-                        >
-                          0{index + 1}
-                        </span>
-
-                        {/* LINK */}
-
-                        <span
-                          className="
                             font-heading
 
-                            text-[32px]
+                            text-[28px]
                             font-medium
 
-                            leading-[0.95]
+                            leading-none
 
-                            tracking-[-0.055em]
+                            tracking-[-0.04em]
 
-                            text-white/90
-
-                            transition-all
+                            transition-colors
                             duration-300
 
-                            group-active:scale-[0.97]
-                            group-active:text-[#8FB3D4]
+                            sm:text-[33px]
 
-                            sm:text-[38px]
-                          "
+                            ${
+                              item.active
+                                ? `
+                                    text-[#9FC1DE]
+                                  `
+                                : `
+                                    text-white/72
+
+                                    group-active:text-white
+                                  `
+                            }
+                          `}
                         >
                           {item.label}
                         </span>
 
-                        {/* ARROW */}
+                        {/* ACTIVE MOBILE LINE */}
 
-                        <ArrowUpRight
-                          strokeWidth={1.25}
-                          className="
-                            absolute
-                            right-[8px]
-                            top-1/2
+                        {item.active && (
+                          <motion.span
+                            initial={{
+                              scaleX: 0,
+                              opacity: 0,
+                            }}
+                            animate={{
+                              scaleX: 1,
+                              opacity: 1,
+                            }}
+                            transition={{
+                              delay: 0.4,
+                              duration: 0.55,
+                              ease,
+                            }}
+                            className="
+                              absolute
+                              bottom-[3px]
+                              left-1/2
 
-                            h-4
-                            w-4
+                              h-[2px]
+                              w-[22px]
 
-                            -translate-y-1/2
+                              -translate-x-1/2
 
-                            text-white/18
+                              rounded-full
 
-                            transition-all
-                            duration-300
+                              bg-[#5788B5]
 
-                            group-active:-translate-y-[65%]
-                            group-active:translate-x-[2px]
-                            group-active:text-[#8FB3D4]
-                          "
-                        />
+                              shadow-[0_0_8px_rgba(87,136,181,0.42)]
+                            "
+                          />
+                        )}
                       </motion.a>
                     </div>
                   ))}
 
-                  {/* CTA */}
+                  {/* =================================================
+                      MOBILE CTA
+                  ================================================== */}
 
                   <motion.a
-                    href="#stock"
+                    href="#contact"
                     onClick={closeMenu}
                     initial={{
                       opacity: 0,
-                      y: 30,
+                      y: 20,
                     }}
                     animate={{
                       opacity: 1,
                       y: 0,
                     }}
                     transition={{
-                      delay: 0.52,
-                      duration: 0.65,
-                      ease: [0.22, 1, 0.36, 1],
+                      delay: 0.47,
+                      duration: 0.6,
+                      ease,
+                    }}
+                    whileTap={{
+                      scale: 0.98,
                     }}
                     className="
-                      group
-
-                      mt-8
+                      mt-7
 
                       flex
-                      h-[50px]
+                      h-[52px]
+                      w-full
+                      max-w-[210px]
 
                       items-center
                       justify-center
-                      gap-6
+                      gap-4
 
-                      rounded-full
+                      rounded-[5px]
 
-                      bg-white
+                      bg-[#5788B5]
 
-                      px-7
+                      px-6
 
-                      text-[9px]
+                      font-sans
+
+                      text-[11px]
                       font-bold
                       uppercase
-                      tracking-[0.14em]
 
-                      text-[#08090A]
+                      tracking-[0.05em]
 
-                      transition-all
-                      duration-300
+                      text-white
 
-                      active:scale-[0.97]
+                      shadow-[0_15px_45px_rgba(87,136,181,0.20)]
                     "
                   >
-                    Explore Stock
+                    Enquire Now
 
                     <ArrowUpRight
+                      strokeWidth={1.7}
                       className="
-                        h-4
-                        w-4
-
-                        transition-transform
-                        duration-300
-
-                        group-active:-translate-y-[2px]
-                        group-active:translate-x-[2px]
+                        h-[15px]
+                        w-[15px]
                       "
                     />
                   </motion.a>
                 </nav>
               </div>
 
-              {/* ===========================================
+              {/* =================================================
                   MOBILE FOOTER
-              ============================================ */}
+              ================================================== */}
 
               <motion.div
                 initial={{
                   opacity: 0,
-                  y: 15,
+                  y: 12,
                 }}
                 animate={{
                   opacity: 1,
                   y: 0,
                 }}
                 transition={{
-                  delay: 0.58,
-                  duration: 0.55,
+                  delay: 0.52,
+                  duration: 0.5,
                 }}
                 className="
                   flex
@@ -929,7 +957,7 @@ export default function Header() {
                   justify-between
 
                   border-t
-                  border-white/[0.07]
+                  border-white/[0.055]
 
                   pt-5
                 "
@@ -937,12 +965,13 @@ export default function Header() {
                 <div>
                   <p
                     className="
-                      text-[7px]
+                      text-[8px]
                       font-semibold
                       uppercase
-                      tracking-[0.18em]
 
-                      text-white/25
+                      tracking-[0.14em]
+
+                      text-[#8FB3D4]/40
                     "
                   >
                     Call
@@ -954,10 +983,10 @@ export default function Header() {
                       mt-1
                       block
 
-                      text-[10px]
+                      text-[11px]
                       font-medium
 
-                      text-white/60
+                      text-white/55
                     "
                   >
                     01737 307 007
@@ -967,12 +996,13 @@ export default function Header() {
                 <div className="text-right">
                   <p
                     className="
-                      text-[7px]
+                      text-[8px]
                       font-semibold
                       uppercase
-                      tracking-[0.18em]
 
-                      text-white/25
+                      tracking-[0.14em]
+
+                      text-[#8FB3D4]/40
                     "
                   >
                     Location
@@ -982,10 +1012,10 @@ export default function Header() {
                     className="
                       mt-1
 
-                      text-[10px]
+                      text-[11px]
                       font-medium
 
-                      text-white/60
+                      text-white/55
                     "
                   >
                     Surrey · UK

@@ -1,14 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  ArrowDown,
-  ArrowUpRight,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const strips = [0, 1, 2, 3];
 
-const ACCENT = "#CD777A";
+const ease = [0.22, 1, 0.36, 1] as const;
+const stripEase = [0.76, 0, 0.24, 1] as const;
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -18,133 +17,125 @@ export default function Hero() {
       className="
         relative
         h-[100svh]
-        min-h-[600px]
+        min-h-[620px]
         w-full
         overflow-hidden
-        bg-[#050505]
+        bg-[#05080B]
       "
     >
       {/* =====================================================
-          FULLSCREEN VIDEO
+          4 HORIZONTAL IMAGE SLICES
       ====================================================== */}
 
-      <motion.video
-        initial={
-          reduceMotion
-            ? { scale: 1 }
-            : { scale: 1.08 }
-        }
-        animate={{ scale: 1 }}
-        transition={{
-          duration: 2.4,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster="/images/hero-mock.jpeg"
-        className="
-          absolute
-          inset-0
+      <div className="absolute inset-0">
+        {strips.map((strip, index) => {
+          const fromLeft = index % 2 === 0;
 
-          h-full
-          w-full
+          return (
+            <motion.div
+              key={strip}
+              initial={
+                reduceMotion
+                  ? {
+                      x: 0,
+                      opacity: 1,
+                    }
+                  : {
+                      x: fromLeft ? "-102%" : "102%",
+                      opacity: 0.35,
+                    }
+              }
+              animate={{
+                x: 0,
+                opacity: 1,
+              }}
+              transition={{
+                duration: reduceMotion ? 0 : 1.3,
+                delay: reduceMotion ? 0 : 0.05 + index * 0.1,
+                ease: stripEase,
+              }}
+              className="
+                absolute
+                left-0
 
-          object-cover
-          object-center
-        "
-      >
-        <source
-          src="/images/demo-video.mp4"
-          type="video/mp4"
-        />
-      </motion.video>
+                h-1/4
+                w-full
 
-      {/* =====================================================
-          4 HORIZONTAL REVEAL PANELS
-      ====================================================== */}
+                overflow-hidden
+              "
+              style={{
+                top: `${index * 25}%`,
+              }}
+            >
+              {/* =================================================
+                  CONTINUOUS FULL IMAGE INSIDE EACH STRIP
+              ================================================== */}
 
-      {!reduceMotion && (
-        <div
-          className="
-            pointer-events-none
-            absolute
-            inset-0
-            z-[50]
-          "
-        >
-          {strips.map((strip, index) => {
-            const moveLeft =
-              index % 2 === 0;
-
-            return (
-              <motion.div
-                key={strip}
-                initial={{
-                  x: "0%",
-                }}
-                animate={{
-                  x: moveLeft
-                    ? "-102%"
-                    : "102%",
-                }}
-                transition={{
-                  duration: 1.25,
-                  delay:
-                    0.08 +
-                    index * 0.1,
-                  ease: [
-                    0.76,
-                    0,
-                    0.24,
-                    1,
-                  ],
-                }}
+              <div
                 className="
                   absolute
                   left-0
 
-                  h-1/4
+                  h-[400%]
                   w-full
-
-                  bg-[#050505]
                 "
                 style={{
-                  top: `${
-                    index * 25
-                  }%`,
+                  top: `-${index * 100}%`,
                 }}
               >
-                <div
-                  className="
-                    absolute
-                    inset-0
+                {/* =============================================
+                    DESKTOP IMAGE
+                ============================================== */}
 
-                    bg-[linear-gradient(90deg,#050505_0%,#141416_50%,#050505_100%)]
+                <Image
+                  src="/images/hero-mock-banner.png"
+                  alt=""
+                  fill
+                  priority={index === 0}
+                  aria-hidden="true"
+                  sizes="100vw"
+                  className="
+                    hidden
+                    select-none
+
+                    object-cover
+
+                    md:block
                   "
+                  style={{
+                    objectPosition: "center 40%",
+                  }}
                 />
 
-                <div
-                  className="
-                    absolute
-                    inset-0
+                {/* =============================================
+                    MOBILE IMAGE
+                ============================================== */}
 
-                    bg-gradient-to-r
-                    from-transparent
-                    via-white/[0.025]
-                    to-transparent
+                <Image
+                  src="/images/mobile-hero-showroom.png"
+                  alt=""
+                  fill
+                  priority={index === 0}
+                  aria-hidden="true"
+                  sizes="100vw"
+                  className="
+                    select-none
+                    object-cover
+
+                    md:hidden
                   "
+                  style={{
+                    objectPosition: "center 37%",
+                  }}
                 />
-              </motion.div>
-            );
-          })}
-        </div>
-      )}
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
 
       {/* =====================================================
-          CINEMATIC GRADING
+          DESKTOP LEFT GRADIENT
       ====================================================== */}
 
       <div
@@ -154,14 +145,17 @@ export default function Hero() {
           inset-0
           z-10
 
-          bg-gradient-to-b
-          from-black/30
-          via-black/[0.04]
-          to-black/65
+          hidden
+
+          bg-[linear-gradient(90deg,rgba(3,8,13,0.97)_0%,rgba(3,8,13,0.88)_23%,rgba(3,8,13,0.60)_40%,rgba(3,8,13,0.25)_56%,rgba(3,8,13,0.03)_76%)]
+
+          md:block
         "
       />
 
-      {/* vignette */}
+      {/* =====================================================
+          MOBILE GRADING
+      ====================================================== */}
 
       <div
         className="
@@ -170,11 +164,30 @@ export default function Hero() {
           inset-0
           z-10
 
-          bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,0.42)_100%)]
+          bg-[linear-gradient(180deg,rgba(3,7,11,0.40)_0%,rgba(3,7,11,0.10)_32%,rgba(3,7,11,0.42)_58%,rgba(3,7,11,0.96)_100%)]
+
+          md:hidden
         "
       />
 
-      {/* navbar readability */}
+      {/* =====================================================
+          VIGNETTE
+      ====================================================== */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          z-10
+
+          bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.38)_100%)]
+        "
+      />
+
+      {/* =====================================================
+          NAVBAR READABILITY
+      ====================================================== */}
 
       <div
         className="
@@ -184,16 +197,18 @@ export default function Hero() {
           top-0
           z-10
 
-          h-[160px]
+          h-[150px]
 
           bg-gradient-to-b
-          from-black/60
+          from-black/65
           via-black/20
           to-transparent
         "
       />
 
-      {/* bottom depth */}
+      {/* =====================================================
+          BOTTOM DEPTH
+      ====================================================== */}
 
       <div
         className="
@@ -203,43 +218,41 @@ export default function Hero() {
           bottom-0
           z-10
 
-          h-[40%]
+          h-[36%]
 
           bg-gradient-to-t
-          from-black/65
-          via-black/20
+          from-[#05080B]/90
+          via-[#05080B]/25
           to-transparent
         "
       />
 
       {/* =====================================================
-          VERY SUBTLE ACCENT ATMOSPHERE
+          SUBTLE STEEL-BLUE GLOW
       ====================================================== */}
 
       <div
         className="
           pointer-events-none
           absolute
-          bottom-[-240px]
-          left-1/2
+
+          left-[-100px]
+          top-[25%]
           z-10
 
-          h-[480px]
-          w-[850px]
-          max-w-[90vw]
-
-          -translate-x-1/2
+          h-[420px]
+          w-[580px]
 
           rounded-full
 
-          bg-[#CD777A]/[0.055]
+          bg-[#5788B5]/[0.055]
 
           blur-[160px]
         "
       />
 
       {/* =====================================================
-          LIGHT SWEEP
+          CINEMATIC LIGHT SWEEP
       ====================================================== */}
 
       {!reduceMotion && (
@@ -249,72 +262,88 @@ export default function Hero() {
             opacity: 0,
           }}
           animate={{
-            x: "700%",
-            opacity: [0, 0.7, 0],
+            x: "950%",
+            opacity: [0, 0.8, 0],
           }}
           transition={{
-            delay: 1.05,
+            delay: 0.9,
             duration: 2.2,
-            ease: [
-              0.76,
-              0,
-              0.24,
-              1,
-            ],
+            ease: stripEase,
           }}
           className="
             pointer-events-none
             absolute
-            -top-[30%]
+
+            -top-[25%]
             left-0
             z-20
 
-            h-[160%]
-            w-[10%]
+            h-[150%]
+            w-[7%]
 
-            rotate-[13deg]
+            rotate-[12deg]
 
             bg-gradient-to-r
             from-transparent
             via-white/[0.065]
             to-transparent
 
-            blur-[30px]
+            blur-[28px]
           "
         />
       )}
 
       {/* =====================================================
-          CENTER CONTENT
+          MAIN CONTENT
       ====================================================== */}
 
       <div
         className="
-          absolute
-          inset-0
+          relative
           z-30
 
+          mx-auto
+
           flex
-          items-center
-          justify-center
+          h-full
+          w-full
+          max-w-[1720px]
 
-          px-4
+          items-end
 
-          pt-[20px]
+          px-5
+          pb-12
+          pt-[100px]
 
-          sm:px-6
+          sm:px-7
+          sm:pb-14
 
-          md:px-8
-          md:pt-[30px]
+          md:items-center
+          md:px-9
+          md:pb-0
+          md:pt-[80px]
+
+          lg:px-12
+
+          xl:px-16
+
+          2xl:px-20
         "
       >
         <div
           className="
             w-full
-            text-center
+
+            max-w-[540px]
+
+            lg:max-w-[590px]
+
+            xl:max-w-[620px]
           "
         >
-          {/* LOCATION */}
+          {/* =================================================
+              EYEBROW
+          ================================================== */}
 
           <motion.div
             initial={
@@ -325,7 +354,7 @@ export default function Hero() {
                   }
                 : {
                     opacity: 0,
-                    y: 22,
+                    y: 18,
                   }
             }
             animate={{
@@ -333,73 +362,77 @@ export default function Hero() {
               y: 0,
             }}
             transition={{
-              delay: reduceMotion
-                ? 0
-                : 1.08,
-              duration: 0.7,
-              ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-              ],
+              delay: reduceMotion ? 0 : 0.85,
+              duration: 0.65,
+              ease,
             }}
             className="
               mb-4
 
               flex
               items-center
-              justify-center
               gap-3
 
-              font-sans
-
-              text-[8px]
-              font-bold
-              uppercase
-              tracking-[0.28em]
-
-              text-white/65
-
-              sm:text-[9px]
-
-              lg:mb-5
-              lg:text-[10px]
+              md:mb-5
             "
           >
-            <span
+            <motion.span
+              initial={
+                reduceMotion
+                  ? {
+                      scaleX: 1,
+                    }
+                  : {
+                      scaleX: 0,
+                    }
+              }
+              animate={{
+                scaleX: 1,
+              }}
+              transition={{
+                delay: reduceMotion ? 0 : 1,
+                duration: 0.6,
+                ease,
+              }}
               className="
                 h-px
-                w-5
+                w-7
 
-                bg-[#CD777A]/80
+                origin-left
 
-                sm:w-7
+                bg-[#5788B5]
+
+                md:w-8
               "
             />
 
-            Surrey · United Kingdom
-
             <span
               className="
-                h-px
-                w-5
+                font-sans
 
-                bg-[#CD777A]/80
+                text-[9px]
+                font-bold
+                uppercase
 
-                sm:w-7
+                tracking-[0.18em]
+
+                text-[#8FB3D4]
+
+                sm:text-[10px]
               "
-            />
+            >
+              Welcome to YM Motors
+            </span>
           </motion.div>
 
           {/* =================================================
-              YM MOTORS
+              HEADING
           ================================================== */}
 
           <div
             className="
               overflow-hidden
-              py-2
+              pb-1
             "
           >
             <motion.h1
@@ -410,47 +443,55 @@ export default function Hero() {
                       opacity: 1,
                     }
                   : {
-                      y: "120%",
+                      y: "110%",
                       opacity: 0,
                     }
               }
               animate={{
-                y: "0%",
+                y: 0,
                 opacity: 1,
               }}
               transition={{
-                delay: reduceMotion
-                  ? 0
-                  : 0.82,
-                duration: 1.05,
-                ease: [
-                  0.22,
-                  1,
-                  0.36,
-                  1,
-                ],
+                delay: reduceMotion ? 0 : 0.72,
+                duration: 0.95,
+                ease,
               }}
               className="
-                font-heading
+                font-serif
 
-                text-[clamp(48px,10vw,155px)]
+                text-[36px]
+                font-normal
 
-                font-semibold
+                leading-[1.01]
 
-                leading-[0.86]
+                tracking-[-0.04em]
 
-                tracking-[-0.07em]
+                text-[#F5F5F2]
 
-                text-[#F5F4F2]
+                sm:text-[42px]
 
-                drop-shadow-[0_15px_50px_rgba(0,0,0,0.45)]
+                md:text-[45px]
+
+                lg:text-[52px]
+
+                xl:text-[58px]
+
+                2xl:text-[62px]
               "
             >
-              YM MOTORS
+              Quality Used Cars.
+              <br />
+
+              <span className="text-[#70A9D8]">
+                Trusted
+              </span>{" "}
+              Local Experts.
             </motion.h1>
           </div>
 
-          {/* TAGLINE */}
+          {/* =================================================
+              DESCRIPTION
+          ================================================== */}
 
           <motion.p
             initial={
@@ -469,46 +510,38 @@ export default function Hero() {
               y: 0,
             }}
             transition={{
-              delay: reduceMotion
-                ? 0
-                : 1.27,
+              delay: reduceMotion ? 0 : 1.05,
               duration: 0.7,
-              ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-              ],
+              ease,
             }}
             className="
-              mx-auto
-              mt-3
+              mt-4
 
-              max-w-[520px]
+              max-w-[410px]
 
               font-sans
 
-              text-[8px]
-              font-semibold
-              uppercase
+              text-[12px]
+              font-medium
 
-              tracking-[0.17em]
+              leading-[1.75]
 
-              text-white/58
+              text-white/60
 
-              sm:mt-4
-              sm:text-[10px]
-              sm:tracking-[0.21em]
+              sm:text-[13px]
 
-              md:text-[11px]
+              md:mt-5
+
+              lg:text-[14px]
             "
           >
-            Exceptional Cars ·
-            Distinctive Experiences
+            Carefully selected vehicles. Exceptional value.
+            <br className="hidden sm:block" />
+            Outstanding service.
           </motion.p>
 
           {/* =================================================
-              CTA BUTTONS
+              BUTTONS
           ================================================== */}
 
           <motion.div
@@ -520,7 +553,7 @@ export default function Hero() {
                   }
                 : {
                     opacity: 0,
-                    y: 25,
+                    y: 22,
                   }
             }
             animate={{
@@ -528,32 +561,26 @@ export default function Hero() {
               y: 0,
             }}
             transition={{
-              delay: reduceMotion
-                ? 0
-                : 1.5,
-              duration: 0.75,
-              ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-              ],
+              delay: reduceMotion ? 0 : 1.2,
+              duration: 0.7,
+              ease,
             }}
             className="
-              mt-7
+              mt-6
 
               flex
               flex-col
-              items-center
-              justify-center
+
+              items-start
               gap-3
 
-              sm:mt-8
               sm:flex-row
+
+              md:mt-7
             "
           >
             {/* =============================================
-                EXPLORE CARS
+                BROWSE STOCK
             ============================================== */}
 
             <a
@@ -562,46 +589,51 @@ export default function Hero() {
                 group
 
                 flex
+
                 h-[50px]
 
                 w-full
-                max-w-[220px]
+                max-w-[205px]
 
                 items-center
                 justify-between
 
-                rounded-full
+                rounded-[4px]
 
-                bg-[#CD777A]
+                bg-[#5788B5]
 
-                px-6
+                px-5
 
                 font-sans
 
-                text-[9px]
+                text-[11px]
                 font-bold
                 uppercase
-                tracking-[0.13em]
+
+                tracking-[0.02em]
 
                 text-white
 
-                shadow-[0_14px_45px_rgba(205,119,122,0.20)]
+                shadow-[0_14px_40px_rgba(87,136,181,0.22)]
 
                 transition-all
                 duration-300
 
                 hover:-translate-y-[2px]
-                hover:bg-[#D8878A]
-                hover:shadow-[0_18px_55px_rgba(205,119,122,0.30)]
+                hover:bg-[#6899C4]
+                hover:shadow-[0_18px_55px_rgba(87,136,181,0.28)]
 
-                sm:w-auto
-                sm:min-w-[188px]
+                sm:w-[185px]
+
+                lg:h-[52px]
+                lg:w-[195px]
+                lg:text-[12px]
               "
             >
-              Explore Used Cars
+              <span>Browse Stock</span>
 
-              <ArrowUpRight
-                strokeWidth={1.6}
+              <ArrowRight
+                strokeWidth={1.8}
                 className="
                   h-4
                   w-4
@@ -609,8 +641,7 @@ export default function Hero() {
                   transition-transform
                   duration-300
 
-                  group-hover:-translate-y-[2px]
-                  group-hover:translate-x-[2px]
+                  group-hover:translate-x-1
                 "
               />
             </a>
@@ -625,154 +656,70 @@ export default function Hero() {
                 group
 
                 flex
+
                 h-[50px]
 
                 w-full
-                max-w-[220px]
+                max-w-[205px]
 
                 items-center
                 justify-between
 
-                rounded-full
+                rounded-[4px]
 
                 border
-                border-white/[0.18]
+                border-white/[0.28]
 
-                bg-black/25
+                bg-black/20
 
-                px-6
+                px-5
 
                 font-sans
 
-                text-[9px]
+                text-[11px]
                 font-bold
                 uppercase
-                tracking-[0.13em]
+
+                tracking-[0.02em]
 
                 text-white
 
-                backdrop-blur-xl
+                backdrop-blur-sm
 
                 transition-all
                 duration-300
 
                 hover:-translate-y-[2px]
-                hover:border-[#CD777A]/70
-                hover:bg-[#CD777A]/[0.12]
+                hover:border-[#5788B5]
+                hover:bg-[#5788B5]/10
 
-                sm:w-auto
-                sm:min-w-[170px]
+                sm:w-[180px]
+
+                lg:h-[52px]
+                lg:w-[190px]
+                lg:text-[12px]
               "
             >
-              Sell Your Car
+              <span>Sell Your Car</span>
 
-              <ArrowUpRight
-                strokeWidth={1.6}
+              <ArrowRight
+                strokeWidth={1.8}
                 className="
                   h-4
                   w-4
 
-                  text-[#CD777A]
+                  text-[#8FB3D4]
 
-                  transition-all
+                  transition-transform
                   duration-300
 
-                  group-hover:-translate-y-[2px]
-                  group-hover:translate-x-[2px]
-                  group-hover:text-white
+                  group-hover:translate-x-1
                 "
               />
             </a>
           </motion.div>
         </div>
       </div>
-
-      {/* =====================================================
-          SCROLL INDICATOR
-      ====================================================== */}
-
-      <motion.a
-        href="#stock"
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-        }}
-        transition={{
-          delay: reduceMotion
-            ? 0
-            : 1.9,
-          duration: 0.7,
-        }}
-        className="
-          group
-
-          absolute
-          bottom-5
-          left-1/2
-          z-40
-
-          hidden
-          -translate-x-1/2
-
-          items-center
-          justify-center
-
-          md:flex
-        "
-        aria-label="Scroll to stock"
-      >
-        <span
-          className="
-            flex
-            h-10
-            w-10
-
-            items-center
-            justify-center
-
-            rounded-full
-
-            border
-            border-white/[0.14]
-
-            bg-black/20
-
-            backdrop-blur-xl
-
-            transition-all
-            duration-300
-
-            group-hover:border-[#CD777A]/60
-            group-hover:bg-[#CD777A]/10
-          "
-        >
-          <motion.span
-            animate={
-              reduceMotion
-                ? {}
-                : {
-                    y: [0, 4, 0],
-                  }
-            }
-            transition={{
-              duration: 1.6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <ArrowDown
-              strokeWidth={1.5}
-              className="
-                h-4
-                w-4
-                text-[#CD777A]
-              "
-            />
-          </motion.span>
-        </span>
-      </motion.a>
     </section>
   );
 }
