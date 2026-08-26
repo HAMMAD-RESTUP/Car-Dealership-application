@@ -1,10 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUpRight,
+} from "lucide-react";
 
 const strips = [0, 1, 2, 3];
+
+const ACCENT = "#CD777A";
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -21,102 +25,126 @@ export default function Hero() {
       "
     >
       {/* =====================================================
-          4 HORIZONTAL IMAGE SLICES
+          FULLSCREEN VIDEO
       ====================================================== */}
 
-      <div className="absolute inset-0">
-        {strips.map((strip, index) => {
-          const fromLeft = index % 2 === 0;
+      <motion.video
+        initial={
+          reduceMotion
+            ? { scale: 1 }
+            : { scale: 1.08 }
+        }
+        animate={{ scale: 1 }}
+        transition={{
+          duration: 2.4,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="/images/hero-mock.jpeg"
+        className="
+          absolute
+          inset-0
 
-          return (
-            <motion.div
-              key={strip}
-              initial={
-                reduceMotion
-                  ? {
-                      x: 0,
-                      opacity: 1,
-                    }
-                  : {
-                      x: fromLeft ? "-102%" : "102%",
-                      opacity: 0.2,
-                    }
-              }
-              animate={{
-                x: 0,
-                opacity: 1,
-              }}
-              transition={{
-                duration: reduceMotion ? 0 : 1.35,
-                delay: reduceMotion ? 0 : index * 0.09,
-                ease: [0.76, 0, 0.24, 1],
-              }}
-              className="
-                absolute
-                left-0
-                h-1/4
-                w-full
-                overflow-hidden
-              "
-              style={{
-                top: `${index * 25}%`,
-              }}
-            >
-              {/* =================================================
-                  ONE CONTINUOUS IMAGE
-              ================================================== */}
+          h-full
+          w-full
 
-              <div
+          object-cover
+          object-center
+        "
+      >
+        <source
+          src="/images/demo-video.mp4"
+          type="video/mp4"
+        />
+      </motion.video>
+
+      {/* =====================================================
+          4 HORIZONTAL REVEAL PANELS
+      ====================================================== */}
+
+      {!reduceMotion && (
+        <div
+          className="
+            pointer-events-none
+            absolute
+            inset-0
+            z-[50]
+          "
+        >
+          {strips.map((strip, index) => {
+            const moveLeft =
+              index % 2 === 0;
+
+            return (
+              <motion.div
+                key={strip}
+                initial={{
+                  x: "0%",
+                }}
+                animate={{
+                  x: moveLeft
+                    ? "-102%"
+                    : "102%",
+                }}
+                transition={{
+                  duration: 1.25,
+                  delay:
+                    0.08 +
+                    index * 0.1,
+                  ease: [
+                    0.76,
+                    0,
+                    0.24,
+                    1,
+                  ],
+                }}
                 className="
                   absolute
                   left-0
-                  h-[400%]
+
+                  h-1/4
                   w-full
+
+                  bg-[#050505]
                 "
                 style={{
-                  top: `-${index * 100}%`,
+                  top: `${
+                    index * 25
+                  }%`,
                 }}
               >
-                {/* DESKTOP */}
-                <Image
-                  src="/images/hero-mock.jpeg"
-                  alt=""
-                  fill
-                  priority
-                  sizes="100vw"
+                <div
                   className="
-                    hidden
-                    select-none
-                    object-cover
-                    object-center
+                    absolute
+                    inset-0
 
-                    md:block
+                    bg-[linear-gradient(90deg,#050505_0%,#141416_50%,#050505_100%)]
                   "
                 />
 
-                {/* MOBILE */}
-                <Image
-                  src="/images/mobile-hero-banner.jpeg"
-                  alt=""
-                  fill
-                  priority
-                  sizes="100vw"
+                <div
                   className="
-                    select-none
-                    object-cover
-                    object-center
+                    absolute
+                    inset-0
 
-                    md:hidden
+                    bg-gradient-to-r
+                    from-transparent
+                    via-white/[0.025]
+                    to-transparent
                   "
                 />
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
 
       {/* =====================================================
-          DARK CINEMATIC GRADING
+          CINEMATIC GRADING
       ====================================================== */}
 
       <div
@@ -127,13 +155,14 @@ export default function Hero() {
           z-10
 
           bg-gradient-to-b
-          from-black/35
-          via-black/[0.06]
+          from-black/30
+          via-black/[0.04]
           to-black/65
         "
       />
 
-      {/* side vignette */}
+      {/* vignette */}
+
       <div
         className="
           pointer-events-none
@@ -141,11 +170,12 @@ export default function Hero() {
           inset-0
           z-10
 
-          bg-[radial-gradient(circle_at_center,transparent_25%,rgba(0,0,0,0.38)_100%)]
+          bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,0.42)_100%)]
         "
       />
 
       {/* navbar readability */}
+
       <div
         className="
           pointer-events-none
@@ -154,23 +184,57 @@ export default function Hero() {
           top-0
           z-10
 
-          h-[150px]
+          h-[160px]
 
           bg-gradient-to-b
-          from-black/55
+          from-black/60
+          via-black/20
           to-transparent
         "
       />
 
-      {/* graphite tone */}
+      {/* bottom depth */}
+
       <div
         className="
           pointer-events-none
           absolute
-          inset-0
+          inset-x-0
+          bottom-0
           z-10
 
-          bg-[#111315]/[0.06]
+          h-[40%]
+
+          bg-gradient-to-t
+          from-black/65
+          via-black/20
+          to-transparent
+        "
+      />
+
+      {/* =====================================================
+          VERY SUBTLE ACCENT ATMOSPHERE
+      ====================================================== */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          bottom-[-240px]
+          left-1/2
+          z-10
+
+          h-[480px]
+          w-[850px]
+          max-w-[90vw]
+
+          -translate-x-1/2
+
+          rounded-full
+
+          bg-[#CD777A]/[0.055]
+
+          blur-[160px]
         "
       />
 
@@ -185,13 +249,18 @@ export default function Hero() {
             opacity: 0,
           }}
           animate={{
-            x: "600%",
-            opacity: [0, 1, 0],
+            x: "700%",
+            opacity: [0, 0.7, 0],
           }}
           transition={{
-            delay: 0.75,
-            duration: 2,
-            ease: [0.76, 0, 0.24, 1],
+            delay: 1.05,
+            duration: 2.2,
+            ease: [
+              0.76,
+              0,
+              0.24,
+              1,
+            ],
           }}
           className="
             pointer-events-none
@@ -201,13 +270,13 @@ export default function Hero() {
             z-20
 
             h-[160%]
-            w-[12%]
+            w-[10%]
 
-            rotate-[12deg]
+            rotate-[13deg]
 
             bg-gradient-to-r
             from-transparent
-            via-white/[0.07]
+            via-white/[0.065]
             to-transparent
 
             blur-[30px]
@@ -229,32 +298,59 @@ export default function Hero() {
           items-center
           justify-center
 
-          px-5
-          pt-[30px]
+          px-4
 
-          sm:px-8
-          lg:pt-[40px]
+          pt-[20px]
+
+          sm:px-6
+
+          md:px-8
+          md:pt-[30px]
         "
       >
-        <div className="w-full text-center">
-          {/* SMALL LABEL */}
+        <div
+          className="
+            w-full
+            text-center
+          "
+        >
+          {/* LOCATION */}
 
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 18,
-            }}
+            initial={
+              reduceMotion
+                ? {
+                    opacity: 1,
+                    y: 0,
+                  }
+                : {
+                    opacity: 0,
+                    y: 22,
+                  }
+            }
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              delay: reduceMotion ? 0 : 0.95,
+              delay: reduceMotion
+                ? 0
+                : 1.08,
               duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
+              ease: [
+                0.22,
+                1,
+                0.36,
+                1,
+              ],
             }}
             className="
               mb-4
+
+              flex
+              items-center
+              justify-center
+              gap-3
 
               font-sans
 
@@ -263,22 +359,49 @@ export default function Hero() {
               uppercase
               tracking-[0.28em]
 
-              text-white/60
+              text-white/65
 
-              sm:mb-5
               sm:text-[9px]
 
+              lg:mb-5
               lg:text-[10px]
             "
           >
+            <span
+              className="
+                h-px
+                w-5
+
+                bg-[#CD777A]/80
+
+                sm:w-7
+              "
+            />
+
             Surrey · United Kingdom
+
+            <span
+              className="
+                h-px
+                w-5
+
+                bg-[#CD777A]/80
+
+                sm:w-7
+              "
+            />
           </motion.div>
 
           {/* =================================================
-              YM MOTORS REVEAL
+              YM MOTORS
           ================================================== */}
 
-          <div className="overflow-hidden py-2">
+          <div
+            className="
+              overflow-hidden
+              py-2
+            "
+          >
             <motion.h1
               initial={
                 reduceMotion
@@ -287,18 +410,25 @@ export default function Hero() {
                       opacity: 1,
                     }
                   : {
-                      y: "115%",
+                      y: "120%",
                       opacity: 0,
                     }
               }
               animate={{
-                y: 0,
+                y: "0%",
                 opacity: 1,
               }}
               transition={{
-                delay: reduceMotion ? 0 : 0.72,
+                delay: reduceMotion
+                  ? 0
+                  : 0.82,
                 duration: 1.05,
-                ease: [0.22, 1, 0.36, 1],
+                ease: [
+                  0.22,
+                  1,
+                  0.36,
+                  1,
+                ],
               }}
               className="
                 font-heading
@@ -307,176 +437,341 @@ export default function Hero() {
 
                 font-semibold
 
-                leading-[0.88]
+                leading-[0.86]
 
                 tracking-[-0.07em]
 
-                text-[#F4F4F1]
+                text-[#F5F4F2]
 
-                drop-shadow-[0_12px_40px_rgba(0,0,0,0.35)]
+                drop-shadow-[0_15px_50px_rgba(0,0,0,0.45)]
               "
             >
               YM MOTORS
             </motion.h1>
           </div>
 
-          {/* SUBLINE */}
+          {/* TAGLINE */}
 
           <motion.p
-            initial={{
-              opacity: 0,
-              y: 18,
-            }}
+            initial={
+              reduceMotion
+                ? {
+                    opacity: 1,
+                    y: 0,
+                  }
+                : {
+                    opacity: 0,
+                    y: 18,
+                  }
+            }
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              delay: reduceMotion ? 0 : 1.2,
-              duration: 0.75,
-              ease: [0.22, 1, 0.36, 1],
+              delay: reduceMotion
+                ? 0
+                : 1.27,
+              duration: 0.7,
+              ease: [
+                0.22,
+                1,
+                0.36,
+                1,
+              ],
             }}
             className="
               mx-auto
-              mt-4
-              max-w-[500px]
+              mt-3
+
+              max-w-[520px]
 
               font-sans
 
-              text-[9px]
+              text-[8px]
               font-semibold
               uppercase
 
-              tracking-[0.18em]
+              tracking-[0.17em]
 
-              text-white/55
+              text-white/58
 
-              sm:mt-5
+              sm:mt-4
               sm:text-[10px]
-              sm:tracking-[0.22em]
+              sm:tracking-[0.21em]
 
               md:text-[11px]
             "
           >
-            Exceptional Cars · Distinctive Experiences
+            Exceptional Cars ·
+            Distinctive Experiences
           </motion.p>
+
+          {/* =================================================
+              CTA BUTTONS
+          ================================================== */}
+
+          <motion.div
+            initial={
+              reduceMotion
+                ? {
+                    opacity: 1,
+                    y: 0,
+                  }
+                : {
+                    opacity: 0,
+                    y: 25,
+                  }
+            }
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: reduceMotion
+                ? 0
+                : 1.5,
+              duration: 0.75,
+              ease: [
+                0.22,
+                1,
+                0.36,
+                1,
+              ],
+            }}
+            className="
+              mt-7
+
+              flex
+              flex-col
+              items-center
+              justify-center
+              gap-3
+
+              sm:mt-8
+              sm:flex-row
+            "
+          >
+            {/* =============================================
+                EXPLORE CARS
+            ============================================== */}
+
+            <a
+              href="#stock"
+              className="
+                group
+
+                flex
+                h-[50px]
+
+                w-full
+                max-w-[220px]
+
+                items-center
+                justify-between
+
+                rounded-full
+
+                bg-[#CD777A]
+
+                px-6
+
+                font-sans
+
+                text-[9px]
+                font-bold
+                uppercase
+                tracking-[0.13em]
+
+                text-white
+
+                shadow-[0_14px_45px_rgba(205,119,122,0.20)]
+
+                transition-all
+                duration-300
+
+                hover:-translate-y-[2px]
+                hover:bg-[#D8878A]
+                hover:shadow-[0_18px_55px_rgba(205,119,122,0.30)]
+
+                sm:w-auto
+                sm:min-w-[188px]
+              "
+            >
+              Explore Used Cars
+
+              <ArrowUpRight
+                strokeWidth={1.6}
+                className="
+                  h-4
+                  w-4
+
+                  transition-transform
+                  duration-300
+
+                  group-hover:-translate-y-[2px]
+                  group-hover:translate-x-[2px]
+                "
+              />
+            </a>
+
+            {/* =============================================
+                SELL YOUR CAR
+            ============================================== */}
+
+            <a
+              href="#sell"
+              className="
+                group
+
+                flex
+                h-[50px]
+
+                w-full
+                max-w-[220px]
+
+                items-center
+                justify-between
+
+                rounded-full
+
+                border
+                border-white/[0.18]
+
+                bg-black/25
+
+                px-6
+
+                font-sans
+
+                text-[9px]
+                font-bold
+                uppercase
+                tracking-[0.13em]
+
+                text-white
+
+                backdrop-blur-xl
+
+                transition-all
+                duration-300
+
+                hover:-translate-y-[2px]
+                hover:border-[#CD777A]/70
+                hover:bg-[#CD777A]/[0.12]
+
+                sm:w-auto
+                sm:min-w-[170px]
+              "
+            >
+              Sell Your Car
+
+              <ArrowUpRight
+                strokeWidth={1.6}
+                className="
+                  h-4
+                  w-4
+
+                  text-[#CD777A]
+
+                  transition-all
+                  duration-300
+
+                  group-hover:-translate-y-[2px]
+                  group-hover:translate-x-[2px]
+                  group-hover:text-white
+                "
+              />
+            </a>
+          </motion.div>
         </div>
       </div>
 
       {/* =====================================================
-          BOTTOM CINEMATIC SHADE
-      ====================================================== */}
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-x-0
-          bottom-0
-          z-20
-
-          h-[30%]
-
-          bg-gradient-to-t
-          from-black/55
-          via-black/15
-          to-transparent
-        "
-      />
-
-      {/* =====================================================
-          SCROLL
+          SCROLL INDICATOR
       ====================================================== */}
 
       <motion.a
         href="#stock"
         initial={{
           opacity: 0,
-          y: 16,
         }}
         animate={{
           opacity: 1,
-          y: 0,
         }}
         transition={{
-          delay: reduceMotion ? 0 : 1.55,
+          delay: reduceMotion
+            ? 0
+            : 1.9,
           duration: 0.7,
-          ease: [0.22, 1, 0.36, 1],
         }}
         className="
           group
 
           absolute
-          bottom-6
+          bottom-5
           left-1/2
           z-40
 
-          flex
+          hidden
           -translate-x-1/2
+
           items-center
-          gap-3
+          justify-center
 
-          rounded-full
-
-          border
-          border-white/[0.14]
-
-          bg-black/20
-
-          px-4
-          py-2.5
-
-          backdrop-blur-xl
-
-          transition-colors
-          duration-300
-
-          hover:bg-black/35
-
-          sm:bottom-8
-          sm:px-5
-          sm:py-3
+          md:flex
         "
+        aria-label="Scroll to stock"
       >
         <span
           className="
-            font-sans
+            flex
+            h-10
+            w-10
 
-            text-[8px]
-            font-bold
-            uppercase
-            tracking-[0.18em]
+            items-center
+            justify-center
 
-            text-white/65
+            rounded-full
+
+            border
+            border-white/[0.14]
+
+            bg-black/20
+
+            backdrop-blur-xl
+
+            transition-all
+            duration-300
+
+            group-hover:border-[#CD777A]/60
+            group-hover:bg-[#CD777A]/10
           "
         >
-          Explore
+          <motion.span
+            animate={
+              reduceMotion
+                ? {}
+                : {
+                    y: [0, 4, 0],
+                  }
+            }
+            transition={{
+              duration: 1.6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <ArrowDown
+              strokeWidth={1.5}
+              className="
+                h-4
+                w-4
+                text-[#CD777A]
+              "
+            />
+          </motion.span>
         </span>
-
-        <motion.span
-          animate={
-            reduceMotion
-              ? {}
-              : {
-                  y: [0, 4, 0],
-                }
-          }
-          transition={{
-            duration: 1.6,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <ArrowDown
-            strokeWidth={1.5}
-            className="
-              h-3.5
-              w-3.5
-
-              text-[#8FB3D4]
-            "
-          />
-        </motion.span>
       </motion.a>
     </section>
   );

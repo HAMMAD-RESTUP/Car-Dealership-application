@@ -2,149 +2,271 @@
 
 import { motion } from "framer-motion";
 
+export default function Logo() {
+  return (
+    <motion.div
+      whileHover="hover"
+      initial="initial"
+      className="
+        group
+        flex
+        cursor-pointer
+        items-center
+        gap-3
 
-export default function Logo(){
+        sm:gap-4
+      "
+    >
+      {/* =====================================================
+          MONOGRAM
+      ====================================================== */}
 
-return(
+      <motion.div
+        variants={{
+          initial: {
+            rotate: 0,
+            scale: 1,
+          },
+          hover: {
+            rotate: 3,
+            scale: 1.03,
+          },
+        }}
+        transition={{
+          duration: 0.45,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="
+          relative
 
-<div className="
-flex
-items-center
-gap-4
-cursor-pointer
-">
+          flex
+          h-[44px]
+          w-[44px]
 
+          shrink-0
 
-{/* MONOGRAM */}
+          items-center
+          justify-center
 
-<motion.div
+          sm:h-[48px]
+          sm:w-[48px]
 
-whileHover={{
-rotate:5,
-scale:1.05
-}}
+          lg:h-[50px]
+          lg:w-[50px]
+        "
+      >
+        {/* OUTER DIAMOND */}
 
-transition={{
-duration:.3
-}}
+        <motion.div
+          variants={{
+            initial: {
+              rotate: 45,
+            },
+            hover: {
+              rotate: 50,
+            },
+          }}
+          transition={{
+            duration: 0.5,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="
+            absolute
+            inset-[3px]
 
-className="
-relative
-w-[52px]
-h-[52px]
-flex
-items-center
-justify-center
-"
+            border
+            border-[#CD777A]/75
 
->
+            bg-black/[0.12]
 
+            backdrop-blur-sm
+          "
+        />
 
-<div className="
-absolute
-inset-0
-border
-border-[#8ea6c5]
-rotate-45
-opacity-80
-">
+        {/* INNER DIAMOND */}
 
+        <div
+          className="
+            absolute
+            inset-[8px]
 
-</div>
+            rotate-45
 
+            border
+            border-white/[0.12]
 
+            bg-[#090909]/80
+          "
+        />
 
-<div className="
-absolute
-inset-[6px]
-bg-[#0b1018]
-border
-border-white/10
-flex
-items-center
-justify-center
-">
+        {/* YM */}
 
+        <motion.span
+          variants={{
+            initial: {
+              y: 0,
+            },
+            hover: {
+              y: -1,
+            },
+          }}
+          transition={{
+            duration: 0.3,
+          }}
+          className="
+            relative
+            z-10
 
-<span className="
-text-[#d5e2f5]
-text-xl
-font-semibold
-tracking-[2px]
-">
+            font-heading
 
-MC
+            text-[14px]
+            font-semibold
 
-</span>
+            tracking-[-0.04em]
 
+            text-[#F5F4F2]
 
-</div>
+            sm:text-[15px]
+          "
+        >
+          YM
+        </motion.span>
 
+        {/* ACCENT DOT */}
 
-</motion.div>
+        <motion.span
+          variants={{
+            initial: {
+              opacity: 0.65,
+              scale: 1,
+            },
+            hover: {
+              opacity: 1,
+              scale: 1.25,
+            },
+          }}
+          className="
+            absolute
 
+            bottom-[1px]
+            right-[1px]
 
+            h-[4px]
+            w-[4px]
 
+            rounded-full
 
+            bg-[#CD777A]
 
-{/* BRAND TEXT */}
+            shadow-[0_0_12px_rgba(205,119,122,0.7)]
+          "
+        />
+      </motion.div>
 
-<div>
+      {/* =====================================================
+          BRAND TEXT
+      ====================================================== */}
 
+      <div
+        className="
+          flex
+          flex-col
+          justify-center
+        "
+      >
+        {/* MAIN NAME */}
 
-<h1 className="
-text-white
-text-[22px]
-font-light
-tracking-[7px]
-leading-none
-uppercase
-">
+        <div className="overflow-hidden">
+          <motion.h1
+            variants={{
+              initial: {
+                x: 0,
+              },
+              hover: {
+                x: 2,
+              },
+            }}
+            transition={{
+              duration: 0.35,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="
+              font-heading
 
-MOTORS
+              text-[17px]
+              font-medium
 
-</h1>
+              uppercase
 
+              leading-none
 
-<div className="
-flex
-items-center
-gap-2
-mt-2
-">
+              tracking-[0.18em]
 
+              text-[#F5F4F2]
 
-<span className="
-w-8
-h-[1px]
-bg-[#8ea6c5]
-">
+              sm:text-[19px]
 
+              lg:text-[20px]
+            "
+          >
+            YM Motors
+          </motion.h1>
+        </div>
 
-</span>
+        {/* SUB LABEL */}
 
+        <div
+          className="
+            mt-[7px]
 
-<p className="
-text-[9px]
-tracking-[4px]
-uppercase
-text-[#9aaac0]
-">
+            flex
+            items-center
+            gap-[9px]
+          "
+        >
+          <motion.span
+            variants={{
+              initial: {
+                width: 22,
+              },
+              hover: {
+                width: 31,
+              },
+            }}
+            transition={{
+              duration: 0.4,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="
+              block
+              h-px
 
-UK & EUROPE
+              bg-[#CD777A]
+            "
+          />
 
-</p>
+          <p
+            className="
+              font-sans
 
+              text-[7px]
+              font-semibold
 
-</div>
+              uppercase
 
+              leading-none
 
-</div>
+              tracking-[0.22em]
 
+              text-white/45
 
-
-</div>
-
-)
-
+              sm:text-[8px]
+            "
+          >
+            UK & Europe
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
 }
