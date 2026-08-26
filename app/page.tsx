@@ -19,9 +19,9 @@ const Home = () => {
 
 
 
-      <BrandMarquee />
 
       <CarListing />
+      <BrandMarquee />
 
    
 
