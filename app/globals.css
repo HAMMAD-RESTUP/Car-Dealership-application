@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700;800&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -7,20 +6,21 @@
   --foreground: #ffffff;
 
   --card: #0c1118;
-  --border: rgba(255,255,255,0.10);
+  --border: rgba(255, 255, 255, 0.10);
 
   --primary: #2998ff;
   --primary-light: #7bc4ff;
 
   --accent: #2998ff;
 
-  --font-body: "Manrope", sans-serif;
-  --font-heading: "Archivo Black", sans-serif;
+  /* BODY / PARAGRAPHS */
+  --font-body: "Inter", sans-serif;
+
+  /* AUTO GARAGE STYLE HEADINGS */
+  --font-heading: Arial, Helvetica, sans-serif;
 }
 
-
 @theme inline {
-
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -67,6 +67,8 @@ body {
    TYPOGRAPHY
 ===================================================== */
 
+/* MAIN HEADINGS — AUTO GARAGE STYLE */
+
 h1,
 h2,
 h3,
@@ -74,8 +76,8 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  font-weight: 400;
-  letter-spacing: -0.055em;
+  font-weight: 700;
+  letter-spacing: -0.045em;
 }
 
 
@@ -84,11 +86,11 @@ h6 {
 .display-heading {
   font-family: var(--font-heading);
 
-  font-weight: 400;
+  font-weight: 700;
 
-  letter-spacing: -0.075em;
+  letter-spacing: -0.055em;
 
-  line-height: 0.88;
+  line-height: 0.9;
 }
 
 
@@ -97,18 +99,26 @@ h6 {
 .section-heading {
   font-family: var(--font-heading);
 
-  font-weight: 400;
+  font-weight: 700;
 
-  letter-spacing: -0.055em;
+  letter-spacing: -0.045em;
 
-  line-height: 0.95;
+  line-height: 0.94;
 }
 
 
-/* BODY */
+/* =====================================================
+   BODY / PARAGRAPHS — INTER
+===================================================== */
 
 p {
   font-family: var(--font-body);
+
+  font-weight: 400;
+
+  letter-spacing: -0.02em;
+
+  line-height: 1.65;
 }
 
 
@@ -118,7 +128,7 @@ nav,
 .nav-text {
   font-family: var(--font-body);
 
-  font-weight: 600;
+  font-weight: 500;
 
   letter-spacing: -0.02em;
 }
@@ -131,7 +141,7 @@ nav,
 
   font-size: 10px;
 
-  font-weight: 800;
+  font-weight: 600;
 
   text-transform: uppercase;
 
@@ -185,11 +195,11 @@ button {
 
   font-size: 11px;
 
-  font-weight: 800;
+  font-weight: 700;
 
   text-transform: uppercase;
 
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 
   transition:
     background-color 0.3s ease,
@@ -218,21 +228,21 @@ button {
 
   padding: 0 28px;
 
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 
   border-radius: 999px;
 
-  background: rgba(0,0,0,0.15);
+  background: rgba(0, 0, 0, 0.15);
 
   color: white;
 
   font-size: 11px;
 
-  font-weight: 700;
+  font-weight: 600;
 
   text-transform: uppercase;
 
-  letter-spacing: 0.07em;
+  letter-spacing: 0.06em;
 
   backdrop-filter: blur(12px);
 
@@ -242,9 +252,9 @@ button {
 }
 
 .btn-secondary:hover {
-  border-color: rgba(255,255,255,0.6);
+  border-color: rgba(255, 255, 255, 0.6);
 
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 
@@ -306,7 +316,7 @@ a {
   background:
     radial-gradient(
       circle at 80% 10%,
-      rgba(41,152,255,0.08),
+      rgba(41, 152, 255, 0.08),
       transparent 28%
     ),
     #05070a;
@@ -318,9 +328,9 @@ a {
 ===================================================== */
 
 .glass {
-  background: rgba(8,13,18,0.66);
+  background: rgba(8, 13, 18, 0.66);
 
-  border: 1px solid rgba(255,255,255,0.09);
+  border: 1px solid rgba(255, 255, 255, 0.09);
 
   backdrop-filter: blur(20px);
 
@@ -335,17 +345,17 @@ a {
 .premium-card {
   background: #0a0f14;
 
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   transition:
-    transform 0.4s cubic-bezier(.22,1,.36,1),
+    transform 0.4s cubic-bezier(.22, 1, .36, 1),
     border-color 0.4s ease;
 }
 
 .premium-card:hover {
   transform: translateY(-5px);
 
-  border-color: rgba(41,152,255,0.35);
+  border-color: rgba(41, 152, 255, 0.35);
 }
 
 
@@ -365,6 +375,35 @@ a {
 
   background-clip: text;
 
+  color: transparent;
+}
+
+
+/* =====================================================
+   AUTO GARAGE METALLIC TEXT
+   Optional class for YM Motors
+===================================================== */
+
+.auto-garage-text {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-weight: 700;
+
+  letter-spacing: -0.055em;
+
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f8f8f8 22%,
+    #b8b8b8 58%,
+    #707070 82%,
+    #343434 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
   color: transparent;
 }
 
@@ -427,7 +466,6 @@ html {
 ===================================================== */
 
 @keyframes marquee {
-
   from {
     transform: translateX(0);
   }
@@ -435,7 +473,6 @@ html {
   to {
     transform: translateX(-50%);
   }
-
 }
 
 .marquee {
@@ -452,7 +489,6 @@ html {
 ===================================================== */
 
 @media (max-width: 768px) {
-
   .container {
     padding-inline: 18px;
   }
@@ -462,9 +498,8 @@ html {
   }
 
   .display-heading {
-    letter-spacing: -0.06em;
+    letter-spacing: -0.045em;
 
-    line-height: 0.91;
+    line-height: 0.92;
   }
-
 }

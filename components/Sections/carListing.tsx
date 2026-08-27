@@ -12,7 +12,6 @@ import {
 } from "framer-motion";
 
 import {
-  ArrowUpRight,
   CalendarDays,
   Gauge,
   Fuel,
@@ -122,8 +121,17 @@ function CarCard({
           relative
           block
           overflow-hidden
-          rounded-[6px]
-          bg-[#14171A]
+
+          border
+          border-white/[0.07]
+
+          bg-[#111315]
+
+          transition-all
+          duration-500
+
+          group-hover:border-[#E5484D]/35
+          group-hover:shadow-[0_18px_45px_rgba(0,0,0,0.26)]
         "
       >
         <div
@@ -178,7 +186,7 @@ function CarCard({
               absolute
               inset-0
 
-              bg-[linear-gradient(180deg,rgba(0,0,0,0.06)_0%,transparent_42%,rgba(0,0,0,0.20)_100%)]
+              bg-[linear-gradient(180deg,rgba(0,0,0,0.04)_0%,transparent_40%,rgba(0,0,0,0.34)_100%)]
             "
           />
 
@@ -190,12 +198,10 @@ function CarCard({
               left-4
               top-4
 
-              rounded-full
-
               border
-              border-white/15
+              border-[#E5484D]/35
 
-              bg-black/30
+              bg-[#090A0C]/65
 
               px-3
               py-1.5
@@ -203,11 +209,12 @@ function CarCard({
               font-sans
 
               text-[8px]
-              font-medium
+              font-semibold
+              uppercase
 
-              tracking-[0.08em]
+              tracking-[0.10em]
 
-              text-white/85
+              text-[#F3D8D9]
 
               backdrop-blur-md
             "
@@ -215,45 +222,6 @@ function CarCard({
             {car.badge}
           </span>
 
-          {/* Hover arrow */}
-
-          <div
-            className="
-              absolute
-              bottom-4
-              right-4
-
-              flex
-              h-9
-              w-9
-
-              translate-y-2
-              items-center
-              justify-center
-
-              rounded-full
-
-              bg-[#F1EFEA]
-
-              text-[#101214]
-
-              opacity-0
-
-              transition-all
-              duration-500
-
-              group-hover:translate-y-0
-              group-hover:opacity-100
-            "
-          >
-            <ArrowUpRight
-              strokeWidth={1.5}
-              className="
-                h-[15px]
-                w-[15px]
-              "
-            />
-          </div>
         </div>
       </a>
 
@@ -282,18 +250,18 @@ function CarCard({
               className="
                 font-sans
 
-                text-[15px]
-                font-medium
+                text-[16px]
+                font-semibold
 
-                leading-[1.2]
+                leading-[1.15]
 
                 tracking-[-0.025em]
 
-                text-[#F0EEE9]
+                text-[#F3F1EC]
 
-                lg:text-[14px]
+                lg:text-[15px]
 
-                xl:text-[15px]
+                xl:text-[16px]
               "
             >
               {car.name}
@@ -310,7 +278,7 @@ function CarCard({
 
                 leading-[1.55]
 
-                text-[#858A8E]
+                text-white/42
 
                 xl:text-[11px]
               "
@@ -323,16 +291,16 @@ function CarCard({
             className="
               shrink-0
 
-              font-serif
+              font-sans
 
               text-[18px]
-              font-normal
+              font-semibold
 
               leading-none
 
-              tracking-[-0.02em]
+              tracking-[-0.025em]
 
-              text-[#F0EEE9]
+              text-[#E5484D]
 
               xl:text-[20px]
             "
@@ -371,7 +339,7 @@ function CarCard({
               text-[9px]
               font-normal
 
-              text-[#7E8387]
+              text-white/42
             "
           >
             <CalendarDays
@@ -380,7 +348,7 @@ function CarCard({
                 h-[12px]
                 w-[12px]
 
-                text-[#687078]
+                text-[#E5484D]/70
               "
             />
 
@@ -398,7 +366,7 @@ function CarCard({
               text-[9px]
               font-normal
 
-              text-[#7E8387]
+              text-white/42
             "
           >
             <Gauge
@@ -407,7 +375,7 @@ function CarCard({
                 h-[12px]
                 w-[12px]
 
-                text-[#687078]
+                text-[#E5484D]/70
               "
             />
 
@@ -425,7 +393,7 @@ function CarCard({
               text-[9px]
               font-normal
 
-              text-[#7E8387]
+              text-white/42
             "
           >
             <Fuel
@@ -434,7 +402,7 @@ function CarCard({
                 h-[12px]
                 w-[12px]
 
-                text-[#687078]
+                text-[#E5484D]/70
               "
             />
 
@@ -546,7 +514,27 @@ export default function CarListing() {
           inset-0
           z-0
 
-          bg-[linear-gradient(180deg,#0B0D0F_0%,#0D1012_42%,#0B0D0F_100%)]
+          bg-[linear-gradient(180deg,#090A0C_0%,#0D0E10_46%,#090A0C_100%)]
+        "
+      />
+
+      {/* SUBTLE RED AMBIENCE */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          right-[-220px]
+          top-[8%]
+          z-0
+
+          h-[520px]
+          w-[520px]
+
+          rounded-full
+
+          bg-[#E5484D]/[0.045]
+
+          blur-[150px]
         "
       />
 
@@ -640,7 +628,7 @@ export default function CarListing() {
                   h-px
                   w-7
 
-                  bg-[#8499A8]
+                  bg-[#E5484D]
                 "
               />
 
@@ -654,7 +642,7 @@ export default function CarListing() {
 
                   tracking-[0.14em]
 
-                  text-[#8A9298]
+                  text-[#E5484D]/80
                 "
               >
                 Selected Stock
@@ -667,24 +655,24 @@ export default function CarListing() {
               className="
                 max-w-[760px]
 
-                font-serif
+                font-heading
 
-                text-[34px]
-                font-normal
+                text-[36px]
+                font-bold
 
-                leading-[1]
+                leading-[0.96]
 
-                tracking-[-0.035em]
+                tracking-[-0.045em]
 
-                text-[#F1EFEA]
+                text-[#F4F2EE]
 
-                sm:text-[40px]
+                sm:text-[42px]
 
-                md:text-[46px]
+                md:text-[48px]
 
-                lg:text-[52px]
+                lg:text-[54px]
 
-                xl:text-[56px]
+                xl:text-[58px]
               "
             >
               Featured Vehicles
@@ -703,7 +691,7 @@ export default function CarListing() {
 
                 leading-[1.7]
 
-                text-[#858A8E]
+                text-white/42
 
                 sm:text-[13px]
               "
@@ -719,30 +707,27 @@ export default function CarListing() {
             href="#"
             className="
               group
+              relative
 
               hidden
 
               items-center
-              gap-3
-
-              border-b
-              border-white/15
+              justify-center
 
               pb-2
 
               font-sans
 
-              text-[10px]
-              font-medium
+              text-[12px]
+              font-semibold
 
-              tracking-[0.02em]
+              tracking-[0.01em]
 
-              text-[#C5C4BF]
+              text-white/72
 
               transition-colors
               duration-300
 
-              hover:border-white/50
               hover:text-white
 
               sm:flex
@@ -750,17 +735,25 @@ export default function CarListing() {
           >
             View all vehicles
 
-            <ArrowUpRight
-              strokeWidth={1.4}
+            <span
               className="
-                h-[14px]
-                w-[14px]
+                absolute
+                bottom-0
+                left-1/2
 
-                transition-transform
+                h-[2px]
+                w-[20px]
+
+                -translate-x-1/2
+
+                bg-[#E5484D]
+
+                shadow-[0_0_9px_rgba(229,72,77,0.42)]
+
+                transition-all
                 duration-300
 
-                group-hover:-translate-y-[2px]
-                group-hover:translate-x-[2px]
+                group-hover:w-full
               "
             />
           </a>
@@ -776,7 +769,7 @@ export default function CarListing() {
             h-px
             w-full
 
-            bg-white/[0.07]
+            bg-white/[0.08]
 
             sm:mb-10
           "
@@ -839,22 +832,22 @@ export default function CarListing() {
             className="
               max-w-[460px]
 
-              font-serif
+              font-heading
 
-              text-[18px]
-              font-normal
+              text-[19px]
+              font-bold
 
-              leading-[1.35]
+              leading-[1.25]
 
-              tracking-[-0.02em]
+              tracking-[-0.035em]
 
-              text-[#C7C5BF]
+              text-[#EAE7E2]
 
-              sm:text-[20px]
+              sm:text-[21px]
             "
           >
             Looking for something particular?
-            <span className="text-[#747A7E]">
+            <span className="text-white/38">
               {" "}
               We can help source it.
             </span>
@@ -864,51 +857,93 @@ export default function CarListing() {
             href="#"
             className="
               group
+              relative
 
               hidden
 
-              h-[46px]
+              h-[48px]
+              min-w-[150px]
 
               items-center
               justify-center
-              gap-3
 
-              rounded-[3px]
+              overflow-hidden
 
-              bg-[#E7E4DE]
+              border
+              border-[#E5484D]
 
-              px-5
+              bg-[#E5484D]
+
+              px-6
 
               font-sans
 
-              text-[10px]
-              font-medium
+              text-[12px]
+              font-semibold
 
-              text-[#111315]
+              tracking-[0.01em]
 
-              transition-colors
-              duration-300
+              text-white
 
-              hover:bg-white
+              shadow-[0_12px_34px_rgba(0,0,0,0.22)]
+
+              transition-all
+              duration-500
+
+              hover:-translate-y-[2px]
+              hover:border-[#F05A5F]
+              hover:bg-[#F05A5F]
+              hover:shadow-[0_16px_42px_rgba(229,72,77,0.18)]
 
               sm:flex
             "
           >
-            Explore Stock
-
-            <ArrowUpRight
-              strokeWidth={1.4}
+            <span
               className="
-                h-[14px]
-                w-[14px]
+                pointer-events-none
+                absolute
+                inset-x-0
+                top-0
 
-                transition-transform
-                duration-300
+                h-[46%]
 
-                group-hover:-translate-y-[2px]
-                group-hover:translate-x-[2px]
+                bg-gradient-to-b
+                from-white/[0.18]
+                to-transparent
               "
             />
+
+            <span
+              className="
+                pointer-events-none
+                absolute
+                -left-[50%]
+                top-0
+
+                h-full
+                w-[34%]
+
+                -skew-x-[22deg]
+
+                bg-gradient-to-r
+                from-transparent
+                via-white/[0.42]
+                to-transparent
+
+                opacity-0
+                blur-[1px]
+
+                transition-all
+                duration-700
+
+                group-hover:left-[120%]
+                group-hover:opacity-100
+              "
+            />
+
+            <span className="relative z-10">
+              Explore Stock
+            </span>
           </a>
         </div>
 
@@ -919,40 +954,64 @@ export default function CarListing() {
         <a
           href="#"
           className="
+            group
+            relative
+
             mt-8
 
             flex
-            h-[48px]
+            h-[50px]
             w-full
 
             items-center
-            justify-between
+            justify-center
 
-            rounded-[3px]
+            overflow-hidden
 
-            bg-[#E7E4DE]
+            border
+            border-[#E5484D]
+
+            bg-[#E5484D]
 
             px-5
 
             font-sans
 
-            text-[10px]
-            font-medium
+            text-[12px]
+            font-semibold
 
-            text-[#111315]
+            tracking-[0.01em]
+
+            text-white
+
+            shadow-[0_12px_30px_rgba(0,0,0,0.22)]
+
+            transition-all
+            duration-500
+
+            active:scale-[0.99]
 
             sm:hidden
           "
         >
-          View all vehicles
-
-          <ArrowUpRight
-            strokeWidth={1.4}
+          <span
             className="
-              h-[14px]
-              w-[14px]
+              pointer-events-none
+              absolute
+              inset-x-0
+              top-0
+
+              h-[46%]
+
+              bg-gradient-to-b
+              from-white/[0.18]
+              to-transparent
             "
           />
+
+          <span className="relative z-10">
+            View all vehicles
+          </span>
         </a>
       </div>
     </motion.section>

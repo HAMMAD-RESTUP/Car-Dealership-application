@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Play } from "lucide-react";
+import { Play } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -17,7 +17,7 @@ export default function VideoSection() {
         w-full
         overflow-hidden
 
-        bg-[#08111A]
+        bg-[#090A0C]
 
         sm:h-[620px]
         lg:h-[680px]
@@ -69,7 +69,7 @@ export default function VideoSection() {
           CINEMATIC OVERLAYS
       ====================================================== */}
 
-      {/* main darkness */}
+      {/* MAIN DARKNESS */}
 
       <div
         className="
@@ -78,13 +78,13 @@ export default function VideoSection() {
           inset-0
           z-10
 
-          bg-black/45
+          bg-black/48
 
-          sm:bg-black/50
+          sm:bg-black/52
         "
       />
 
-      {/* center focus */}
+      {/* CENTER FOCUS */}
 
       <div
         className="
@@ -93,11 +93,11 @@ export default function VideoSection() {
           inset-0
           z-10
 
-          bg-[radial-gradient(circle_at_center,rgba(7,16,24,0.04)_0%,rgba(7,16,24,0.20)_45%,rgba(5,11,17,0.72)_100%)]
+          bg-[radial-gradient(circle_at_center,rgba(9,10,12,0.02)_0%,rgba(9,10,12,0.18)_44%,rgba(9,10,12,0.78)_100%)]
         "
       />
 
-      {/* top + bottom depth */}
+      {/* TOP + BOTTOM DEPTH */}
 
       <div
         className="
@@ -106,11 +106,11 @@ export default function VideoSection() {
           inset-0
           z-10
 
-          bg-[linear-gradient(180deg,#08111A_0%,rgba(8,17,26,0.08)_24%,rgba(8,17,26,0.04)_60%,#08111A_100%)]
+          bg-[linear-gradient(180deg,#090A0C_0%,rgba(9,10,12,0.08)_24%,rgba(9,10,12,0.03)_60%,#090A0C_100%)]
         "
       />
 
-      {/* steel-blue atmosphere */}
+      {/* SUBTLE RED ATMOSPHERE */}
 
       <div
         className="
@@ -120,18 +120,18 @@ export default function VideoSection() {
           top-1/2
           z-10
 
-          h-[400px]
-          w-[720px]
-          max-w-[90vw]
+          h-[420px]
+          w-[760px]
+          max-w-[92vw]
 
           -translate-x-1/2
           -translate-y-1/2
 
           rounded-full
 
-          bg-[#5788B5]/[0.055]
+          bg-[#E5484D]/[0.055]
 
-          blur-[150px]
+          blur-[155px]
         "
       />
 
@@ -154,8 +154,10 @@ export default function VideoSection() {
 
           bg-gradient-to-r
           from-transparent
-          via-[#5788B5]/30
+          via-[#E5484D]/40
           to-transparent
+
+          shadow-[0_0_12px_rgba(229,72,77,0.16)]
         "
       />
 
@@ -257,7 +259,9 @@ export default function VideoSection() {
                 h-px
                 w-7
 
-                bg-[#5788B5]
+                bg-[#E5484D]
+
+                shadow-[0_0_8px_rgba(229,72,77,0.28)]
 
                 sm:w-9
               "
@@ -268,12 +272,12 @@ export default function VideoSection() {
                 font-sans
 
                 text-[8px]
-                font-bold
+                font-semibold
                 uppercase
 
                 tracking-[0.20em]
 
-                text-[#8FB3D4]
+                text-[#E5484D]/85
 
                 sm:text-[9px]
                 md:text-[10px]
@@ -287,7 +291,9 @@ export default function VideoSection() {
                 h-px
                 w-7
 
-                bg-[#5788B5]
+                bg-[#E5484D]
+
+                shadow-[0_0_8px_rgba(229,72,77,0.28)]
 
                 sm:w-9
               "
@@ -321,28 +327,28 @@ export default function VideoSection() {
                 ease,
               }}
               className="
-                font-serif
+                font-heading
 
-                text-[36px]
-                font-normal
+                text-[38px]
+                font-bold
 
-                leading-[1.02]
+                leading-[0.98]
 
-                tracking-[-0.04em]
+                tracking-[-0.045em]
 
-                text-[#F3F5F6]
+                text-[#F4F2EE]
 
-                sm:text-[44px]
+                sm:text-[46px]
 
-                md:text-[50px]
+                md:text-[52px]
 
-                lg:text-[56px]
+                lg:text-[58px]
               "
             >
               Experience Luxury.
               <br />
 
-              <span className="text-[#76AAD5]">
+              <span className="text-[#E5484D]">
                 Feel The Drive.
               </span>
             </motion.h2>
@@ -385,11 +391,11 @@ export default function VideoSection() {
               font-sans
 
               text-[12px]
-              font-medium
+              font-normal
 
-              leading-[1.8]
+              leading-[1.75]
 
-              text-white/52
+              text-white/50
 
               sm:text-[13px]
 
@@ -443,52 +449,114 @@ export default function VideoSection() {
               sm:flex-row
             "
           >
-            {/* PLAY BUTTON */}
+            {/* =================================================
+                WATCH EXPERIENCE
+                Same visual language as Enquire / Browse Stock
+            ================================================== */}
 
             <button
               type="button"
               aria-label="Play video"
               className="
                 group
+                relative
 
                 flex
                 h-[54px]
+                min-w-[195px]
 
                 items-center
                 justify-center
 
                 gap-3
 
-                rounded-[5px]
+                overflow-hidden
 
-                bg-[#5788B5]
+                border
+                border-[#E5484D]
 
-                px-5
+                bg-[#E5484D]
+
+                px-6
 
                 font-sans
 
-                text-[11px]
-                font-bold
-                uppercase
+                text-[12px]
+                font-semibold
 
-                tracking-[0.04em]
+                tracking-[0.01em]
 
                 text-white
 
-                shadow-[0_14px_40px_rgba(87,136,181,0.22)]
+                shadow-[0_12px_34px_rgba(0,0,0,0.24)]
 
                 transition-all
-                duration-300
+                duration-500
 
                 hover:-translate-y-[2px]
-                hover:bg-[#6899C4]
+                hover:border-[#F05A5F]
+                hover:bg-[#F05A5F]
+                hover:shadow-[0_16px_42px_rgba(229,72,77,0.18)]
+
+                active:translate-y-0
+                active:scale-[0.99]
 
                 sm:h-[56px]
-                sm:px-6
+                sm:px-7
               "
             >
+              {/* TOP GLOSS */}
+
               <span
                 className="
+                  pointer-events-none
+                  absolute
+                  inset-x-0
+                  top-0
+
+                  h-[46%]
+
+                  bg-gradient-to-b
+                  from-white/[0.18]
+                  to-transparent
+                "
+              />
+
+              {/* HOVER LIGHT SWEEP */}
+
+              <span
+                className="
+                  pointer-events-none
+                  absolute
+                  -left-[50%]
+                  top-0
+
+                  h-full
+                  w-[34%]
+
+                  -skew-x-[22deg]
+
+                  bg-gradient-to-r
+                  from-transparent
+                  via-white/[0.42]
+                  to-transparent
+
+                  opacity-0
+                  blur-[1px]
+
+                  transition-all
+                  duration-700
+
+                  group-hover:left-[120%]
+                  group-hover:opacity-100
+                "
+              />
+
+              <span
+                className="
+                  relative
+                  z-10
+
                   flex
                   h-7
                   w-7
@@ -496,9 +564,10 @@ export default function VideoSection() {
                   items-center
                   justify-center
 
-                  rounded-full
+                  border
+                  border-white/[0.18]
 
-                  bg-white/[0.12]
+                  bg-black/[0.08]
                 "
               >
                 <Play
@@ -512,74 +581,87 @@ export default function VideoSection() {
                 />
               </span>
 
-              Watch Experience
+              <span className="relative z-10">
+                Watch Experience
+              </span>
             </button>
 
-            {/* STOCK */}
+            {/* =================================================
+                EXPLORE STOCK
+                Dark glass secondary + red animated underline
+            ================================================== */}
 
             <a
               href="#stock"
               className="
                 group
+                relative
 
                 flex
                 h-[54px]
+                min-w-[175px]
 
                 items-center
                 justify-center
 
-                gap-4
-
-                rounded-[5px]
+                overflow-hidden
 
                 border
-                border-white/[0.18]
+                border-white/[0.16]
 
-                bg-[#08111A]/25
+                bg-black/[0.16]
 
-                px-5
+                px-6
 
                 font-sans
 
-                text-[11px]
-                font-bold
-                uppercase
+                text-[12px]
+                font-semibold
 
-                tracking-[0.04em]
+                tracking-[0.01em]
 
-                text-white/80
+                text-white/82
 
                 backdrop-blur-md
 
                 transition-all
-                duration-300
+                duration-500
 
                 hover:-translate-y-[2px]
-                hover:border-[#5788B5]/60
-                hover:bg-[#5788B5]/10
+                hover:border-[#E5484D]/70
+                hover:bg-[#E5484D]/[0.07]
                 hover:text-white
 
                 sm:h-[56px]
-                sm:px-6
+                sm:px-7
               "
             >
-              Explore Stock
-
-              <ArrowUpRight
-                strokeWidth={1.6}
+              <span
                 className="
-                  h-[15px]
-                  w-[15px]
+                  pointer-events-none
+                  absolute
+                  bottom-0
+                  left-1/2
 
-                  text-[#8FB3D4]
+                  h-[2px]
+                  w-0
 
-                  transition-transform
-                  duration-300
+                  -translate-x-1/2
 
-                  group-hover:-translate-y-[2px]
-                  group-hover:translate-x-[2px]
+                  bg-[#E5484D]
+
+                  shadow-[0_0_10px_rgba(229,72,77,0.42)]
+
+                  transition-all
+                  duration-500
+
+                  group-hover:w-[48%]
                 "
               />
+
+              <span className="relative z-10">
+                Explore Stock
+              </span>
             </a>
           </motion.div>
         </motion.div>

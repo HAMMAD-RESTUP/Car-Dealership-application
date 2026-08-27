@@ -10,7 +10,7 @@ import {
   useTransform,
 } from "framer-motion";
 
-import { ArrowRight, ArrowDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 const strips = [0, 1, 2, 3];
 
@@ -541,6 +541,7 @@ export default function Hero() {
                 }}
                 className="
                   max-w-[650px]
+                  
 
                   font-serif
 
@@ -566,11 +567,56 @@ export default function Hero() {
                   2xl:text-[68px]
                 "
               >
-                Quality Used Cars.
+                <span className="inline-flex items-baseline gap-[0.18em]">
+                  {/* YM — SILVER METALLIC */}
+                  <span
+                    className="
+                      inline-block
+
+                      [font-family:Arial,Helvetica,sans-serif]
+                      font-bold
+
+                      tracking-[-0.055em]
+
+                      bg-[linear-gradient(180deg,#FFFFFF_0%,#FFFFFF_18%,#ECECEC_38%,#B8B8B8_62%,#747474_82%,#414141_100%)]
+
+                      bg-clip-text
+                      text-transparent
+
+                      [-webkit-background-clip:text]
+                      [-webkit-text-fill-color:transparent]
+                    "
+                  >
+                    YM
+                  </span>
+
+                  {/* MOTORS — RED TOP / SILVER BOTTOM */}
+              <span
+  className="
+    inline-block
+
+    [font-family:Arial,Helvetica,sans-serif]
+    font-bold
+
+    tracking-[-0.055em]
+
+    bg-[linear-gradient(180deg,#b36f6f_0%,#974447_18%,#a96d6f_30%,#ef7479_40%,#f3eeee_51%,#ddd_63%,#ababab_78%,#555_100%)]
+
+    bg-clip-text
+    text-transparent
+
+    [-webkit-background-clip:text]
+    [-webkit-text-fill-color:transparent]
+  "
+>
+  Motors
+</span>
+                </span>
+
                 <br />
 
                 <span className="text-[#C6C4BE]">
-                  Trusted Local
+                  Used Cars. Trusted 
                 </span>
 
                 <br />
@@ -671,85 +717,110 @@ export default function Hero() {
               "
             >
               {/* =================================================
-                  PRIMARY BUTTON
+                  PRIMARY — PREMIUM IVORY PILL
               ================================================== */}
 
               <a
                 href="#stock"
                 className="
                   group
+                  relative
 
                   flex
-
-                  h-[50px]
+                  h-[54px]
                   w-full
 
+                  min-w-0
+
                   items-center
-                  justify-between
+                  justify-center
 
-                  rounded-[4px]
+                  overflow-hidden
 
-                  bg-[#ECE9E2]
+                  border
+                  border-[#E5484D]
 
-                  px-5
+                  bg-[#E5484D]
+
+                  px-7
 
                   font-sans
 
-                  text-[10px]
+                  text-[13px]
                   font-semibold
 
                   tracking-[0.01em]
 
-                  text-[#111315]
+                  text-white
+
+                  shadow-[0_12px_34px_rgba(0,0,0,0.22)]
 
                   transition-all
-                  duration-300
+                  duration-500
 
-                  hover:bg-white
+                  hover:-translate-y-[2px]
+                  hover:border-[#F05A5F]
+                  hover:bg-[#F05A5F]
+                  hover:shadow-[0_16px_42px_rgba(229,72,77,0.18)]
 
-                  sm:h-[52px]
+                  active:translate-y-0
+                  active:scale-[0.99]
+
+                  sm:h-[54px]
                   sm:flex-1
-                  sm:min-w-[190px]
+                  sm:min-w-[195px]
+                  sm:text-[14px]
 
-                  lg:h-[54px]
+                  lg:h-[56px]
                 "
               >
-                <span>Browse Stock</span>
-
+                {/* TOP GLOSS */}
                 <span
                   className="
-                    flex
+                    pointer-events-none
+                    absolute
+                    inset-x-0
+                    top-0
 
-                    h-7
-                    w-7
+                    h-[46%]
 
-                    shrink-0
+                    bg-gradient-to-b
+                    from-white/[0.18]
+                    to-transparent
+                  "
+                />
 
-                    items-center
-                    justify-center
+                {/* HOVER LIGHT SWEEP */}
+                <span
+                  className="
+                    pointer-events-none
+                    absolute
+                    -left-[50%]
+                    top-0
 
-                    rounded-full
+                    h-full
+                    w-[34%]
 
-                    bg-black/[0.06]
+                    -skew-x-[22deg]
+
+                    bg-gradient-to-r
+                    from-transparent
+                    via-white/[0.42]
+                    to-transparent
+
+                    opacity-0
+                    blur-[1px]
 
                     transition-all
-                    duration-300
+                    duration-700
 
-                    group-hover:bg-black/[0.10]
+                    group-hover:left-[120%]
+                    group-hover:opacity-100
                   "
-                >
-                  <ArrowRight
-                    strokeWidth={1.5}
-                    className="
-                      h-[13px]
-                      w-[13px]
+                />
 
-                      transition-transform
-                      duration-300
-
-                      group-hover:translate-x-[2px]
-                    "
-                  />
+                <span className="relative z-10">
+                  Browse Stock
                 </span>
               </a>
 
@@ -768,7 +839,7 @@ export default function Hero() {
                   w-full
 
                   items-center
-                  justify-between
+                  justify-center
 
                   rounded-[4px]
 
@@ -781,10 +852,12 @@ export default function Hero() {
 
                   font-sans
 
-                  text-[10px]
+                  text-[12px]
                   font-semibold
 
-                  tracking-[0.01em]
+                  tracking-[-0.01em]
+
+                  sm:text-[13px]
 
                   text-[#ECEAE5]
 
@@ -802,49 +875,6 @@ export default function Hero() {
                 "
               >
                 <span>Sell Your Car</span>
-
-                <span
-                  className="
-                    flex
-
-                    h-7
-                    w-7
-
-                    shrink-0
-
-                    items-center
-                    justify-center
-
-                    rounded-full
-
-                    border
-                    border-white/[0.12]
-
-                    bg-white/[0.035]
-
-                    transition-all
-                    duration-300
-
-                    group-hover:border-white/[0.24]
-                    group-hover:bg-white/[0.07]
-                  "
-                >
-                  <ArrowRight
-                    strokeWidth={1.5}
-                    className="
-                      h-[13px]
-                      w-[13px]
-
-                      text-[#BFC2C2]
-
-                      transition-transform
-                      duration-300
-
-                      group-hover:translate-x-[2px]
-                      group-hover:text-white
-                    "
-                  />
-                </span>
               </a>
             </motion.div>
 

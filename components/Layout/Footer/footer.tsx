@@ -3,204 +3,712 @@
 import { motion } from "framer-motion";
 import Logo from "../Header/Logo";
 
+const ease = [0.22, 1, 0.36, 1] as const;
 
-export default function Footer(){
-
+export default function Footer() {
   return (
+    <footer
+      className="
+        relative
+        overflow-hidden
 
-    <footer className="relative bg-[#05070a] overflow-hidden pt-16">
+        border-t
+        border-white/[0.06]
 
+        bg-[#090A0C]
 
-      <div className="absolute left-0 bottom-0 w-[450px] h-[450px] bg-[#8ea6c5]/10 blur-[150px] rounded-full" />
+        pt-16
 
+        sm:pt-20
+        lg:pt-24
+      "
+    >
+      {/* =====================================================
+          BACKGROUND
+      ====================================================== */}
 
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-10">
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-0
 
+          bg-[linear-gradient(180deg,#090A0C_0%,#0D0E10_46%,#090A0C_100%)]
+        "
+      />
 
-        <motion.div initial={{opacity:0,y:50}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:.8}} className="pb-12 border-b border-white/10">
+      {/* RED AMBIENCE */}
 
+      <div
+        className="
+          pointer-events-none
+          absolute
 
-          <h2 className="text-white text-3xl sm:text-5xl lg:text-6xl font-semibold leading-tight max-w-3xl">
-            Drive The Future.
-            <br />
-            Experience Luxury.
-          </h2>
+          bottom-[-180px]
+          left-[-170px]
 
+          h-[470px]
+          w-[470px]
 
-          <p className="text-gray-400 mt-5 max-w-xl text-sm sm:text-base">
-            Discover premium vehicles with exceptional performance, advanced technology and timeless design.
-          </p>
+          rounded-full
 
+          bg-[#E5484D]/[0.055]
 
-        </motion.div>
+          blur-[150px]
+        "
+      />
 
+      <div
+        className="
+          pointer-events-none
+          absolute
 
+          right-[-220px]
+          top-[8%]
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 py-12">
+          h-[420px]
+          w-[420px]
 
+          rounded-full
 
+          bg-[#E5484D]/[0.03]
 
-          <div>
+          blur-[145px]
+        "
+      />
 
-          <Logo/>
+      {/* TOP RED DETAIL */}
 
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-0
 
-            <p className="text-gray-400 mt-10 text-sm leading-relaxed">
-              Premium automotive experience delivering luxury vehicles, trusted service and exceptional driving experiences.
-            </p>
+          h-px
+          w-[64%]
 
+          -translate-x-1/2
+
+          bg-gradient-to-r
+          from-transparent
+          via-[#E5484D]/45
+          to-transparent
+
+          shadow-[0_0_10px_rgba(229,72,77,0.18)]
+        "
+      />
+
+      {/* =====================================================
+          WRAPPER
+      ====================================================== */}
+
+      <div
+        className="
+          relative
+          z-10
+
+          mx-auto
+
+          w-full
+          max-w-[1720px]
+
+          px-5
+
+          sm:px-7
+          md:px-9
+          lg:px-12
+          xl:px-16
+          2xl:px-20
+        "
+      >
+        {/* =====================================================
+            FOOTER HERO
+        ====================================================== */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 38,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.8,
+            ease,
+          }}
+          className="
+            border-b
+            border-white/[0.08]
+
+            pb-12
+
+            sm:pb-14
+            lg:pb-16
+          "
+        >
+          {/* EYEBROW */}
+
+          <div
+            className="
+              mb-5
+
+              flex
+              items-center
+
+              gap-3
+            "
+          >
+            <span
+              className="
+                h-px
+                w-8
+
+                bg-[#E5484D]
+
+                shadow-[0_0_8px_rgba(229,72,77,0.24)]
+              "
+            />
+
+            <span
+              className="
+                font-sans
+
+                text-[9px]
+                font-semibold
+                uppercase
+
+                tracking-[0.16em]
+
+                text-[#E5484D]/85
+              "
+            >
+              YM Motors
+            </span>
           </div>
 
+          {/* TITLE */}
 
+          <h2
+            className="
+              max-w-[900px]
 
+              font-heading
+
+              text-[38px]
+              font-bold
+
+              leading-[0.96]
+
+              tracking-[-0.045em]
+
+              text-[#F4F2EE]
+
+              sm:text-[48px]
+
+              md:text-[56px]
+
+              lg:text-[64px]
+
+              xl:text-[72px]
+            "
+          >
+            Drive The Future.
+            <br />
+
+            <span className="text-[#E5484D]">
+              Experience Luxury.
+            </span>
+          </h2>
+
+          {/* COPY */}
+
+          <p
+            className="
+              mt-6
+
+              max-w-[620px]
+
+              font-sans
+
+              text-[13px]
+              font-normal
+
+              leading-[1.75]
+
+              text-white/46
+
+              sm:text-[14px]
+            "
+          >
+            Discover premium vehicles with exceptional performance,
+            advanced technology and timeless design — backed by trusted,
+            personal service from first enquiry to final handover.
+          </p>
+        </motion.div>
+
+        {/* =====================================================
+            FOOTER GRID
+        ====================================================== */}
+
+        <div
+          className="
+            grid
+            grid-cols-1
+
+            gap-12
+
+            py-12
+
+            sm:grid-cols-2
+            sm:gap-x-10
+            sm:gap-y-12
+
+            lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]
+            lg:gap-12
+            lg:py-14
+          "
+        >
+          {/* BRAND */}
 
           <div>
+            <div className="max-w-max">
+              <Logo />
+            </div>
 
-            <h4 className="text-white font-medium mb-5">
+            <p
+              className="
+                mt-8
+
+                max-w-[360px]
+
+                font-sans
+
+                text-[13px]
+                font-normal
+
+                leading-[1.75]
+
+                text-white/42
+              "
+            >
+              Premium automotive experience delivering carefully selected
+              vehicles, trusted service and exceptional driving experiences.
+            </p>
+
+            {/* SMALL BRAND LINE */}
+
+            <div
+              className="
+                mt-7
+
+                flex
+                items-center
+
+                gap-3
+              "
+            >
+              <span
+                className="
+                  h-[2px]
+                  w-[2px]
+
+                  bg-[#E5484D]
+                "
+              />
+
+              <span
+                className="
+                  font-sans
+
+                  text-[9px]
+                  font-medium
+                  uppercase
+
+                  tracking-[0.13em]
+
+                  text-white/30
+                "
+              >
+                Surrey · United Kingdom
+              </span>
+            </div>
+          </div>
+
+          {/* VEHICLES */}
+
+          <div>
+            <h4
+              className="
+                font-sans
+
+                text-[11px]
+                font-semibold
+                uppercase
+
+                tracking-[0.12em]
+
+                text-white/82
+              "
+            >
               Vehicles
             </h4>
 
+            <ul
+              className="
+                mt-6
+                space-y-3.5
 
-            <ul className="space-y-3 text-gray-400 text-sm">
+                font-sans
 
-              <li className="hover:text-white transition">
-                Models
-              </li>
+                text-[13px]
 
-              <li className="hover:text-white transition">
-                Luxury SUVs
-              </li>
+                text-white/42
+              "
+            >
+              {[
+                "Used Cars",
+                "Luxury SUVs",
+                "Sports Cars",
+                "Premium Collection",
+              ].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#stock"
+                    className="
+                      group
+                      relative
 
-              <li className="hover:text-white transition">
-                Sports Cars
-              </li>
+                      inline-flex
 
-              <li className="hover:text-white transition">
-                Premium Collection
-              </li>
+                      items-center
 
+                      transition-colors
+                      duration-300
+
+                      hover:text-white
+                    "
+                  >
+                    {item}
+
+                    <span
+                      className="
+                        absolute
+                        -bottom-1
+                        left-0
+
+                        h-px
+                        w-0
+
+                        bg-[#E5484D]
+
+                        transition-all
+                        duration-300
+
+                        group-hover:w-full
+                      "
+                    />
+                  </a>
+                </li>
+              ))}
             </ul>
-
-
           </div>
 
-
-
+          {/* COMPANY */}
 
           <div>
+            <h4
+              className="
+                font-sans
 
-            <h4 className="text-white font-medium mb-5">
+                text-[11px]
+                font-semibold
+                uppercase
+
+                tracking-[0.12em]
+
+                text-white/82
+              "
+            >
               Company
             </h4>
 
+            <ul
+              className="
+                mt-6
+                space-y-3.5
 
-            <ul className="space-y-3 text-gray-400 text-sm">
+                font-sans
 
-              <li className="hover:text-white transition">
-                About Us
-              </li>
+                text-[13px]
 
-              <li className="hover:text-white transition">
-                Dealership
-              </li>
+                text-white/42
+              "
+            >
+              {[
+                ["About Us", "#about"],
+                ["Finance", "#finance"],
+                ["Sell Your Car", "#sell"],
+                ["Contact", "#contact"],
+              ].map(([label, href]) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    className="
+                      group
+                      relative
 
-              <li className="hover:text-white transition">
-                Careers
-              </li>
+                      inline-flex
 
-              <li className="hover:text-white transition">
-                Contact
-              </li>
+                      items-center
 
+                      transition-colors
+                      duration-300
+
+                      hover:text-white
+                    "
+                  >
+                    {label}
+
+                    <span
+                      className="
+                        absolute
+                        -bottom-1
+                        left-0
+
+                        h-px
+                        w-0
+
+                        bg-[#E5484D]
+
+                        transition-all
+                        duration-300
+
+                        group-hover:w-full
+                      "
+                    />
+                  </a>
+                </li>
+              ))}
             </ul>
-
-
           </div>
 
-
-
+          {/* CONTACT */}
 
           <div>
+            <h4
+              className="
+                font-sans
 
-            <h4 className="text-white font-medium mb-5">
+                text-[11px]
+                font-semibold
+                uppercase
+
+                tracking-[0.12em]
+
+                text-white/82
+              "
+            >
               Contact
             </h4>
 
+            <div
+              className="
+                mt-6
+                space-y-3.5
 
-            <div className="space-y-3 text-gray-400 text-sm">
+                font-sans
+
+                text-[13px]
+
+                text-white/42
+              "
+            >
+              <a
+                href="tel:01737307007"
+                className="
+                  block
+
+                  transition-colors
+                  duration-300
+
+                  hover:text-white
+                "
+              >
+                01737 307 007
+              </a>
+
+              <a
+                href="mailto:info@ymmotors.co.uk"
+                className="
+                  block
+
+                  transition-colors
+                  duration-300
+
+                  hover:text-white
+                "
+              >
+                info@ymmotors.co.uk
+              </a>
 
               <p>
-                +44 20 7946 0990
+                Surrey, United Kingdom
               </p>
-
-              <p>
-                info@primemotors.com
-              </p>
-
-              <p>
-                London, United Kingdom
-              </p>
-
             </div>
 
+            {/* SOCIALS */}
 
+            <div
+              className="
+                mt-7
 
-            <div className="flex gap-3 mt-6">
+                flex
 
-              {["F","I","X"].map(item=>(
+                gap-3
+              "
+            >
+              {["F", "I", "X"].map((item) => (
+                <a
+                  key={item}
+                  href="#"
+                  aria-label={item}
+                  className="
+                    group
+                    relative
 
-                <div key={item} className="w-10 h-10 flex items-center justify-center border border-white/20 text-white text-sm hover:bg-[#8ea6c5] hover:text-black transition">
+                    flex
+                    h-10
+                    w-10
 
-                  {item}
+                    items-center
+                    justify-center
 
-                </div>
+                    overflow-hidden
 
+                    border
+                    border-white/[0.12]
+
+                    bg-white/[0.02]
+
+                    font-sans
+
+                    text-[11px]
+                    font-semibold
+
+                    text-white/70
+
+                    transition-all
+                    duration-300
+
+                    hover:-translate-y-[2px]
+                    hover:border-[#E5484D]/70
+                    hover:bg-[#E5484D]
+                    hover:text-white
+                    hover:shadow-[0_10px_28px_rgba(229,72,77,0.16)]
+                  "
+                >
+                  <span
+                    className="
+                      pointer-events-none
+                      absolute
+                      inset-x-0
+                      top-0
+
+                      h-[44%]
+
+                      bg-gradient-to-b
+                      from-white/[0.12]
+                      to-transparent
+
+                      opacity-0
+
+                      transition-opacity
+                      duration-300
+
+                      group-hover:opacity-100
+                    "
+                  />
+
+                  <span className="relative z-10">
+                    {item}
+                  </span>
+                </a>
               ))}
-
-
             </div>
-
-
           </div>
-
-
-
         </div>
 
+        {/* =====================================================
+            BOTTOM BAR
+        ====================================================== */}
 
+        <div
+          className="
+            flex
+            flex-col
 
+            gap-4
 
+            border-t
+            border-white/[0.08]
 
-        <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row justify-between gap-4 text-gray-500 text-sm">
+            py-6
 
+            font-sans
 
+            text-[11px]
+
+            text-white/30
+
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+          "
+        >
           <p>
-            © 2026 Prime Motors. All rights reserved.
+            © 2026 YM Motors. All rights reserved.
           </p>
 
+          <div
+            className="
+              flex
 
-          <div className="flex gap-6">
+              gap-6
+            "
+          >
+            <a
+              href="#"
+              className="
+                transition-colors
+                duration-300
 
-            <span>
+                hover:text-white
+              "
+            >
               Privacy Policy
-            </span>
+            </a>
 
-            <span>
+            <a
+              href="#"
+              className="
+                transition-colors
+                duration-300
+
+                hover:text-white
+              "
+            >
               Terms
-            </span>
-
+            </a>
           </div>
-
-
         </div>
-
-
-
       </div>
-
-
     </footer>
-
   );
-
 }

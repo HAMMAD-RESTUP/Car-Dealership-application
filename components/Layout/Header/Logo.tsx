@@ -12,18 +12,22 @@ export default function Logo() {
       }}
       className="
         cursor-pointer
+
         font-heading
+
         text-[20px]
         font-semibold
+
         uppercase
         tracking-[0.12em]
+
         text-white
 
         sm:text-[22px]
         lg:text-[24px]
       "
     >
-      YM <span className="text-[#8FB3D4]">Motors</span>
+      Your Logo
     </motion.div>
   );
 }

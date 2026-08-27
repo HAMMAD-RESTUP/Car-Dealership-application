@@ -38,6 +38,8 @@ const brands = [
   },
 ];
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export default function BrandMarquee() {
   const reduceMotion = useReducedMotion();
 
@@ -48,9 +50,9 @@ export default function BrandMarquee() {
         overflow-hidden
 
         border-y
-        border-white/[0.055]
+        border-white/[0.06]
 
-        bg-[#08111A]
+        bg-[#090A0C]
 
         py-7
 
@@ -58,7 +60,9 @@ export default function BrandMarquee() {
         lg:py-9
       "
     >
-      {/* BACKGROUND */}
+      {/* =========================================================
+          DARK CINEMATIC BACKGROUND
+      ========================================================== */}
 
       <div
         className="
@@ -66,11 +70,39 @@ export default function BrandMarquee() {
           absolute
           inset-0
 
-          bg-[radial-gradient(circle_at_50%_100%,rgba(87,136,181,0.055),transparent_40%),linear-gradient(180deg,#08111A_0%,#09131B_50%,#08111A_100%)]
+          bg-[linear-gradient(180deg,#090A0C_0%,#0D0E10_48%,#090A0C_100%)]
         "
       />
 
-      {/* TOP LIGHT */}
+      {/* =========================================================
+          SUBTLE RED AMBIENCE
+      ========================================================== */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+
+          left-1/2
+          top-1/2
+
+          h-[260px]
+          w-[720px]
+
+          -translate-x-1/2
+          -translate-y-1/2
+
+          rounded-full
+
+          bg-[#E5484D]/[0.055]
+
+          blur-[115px]
+        "
+      />
+
+      {/* =========================================================
+          TOP RED DETAIL LINE
+      ========================================================== */}
 
       <div
         className="
@@ -80,24 +112,57 @@ export default function BrandMarquee() {
           top-0
 
           h-px
-          w-[60%]
+          w-[64%]
 
           -translate-x-1/2
 
           bg-gradient-to-r
           from-transparent
-          via-[#5788B5]/20
+          via-[#E5484D]/55
+          to-transparent
+
+          shadow-[0_0_10px_rgba(229,72,77,0.18)]
+        "
+      />
+
+      {/* =========================================================
+          BOTTOM SOFT REFLECTION
+      ========================================================== */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          bottom-0
+          left-1/2
+
+          h-px
+          w-[42%]
+
+          -translate-x-1/2
+
+          bg-gradient-to-r
+          from-transparent
+          via-white/[0.07]
           to-transparent
         "
       />
 
-      {/* MARQUEE */}
+      {/* =========================================================
+          MARQUEE
+      ========================================================== */}
 
       <motion.div
         initial={
           reduceMotion
-            ? { opacity: 1, y: 0 }
-            : { opacity: 0, y: 15 }
+            ? {
+                opacity: 1,
+                y: 0,
+              }
+            : {
+                opacity: 0,
+                y: 14,
+              }
         }
         whileInView={{
           opacity: 1,
@@ -107,8 +172,8 @@ export default function BrandMarquee() {
           once: true,
         }}
         transition={{
-          duration: 0.7,
-          ease: [0.22, 1, 0.36, 1],
+          duration: reduceMotion ? 0 : 0.7,
+          ease,
         }}
         className="
           relative
@@ -148,6 +213,7 @@ export default function BrandMarquee() {
               key={`${brand.name}-${index}`}
               className="
                 group
+                relative
 
                 flex
 
@@ -169,12 +235,64 @@ export default function BrandMarquee() {
                 lg:w-[205px]
               "
             >
+              {/* SUBTLE ITEM SEPARATOR */}
+
+              <span
+                className="
+                  pointer-events-none
+                  absolute
+                  right-0
+                  top-1/2
+
+                  h-[28px]
+                  w-px
+
+                  -translate-y-1/2
+
+                  bg-gradient-to-b
+                  from-transparent
+                  via-white/[0.055]
+                  to-transparent
+                "
+              />
+
+              {/* RED HOVER GLOW */}
+
+              <span
+                className="
+                  pointer-events-none
+                  absolute
+                  left-1/2
+                  top-1/2
+
+                  h-[42px]
+                  w-[90px]
+
+                  -translate-x-1/2
+                  -translate-y-1/2
+
+                  rounded-full
+
+                  bg-[#E5484D]/0
+
+                  blur-[28px]
+
+                  transition-all
+                  duration-500
+
+                  group-hover:bg-[#E5484D]/[0.10]
+                "
+              />
+
               <Image
                 src={brand.logo}
                 alt={brand.name}
                 width={150}
                 height={65}
                 className="
+                  relative
+                  z-10
+
                   max-h-[34px]
                   max-w-[95px]
 
@@ -183,17 +301,20 @@ export default function BrandMarquee() {
                   object-contain
 
                   grayscale
-                  brightness-[1.3]
+                  brightness-[1.38]
+                  contrast-[1.02]
 
-                  opacity-[0.40]
+                  opacity-[0.44]
 
                   transition-all
                   duration-500
 
-                  group-hover:scale-[1.05]
+                  group-hover:scale-[1.045]
                   group-hover:grayscale-0
-                  group-hover:brightness-100
+                  group-hover:brightness-[1.05]
+                  group-hover:contrast-100
                   group-hover:opacity-100
+                  group-hover:drop-shadow-[0_0_14px_rgba(229,72,77,0.14)]
 
                   sm:max-h-[38px]
                   sm:max-w-[110px]
@@ -209,7 +330,9 @@ export default function BrandMarquee() {
           ))}
         </motion.div>
 
-        {/* LEFT FADE */}
+        {/* =========================================================
+            LEFT FADE
+        ========================================================== */}
 
         <div
           className="
@@ -222,8 +345,8 @@ export default function BrandMarquee() {
             w-14
 
             bg-gradient-to-r
-            from-[#08111A]
-            via-[#08111A]/90
+            from-[#090A0C]
+            via-[#090A0C]/92
             to-transparent
 
             sm:w-20
@@ -231,7 +354,9 @@ export default function BrandMarquee() {
           "
         />
 
-        {/* RIGHT FADE */}
+        {/* =========================================================
+            RIGHT FADE
+        ========================================================== */}
 
         <div
           className="
@@ -244,8 +369,8 @@ export default function BrandMarquee() {
             w-14
 
             bg-gradient-to-l
-            from-[#08111A]
-            via-[#08111A]/90
+            from-[#090A0C]
+            via-[#090A0C]/92
             to-transparent
 
             sm:w-20
