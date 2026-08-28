@@ -15,7 +15,7 @@ export default function Footer() {
         border-t
         border-white/[0.06]
 
-        bg-[#090A0C]
+        bg-[#0B0D0F]
 
         pt-16
 
@@ -33,11 +33,11 @@ export default function Footer() {
           absolute
           inset-0
 
-          bg-[linear-gradient(180deg,#090A0C_0%,#0D0E10_46%,#090A0C_100%)]
+          bg-[linear-gradient(180deg,#0B0D0F_0%,#11161D_46%,#0B0D0F_100%)]
         "
       />
 
-      {/* RED AMBIENCE */}
+      {/* BLUE AMBIENCE */}
 
       <div
         className="
@@ -52,7 +52,7 @@ export default function Footer() {
 
           rounded-full
 
-          bg-[#E5484D]/[0.055]
+          bg-[#00A8E8]/[0.055]
 
           blur-[150px]
         "
@@ -71,13 +71,13 @@ export default function Footer() {
 
           rounded-full
 
-          bg-[#E5484D]/[0.03]
+          bg-[#00A8E8]/[0.03]
 
           blur-[145px]
         "
       />
 
-      {/* TOP RED DETAIL */}
+      {/* TOP BLUE DETAIL */}
 
       <div
         className="
@@ -93,10 +93,10 @@ export default function Footer() {
 
           bg-gradient-to-r
           from-transparent
-          via-[#E5484D]/45
+          via-[#00A8E8]/45
           to-transparent
 
-          shadow-[0_0_10px_rgba(229,72,77,0.18)]
+          shadow-[0_0_10px_rgba(0,168,232,0.18)]
         "
       />
 
@@ -170,9 +170,9 @@ export default function Footer() {
                 h-px
                 w-8
 
-                bg-[#E5484D]
+                bg-[#00A8E8]
 
-                shadow-[0_0_8px_rgba(229,72,77,0.24)]
+                shadow-[0_0_8px_rgba(0,168,232,0.24)]
               "
             />
 
@@ -186,7 +186,7 @@ export default function Footer() {
 
                 tracking-[0.16em]
 
-                text-[#E5484D]/85
+                text-[#00A8E8]/85
               "
             >
               YM Motors
@@ -222,7 +222,7 @@ export default function Footer() {
             Drive The Future.
             <br />
 
-            <span className="text-[#E5484D]">
+            <span className="text-[#00A8E8]">
               Experience Luxury.
             </span>
           </h2>
@@ -319,7 +319,7 @@ export default function Footer() {
                   h-[2px]
                   w-[2px]
 
-                  bg-[#E5484D]
+                  bg-[#00A8E8]
                 "
               />
 
@@ -406,7 +406,7 @@ export default function Footer() {
                         h-px
                         w-0
 
-                        bg-[#E5484D]
+                        bg-[#00A8E8]
 
                         transition-all
                         duration-300
@@ -485,7 +485,7 @@ export default function Footer() {
                         h-px
                         w-0
 
-                        bg-[#E5484D]
+                        bg-[#00A8E8]
 
                         transition-all
                         duration-300
@@ -608,10 +608,10 @@ export default function Footer() {
                     duration-300
 
                     hover:-translate-y-[2px]
-                    hover:border-[#E5484D]/70
-                    hover:bg-[#E5484D]
+                    hover:border-[#00A8E8]/70
+                    hover:bg-[#00A8E8]
                     hover:text-white
-                    hover:shadow-[0_10px_28px_rgba(229,72,77,0.16)]
+                    hover:shadow-[0_10px_28px_rgba(0,168,232,0.16)]
                   "
                 >
                   <span
