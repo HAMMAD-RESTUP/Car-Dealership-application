@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const leftLinks = [
   {
@@ -18,7 +19,6 @@ const leftLinks = [
   },
 ];
 
-
 const rightLinks = [
   {
     label: "ABOUT",
@@ -34,485 +34,386 @@ const rightLinks = [
   },
 ];
 
-
 export default function Header() {
-
-  const [open,setOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
 
   return (
-
     <header
       className="
-      fixed
-      top-0
-      left-0
-      z-50
-      w-full
+        absolute
+        left-0
+        top-0
+        z-50
+        w-full
       "
     >
-
-
+      {/* ==========================================
+          MAIN NAVIGATION
+      ========================================== */}
       <div
         className="
-        relative
-        flex
-        items-center
-        justify-between
-
-        px-6
-        py-6
-
-        lg:px-12
+          mx-auto
+          w-full
+          max-w-[1600px]
+          px-6
+          sm:px-8
+          lg:px-12
+          xl:px-16
         "
       >
-
-
-
-        {/* LEFT MENU */}
-
-        <nav
-          className="
-          hidden
-          lg:flex
-
-          items-center
-          gap-8
-
-          text-[13px]
-          font-medium
-
-          tracking-wide
-
-          text-white/80
-          "
-        >
-
-          {
-            leftLinks.map((item)=>(
-
-              <a
-
-                key={item.label}
-
-                href={item.href}
-
-                className="
-                relative
-
-                transition-all
-                duration-300
-
-                hover:text-white
-
-                after:absolute
-                after:left-0
-                after:-bottom-2
-
-                after:h-px
-                after:w-0
-
-                after:bg-white
-
-                after:transition-all
-
-                hover:after:w-full
-                "
-
-              >
-
-                {item.label}
-
-              </a>
-
-            ))
-          }
-
-
-        </nav>
-
-
-
-
-
-
-        {/* CENTER LOGO */}
-
-
-        <motion.a
-
-          href="#home"
-
-          initial={{
-            opacity:0,
-            y:-15
-          }}
-
-          animate={{
-            opacity:1,
-            y:0
-          }}
-
-          transition={{
-            duration:.6
-          }}
-
-          className="
-          absolute
-
-          left-1/2
-          top-1/2
-
-          -translate-x-1/2
-          -translate-y-1/2
-
-          text-white
-
-          text-2xl
-
-          lg:text-3xl
-
-          font-semibold
-
-          tracking-[0.15em]
-
-          whitespace-nowrap
-          "
-
-        >
-
-          YM
-
-          <span
-            className="
-            font-light
-            "
-          >
-            {" "}
-            MOTORS
-          </span>
-
-
-        </motion.a>
-
-
-
-
-
-
-
-        {/* RIGHT MENU */}
-
-
         <div
           className="
-          hidden
-
-          lg:flex
-
-          items-center
-
-          gap-8
-          "
-        >
-
-
-          <nav
-            className="
             flex
-
+            min-h-[82px]
             items-center
-
-            gap-8
-
-            text-[13px]
-
-            font-medium
-
-            tracking-wide
-
-            text-white/80
-            "
-          >
-
-
-          {
-            rightLinks.map((item)=>(
-
-              <a
-
-                key={item.label}
-
-                href={item.href}
-
-                className="
-                transition
-
-                duration-300
-
-                hover:text-white
-                "
-
-              >
-
-                {item.label}
-
-              </a>
-
-            ))
-          }
-
-
-          </nav>
-
-
-
-
-          <motion.a
-
-            href="#contact"
-
-            whileHover={{
-              scale:1.05
-            }}
-
-            className="
-            border
-
-            border-white/40
-
-            px-6
-
-            py-3
-
-            text-white
-
-            text-xs
-
-            tracking-widest
-
-            transition-all
-
-            duration-300
-
-            hover:bg-[#408099]
-
-            hover:text-white
-
-            "
-
-          >
-
-            Get A Qoute
-
-          </motion.a>
-
-
-
-        </div>
-
-
-
-
-
-
-
-        {/* MOBILE BUTTON */}
-
-
-        <button
-
-          onClick={()=>setOpen(!open)}
-
-          className="
-          ml-auto
-
-          lg:hidden
-
-          text-white
-
-          text-3xl
-
+            border-b
+            border-[#C9D2DC]/15
           "
-
         >
-
-          {
-            open
-            ?
-            "×"
-            :
-            "☰"
-          }
-
-
-        </button>
-
-
-
-
-      </div>
-
-
-
-
-
-
-
-      {/* MOBILE MENU */}
-
-
-      <AnimatePresence>
-
-
-      {
-        open && (
-
-          <motion.div
-
-            initial={{
-              opacity:0,
-              height:0
-            }}
-
-            animate={{
-              opacity:1,
-              height:"auto"
-            }}
-
-            exit={{
-              opacity:0,
-              height:0
-            }}
-
-            transition={{
-              duration:.35
-            }}
-
+          {/* ======================================
+              DESKTOP NAVIGATION
+          ====================================== */}
+          <div
             className="
-            lg:hidden
-
-            bg-black/90
-
-            backdrop-blur-xl
-
-            border-t
-
-            border-white/10
-
+              hidden
+              w-full
+              items-center
+              justify-center
+              lg:flex
             "
-
           >
-
-
             <div
               className="
-              flex
-
-              flex-col
-
-              px-6
-
-              py-8
-
-              gap-5
-
+                flex
+                items-center
+                gap-7
+                xl:gap-8
               "
-
             >
-
-
-
-            {
-              [
-                ...leftLinks,
-                ...rightLinks
-              ].map((item)=>(
-
-
+              {/* LEFT LINKS */}
+              {leftLinks.map((item) => (
                 <a
-
                   key={item.label}
-
                   href={item.href}
-
-                  onClick={()=>setOpen(false)}
-
                   className="
-                  text-white
+                    group
+                    relative
+                    whitespace-nowrap
 
-                  text-lg
+                    font-[var(--font-inter)]
+                    text-[11px]
+                    font-medium
+                    uppercase
+                    tracking-[0.1em]
 
-                  border-b
+                    text-[#C9D2DC]
 
-                  border-white/10
+                    transition-colors
+                    duration-300
 
-                  pb-4
-
+                    hover:text-[#F6F8FA]
                   "
-
                 >
-
                   {item.label}
 
+                  <span
+                    className="
+                      absolute
+                      -bottom-[10px]
+                      left-0
 
+                      h-px
+                      w-0
+
+                      bg-[#00A8E8]
+
+                      transition-all
+                      duration-300
+
+                      group-hover:w-full
+                    "
+                  />
                 </a>
+              ))}
 
+              {/* ==================================
+                  CENTER LOGO
+              ================================== */}
+              <motion.a
+                href="#home"
+                initial={{
+                  opacity: 0,
+                  y: -10,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.6,
+                }}
+                className="
+                  mx-5
+                  whitespace-nowrap
 
-              ))
-            }
+                  font-[var(--font-cormorant)]
+                  text-[30px]
+                  font-medium
+                  leading-none
+                  tracking-[-0.01em]
 
+                  text-[#F6F8FA]
 
+                  xl:mx-7
+                  xl:text-[32px]
+                "
+              >
+                YM Motors
+              </motion.a>
 
+              {/* RIGHT LINKS */}
+              {rightLinks.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="
+                    group
+                    relative
+                    whitespace-nowrap
 
-            <a
+                    font-[var(--font-inter)]
+                    text-[11px]
+                    font-medium
+                    uppercase
+                    tracking-[0.1em]
 
-              href="#contact"
+                    text-[#C9D2DC]
 
-              className="
-              mt-3
+                    transition-colors
+                    duration-300
 
-              bg-[#408099]
+                    hover:text-[#F6F8FA]
+                  "
+                >
+                  {item.label}
 
-              text-white
+                  <span
+                    className="
+                      absolute
+                      -bottom-[10px]
+                      left-0
 
-              text-center
+                      h-px
+                      w-0
 
-              py-4
+                      bg-[#00A8E8]
 
-              text-sm
+                      transition-all
+                      duration-300
 
-              tracking-wider
+                      group-hover:w-full
+                    "
+                  />
+                </a>
+              ))}
 
-              "
+              {/* ==================================
+                  CTA
+              ================================== */}
+              <motion.a
+                href="#contact"
+                whileHover={{
+                  y: -2,
+                }}
+                transition={{
+                  duration: 0.2,
+                }}
+                className="
+                  ml-2
 
-            >
+                  inline-flex
+                  min-h-[42px]
+                  items-center
+                  justify-center
 
-              ENQUIRE NOW
+                  border
+                  border-[#C9D2DC]/40
 
-            </a>
+                  px-5
 
+                  font-[var(--font-inter)]
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.12em]
 
+                  text-[#F6F8FA]
 
+                  transition-all
+                  duration-300
 
+                  hover:border-[#00A8E8]
+                  hover:text-[#00A8E8]
+                "
+              >
+                GET A QOUTE
+              </motion.a>
             </div>
+          </div>
 
+          {/* ======================================
+              MOBILE LOGO
+          ====================================== */}
+          <a
+            href="#home"
+            className="
+              font-[var(--font-cormorant)]
+              text-[28px]
+              font-medium
+              tracking-[-0.01em]
+              text-[#F6F8FA]
 
+              lg:hidden
+            "
+          >
+            YM Motors
+          </a>
+
+          {/* ======================================
+              MOBILE MENU BUTTON
+          ====================================== */}
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((previous) => !previous)}
+            className="
+              ml-auto
+
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+
+              text-[#F6F8FA]
+
+              lg:hidden
+            "
+          >
+            {open ? (
+              <X size={25} strokeWidth={1.5} />
+            ) : (
+              <Menu size={26} strokeWidth={1.5} />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* ==========================================
+          MOBILE MENU
+      ========================================== */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -12,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -12,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
+            className="
+              absolute
+              left-0
+              top-full
+              w-full
+
+              border-t
+              border-[#C9D2DC]/15
+
+              bg-[#0B0E13]/95
+              backdrop-blur-xl
+
+              lg:hidden
+            "
+          >
+            <div
+              className="
+                flex
+                flex-col
+                px-6
+                py-5
+                sm:px-8
+              "
+            >
+              {[...leftLinks, ...rightLinks].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="
+                    border-b
+                    border-[#C9D2DC]/12
+
+                    py-4
+
+                    font-[var(--font-inter)]
+                    text-[12px]
+                    font-medium
+                    uppercase
+                    tracking-[0.12em]
+
+                    text-[#C9D2DC]
+
+                    transition-colors
+                    duration-300
+
+                    hover:text-[#F6F8FA]
+                  "
+                >
+                  {item.label}
+                </a>
+              ))}
+
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="
+                  mt-5
+
+                  inline-flex
+                  min-h-[48px]
+                  items-center
+                  justify-center
+
+                  bg-[#00A8E8]
+
+                  px-6
+
+                  font-[var(--font-inter)]
+                  text-[11px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.12em]
+
+                  text-white
+                "
+              >
+                GET A QOUTE
+              </a>
+            </div>
           </motion.div>
-
-
-        )
-      }
-
-
+        )}
       </AnimatePresence>
-
-
-
-
     </header>
-
-
   );
-
 }
