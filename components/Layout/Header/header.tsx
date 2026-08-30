@@ -55,7 +55,15 @@ export default function Header() {
       "
     >
       {/* =====================================================
-          MAIN TRANSPARENT NAVIGATION
+          MAIN NAVIGATION
+          
+          MOBILE:
+          - completely transparent
+          - no border
+          - no blur
+          
+          DESKTOP XL+:
+          - existing glass effect
       ====================================================== */}
       <div
         className="
@@ -68,24 +76,27 @@ export default function Header() {
 
           overflow-visible
 
-          border-y
-          border-white/[0.05]
-
+          border-0
           bg-transparent
 
           px-5
 
-          backdrop-blur-[6px]
-          backdrop-saturate-[1.08]
-
           sm:px-6
           md:px-7
+
+          xl:border-y
+          xl:border-white/[0.05]
+          xl:backdrop-blur-[6px]
+          xl:backdrop-saturate-[1.08]
           xl:px-9
+
           2xl:px-12
         "
       >
         {/* =================================================
-            TRANSPARENT BRAND MARQUEE TINT
+            DESKTOP HEADER TINT ONLY
+
+            MOBILE = HIDDEN
         ================================================== */}
         <div
           className="
@@ -94,9 +105,13 @@ export default function Header() {
             absolute
             inset-0
 
+            hidden
             overflow-hidden
+
+            xl:block
           "
         >
+          {/* DARK GLASS TINT */}
           <div
             className="
               absolute
@@ -173,7 +188,6 @@ export default function Header() {
 
         {/* =================================================
             CENTER LOGO TEXT — DESKTOP
-            NO LOGO MARK
         ================================================== */}
         <motion.a
           href="#home"
@@ -252,9 +266,6 @@ export default function Header() {
             xl:flex
           "
         >
-          {/* Reduced spacer:
-              poori navigation thori LEFT move hogi
-          */}
           <div
             aria-hidden="true"
             className="
@@ -270,6 +281,7 @@ export default function Header() {
           <nav
             className="
               flex
+
               -translate-x-[12px]
               items-center
 
@@ -317,9 +329,7 @@ export default function Header() {
                     min-[1700px]:text-[15px]
                   "
                 >
-                  {/* =================================================
-                      SUBTLE HOVER GLOW
-                  ================================================== */}
+                  {/* SUBTLE HOVER GLOW */}
                   <span
                     className="
                       pointer-events-none
@@ -356,9 +366,7 @@ export default function Header() {
                     {item.label}
                   </span>
 
-                  {/* =================================================
-                      HOVER BOTTOM LINE ONLY
-                  ================================================== */}
+                  {/* HOVER BOTTOM LINE */}
                   <span
                     className="
                       absolute
@@ -384,9 +392,6 @@ export default function Header() {
                   />
                 </a>
 
-                {/* =================================================
-                    SEPARATOR
-                ================================================== */}
                 {index < leftNavItems.length - 1 && (
                   <span
                     className="
@@ -407,9 +412,6 @@ export default function Header() {
 
         {/* =================================================
             CENTER SAFE SPACE
-
-            Bigger space around center logo so Services
-            logo ke andar nahi jayega.
         ================================================== */}
         <div
           className="
@@ -446,9 +448,7 @@ export default function Header() {
             xl:flex
           "
         >
-          {/* =================================================
-              RIGHT NAV
-          ================================================== */}
+          {/* RIGHT NAV */}
           <nav className="flex items-center">
             {rightNavItems.map((item, index) => (
               <div
@@ -527,7 +527,7 @@ export default function Header() {
                     {item.label}
                   </span>
 
-                  {/* HOVER LINE ONLY */}
+                  {/* HOVER LINE */}
                   <span
                     className="
                       absolute
@@ -570,9 +570,7 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* =================================================
-              SEPARATOR
-          ================================================== */}
+          {/* SEPARATOR */}
           <span
             className="
               mx-[17px]
@@ -681,9 +679,7 @@ export default function Header() {
               />
             </button>
 
-            {/* =================================================
-                LANGUAGE DROPDOWN
-            ================================================== */}
+            {/* LANGUAGE DROPDOWN */}
             <AnimatePresence>
               {languageOpen && (
                 <motion.div
@@ -806,9 +802,7 @@ export default function Header() {
                     </p>
 
                     <LanguageItem
-                      active={
-                        language === "en"
-                      }
+                      active={language === "en"}
                       title="English"
                       subtitle="United Kingdom"
                       flag={
@@ -827,9 +821,7 @@ export default function Header() {
 
                     <div className="mt-[3px]">
                       <LanguageItem
-                        active={
-                          language === "de"
-                        }
+                        active={language === "de"}
                         title="Deutsch"
                         subtitle="Deutschland"
                         flag={
@@ -852,9 +844,7 @@ export default function Header() {
             </AnimatePresence>
           </div>
 
-          {/* =================================================
-              SEPARATOR
-          ================================================== */}
+          {/* SEPARATOR */}
           <span
             className="
               mx-[17px]
@@ -870,7 +860,7 @@ export default function Header() {
           />
 
           {/* =================================================
-              CTA
+              DESKTOP CTA
           ================================================== */}
           <motion.a
             href="#contact"
@@ -927,6 +917,11 @@ export default function Header() {
 
         {/* =================================================
             MOBILE MENU BUTTON
+
+            NO BORDER
+            NO BACKGROUND
+            NO BLOCK
+            NO BLUR
         ================================================== */}
         <button
           type="button"
@@ -950,39 +945,37 @@ export default function Header() {
             ml-auto
 
             flex
-            h-[40px]
-            w-[40px]
+            h-[44px]
+            w-[44px]
             items-center
             justify-center
 
-            rounded-[4px]
-
-            border
-            border-white/[0.08]
-
-            bg-black/[0.10]
+            border-0
+            bg-transparent
+            p-0
 
             text-white
 
-            backdrop-blur-[5px]
-
-            transition-all
+            transition-opacity
             duration-200
 
-            hover:bg-white/[0.06]
+            hover:opacity-75
+
+            focus:outline-none
+            focus-visible:outline-none
 
             xl:hidden
           "
         >
           {menuOpen ? (
             <X
-              size={19}
-              strokeWidth={1.5}
+              size={24}
+              strokeWidth={1.7}
             />
           ) : (
             <Menu
-              size={20}
-              strokeWidth={1.5}
+              size={25}
+              strokeWidth={1.7}
             />
           )}
         </button>
@@ -996,7 +989,7 @@ export default function Header() {
           <motion.div
             initial={{
               opacity: 0,
-              y: -6,
+              y: -8,
             }}
             animate={{
               opacity: 1,
@@ -1004,10 +997,11 @@ export default function Header() {
             }}
             exit={{
               opacity: 0,
-              y: -6,
+              y: -8,
             }}
             transition={{
               duration: 0.2,
+              ease: "easeOut",
             }}
             className="
               relative
@@ -1016,18 +1010,18 @@ export default function Header() {
 
               overflow-hidden
 
-              border-b
-              border-white/[0.06]
+              border-0
 
-              bg-[rgba(11,13,15,0.74)]
+              bg-[rgba(7,12,18,0.82)]
 
-              shadow-[0_22px_50px_rgba(0,0,0,0.30)]
+              shadow-[0_22px_50px_rgba(0,0,0,0.28)]
 
-              backdrop-blur-[16px]
+              backdrop-blur-[18px]
 
               xl:hidden
             "
           >
+            {/* MENU BACKGROUND */}
             <div
               className="
                 pointer-events-none
@@ -1035,7 +1029,29 @@ export default function Header() {
                 absolute
                 inset-0
 
-                bg-[linear-gradient(180deg,rgba(11,13,15,0.80)_0%,rgba(17,22,29,0.68)_50%,rgba(11,13,15,0.76)_100%)]
+                bg-[linear-gradient(180deg,rgba(7,12,18,0.86)_0%,rgba(11,17,24,0.78)_100%)]
+              "
+            />
+
+            {/* SUBTLE BLUE GLOW */}
+            <div
+              className="
+                pointer-events-none
+
+                absolute
+                left-1/2
+                top-0
+
+                h-[220px]
+                w-[420px]
+
+                -translate-x-1/2
+
+                rounded-full
+
+                bg-[#00A8E8]/[0.045]
+
+                blur-[100px]
               "
             />
 
@@ -1047,8 +1063,11 @@ export default function Header() {
                 px-5
                 pb-6
                 pt-2
+
+                sm:px-6
               "
             >
+              {/* MOBILE NAV */}
               <nav className="flex flex-col">
                 {mobileNavItems.map((item) => (
                   <a
@@ -1074,6 +1093,11 @@ export default function Header() {
                       font-medium
 
                       text-white
+
+                      transition-colors
+                      duration-200
+
+                      hover:text-[#2a9fff]
                     "
                   >
                     {item.label}
@@ -1099,7 +1123,9 @@ export default function Header() {
                 ))}
               </nav>
 
-              {/* MOBILE LANGUAGES */}
+              {/* =================================================
+                  MOBILE LANGUAGES
+              ================================================== */}
               <div
                 className="
                   mt-5
@@ -1130,6 +1156,9 @@ export default function Header() {
                     font-[var(--font-body)]
 
                     text-[12px]
+
+                    transition-colors
+                    duration-200
 
                     ${
                       language === "en"
@@ -1171,6 +1200,9 @@ export default function Header() {
 
                     text-[12px]
 
+                    transition-colors
+                    duration-200
+
                     ${
                       language === "de"
                         ? "bg-white/[0.07] text-white"
@@ -1190,7 +1222,9 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* MOBILE CTA */}
+              {/* =================================================
+                  MOBILE CTA
+              ================================================== */}
               <a
                 href="#contact"
                 onClick={() =>
@@ -1200,7 +1234,7 @@ export default function Header() {
                   mt-4
 
                   flex
-                  min-h-[48px]
+                  min-h-[50px]
                   w-full
                   items-center
                   justify-center
@@ -1215,6 +1249,13 @@ export default function Header() {
                   font-semibold
 
                   text-white
+
+                  shadow-[0_8px_24px_rgba(21,143,243,0.20)]
+
+                  transition-colors
+                  duration-200
+
+                  hover:bg-[#2a9fff]
                 "
               >
                 Book a Test Drive
@@ -1369,7 +1410,7 @@ function LogoText({
 
         ${
           mobile
-            ? "text-[13px] tracking-[0.20em]"
+            ? "text-[14px] tracking-[0.18em] sm:text-[15px]"
             : "text-[17px] tracking-[0.22em] 2xl:text-[18px]"
         }
       `}

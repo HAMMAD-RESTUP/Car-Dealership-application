@@ -30,14 +30,11 @@ export default function Hero() {
         className="
           absolute
           inset-0
-
           block
           h-full
           w-full
-
           object-cover
           object-[66%_center]
-
           md:hidden
         "
       />
@@ -56,14 +53,11 @@ export default function Hero() {
           className="
             absolute
             inset-0
-
             hidden
             h-full
             w-full
-
             object-cover
             object-center
-
             md:block
           "
         >
@@ -80,30 +74,25 @@ export default function Hero() {
           className="
             absolute
             inset-0
-
             hidden
             h-full
             w-full
-
             object-cover
             object-center
-
             md:block
           "
         />
       )}
 
       {/* =====================================================
-          VERY LIGHT GENERAL TONE
+          GENERAL DARK TONE
       ====================================================== */}
       <div
         className="
           pointer-events-none
           absolute
           inset-0
-
           bg-black/[0.05]
-
           md:bg-black/[0.03]
         "
       />
@@ -114,19 +103,16 @@ export default function Hero() {
       <div
         className="
           pointer-events-none
-
           absolute
           left-0
           top-[72px]
-
-          h-[590px]
+          h-[620px]
           w-full
-
           md:hidden
         "
         style={{
           background:
-            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.78) 0%, rgba(2,8,14,0.58) 27%, rgba(2,8,14,0.34) 48%, rgba(2,8,14,0.12) 67%, transparent 84%)",
+            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.80) 0%, rgba(2,8,14,0.60) 28%, rgba(2,8,14,0.35) 49%, rgba(2,8,14,0.12) 68%, transparent 85%)",
         }}
       />
 
@@ -138,7 +124,6 @@ export default function Hero() {
           pointer-events-none
           absolute
           inset-0
-
           md:hidden
         "
         style={{
@@ -153,20 +138,17 @@ export default function Hero() {
       <div
         className="
           pointer-events-none
-
           absolute
           left-0
-          top-[125px]
-
+          top-[120px]
           hidden
-          h-[540px]
-          w-[860px]
-
+          h-[580px]
+          w-[900px]
           md:block
         "
         style={{
           background:
-            "radial-gradient(ellipse at 18% 48%, rgba(2,8,14,0.50) 0%, rgba(2,8,14,0.36) 27%, rgba(2,8,14,0.20) 48%, rgba(2,8,14,0.08) 64%, transparent 79%)",
+            "radial-gradient(ellipse at 18% 48%, rgba(2,8,14,0.52) 0%, rgba(2,8,14,0.37) 28%, rgba(2,8,14,0.21) 48%, rgba(2,8,14,0.08) 65%, transparent 80%)",
         }}
       />
 
@@ -176,11 +158,9 @@ export default function Hero() {
       <div
         className="
           pointer-events-none
-
           absolute
           inset-x-0
           bottom-0
-
           h-[30%]
         "
         style={{
@@ -195,17 +175,13 @@ export default function Hero() {
       <div
         className="
           pointer-events-none
-
           absolute
           inset-x-0
           top-0
-
           h-[115px]
-
           bg-gradient-to-b
           from-black/25
           to-transparent
-
           md:h-[120px]
           md:from-black/20
         "
@@ -218,9 +194,7 @@ export default function Hero() {
         className="
           relative
           z-10
-
           mx-auto
-
           flex
           min-h-[100svh]
           w-full
@@ -243,7 +217,6 @@ export default function Hero() {
           lg:pt-[126px]
 
           xl:px-12
-
           2xl:px-14
         "
       >
@@ -268,55 +241,60 @@ export default function Hero() {
             ease: EASE_OUT,
           }}
           className="
-            mt-[5vh]
-
+            mt-[4vh]
+            w-full
             max-w-[390px]
 
+            min-[380px]:mt-[5vh]
+
             sm:mt-[6vh]
-            sm:max-w-[540px]
+            sm:max-w-[560px]
 
-            md:mt-[9vh]
-            md:max-w-[720px]
+            md:mt-[8vh]
+            md:max-w-[730px]
 
-            lg:mt-[10vh]
-            lg:max-w-[790px]
+            lg:mt-[9vh]
+            lg:max-w-[820px]
 
-            xl:mt-[11vh]
-            xl:max-w-[850px]
+            xl:mt-[10vh]
+            xl:max-w-[900px]
           "
         >
           {/* =================================================
-              LUXURY LABEL
+              JAPANESE IMPORT LABEL
           ================================================== */}
           <div
             className="
-              mb-5
-
+              mb-6
               flex
               items-center
-              gap-3
+              gap-2.5
 
-              sm:mb-6
+              min-[380px]:gap-3
+
+              sm:mb-7
               sm:gap-4
 
-              md:mb-7
+              md:mb-8
             "
           >
             <span
               className="
                 h-px
-                w-9
+                w-7
                 shrink-0
 
                 bg-gradient-to-r
-                from-[#f2f4f5]
-                via-[#aeb5ba]
+                from-white
+                via-[#bdc3c7]
                 to-transparent
 
-                opacity-80
+                opacity-90
 
-                sm:w-11
-                md:w-14
+                min-[380px]:w-8
+                sm:w-10
+                md:w-12
+                lg:w-14
               "
             />
 
@@ -326,30 +304,32 @@ export default function Hero() {
 
                 font-[var(--font-body)]
 
-                text-[13px]
+                text-[14px]
                 font-semibold
                 uppercase
                 leading-none
-                tracking-[0.14em]
+                tracking-[0.08em]
 
                 bg-clip-text
                 text-transparent
 
-                min-[380px]:text-[14px]
+                min-[380px]:text-[15px]
+                min-[380px]:tracking-[0.10em]
 
-                sm:text-[16px]
-                sm:tracking-[0.16em]
+                sm:text-[18px]
+                sm:tracking-[0.12em]
 
-                md:text-[18px]
-                md:tracking-[0.17em]
+                md:text-[20px]
+                md:tracking-[0.13em]
 
-                lg:text-[20px]
+                lg:text-[22px]
+                lg:tracking-[0.14em]
 
-                xl:text-[22px]
+                xl:text-[24px]
               "
               style={{
                 backgroundImage:
-                  "linear-gradient(180deg, #ffffff 0%, #e7eaec 22%, #aeb5ba 48%, #f7f8f8 68%, #a2a9ae 100%)",
+                  "linear-gradient(180deg, #ffffff 0%, #f5f6f7 20%, #c4c9cd 48%, #ffffff 68%, #abb1b6 100%)",
               }}
             >
               Japanese Import Specialists
@@ -363,14 +343,15 @@ export default function Hero() {
             className="
               font-[var(--font-display)]
 
-              text-[48px]
+              text-[44px]
               font-semibold
               leading-[0.92]
-              tracking-[-0.035em]
+              tracking-[-0.04em]
 
               text-white
 
-              min-[380px]:text-[52px]
+              min-[360px]:text-[48px]
+              min-[400px]:text-[52px]
 
               sm:text-[62px]
 
@@ -397,36 +378,40 @@ export default function Hero() {
           {/* =================================================
               DESCRIPTION
           ================================================== */}
-          <p
-            className="
-              mt-5
-              max-w-[350px]
+  <p
+  className="
+    mt-10
+    max-w-[350px]
 
-              font-[var(--font-body)]
+    font-[var(--font-body)]
+    text-[13px]
+    font-normal
+    leading-[1.7]
+    text-white/75
 
-              text-[13px]
-              font-normal
-              leading-[1.65]
+    min-[380px]:mt-11
+    min-[380px]:max-w-[370px]
+    min-[380px]:text-[14px]
 
-              text-white/72
+    sm:mt-12
+    sm:max-w-[450px]
+    sm:text-[15px]
 
-              min-[380px]:text-[14px]
+    md:mt-14
+    md:max-w-[510px]
+    md:text-[16px]
 
-              sm:mt-6
-              sm:max-w-[430px]
-              sm:text-[15px]
+    lg:mt-16
+    lg:max-w-[540px]
 
-              md:max-w-[500px]
-              md:text-[16px]
-
-              xl:max-w-[530px]
-              xl:text-[17px]
-            "
-          >
-            Low mileage Japanese vehicles, sourced at auction,
-            graded on arrival and supplied with full documentation.
-            Every car we import can be checked before you commit to it.
-          </p>
+    xl:mt-[72px]
+    xl:text-[17px]
+  "
+>
+  Low mileage Japanese vehicles, sourced at auction,
+  graded on arrival and supplied with full documentation.
+  Every car we import can be checked before you commit to it.
+</p>
 
           {/* =================================================
               BUTTONS
@@ -437,12 +422,12 @@ export default function Hero() {
 
               grid
               w-full
-              max-w-[380px]
+              max-w-[390px]
               grid-cols-2
               gap-3
 
               sm:mt-8
-              sm:max-w-[430px]
+              sm:max-w-[450px]
               sm:gap-4
 
               md:mt-9
@@ -466,9 +451,7 @@ export default function Hero() {
               }}
               className="
                 inline-flex
-
                 min-h-[50px]
-
                 items-center
                 justify-center
 
@@ -476,7 +459,7 @@ export default function Hero() {
 
                 bg-[#158ff3]
 
-                px-5
+                px-4
 
                 font-[var(--font-body)]
 
@@ -494,24 +477,26 @@ export default function Hero() {
                 hover:bg-[#2a9fff]
                 hover:shadow-[0_12px_32px_rgba(21,143,243,0.28)]
 
+                min-[380px]:min-h-[52px]
                 min-[380px]:text-[13px]
 
-                sm:min-h-[54px]
+                sm:min-h-[56px]
                 sm:px-8
                 sm:text-[14px]
 
-                md:min-h-[56px]
-                md:min-w-[165px]
+                md:min-h-[58px]
+                md:min-w-[175px]
                 md:px-9
                 md:text-[15px]
 
-                lg:min-w-[175px]
+                lg:min-w-[185px]
+                lg:text-[16px]
               "
             >
               Browse Stock
             </motion.a>
 
-            {/* SELL CAR */}
+            {/* SELL YOUR CAR */}
             <motion.a
               href="#contact"
               whileHover={{
@@ -525,9 +510,7 @@ export default function Hero() {
               }}
               className="
                 inline-flex
-
                 min-h-[50px]
-
                 items-center
                 justify-center
 
@@ -536,9 +519,9 @@ export default function Hero() {
                 border
                 border-white/35
 
-                bg-black/[0.12]
+                bg-black/[0.15]
 
-                px-5
+                px-4
 
                 font-[var(--font-body)]
 
@@ -548,26 +531,28 @@ export default function Hero() {
 
                 text-white
 
-                backdrop-blur-[3px]
+                backdrop-blur-[4px]
 
                 transition-all
                 duration-200
 
                 hover:border-white/65
-                hover:bg-white/[0.08]
+                hover:bg-white/[0.09]
 
+                min-[380px]:min-h-[52px]
                 min-[380px]:text-[13px]
 
-                sm:min-h-[54px]
+                sm:min-h-[56px]
                 sm:px-8
                 sm:text-[14px]
 
-                md:min-h-[56px]
-                md:min-w-[165px]
+                md:min-h-[58px]
+                md:min-w-[175px]
                 md:px-9
                 md:text-[15px]
 
-                lg:min-w-[175px]
+                lg:min-w-[185px]
+                lg:text-[16px]
               "
             >
               Sell your car
@@ -576,22 +561,18 @@ export default function Hero() {
         </motion.div>
 
         {/* =====================================================
-            MOBILE FLEX SPACE
+            FLEX SPACE
         ====================================================== */}
         <div
           className="
             min-h-[50px]
             flex-1
-
             md:min-h-[80px]
           "
         />
 
         {/* =====================================================
             VEHICLE SEARCH BAR
-
-            MOBILE = HIDDEN
-            MD+ = VISIBLE
         ====================================================== */}
         <motion.div
           initial={
