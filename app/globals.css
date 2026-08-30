@@ -35,7 +35,7 @@
   ========================================================= */
 
   /* ONLY HEADINGS */
-  --font-display: "Cormorant Garamond", serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
 
   /* ALL NORMAL WEBSITE TEXT */
   --font-body: "Mulish", Arial, sans-serif;
