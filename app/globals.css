@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Mulish:wght@400;500;600;700&display=swap');
+
 @import "tailwindcss";
 
 /* =========================================================
@@ -29,8 +30,11 @@
   --border: rgba(201, 210, 220, 0.16);
   --border-soft: rgba(201, 210, 220, 0.09);
 
-  /* TYPOGRAPHY */
-  --font-display: "Mulish", Arial, sans-serif;
+  /* =========================================================
+     TYPOGRAPHY
+  ========================================================= */
+--font-display: "EB Garamond", Georgia, serif;
+  /* ALL NORMAL WEBSITE TEXT */
   --font-body: "Mulish", Arial, sans-serif;
 
   /* COMPONENT ALIASES */

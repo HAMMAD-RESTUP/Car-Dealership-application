@@ -21,68 +21,37 @@ export default function Hero() {
       "
     >
       {/* =====================================================
-          MOBILE BACKGROUND
+          BACKGROUND VIDEO — MOBILE / TABLET / DESKTOP
       ====================================================== */}
-      <img
-        src="/images/home-mobile-hero.png"
-        alt=""
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
         aria-hidden="true"
         className="
           absolute
           inset-0
-          block
           h-full
           w-full
-          object-cover
-          object-[66%_center]
-          md:hidden
-        "
-      />
 
-      {/* =====================================================
-          DESKTOP VIDEO
-      ====================================================== */}
-      {!reduceMotion ? (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="/images/home-desktop-hero.png"
-          className="
-            absolute
-            inset-0
-            hidden
-            h-full
-            w-full
-            object-cover
-            object-center
-            md:block
-          "
-        >
-          <source
-            src="/images/cinematic-vieo.mp4"
-            type="video/mp4"
-          />
-        </video>
-      ) : (
-        <img
-          src="/images/desktop-mock.png"
-          alt=""
-          aria-hidden="true"
-          className="
-            absolute
-            inset-0
-            hidden
-            h-full
-            w-full
-            object-cover
-            object-center
-            md:block
-          "
+          object-cover
+
+          object-[68%_center]
+
+          min-[420px]:object-[65%_center]
+
+          sm:object-[62%_center]
+
+          md:object-center
+        "
+      >
+        <source
+          src="/images/hero-sport.mp4"
+          type="video/mp4"
         />
-      )}
+      </video>
 
       {/* =====================================================
           GENERAL DARK TONE
@@ -92,7 +61,9 @@ export default function Hero() {
           pointer-events-none
           absolute
           inset-0
+
           bg-black/[0.05]
+
           md:bg-black/[0.03]
         "
       />
@@ -103,11 +74,14 @@ export default function Hero() {
       <div
         className="
           pointer-events-none
+
           absolute
           left-0
           top-[72px]
+
           h-[620px]
           w-full
+
           md:hidden
         "
         style={{
@@ -124,6 +98,7 @@ export default function Hero() {
           pointer-events-none
           absolute
           inset-0
+
           md:hidden
         "
         style={{
@@ -138,12 +113,15 @@ export default function Hero() {
       <div
         className="
           pointer-events-none
+
           absolute
           left-0
           top-[120px]
+
           hidden
           h-[580px]
           w-[900px]
+
           md:block
         "
         style={{
@@ -158,9 +136,11 @@ export default function Hero() {
       <div
         className="
           pointer-events-none
+
           absolute
           inset-x-0
           bottom-0
+
           h-[30%]
         "
         style={{
@@ -175,13 +155,17 @@ export default function Hero() {
       <div
         className="
           pointer-events-none
+
           absolute
           inset-x-0
           top-0
+
           h-[115px]
+
           bg-gradient-to-b
           from-black/25
           to-transparent
+
           md:h-[120px]
           md:from-black/20
         "
@@ -194,7 +178,9 @@ export default function Hero() {
         className="
           relative
           z-10
+
           mx-auto
+
           flex
           min-h-[100svh]
           w-full
@@ -217,6 +203,7 @@ export default function Hero() {
           lg:pt-[126px]
 
           xl:px-12
+
           2xl:px-14
         "
       >
@@ -242,6 +229,7 @@ export default function Hero() {
           }}
           className="
             mt-[4vh]
+
             w-full
             max-w-[390px]
 
@@ -266,6 +254,7 @@ export default function Hero() {
           <div
             className="
               mb-6
+
               flex
               items-center
               gap-2.5
@@ -292,8 +281,11 @@ export default function Hero() {
                 opacity-90
 
                 min-[380px]:w-8
+
                 sm:w-10
+
                 md:w-12
+
                 lg:w-14
               "
             />
@@ -351,6 +343,7 @@ export default function Hero() {
               text-white
 
               min-[360px]:text-[48px]
+
               min-[400px]:text-[52px]
 
               sm:text-[62px]
@@ -378,40 +371,43 @@ export default function Hero() {
           {/* =================================================
               DESCRIPTION
           ================================================== */}
-  <p
-  className="
-    mt-10
-    max-w-[350px]
+          <p
+            className="
+              mt-10
 
-    font-[var(--font-body)]
-    text-[13px]
-    font-normal
-    leading-[1.7]
-    text-white/75
+              max-w-[350px]
 
-    min-[380px]:mt-11
-    min-[380px]:max-w-[370px]
-    min-[380px]:text-[14px]
+              font-[var(--font-body)]
 
-    sm:mt-12
-    sm:max-w-[450px]
-    sm:text-[15px]
+              text-[13px]
+              font-normal
+              leading-[1.7]
 
-    md:mt-14
-    md:max-w-[510px]
-    md:text-[16px]
+              text-white/75
 
-    lg:mt-16
-    lg:max-w-[540px]
+              min-[380px]:mt-11
+              min-[380px]:max-w-[370px]
+              min-[380px]:text-[14px]
 
-    xl:mt-[72px]
-    xl:text-[17px]
-  "
->
-  Low mileage Japanese vehicles, sourced at auction,
-  graded on arrival and supplied with full documentation.
-  Every car we import can be checked before you commit to it.
-</p>
+              sm:mt-12
+              sm:max-w-[450px]
+              sm:text-[15px]
+
+              md:mt-14
+              md:max-w-[510px]
+              md:text-[16px]
+
+              lg:mt-16
+              lg:max-w-[540px]
+
+              xl:mt-[72px]
+              xl:text-[17px]
+            "
+          >
+            Low mileage Japanese vehicles, sourced at auction,
+            graded on arrival and supplied with full documentation.
+            Every car we import can be checked before you commit to it.
+          </p>
 
           {/* =================================================
               BUTTONS
@@ -451,7 +447,9 @@ export default function Hero() {
               }}
               className="
                 inline-flex
+
                 min-h-[50px]
+
                 items-center
                 justify-center
 
@@ -510,7 +508,9 @@ export default function Hero() {
               }}
               className="
                 inline-flex
+
                 min-h-[50px]
+
                 items-center
                 justify-center
 
@@ -567,6 +567,7 @@ export default function Hero() {
           className="
             min-h-[50px]
             flex-1
+
             md:min-h-[80px]
           "
         />
