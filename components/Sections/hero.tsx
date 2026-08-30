@@ -14,7 +14,7 @@ export default function Hero() {
       id="home"
       className="
         relative
-        min-h-[160svh]
+        min-h-[100svh]
         w-full
         overflow-hidden
         bg-[#07101a]
