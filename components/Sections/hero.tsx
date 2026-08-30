@@ -14,7 +14,7 @@ export default function Hero() {
       id="home"
       className="
         relative
-        min-h-[100svh]
+        min-h-[160svh]
         w-full
         overflow-hidden
         bg-[#07101a]
@@ -24,7 +24,7 @@ export default function Hero() {
           MOBILE BACKGROUND
       ====================================================== */}
       <img
-        src="/images/mobile-mock.png"
+        src="/images/home-mobile-hero.png"
         alt=""
         aria-hidden="true"
         className="
@@ -52,7 +52,7 @@ export default function Hero() {
           loop
           playsInline
           preload="auto"
-          poster="/images/hero-mock-banner.png"
+          poster="/images/home-desktop-hero.png"
           className="
             absolute
             inset-0
