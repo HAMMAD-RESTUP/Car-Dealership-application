@@ -33,7 +33,10 @@
   /* =========================================================
      TYPOGRAPHY
   ========================================================= */
---font-display: "EB Garamond", Georgia, serif;
+
+  /* ONLY HEADINGS */
+  --font-display: "Cormorant Garamond", serif;
+
   /* ALL NORMAL WEBSITE TEXT */
   --font-body: "Mulish", Arial, sans-serif;
 
