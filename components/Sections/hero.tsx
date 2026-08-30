@@ -1,32 +1,10 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  BadgeCheck,
-  Gauge,
-  FileCheck2,
-  ArrowUpRight,
-} from "lucide-react";
+import AiAssistant from "../Layout/AIchatboard/AI-Assistant";
+import VehicleSearchBar from "./VehicleSearchBar";
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
-
-const proofPoints = [
-  {
-    title: "GRADED",
-    text: "Independently scored at auction",
-    icon: BadgeCheck,
-  },
-  {
-    title: "VERIFIED",
-    text: "Mileage confirmed, not estimated",
-    icon: Gauge,
-  },
-  {
-    title: "DOCUMENTED",
-    text: "Paperwork open before purchase",
-    icon: FileCheck2,
-  },
-];
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -34,404 +12,603 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="
+        relative
+        min-h-[100svh]
+        w-full
+        overflow-hidden
+        bg-[#07101a]
+      "
     >
-      {/* VIDEO */}
-      <motion.video
-        src="/images/cinematic-video.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        initial={reduceMotion ? false : { scale: 1.04 }}
-        animate={{ scale: 1 }}
-        transition={{
-          duration: 2.2,
-          ease: EASE_OUT,
-        }}
+      {/* =====================================================
+          MOBILE BACKGROUND
+      ====================================================== */}
+      <img
+        src="/images/mobile-mock.png"
+        alt=""
+        aria-hidden="true"
         className="
           absolute
           inset-0
+
+          block
           h-full
           w-full
+
           object-cover
-          object-[70%_center]
-          md:object-[72%_center]
-          xl:object-center
+          object-[66%_center]
+
+          md:hidden
         "
       />
 
-      {/* ONLY LEFT SIDE SHADOW */}
+      {/* =====================================================
+          DESKTOP VIDEO
+      ====================================================== */}
+      {!reduceMotion ? (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/images/hero-mock-banner.png"
+          className="
+            absolute
+            inset-0
+
+            hidden
+            h-full
+            w-full
+
+            object-cover
+            object-center
+
+            md:block
+          "
+        >
+          <source
+            src="/images/cinematic-vieo.mp4"
+            type="video/mp4"
+          />
+        </video>
+      ) : (
+        <img
+          src="/images/desktop-mock.png"
+          alt=""
+          aria-hidden="true"
+          className="
+            absolute
+            inset-0
+
+            hidden
+            h-full
+            w-full
+
+            object-cover
+            object-center
+
+            md:block
+          "
+        />
+      )}
+
+      {/* =====================================================
+          VERY LIGHT GENERAL TONE
+      ====================================================== */}
       <div
         className="
           pointer-events-none
           absolute
-          inset-y-0
-          left-0
-          w-[72%]
-          bg-[linear-gradient(90deg,rgba(11,14,19,0.94)_0%,rgba(11,14,19,0.78)_32%,rgba(11,14,19,0.42)_58%,rgba(11,14,19,0.08)_82%,transparent_100%)]
-          md:w-[66%]
-          lg:w-[60%]
-          xl:w-[56%]
+          inset-0
+
+          bg-black/[0.05]
+
+          md:bg-black/[0.03]
         "
       />
 
-      {/* CONTENT */}
+      {/* =====================================================
+          MOBILE TEXT SHADE
+      ====================================================== */}
+      <div
+        className="
+          pointer-events-none
+
+          absolute
+          left-0
+          top-[72px]
+
+          h-[590px]
+          w-full
+
+          md:hidden
+        "
+        style={{
+          background:
+            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.78) 0%, rgba(2,8,14,0.58) 27%, rgba(2,8,14,0.34) 48%, rgba(2,8,14,0.12) 67%, transparent 84%)",
+        }}
+      />
+
+      {/* =====================================================
+          MOBILE CINEMATIC GRADIENT
+      ====================================================== */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+
+          md:hidden
+        "
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(2,8,14,0.24) 0%, transparent 30%, transparent 67%, rgba(2,8,14,0.44) 100%)",
+        }}
+      />
+
+      {/* =====================================================
+          DESKTOP TEXT SHADE
+      ====================================================== */}
+      <div
+        className="
+          pointer-events-none
+
+          absolute
+          left-0
+          top-[125px]
+
+          hidden
+          h-[500px]
+          w-[760px]
+
+          md:block
+        "
+        style={{
+          background:
+            "radial-gradient(ellipse at 18% 48%, rgba(2,8,14,0.50) 0%, rgba(2,8,14,0.36) 27%, rgba(2,8,14,0.20) 48%, rgba(2,8,14,0.08) 64%, transparent 79%)",
+        }}
+      />
+
+      {/* =====================================================
+          BOTTOM FADE
+      ====================================================== */}
+      <div
+        className="
+          pointer-events-none
+
+          absolute
+          inset-x-0
+          bottom-0
+
+          h-[30%]
+        "
+        style={{
+          background:
+            "linear-gradient(0deg, rgba(2,8,14,0.52) 0%, rgba(2,8,14,0.17) 52%, transparent 100%)",
+        }}
+      />
+
+      {/* =====================================================
+          TOP HEADER SHADE
+      ====================================================== */}
+      <div
+        className="
+          pointer-events-none
+
+          absolute
+          inset-x-0
+          top-0
+
+          h-[115px]
+
+          bg-gradient-to-b
+          from-black/25
+          to-transparent
+
+          md:h-[120px]
+          md:from-black/20
+        "
+      />
+
+      {/* =====================================================
+          MAIN CONTENT
+      ====================================================== */}
       <div
         className="
           relative
           z-10
+
           mx-auto
+
+          flex
           min-h-[100svh]
           w-full
-          max-w-[1600px]
-          px-6
-          sm:px-8
-          lg:px-12
-          xl:px-16
+          max-w-[1920px]
+          flex-col
+
+          px-5
+          pb-7
+          pt-[96px]
+
+          sm:px-7
+          sm:pb-8
+          sm:pt-[104px]
+
+          md:px-8
+          md:pb-6
+          md:pt-[120px]
+
+          lg:px-10
+          lg:pt-[126px]
+
+          xl:px-12
+
+          2xl:px-14
         "
       >
-        {/* LEFT AREA */}
+        {/* =================================================
+            HERO TEXT
+        ================================================== */}
         <motion.div
           initial={
             reduceMotion
               ? false
-              : { opacity: 0, y: 28 }
-          }
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.9,
-            ease: EASE_OUT,
-          }}
-          className="
-            absolute
-            left-6
-            top-[19%]
-            w-[calc(100%-48px)]
-            max-w-[670px]
-
-            sm:left-8
-            sm:top-[20%]
-
-            lg:left-12
-            lg:top-[19%]
-
-            xl:left-16
-            xl:top-[18%]
-          "
-        >
-          {/* EYEBROW */}
-          <div className="mb-6 flex items-center gap-4">
-            <span className="h-px w-12 bg-[#00A8E8]" />
-
-            <p
-              className="
-                font-[var(--font-inter)]
-                text-[12px]
-                font-semibold
-                uppercase
-                tracking-[0.12em]
-                text-[#F6F8FA]
-                sm:text-[13px]
-              "
-            >
-              JAPANESE IMPORT SPECIALISTS
-            </p>
-          </div>
-
-          {/* HEADLINE */}
-          <h1
-            className="
-              max-w-[650px]
-              font-[var(--font-cormorant)]
-              text-[48px]
-              font-semibold
-              leading-[0.96]
-              tracking-[-0.015em]
-              text-[#F6F8FA]
-
-              sm:text-[58px]
-              md:text-[64px]
-              lg:text-[68px]
-              xl:text-[72px]
-            "
-          >
-            Fewer kilometres.
-            <br />
-
-            <span className="text-[#C9D2DC]">
-              Better cars.
-            </span>
-          </h1>
-
-          {/* SUB HEADLINE */}
-          <p
-            className="
-              mt-6
-              max-w-[555px]
-              font-[var(--font-inter)]
-              text-[14px]
-              font-normal
-              leading-[1.75]
-              text-[#C9D2DC]
-              lg:text-[15px]
-            "
-          >
-            Low mileage Japanese vehicles, sourced at auction, graded on
-            arrival and supplied with full documentation. Every car we import
-            can be checked before you commit to it.
-          </p>
-
-          {/* CTAs */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href="#stock"
-              className="
-                group
-                inline-flex
-                h-[50px]
-                min-w-[190px]
-                items-center
-                justify-between
-                bg-[#00A8E8]
-                px-6
-                font-[var(--font-inter)]
-                text-[11px]
-                font-semibold
-                uppercase
-                tracking-[0.1em]
-                text-white
-                transition-all
-                duration-300
-                hover:opacity-90
-              "
-            >
-              Browse Stock
-
-              <ArrowUpRight
-                size={16}
-                strokeWidth={1.6}
-                className="
-                  transition-transform
-                  duration-300
-                  group-hover:-translate-y-0.5
-                  group-hover:translate-x-0.5
-                "
-              />
-            </a>
-
-            <a
-              href="#sell"
-              className="
-                group
-                inline-flex
-                h-[50px]
-                min-w-[185px]
-                items-center
-                justify-between
-                border
-                border-[#C9D2DC]/40
-                px-6
-                font-[var(--font-inter)]
-                text-[11px]
-                font-semibold
-                uppercase
-                tracking-[0.1em]
-                text-[#F6F8FA]
-                transition-all
-                duration-300
-                hover:border-[#F6F8FA]
-              "
-            >
-              Sell Your Car
-
-              <ArrowUpRight
-                size={16}
-                strokeWidth={1.6}
-                className="
-                  transition-transform
-                  duration-300
-                  group-hover:-translate-y-0.5
-                  group-hover:translate-x-0.5
-                "
-              />
-            </a>
-          </div>
-
-          {/* PROOF POINTS */}
-          <motion.div
-            initial={
-              reduceMotion
-                ? false
-                : { opacity: 0, y: 16 }
-            }
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.8,
-              delay: 0.35,
-              ease: EASE_OUT,
-            }}
-            className="
-              mt-8
-              hidden
-              max-w-[650px]
-              grid-cols-3
-              gap-0
-              border-t
-              border-[#C9D2DC]/25
-              sm:grid
-            "
-          >
-            {proofPoints.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <div
-                  key={item.title}
-                  className={`
-                    py-5
-                    ${
-                      index === 0
-                        ? "pr-5"
-                        : "border-l border-[#C9D2DC]/20 px-5"
-                    }
-                  `}
-                >
-                  <div className="mb-3 flex items-center gap-3">
-                    <Icon
-                      size={20}
-                      strokeWidth={1.35}
-                      className="text-[#C9D2DC]"
-                    />
-
-                    <span
-                      className="
-                        font-[var(--font-inter)]
-                        text-[10px]
-                        font-semibold
-                        uppercase
-                        tracking-[0.14em]
-                        text-[#F6F8FA]
-                      "
-                    >
-                      {item.title}
-                    </span>
-                  </div>
-
-                  <p
-                    className="
-                      max-w-[155px]
-                      font-[var(--font-inter)]
-                      text-[11px]
-                      font-normal
-                      leading-[1.55]
-                      text-[#C9D2DC]/80
-                    "
-                  >
-                    {item.text}
-                  </p>
-                </div>
-              );
-            })}
-          </motion.div>
-        </motion.div>
-
-        {/* RIGHT PARAGRAPH */}
-        <motion.div
-          initial={
-            reduceMotion
-              ? false
-              : { opacity: 0, x: 30 }
+              : {
+                  opacity: 0,
+                  x: -20,
+                }
           }
           animate={{
             opacity: 1,
             x: 0,
           }}
           transition={{
-            duration: 0.9,
-            delay: 0.25,
+            duration: 0.8,
             ease: EASE_OUT,
           }}
           className="
-            absolute
-            bottom-[11%]
-            right-12
-            hidden
-            w-[390px]
-            lg:block
-            xl:right-16
-            xl:w-[420px]
+            mt-[5vh]
+
+            max-w-[360px]
+
+            sm:mt-[6vh]
+            sm:max-w-[470px]
+
+            md:mt-[9vh]
+            md:max-w-[610px]
+
+            lg:mt-[10vh]
+
+            xl:mt-[11vh]
+            xl:max-w-[650px]
           "
         >
-          <div className="border-t border-[#C9D2DC]/35 pt-5">
-            <div className="mb-4 h-[2px] w-10 bg-[#00A8E8]" />
+          {/* =================================================
+              LUXURY LABEL
+          ================================================== */}
+          <div
+            className="
+              mb-5
 
-            <p
+              flex
+              items-center
+              gap-3
+
+              sm:mb-6
+              sm:gap-4
+
+              md:mb-7
+            "
+          >
+            <span
               className="
-                font-[var(--font-inter)]
-                text-[13px]
-                font-normal
-                leading-[1.8]
-                text-[#C9D2DC]
+                h-px
+                w-8
+                shrink-0
+
+                bg-gradient-to-r
+                from-[#f2f4f5]
+                via-[#aeb5ba]
+                to-transparent
+
+                opacity-80
+
+                sm:w-10
+                md:w-12
+              "
+            />
+
+            <span
+              className="
+                whitespace-nowrap
+
+                font-[var(--font-body)]
+
+                text-[10px]
+                font-semibold
+                uppercase
+                leading-none
+                tracking-[0.16em]
+
+                bg-clip-text
+                text-transparent
+
+                min-[380px]:text-[11px]
+
+                sm:text-[12px]
+                sm:tracking-[0.19em]
+
+                md:text-[15px]
+                md:tracking-[0.20em]
+              "
+              style={{
+                backgroundImage:
+                  "linear-gradient(180deg, #ffffff 0%, #e7eaec 22%, #aeb5ba 48%, #f7f8f8 68%, #a2a9ae 100%)",
+              }}
+            >
+              Japanese Import Specialists
+            </span>
+          </div>
+
+          {/* =================================================
+              MAIN HEADING
+          ================================================== */}
+          <h1
+            className="
+              font-[var(--font-display)]
+
+              text-[42px]
+              font-semibold
+              leading-[0.94]
+              tracking-[-0.03em]
+
+              text-white
+
+              min-[380px]:text-[46px]
+
+              sm:text-[54px]
+
+              md:text-[62px]
+
+              lg:text-[70px]
+
+              xl:text-[77px]
+
+              2xl:text-[82px]
+            "
+          >
+            <span className="text-[#f5f5f3]">
+              Fewer kilometres.
+            </span>
+
+            <br />
+
+            <span className="text-[#129cff]">
+              Better cars.
+            </span>
+          </h1>
+
+          {/* =================================================
+              DESCRIPTION
+          ================================================== */}
+          <p
+            className="
+              mt-5
+              max-w-[335px]
+
+              font-[var(--font-body)]
+
+              text-[12px]
+              font-normal
+              leading-[1.65]
+
+              text-white/72
+
+              min-[380px]:text-[13px]
+
+              sm:mt-6
+              sm:max-w-[410px]
+              sm:text-[14px]
+
+              md:max-w-[470px]
+              md:text-[15px]
+
+              xl:text-[16px]
+            "
+          >
+            Low mileage Japanese vehicles, sourced at auction,
+            graded on arrival and supplied with full documentation.
+            Every car we import can be checked before you commit to it.
+          </p>
+
+          {/* =================================================
+              BUTTONS
+          ================================================== */}
+          <div
+            className="
+              mt-6
+
+              grid
+              w-full
+              max-w-[335px]
+              grid-cols-2
+              gap-3
+
+              sm:mt-7
+              sm:max-w-[365px]
+
+              md:mt-8
+              md:flex
+              md:max-w-none
+              md:items-center
+              md:gap-4
+            "
+          >
+            {/* BROWSE STOCK */}
+            <motion.a
+              href="#models"
+              whileHover={{
+                y: -2,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
+              transition={{
+                duration: 0.2,
+              }}
+              className="
+                inline-flex
+
+                min-h-[44px]
+
+                items-center
+                justify-center
+
+                rounded-[3px]
+
+                bg-[#158ff3]
+
+                px-4
+
+                font-[var(--font-body)]
+
+                text-[11px]
+                font-semibold
+
+                text-white
+
+                shadow-[0_8px_24px_rgba(21,143,243,0.18)]
+
+                transition-all
+                duration-200
+
+                hover:bg-[#2a9fff]
+
+                sm:min-h-[46px]
+                sm:px-6
+                sm:text-[13px]
+
+                md:min-w-[132px]
               "
             >
-              We buy at Japanese auction, where mileage is verified and
-              condition is independently graded. Every vehicle arrives with
-              its auction sheet, its service record and its import paperwork
-              ready for inspection.
-            </p>
+              Browse Stock
+            </motion.a>
+
+            {/* SELL CAR */}
+            <motion.a
+              href="#contact"
+              whileHover={{
+                y: -2,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
+              transition={{
+                duration: 0.2,
+              }}
+              className="
+                inline-flex
+
+                min-h-[44px]
+
+                items-center
+                justify-center
+
+                rounded-[3px]
+
+                border
+                border-white/35
+
+                bg-black/[0.12]
+
+                px-4
+
+                font-[var(--font-body)]
+
+                text-[11px]
+                font-semibold
+
+                text-white
+
+                backdrop-blur-[3px]
+
+                transition-all
+                duration-200
+
+                hover:border-white/65
+                hover:bg-white/[0.08]
+
+                sm:min-h-[46px]
+                sm:px-6
+                sm:text-[13px]
+
+                md:min-w-[132px]
+              "
+            >
+              Sell your car
+            </motion.a>
           </div>
         </motion.div>
 
-        {/* MOBILE PROOF */}
+        {/* =====================================================
+            MOBILE FLEX SPACE
+
+            Search mobile par hide hai,
+            isliye content ke neeche clean breathing space.
+        ====================================================== */}
         <div
           className="
-            absolute
-            bottom-5
-            left-6
-            right-6
-            grid
-            grid-cols-3
-            border-t
-            border-[#C9D2DC]/20
-            pt-4
-            sm:hidden
+            min-h-[50px]
+            flex-1
+
+            md:min-h-[80px]
+          "
+        />
+
+        {/* =====================================================
+            VEHICLE SEARCH BAR
+
+            MOBILE = HIDDEN
+            MD+ = VISIBLE
+        ====================================================== */}
+        <motion.div
+          initial={
+            reduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  y: 18,
+                }
+          }
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.75,
+            delay: 0.15,
+            ease: EASE_OUT,
+          }}
+          className="
+            relative
+            z-20
+
+            hidden
+            w-full
+
+            md:mt-12
+            md:block
           "
         >
-          {proofPoints.map((item) => {
-            const Icon = item.icon;
-
-            return (
-              <div key={item.title}>
-                <Icon
-                  size={17}
-                  strokeWidth={1.4}
-                  className="mb-2 text-[#C9D2DC]"
-                />
-
-                <span
-                  className="
-                    font-[var(--font-inter)]
-                    text-[8px]
-                    font-semibold
-                    tracking-[0.1em]
-                    text-white
-                  "
-                >
-                  {item.title}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+          <VehicleSearchBar />
+        </motion.div>
       </div>
+
+      {/* =====================================================
+          AI ASSISTANT
+      ====================================================== */}
+      <AiAssistant />
     </section>
   );
 }
