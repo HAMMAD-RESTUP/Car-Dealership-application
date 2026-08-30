@@ -159,8 +159,8 @@ export default function Hero() {
           top-[125px]
 
           hidden
-          h-[500px]
-          w-[760px]
+          h-[540px]
+          w-[860px]
 
           md:block
         "
@@ -270,18 +270,19 @@ export default function Hero() {
           className="
             mt-[5vh]
 
-            max-w-[360px]
+            max-w-[390px]
 
             sm:mt-[6vh]
-            sm:max-w-[470px]
+            sm:max-w-[540px]
 
             md:mt-[9vh]
-            md:max-w-[610px]
+            md:max-w-[720px]
 
             lg:mt-[10vh]
+            lg:max-w-[790px]
 
             xl:mt-[11vh]
-            xl:max-w-[650px]
+            xl:max-w-[850px]
           "
         >
           {/* =================================================
@@ -304,7 +305,7 @@ export default function Hero() {
             <span
               className="
                 h-px
-                w-8
+                w-9
                 shrink-0
 
                 bg-gradient-to-r
@@ -314,8 +315,8 @@ export default function Hero() {
 
                 opacity-80
 
-                sm:w-10
-                md:w-12
+                sm:w-11
+                md:w-14
               "
             />
 
@@ -325,22 +326,26 @@ export default function Hero() {
 
                 font-[var(--font-body)]
 
-                text-[10px]
+                text-[13px]
                 font-semibold
                 uppercase
                 leading-none
-                tracking-[0.16em]
+                tracking-[0.14em]
 
                 bg-clip-text
                 text-transparent
 
-                min-[380px]:text-[11px]
+                min-[380px]:text-[14px]
 
-                sm:text-[12px]
-                sm:tracking-[0.19em]
+                sm:text-[16px]
+                sm:tracking-[0.16em]
 
-                md:text-[15px]
-                md:tracking-[0.20em]
+                md:text-[18px]
+                md:tracking-[0.17em]
+
+                lg:text-[20px]
+
+                xl:text-[22px]
               "
               style={{
                 backgroundImage:
@@ -358,24 +363,24 @@ export default function Hero() {
             className="
               font-[var(--font-display)]
 
-              text-[42px]
+              text-[48px]
               font-semibold
-              leading-[0.94]
-              tracking-[-0.03em]
+              leading-[0.92]
+              tracking-[-0.035em]
 
               text-white
 
-              min-[380px]:text-[46px]
+              min-[380px]:text-[52px]
 
-              sm:text-[54px]
+              sm:text-[62px]
 
-              md:text-[62px]
+              md:text-[72px]
 
-              lg:text-[70px]
+              lg:text-[82px]
 
-              xl:text-[77px]
+              xl:text-[90px]
 
-              2xl:text-[82px]
+              2xl:text-[96px]
             "
           >
             <span className="text-[#f5f5f3]">
@@ -395,26 +400,27 @@ export default function Hero() {
           <p
             className="
               mt-5
-              max-w-[335px]
+              max-w-[350px]
 
               font-[var(--font-body)]
 
-              text-[12px]
+              text-[13px]
               font-normal
               leading-[1.65]
 
               text-white/72
 
-              min-[380px]:text-[13px]
+              min-[380px]:text-[14px]
 
               sm:mt-6
-              sm:max-w-[410px]
-              sm:text-[14px]
+              sm:max-w-[430px]
+              sm:text-[15px]
 
-              md:max-w-[470px]
-              md:text-[15px]
+              md:max-w-[500px]
+              md:text-[16px]
 
-              xl:text-[16px]
+              xl:max-w-[530px]
+              xl:text-[17px]
             "
           >
             Low mileage Japanese vehicles, sourced at auction,
@@ -427,18 +433,19 @@ export default function Hero() {
           ================================================== */}
           <div
             className="
-              mt-6
+              mt-7
 
               grid
               w-full
-              max-w-[335px]
+              max-w-[380px]
               grid-cols-2
               gap-3
 
-              sm:mt-7
-              sm:max-w-[365px]
+              sm:mt-8
+              sm:max-w-[430px]
+              sm:gap-4
 
-              md:mt-8
+              md:mt-9
               md:flex
               md:max-w-none
               md:items-center
@@ -460,36 +467,45 @@ export default function Hero() {
               className="
                 inline-flex
 
-                min-h-[44px]
+                min-h-[50px]
 
                 items-center
                 justify-center
 
-                rounded-[3px]
+                rounded-[4px]
 
                 bg-[#158ff3]
 
-                px-4
+                px-5
 
                 font-[var(--font-body)]
 
-                text-[11px]
+                text-[12px]
                 font-semibold
+                tracking-[0.01em]
 
                 text-white
 
-                shadow-[0_8px_24px_rgba(21,143,243,0.18)]
+                shadow-[0_10px_28px_rgba(21,143,243,0.22)]
 
                 transition-all
                 duration-200
 
                 hover:bg-[#2a9fff]
+                hover:shadow-[0_12px_32px_rgba(21,143,243,0.28)]
 
-                sm:min-h-[46px]
-                sm:px-6
-                sm:text-[13px]
+                min-[380px]:text-[13px]
 
-                md:min-w-[132px]
+                sm:min-h-[54px]
+                sm:px-8
+                sm:text-[14px]
+
+                md:min-h-[56px]
+                md:min-w-[165px]
+                md:px-9
+                md:text-[15px]
+
+                lg:min-w-[175px]
               "
             >
               Browse Stock
@@ -510,24 +526,25 @@ export default function Hero() {
               className="
                 inline-flex
 
-                min-h-[44px]
+                min-h-[50px]
 
                 items-center
                 justify-center
 
-                rounded-[3px]
+                rounded-[4px]
 
                 border
                 border-white/35
 
                 bg-black/[0.12]
 
-                px-4
+                px-5
 
                 font-[var(--font-body)]
 
-                text-[11px]
+                text-[12px]
                 font-semibold
+                tracking-[0.01em]
 
                 text-white
 
@@ -539,11 +556,18 @@ export default function Hero() {
                 hover:border-white/65
                 hover:bg-white/[0.08]
 
-                sm:min-h-[46px]
-                sm:px-6
-                sm:text-[13px]
+                min-[380px]:text-[13px]
 
-                md:min-w-[132px]
+                sm:min-h-[54px]
+                sm:px-8
+                sm:text-[14px]
+
+                md:min-h-[56px]
+                md:min-w-[165px]
+                md:px-9
+                md:text-[15px]
+
+                lg:min-w-[175px]
               "
             >
               Sell your car
@@ -553,9 +577,6 @@ export default function Hero() {
 
         {/* =====================================================
             MOBILE FLEX SPACE
-
-            Search mobile par hide hai,
-            isliye content ke neeche clean breathing space.
         ====================================================== */}
         <div
           className="
