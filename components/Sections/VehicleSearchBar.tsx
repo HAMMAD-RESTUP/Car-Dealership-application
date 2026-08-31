@@ -123,14 +123,15 @@ export default function VehicleSearchBar() {
         border
         border-white/[0.18]
 
-        bg-white/[0.06]
+        bg-[rgba(255,255,255,0.06)]
 
         px-3
         py-3
 
         shadow-[0_-25px_70px_rgba(0,0,0,0.55)]
-        backdrop-blur-[28px]
-        backdrop-saturate-[1.6]
+
+        backdrop-blur-[24px]
+        backdrop-saturate-[1.8]
 
         
 
@@ -150,7 +151,7 @@ export default function VehicleSearchBar() {
           absolute
           inset-0
 
-          bg-[linear-gradient(180deg,rgba(11,13,15,0.48)_0%,rgba(17,22,29,0.34)_50%,rgba(11,13,15,0.44)_100%)]
+          bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.035)_35%,rgba(7,12,18,0.28)_100%)]
         "
       />
 
@@ -460,9 +461,10 @@ function SearchSelect({
         border
         border-white/[0.20]
 
-        bg-white/[0.06]
+        bg-[rgba(255,255,255,0.045)]
 
-        backdrop-blur-[14px]
+        backdrop-blur-[16px]
+        backdrop-saturate-[1.5]
 
         transition-all
         duration-300
