@@ -77,12 +77,12 @@ export default function Header() {
           overflow-visible
 
           border-y
-          border-white/[0.05]
-          bg-[rgba(7,12,18,0.86)]
+          border-white/[0.10]
+          bg-[linear-gradient(180deg,rgba(7,12,18,0.35)_0%,rgba(7,12,18,0.18)_100%)]
 
-          shadow-[0_22px_50px_rgba(0,0,0,0.35)]
+          shadow-[0_18px_45px_rgba(0,0,0,0.18)]
 
-          backdrop-blur-[18px]
+          backdrop-blur-[8px]
 
           px-5
 
@@ -955,7 +955,10 @@ export default function Header() {
             justify-center
 
             border-0
+            border-l
+            border-white/[0.12]
             bg-transparent
+            pl-4
             p-0
 
             text-white
