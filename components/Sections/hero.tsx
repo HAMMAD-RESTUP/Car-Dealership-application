@@ -17,7 +17,11 @@ export default function Hero() {
         min-h-[100svh]
         w-full
         overflow-hidden
+        rounded-t-[18px]
         bg-[#07101a]
+
+        sm:rounded-t-[22px]
+        lg:rounded-t-[32px]
       "
     >
       {/* =====================================================
