@@ -76,8 +76,12 @@ export default function Header() {
 
           overflow-visible
 
-          border-0
-          bg-transparent
+          border-y
+          border-white/[0.05]
+          bg-[linear-gradient(180deg,rgba(11,13,15,0.30)_0%,rgba(17,22,29,0.18)_50%,rgba(11,13,15,0.24)_100%)]
+
+          backdrop-blur-[6px]
+          backdrop-saturate-[1.08]
 
           px-5
 
@@ -105,10 +109,8 @@ export default function Header() {
             absolute
             inset-0
 
-            hidden
+            block
             overflow-hidden
-
-            xl:block
           "
         >
           {/* DARK GLASS TINT */}
