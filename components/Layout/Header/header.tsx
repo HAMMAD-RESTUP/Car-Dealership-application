@@ -1,18 +1,10 @@
 "use client";
 
-import { ReactNode, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  Check,
-  ChevronDown,
-  Menu,
-  X,
-} from "lucide-react";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { ArrowRight, Check, ChevronDown, Menu, X } from "lucide-react";
 
-import {
-  GB,
-  DE,
-} from "country-flag-icons/react/3x2";
+import { GB, DE } from "country-flag-icons/react/3x2";
 
 type Language = "en" | "de";
 
@@ -29,41 +21,115 @@ const rightNavItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-const mobileNavItems = [
-  ...leftNavItems,
-  ...rightNavItems,
-];
+const mobileNavItems = [...leftNavItems, ...rightNavItems];
+
+/* =========================================================
+   MOTION VARIANTS
+   Explicitly typed as `Variants` and eased with `as const`
+   tuples -- this is what TypeScript's Framer Motion types
+   require. An untyped ease array like [0.22, 1, 0.36, 1] is
+   widened to number[], which does not satisfy the Easing
+   type and is the source of the "type error" in this file.
+========================================================= */
+
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+const EASE_IN = [0.4, 0, 1, 1] as const;
+
+const backdropVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.25 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
+};
+
+const drawerVariants: Variants = {
+  hidden: { x: "100%" },
+  show: {
+    x: 0,
+    transition: { duration: 0.38, ease: EASE_OUT },
+  },
+  exit: {
+    x: "100%",
+    transition: { duration: 0.3, ease: EASE_IN },
+  },
+};
+
+const navStagger: Variants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.05, delayChildren: 0.15 },
+  },
+};
+
+const navItemFade: Variants = {
+  hidden: { opacity: 0, x: 16 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.35 } },
+};
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [language, setLanguage] = useState<Language>("en");
+  const [scrolled, setScrolled] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const selectLanguage = (value: Language) => {
     setLanguage(value);
     setLanguageOpen(false);
   };
 
+  /* Lock body scroll while the drawer is open, close on Escape,
+     and move focus to the drawer's close button for accessibility. */
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [menuOpen]);
+
+  /* Turns the transparent hero-overlay header into a solid,
+     blurred dark bar once the page is scrolled -- the header is
+     `fixed` so it now stays pinned instead of scrolling away
+     with the hero. */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <header
-      className="
-        absolute
+      className={`
+        fixed
         left-0
         top-0
         z-50
         w-full
-      "
+
+        transition-[background-color,border-color,box-shadow,backdrop-filter]
+        duration-300
+        ease-out
+
+        ${
+          scrolled
+            ? "border-b border-white/[0.08] bg-[#0b0e13]/85 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-[14px]"
+            : "border-b border-transparent bg-transparent"
+        }
+      `}
     >
       {/* =====================================================
           MAIN NAVIGATION
-          
-          MOBILE:
-          - completely transparent
-          - no border
-          - no blur
-          
-          DESKTOP XL+:
-          - existing glass effect
       ====================================================== */}
       <div
         className="
@@ -76,30 +142,21 @@ export default function Header() {
 
           overflow-visible
 
-          border-0
-          bg-transparent
-
           px-5
 
           sm:px-6
           md:px-7
 
-          xl:border-y
-          xl:border-white/[0.05]
-          xl:backdrop-blur-[6px]
-          xl:backdrop-saturate-[1.08]
           xl:px-9
 
           2xl:px-12
         "
       >
-        {/* =================================================
-            DESKTOP HEADER TINT ONLY
-
-            MOBILE = HIDDEN
-        ================================================== */}
+        {/* DESKTOP AMBIENT TINT -- fades out once the solid
+            scrolled background takes over, so the two effects
+            never compete. */}
         <div
-          className="
+          className={`
             pointer-events-none
 
             absolute
@@ -108,10 +165,14 @@ export default function Header() {
             hidden
             overflow-hidden
 
+            transition-opacity
+            duration-300
+
             xl:block
-          "
+
+            ${scrolled ? "opacity-0" : "opacity-100"}
+          `}
         >
-          {/* DARK GLASS TINT */}
           <div
             className="
               absolute
@@ -121,7 +182,6 @@ export default function Header() {
             "
           />
 
-          {/* BLUE AMBIENCE */}
           <div
             className="
               absolute
@@ -143,7 +203,6 @@ export default function Header() {
             "
           />
 
-          {/* TOP DETAIL LINE */}
           <div
             className="
               absolute
@@ -165,7 +224,6 @@ export default function Header() {
             "
           />
 
-          {/* BOTTOM DETAIL LINE */}
           <div
             className="
               absolute
@@ -186,22 +244,35 @@ export default function Header() {
           />
         </div>
 
-        {/* =================================================
-            CENTER LOGO TEXT — DESKTOP
-        ================================================== */}
+        {/* subtle permanent blue hairline under the scrolled bar */}
+        <div
+          className={`
+            pointer-events-none
+
+            absolute
+            inset-x-0
+            bottom-0
+
+            h-px
+
+            bg-gradient-to-r
+            from-transparent
+            via-[#00A8E8]/40
+            to-transparent
+
+            transition-opacity
+            duration-300
+
+            ${scrolled ? "opacity-100" : "opacity-0"}
+          `}
+        />
+
+        {/* CENTER LOGO TEXT -- DESKTOP */}
         <motion.a
           href="#home"
-          initial={{
-            opacity: 0,
-            y: -3,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.45,
-          }}
+          initial={{ opacity: 0, y: -3 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
           className="
             absolute
             left-1/2
@@ -219,22 +290,12 @@ export default function Header() {
           <LogoText />
         </motion.a>
 
-        {/* =================================================
-            CENTER LOGO TEXT — MOBILE
-        ================================================== */}
+        {/* CENTER LOGO TEXT -- MOBILE */}
         <motion.a
           href="#home"
-          initial={{
-            opacity: 0,
-            y: -3,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.45,
-          }}
+          initial={{ opacity: 0, y: -3 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
           className="
             absolute
             left-1/2
@@ -250,9 +311,7 @@ export default function Header() {
           <LogoText mobile />
         </motion.a>
 
-        {/* =================================================
-            LEFT NAVIGATION
-        ================================================== */}
+        {/* LEFT NAVIGATION */}
         <div
           className="
             relative
@@ -289,14 +348,7 @@ export default function Header() {
             "
           >
             {leftNavItems.map((item, index) => (
-              <div
-                key={item.label}
-                className="
-                  relative
-                  flex
-                  items-center
-                "
-              >
+              <div key={item.label} className="relative flex items-center">
                 <a
                   href={item.href}
                   className="
@@ -329,7 +381,6 @@ export default function Header() {
                     min-[1700px]:text-[15px]
                   "
                 >
-                  {/* SUBTLE HOVER GLOW */}
                   <span
                     className="
                       pointer-events-none
@@ -357,16 +408,8 @@ export default function Header() {
                     "
                   />
 
-                  <span
-                    className="
-                      relative
-                      z-10
-                    "
-                  >
-                    {item.label}
-                  </span>
+                  <span className="relative z-10">{item.label}</span>
 
-                  {/* HOVER BOTTOM LINE */}
                   <span
                     className="
                       absolute
@@ -410,9 +453,7 @@ export default function Header() {
           </nav>
         </div>
 
-        {/* =================================================
-            CENTER SAFE SPACE
-        ================================================== */}
+        {/* CENTER SAFE SPACE */}
         <div
           className="
             relative
@@ -431,9 +472,7 @@ export default function Header() {
           "
         />
 
-        {/* =================================================
-            RIGHT SIDE
-        ================================================== */}
+        {/* RIGHT SIDE */}
         <div
           className="
             relative
@@ -448,17 +487,9 @@ export default function Header() {
             xl:flex
           "
         >
-          {/* RIGHT NAV */}
           <nav className="flex items-center">
             {rightNavItems.map((item, index) => (
-              <div
-                key={item.label}
-                className="
-                  relative
-                  flex
-                  items-center
-                "
-              >
+              <div key={item.label} className="relative flex items-center">
                 <a
                   href={item.href}
                   className="
@@ -490,7 +521,6 @@ export default function Header() {
                     min-[1700px]:text-[15px]
                   "
                 >
-                  {/* HOVER GLOW */}
                   <span
                     className="
                       pointer-events-none
@@ -518,16 +548,8 @@ export default function Header() {
                     "
                   />
 
-                  <span
-                    className="
-                      relative
-                      z-10
-                    "
-                  >
-                    {item.label}
-                  </span>
+                  <span className="relative z-10">{item.label}</span>
 
-                  {/* HOVER LINE */}
                   <span
                     className="
                       absolute
@@ -570,7 +592,6 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* SEPARATOR */}
           <span
             className="
               mx-[17px]
@@ -585,19 +606,13 @@ export default function Header() {
             "
           />
 
-          {/* =================================================
-              LANGUAGE
-          ================================================== */}
+          {/* LANGUAGE */}
           <div className="relative">
             <button
               type="button"
               aria-label="Select language"
               aria-expanded={languageOpen}
-              onClick={() =>
-                setLanguageOpen(
-                  (previous) => !previous
-                )
-              }
+              onClick={() => setLanguageOpen((previous) => !previous)}
               className="
                 group
 
@@ -624,42 +639,15 @@ export default function Header() {
                 hover:opacity-80
               "
             >
-              <span
-                className="
-                  h-[14px]
-                  w-[21px]
-
-                  overflow-hidden
-
-                  rounded-[1px]
-                "
-              >
+              <span className="h-[14px] w-[21px] overflow-hidden rounded-[1px]">
                 {language === "en" ? (
-                  <GB
-                    title="United Kingdom"
-                    className="
-                      h-full
-                      w-full
-                      object-cover
-                    "
-                  />
+                  <GB title="United Kingdom" className="h-full w-full object-cover" />
                 ) : (
-                  <DE
-                    title="Germany"
-                    className="
-                      h-full
-                      w-full
-                      object-cover
-                    "
-                  />
+                  <DE title="Germany" className="h-full w-full object-cover" />
                 )}
               </span>
 
-              <span>
-                {language === "en"
-                  ? "EN"
-                  : "DE"}
-              </span>
+              <span>{language === "en" ? "EN" : "DE"}</span>
 
               <ChevronDown
                 size={11}
@@ -670,37 +658,18 @@ export default function Header() {
                   transition-transform
                   duration-200
 
-                  ${
-                    languageOpen
-                      ? "rotate-180"
-                      : ""
-                  }
+                  ${languageOpen ? "rotate-180" : ""}
                 `}
               />
             </button>
 
-            {/* LANGUAGE DROPDOWN */}
             <AnimatePresence>
               {languageOpen && (
                 <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: -7,
-                    scale: 0.98,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: -6,
-                    scale: 0.98,
-                  }}
-                  transition={{
-                    duration: 0.17,
-                  }}
+                  initial={{ opacity: 0, y: -7, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                  transition={{ duration: 0.17 }}
                   className="
                     absolute
                     right-0
@@ -725,7 +694,6 @@ export default function Header() {
                     backdrop-blur-[16px]
                   "
                 >
-                  {/* BACKGROUND */}
                   <div
                     className="
                       pointer-events-none
@@ -737,7 +705,6 @@ export default function Header() {
                     "
                   />
 
-                  {/* BLUE AMBIENCE */}
                   <div
                     className="
                       pointer-events-none
@@ -760,7 +727,6 @@ export default function Header() {
                     "
                   />
 
-                  {/* TOP LINE */}
                   <div
                     className="
                       pointer-events-none
@@ -790,12 +756,12 @@ export default function Header() {
 
                         font-[var(--font-body)]
 
-                        text-[9px]
+                        text-[11px]
                         font-semibold
                         uppercase
                         tracking-[0.18em]
 
-                        text-white/35
+                        text-white/40
                       "
                     >
                       Language
@@ -805,18 +771,8 @@ export default function Header() {
                       active={language === "en"}
                       title="English"
                       subtitle="United Kingdom"
-                      flag={
-                        <GB
-                          title="United Kingdom"
-                          className="
-                            h-[16px]
-                            w-[24px]
-                          "
-                        />
-                      }
-                      onClick={() =>
-                        selectLanguage("en")
-                      }
+                      flag={<GB title="United Kingdom" className="h-[16px] w-[24px]" />}
+                      onClick={() => selectLanguage("en")}
                     />
 
                     <div className="mt-[3px]">
@@ -824,18 +780,8 @@ export default function Header() {
                         active={language === "de"}
                         title="Deutsch"
                         subtitle="Deutschland"
-                        flag={
-                          <DE
-                            title="Germany"
-                            className="
-                              h-[16px]
-                              w-[24px]
-                            "
-                          />
-                        }
-                        onClick={() =>
-                          selectLanguage("de")
-                        }
+                        flag={<DE title="Germany" className="h-[16px] w-[24px]" />}
+                        onClick={() => selectLanguage("de")}
                       />
                     </div>
                   </div>
@@ -844,7 +790,6 @@ export default function Header() {
             </AnimatePresence>
           </div>
 
-          {/* SEPARATOR */}
           <span
             className="
               mx-[17px]
@@ -859,21 +804,19 @@ export default function Header() {
             "
           />
 
-          {/* =================================================
-              DESKTOP CTA
-          ================================================== */}
+          {/* DESKTOP CTA
+              Signal Blue fill, uppercase, +12% tracking, 14px min --
+              per brand button spec and the white-on-Signal-Blue
+              contrast rule (14pt+ semibold). Arrow slides in on
+              hover for a bit of polish. */}
           <motion.a
             href="#contact"
-            whileHover={{
-              y: -1,
-            }}
-            whileTap={{
-              scale: 0.98,
-            }}
-            transition={{
-              duration: 0.18,
-            }}
+            whileHover={{ y: -1, boxShadow: "0 10px 26px rgba(0,168,232,0.32)" }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.18 }}
             className="
+              group
+
               inline-flex
 
               h-[44px]
@@ -881,61 +824,64 @@ export default function Header() {
               shrink-0
               items-center
               justify-center
+              gap-[6px]
 
               whitespace-nowrap
 
               rounded-[3px]
 
               border
-              border-[#2a9fff]/25
+              border-[#00A8E8]/25
 
-              bg-[#158ff3]
+              bg-[#00A8E8]
 
               px-[20px]
 
               font-[var(--font-body)]
 
-              text-[12px]
+              text-[13px]
               font-semibold
+              uppercase
+              tracking-[0.12em]
 
               text-white
 
-              shadow-[0_7px_20px_rgba(21,143,243,0.17)]
+              shadow-[0_7px_20px_rgba(0,168,232,0.22)]
 
-              transition-all
+              transition-colors
               duration-200
 
-              hover:bg-[#2a9fff]
+              hover:bg-[#1fb4f2]
 
               2xl:px-[24px]
-              2xl:text-[13px]
             "
           >
             Enquire Now
+            <ArrowRight
+              size={14}
+              strokeWidth={2.2}
+              className="
+                -translate-x-1
+                opacity-0
+
+                transition-all
+                duration-200
+
+                group-hover:translate-x-0
+                group-hover:opacity-100
+              "
+            />
           </motion.a>
         </div>
 
-        {/* =================================================
-            MOBILE MENU BUTTON
-
-            NO BORDER
-            NO BACKGROUND
-            NO BLOCK
-            NO BLUR
-        ================================================== */}
+        {/* MOBILE MENU BUTTON */}
         <button
           type="button"
-          aria-label={
-            menuOpen
-              ? "Close menu"
-              : "Open menu"
-          }
+          aria-label="Open menu"
           aria-expanded={menuOpen}
+          aria-controls="mobile-drawer"
           onClick={() => {
-            setMenuOpen(
-              (previous) => !previous
-            );
-
+            setMenuOpen(true);
             setLanguageOpen(false);
           }}
           className="
@@ -967,301 +913,335 @@ export default function Header() {
             xl:hidden
           "
         >
-          {menuOpen ? (
-            <X
-              size={24}
-              strokeWidth={1.7}
-            />
-          ) : (
-            <Menu
-              size={25}
-              strokeWidth={1.7}
-            />
-          )}
+          <Menu size={25} strokeWidth={1.7} />
         </button>
       </div>
 
       {/* =====================================================
-          MOBILE MENU
+          MOBILE DRAWER
+          Slides in from the right over a dark backdrop, locks
+          body scroll, and closes on backdrop click or Escape.
       ====================================================== */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: -8,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            exit={{
-              opacity: 0,
-              y: -8,
-            }}
-            transition={{
-              duration: 0.2,
-              ease: "easeOut",
-            }}
-            className="
-              relative
-
-              w-full
-
-              overflow-hidden
-
-              border-0
-
-              bg-[rgba(7,12,18,0.82)]
-
-              shadow-[0_22px_50px_rgba(0,0,0,0.28)]
-
-              backdrop-blur-[18px]
-
-              xl:hidden
-            "
-          >
-            {/* MENU BACKGROUND */}
-            <div
+          <>
+            {/* BACKDROP */}
+            <motion.div
+              key="backdrop"
+              variants={backdropVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+              onClick={() => setMenuOpen(false)}
               className="
-                pointer-events-none
-
-                absolute
+                fixed
                 inset-0
+                z-[60]
 
-                bg-[linear-gradient(180deg,rgba(7,12,18,0.86)_0%,rgba(11,17,24,0.78)_100%)]
+                bg-black/60
+
+                backdrop-blur-[2px]
+
+                xl:hidden
               "
             />
 
-            {/* SUBTLE BLUE GLOW */}
-            <div
+            {/* DRAWER PANEL */}
+            <motion.aside
+              key="drawer"
+              id="mobile-drawer"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site menu"
+              variants={drawerVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
               className="
-                pointer-events-none
-
-                absolute
-                left-1/2
+                fixed
+                right-0
                 top-0
+                z-[70]
 
-                h-[220px]
-                w-[420px]
+                flex
+                h-[100svh]
+                w-[86%]
+                max-w-[380px]
+                flex-col
 
-                -translate-x-1/2
+                overflow-y-auto
 
-                rounded-full
+                border-l
+                border-white/[0.06]
 
-                bg-[#00A8E8]/[0.045]
+                bg-[#0b0e13]
 
-                blur-[100px]
-              "
-            />
+                shadow-[-24px_0_60px_rgba(0,0,0,0.45)]
 
-            <div
-              className="
-                relative
-                z-10
-
-                px-5
-                pb-6
-                pt-2
-
-                sm:px-6
+                xl:hidden
               "
             >
-              {/* MOBILE NAV */}
-              <nav className="flex flex-col">
-                {mobileNavItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={() =>
-                      setMenuOpen(false)
-                    }
-                    className="
-                      group
-                      relative
+              {/* AMBIENT BACKGROUND DETAIL */}
+              <div
+                className="
+                  pointer-events-none
 
+                  absolute
+                  inset-0
+
+                  bg-[linear-gradient(180deg,rgba(11,14,19,1)_0%,rgba(17,22,29,0.94)_45%,rgba(11,14,19,1)_100%)]
+                "
+              />
+
+              <div
+                className="
+                  pointer-events-none
+
+                  absolute
+                  left-1/2
+                  top-0
+
+                  h-[240px]
+                  w-[320px]
+
+                  -translate-x-1/2
+
+                  rounded-full
+
+                  bg-[#00A8E8]/[0.06]
+
+                  blur-[100px]
+                "
+              />
+
+              {/* DRAWER HEADER: logo + close */}
+              <div
+                className="
+                  relative
+                  z-10
+
+                  flex
+                  h-[80px]
+                  shrink-0
+                  items-center
+                  justify-between
+
+                  border-b
+                  border-white/[0.06]
+
+                  px-5
+                "
+              >
+                <LogoText mobile />
+
+                <button
+                  ref={closeButtonRef}
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={() => setMenuOpen(false)}
+                  className="
+                    flex
+                    h-[40px]
+                    w-[40px]
+                    items-center
+                    justify-center
+
+                    rounded-full
+
+                    border
+                    border-white/[0.08]
+
+                    bg-white/[0.03]
+
+                    text-white
+
+                    transition-colors
+                    duration-200
+
+                    hover:bg-white/[0.08]
+
+                    focus:outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-[#00A8E8]
+                  "
+                >
+                  <X size={20} strokeWidth={1.7} />
+                </button>
+              </div>
+
+              <div className="relative z-10 flex flex-1 flex-col px-5 pb-6 pt-5 sm:px-6">
+                {/* MOBILE NAV -- staggered entrance */}
+                <motion.nav
+                  variants={navStagger}
+                  initial="hidden"
+                  animate="show"
+                  className="flex flex-col"
+                >
+                  {mobileNavItems.map((item) => (
+                    <motion.a
+                      key={item.label}
+                      variants={navItemFade}
+                      href={item.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="
+                        group
+                        relative
+
+                        flex
+                        min-h-[56px]
+                        items-center
+
+                        border-b
+                        border-white/[0.05]
+
+                        font-[var(--font-body)]
+
+                        text-[15px]
+                        font-medium
+
+                        text-white
+
+                        transition-colors
+                        duration-200
+
+                        hover:text-[#00A8E8]
+                      "
+                    >
+                      {item.label}
+
+                      <span
+                        className="
+                          absolute
+                          bottom-0
+                          left-0
+
+                          h-[2px]
+                          w-0
+
+                          bg-[#00A8E8]
+
+                          transition-all
+                          duration-300
+
+                          group-hover:w-[30px]
+                        "
+                      />
+                    </motion.a>
+                  ))}
+                </motion.nav>
+
+                {/* MOBILE LANGUAGES */}
+                <div className="mt-5 grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => selectLanguage("en")}
+                    className={`
                       flex
-                      min-h-[56px]
+                      min-h-[46px]
                       items-center
+                      gap-2
 
-                      border-b
-                      border-white/[0.05]
+                      rounded-[4px]
+
+                      border
+                      border-white/[0.06]
+
+                      px-3
 
                       font-[var(--font-body)]
 
-                      text-[15px]
-                      font-medium
-
-                      text-white
+                      text-[12px]
 
                       transition-colors
                       duration-200
 
-                      hover:text-[#2a9fff]
-                    "
+                      ${
+                        language === "en"
+                          ? "bg-white/[0.07] text-white"
+                          : "bg-white/[0.02] text-white/65"
+                      }
+                    `}
                   >
-                    {item.label}
+                    <GB title="United Kingdom" className="h-[14px] w-[21px]" />
+                    English
+                  </button>
 
-                    <span
-                      className="
-                        absolute
-                        bottom-0
-                        left-0
+                  <button
+                    type="button"
+                    onClick={() => selectLanguage("de")}
+                    className={`
+                      flex
+                      min-h-[46px]
+                      items-center
+                      gap-2
 
-                        h-[2px]
-                        w-0
+                      rounded-[4px]
 
-                        bg-[#00A8E8]
+                      border
+                      border-white/[0.06]
 
-                        transition-all
-                        duration-300
+                      px-3
 
-                        group-hover:w-[30px]
-                      "
-                    />
-                  </a>
-                ))}
-              </nav>
+                      font-[var(--font-body)]
 
-              {/* =================================================
-                  MOBILE LANGUAGES
-              ================================================== */}
-              <div
-                className="
-                  mt-5
+                      text-[12px]
 
-                  grid
-                  grid-cols-2
-                  gap-2
-                "
-              >
-                <button
-                  type="button"
-                  onClick={() =>
-                    selectLanguage("en")
-                  }
-                  className={`
+                      transition-colors
+                      duration-200
+
+                      ${
+                        language === "de"
+                          ? "bg-white/[0.07] text-white"
+                          : "bg-white/[0.02] text-white/65"
+                      }
+                    `}
+                  >
+                    <DE title="Germany" className="h-[14px] w-[21px]" />
+                    Deutsch
+                  </button>
+                </div>
+
+                {/* MOBILE CTA -- pushed to the bottom of the drawer */}
+                <a
+                  href="#contact"
+                  onClick={() => setMenuOpen(false)}
+                  className="
+                    mt-auto
+
                     flex
-                    min-h-[46px]
+                    min-h-[52px]
+                    w-full
                     items-center
-                    gap-2
+                    justify-center
 
-                    rounded-[4px]
+                    rounded-[3px]
 
-                    border
-                    border-white/[0.06]
-
-                    px-3
+                    bg-[#00A8E8]
 
                     font-[var(--font-body)]
 
-                    text-[12px]
+                    text-[14px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.12em]
+
+                    text-white
+
+                    shadow-[0_8px_24px_rgba(0,168,232,0.25)]
 
                     transition-colors
                     duration-200
 
-                    ${
-                      language === "en"
-                        ? "bg-white/[0.07] text-white"
-                        : "bg-white/[0.02] text-white/65"
-                    }
-                  `}
+                    hover:bg-[#1fb4f2]
+
+                    pt-6
+                  "
                 >
-                  <GB
-                    title="United Kingdom"
-                    className="
-                      h-[14px]
-                      w-[21px]
-                    "
-                  />
-
-                  English
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    selectLanguage("de")
-                  }
-                  className={`
-                    flex
-                    min-h-[46px]
-                    items-center
-                    gap-2
-
-                    rounded-[4px]
-
-                    border
-                    border-white/[0.06]
-
-                    px-3
-
-                    font-[var(--font-body)]
-
-                    text-[12px]
-
-                    transition-colors
-                    duration-200
-
-                    ${
-                      language === "de"
-                        ? "bg-white/[0.07] text-white"
-                        : "bg-white/[0.02] text-white/65"
-                    }
-                  `}
-                >
-                  <DE
-                    title="Germany"
-                    className="
-                      h-[14px]
-                      w-[21px]
-                    "
-                  />
-
-                  Deutsch
-                </button>
+                  Book a Test Drive
+                </a>
               </div>
-
-              {/* =================================================
-                  MOBILE CTA
-              ================================================== */}
-              <a
-                href="#contact"
-                onClick={() =>
-                  setMenuOpen(false)
-                }
-                className="
-                  mt-4
-
-                  flex
-                  min-h-[50px]
-                  w-full
-                  items-center
-                  justify-center
-
-                  rounded-[3px]
-
-                  bg-[#158ff3]
-
-                  font-[var(--font-body)]
-
-                  text-[13px]
-                  font-semibold
-
-                  text-white
-
-                  shadow-[0_8px_24px_rgba(21,143,243,0.20)]
-
-                  transition-colors
-                  duration-200
-
-                  hover:bg-[#2a9fff]
-                "
-              >
-                Book a Test Drive
-              </a>
-            </div>
-          </motion.div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
     </header>
@@ -1305,11 +1285,7 @@ function LanguageItem({
         transition-colors
         duration-200
 
-        ${
-          active
-            ? "bg-white/[0.06]"
-            : "hover:bg-white/[0.035]"
-        }
+        ${active ? "bg-white/[0.06]" : "hover:bg-white/[0.035]"}
       `}
     >
       <span
@@ -1332,28 +1308,9 @@ function LanguageItem({
       </span>
 
       <span className="flex flex-col">
-        <span
-          className="
-            text-[12px]
-            font-medium
+        <span className="text-[12px] font-medium text-white">{title}</span>
 
-            text-white
-          "
-        >
-          {title}
-        </span>
-
-        <span
-          className="
-            mt-[2px]
-
-            text-[9px]
-
-            text-white/35
-          "
-        >
-          {subtitle}
-        </span>
+        <span className="mt-[2px] text-[11px] text-white/40">{subtitle}</span>
       </span>
 
       {active && (
@@ -1374,10 +1331,7 @@ function LanguageItem({
             text-[#00A8E8]
           "
         >
-          <Check
-            size={11}
-            strokeWidth={2}
-          />
+          <Check size={11} strokeWidth={2} />
         </span>
       )}
     </button>
@@ -1385,14 +1339,12 @@ function LanguageItem({
 }
 
 /* =========================================================
-   CENTER LOGO TEXT ONLY
+   CENTER LOGO TEXT
+   Brand guideline (Division of Labour table): "The YM Motors
+   name in any lockup" is set in Cormorant Garamond, not Inter.
 ========================================================= */
 
-function LogoText({
-  mobile = false,
-}: {
-  mobile?: boolean;
-}) {
+function LogoText({ mobile = false }: { mobile?: boolean }) {
   return (
     <span
       className={`
@@ -1400,19 +1352,16 @@ function LogoText({
 
         whitespace-nowrap
 
-        font-[var(--font-body)]
+        font-[var(--font-display)]
 
-        font-semibold
-        uppercase
+        font-medium
         leading-none
 
         text-white
 
-        ${
-          mobile
-            ? "text-[14px] tracking-[0.18em] sm:text-[15px]"
-            : "text-[17px] tracking-[0.22em] 2xl:text-[18px]"
-        }
+        tracking-[-0.01em]
+
+        ${mobile ? "text-[20px] sm:text-[22px]" : "text-[24px] 2xl:text-[26px]"}
       `}
     >
       Your Logo

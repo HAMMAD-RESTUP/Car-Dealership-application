@@ -6,6 +6,26 @@ import VehicleSearchBar from "./VehicleSearchBar";
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
+/* Stagger container for the hero text block: label -> heading -> copy -> buttons */
+const heroContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.14,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: EASE_OUT },
+  },
+};
+
 export default function Hero() {
   const reduceMotion = useReducedMotion();
 
@@ -17,7 +37,7 @@ export default function Hero() {
         min-h-[100svh]
         w-full
         overflow-hidden
-        bg-[#07101a]
+        bg-[#0b0e13]
       "
     >
       {/* =====================================================
@@ -67,10 +87,7 @@ export default function Hero() {
             md:block
           "
         >
-          <source
-            src="/images/cinematic-vieo.mp4"
-            type="video/mp4"
-          />
+          <source src="/images/cinematic-video.mp4" type="video/mp4" />
         </video>
       ) : (
         <img
@@ -94,7 +111,9 @@ export default function Hero() {
       )}
 
       {/* =====================================================
-          VERY LIGHT GENERAL TONE
+          BASE DARKENING PASS (Obsidian, not neutral black)
+          Enough to guarantee legibility on any footage, before
+          the stronger local scrim behind the text block.
       ====================================================== */}
       <div
         className="
@@ -102,14 +121,14 @@ export default function Hero() {
           absolute
           inset-0
 
-          bg-black/[0.05]
+          bg-[#0b0e13]/35
 
-          md:bg-black/[0.03]
+          md:bg-[#0b0e13]/28
         "
       />
 
       {/* =====================================================
-          MOBILE TEXT SHADE
+          MOBILE TEXT SHADE (stronger, tighter around the text)
       ====================================================== */}
       <div
         className="
@@ -119,14 +138,14 @@ export default function Hero() {
           left-0
           top-[72px]
 
-          h-[590px]
+          h-[620px]
           w-full
 
           md:hidden
         "
         style={{
           background:
-            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.78) 0%, rgba(2,8,14,0.58) 27%, rgba(2,8,14,0.34) 48%, rgba(2,8,14,0.12) 67%, transparent 84%)",
+            "radial-gradient(ellipse at 17% 38%, rgba(11,14,19,0.92) 0%, rgba(11,14,19,0.78) 30%, rgba(11,14,19,0.5) 52%, rgba(11,14,19,0.2) 72%, transparent 88%)",
         }}
       />
 
@@ -143,12 +162,13 @@ export default function Hero() {
         "
         style={{
           background:
-            "linear-gradient(180deg, rgba(2,8,14,0.24) 0%, transparent 30%, transparent 67%, rgba(2,8,14,0.44) 100%)",
+            "linear-gradient(180deg, rgba(11,14,19,0.4) 0%, transparent 34%, transparent 64%, rgba(11,14,19,0.6) 100%)",
         }}
       />
 
       {/* =====================================================
-          DESKTOP TEXT SHADE
+          DESKTOP TEXT SHADE (widened + darkened so white text
+          and the CTA row always sit on a controlled surface)
       ====================================================== */}
       <div
         className="
@@ -156,17 +176,17 @@ export default function Hero() {
 
           absolute
           left-0
-          top-[125px]
+          top-[95px]
 
           hidden
-          h-[540px]
-          w-[860px]
+          h-[620px]
+          w-[1000px]
 
           md:block
         "
         style={{
           background:
-            "radial-gradient(ellipse at 18% 48%, rgba(2,8,14,0.50) 0%, rgba(2,8,14,0.36) 27%, rgba(2,8,14,0.20) 48%, rgba(2,8,14,0.08) 64%, transparent 79%)",
+            "radial-gradient(ellipse at 16% 46%, rgba(11,14,19,0.82) 0%, rgba(11,14,19,0.62) 30%, rgba(11,14,19,0.38) 52%, rgba(11,14,19,0.14) 70%, transparent 85%)",
         }}
       />
 
@@ -181,11 +201,11 @@ export default function Hero() {
           inset-x-0
           bottom-0
 
-          h-[30%]
+          h-[32%]
         "
         style={{
           background:
-            "linear-gradient(0deg, rgba(2,8,14,0.52) 0%, rgba(2,8,14,0.17) 52%, transparent 100%)",
+            "linear-gradient(0deg, rgba(11,14,19,0.65) 0%, rgba(11,14,19,0.22) 52%, transparent 100%)",
         }}
       />
 
@@ -203,11 +223,11 @@ export default function Hero() {
           h-[115px]
 
           bg-gradient-to-b
-          from-black/25
+          from-black/35
           to-transparent
 
           md:h-[120px]
-          md:from-black/20
+          md:from-black/28
         "
       />
 
@@ -248,25 +268,12 @@ export default function Hero() {
         "
       >
         {/* =================================================
-            HERO TEXT
+            HERO TEXT (staggered: label -> heading -> copy -> CTAs)
         ================================================== */}
         <motion.div
-          initial={
-            reduceMotion
-              ? false
-              : {
-                  opacity: 0,
-                  x: -20,
-                }
-          }
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 0.8,
-            ease: EASE_OUT,
-          }}
+          variants={reduceMotion ? undefined : heroContainer}
+          initial={reduceMotion ? false : "hidden"}
+          animate={reduceMotion ? undefined : "show"}
           className="
             mt-[5vh]
 
@@ -288,7 +295,8 @@ export default function Hero() {
           {/* =================================================
               LUXURY LABEL
           ================================================== */}
-          <div
+          <motion.div
+            variants={fadeUp}
             className="
               mb-5
 
@@ -335,6 +343,8 @@ export default function Hero() {
                 bg-clip-text
                 text-transparent
 
+                drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)]
+
                 min-[380px]:text-[14px]
 
                 sm:text-[16px]
@@ -354,21 +364,26 @@ export default function Hero() {
             >
               Japanese Import Specialists
             </span>
-          </div>
+          </motion.div>
 
           {/* =================================================
               MAIN HEADING
+              Cormorant Garamond, SemiBold 600 (max weight in use),
+              minus-one-percent tracking per brand guideline.
           ================================================== */}
-          <h1
+          <motion.h1
+            variants={fadeUp}
             className="
               font-[var(--font-display)]
 
               text-[48px]
               font-semibold
               leading-[0.92]
-              tracking-[-0.035em]
+              tracking-[-0.01em]
 
               text-white
+
+              drop-shadow-[0_4px_20px_rgba(0,0,0,0.65)]
 
               min-[380px]:text-[52px]
 
@@ -383,21 +398,19 @@ export default function Hero() {
               2xl:text-[96px]
             "
           >
-            <span className="text-[#f5f5f3]">
-              Fewer kilometres.
-            </span>
+            <span className="text-[#f5f5f3]">Fewer kilometres.</span>
 
             <br />
 
-            <span className="text-[#129cff]">
-              Better cars.
-            </span>
-          </h1>
+            {/* Signal Blue, exact brand hex */}
+            <span className="text-[#00A8E8]">Better cars.</span>
+          </motion.h1>
 
           {/* =================================================
               DESCRIPTION
           ================================================== */}
-          <p
+          <motion.p
+            variants={fadeUp}
             className="
               mt-5
               max-w-[350px]
@@ -408,7 +421,9 @@ export default function Hero() {
               font-normal
               leading-[1.65]
 
-              text-white/72
+              text-white/85
+
+              drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)]
 
               min-[380px]:text-[14px]
 
@@ -423,15 +438,19 @@ export default function Hero() {
               xl:text-[17px]
             "
           >
-            Low mileage Japanese vehicles, sourced at auction,
-            graded on arrival and supplied with full documentation.
-            Every car we import can be checked before you commit to it.
-          </p>
+            Low mileage Japanese vehicles, sourced at auction, graded on
+            arrival and supplied with full documentation. Every car we
+            import can be checked before you commit to it.
+          </motion.p>
 
           {/* =================================================
               BUTTONS
+              Signal Blue fill, white Inter SemiBold, uppercase,
+              +12% tracking, 14px minimum (contrast rule for
+              white-on-Signal-Blue requires 14pt+ semibold).
           ================================================== */}
-          <div
+          <motion.div
+            variants={fadeUp}
             className="
               mt-7
 
@@ -455,15 +474,16 @@ export default function Hero() {
             {/* BROWSE STOCK */}
             <motion.a
               href="#models"
-              whileHover={{
-                y: -2,
-              }}
-              whileTap={{
-                scale: 0.98,
-              }}
-              transition={{
-                duration: 0.2,
-              }}
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      y: -2,
+                      boxShadow: "0 14px 34px rgba(0,168,232,0.38)",
+                    }
+              }
+              whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+              transition={{ duration: 0.2 }}
               className="
                 inline-flex
 
@@ -474,38 +494,34 @@ export default function Hero() {
 
                 rounded-[4px]
 
-                bg-[#158ff3]
+                bg-[#00A8E8]
 
                 px-5
 
                 font-[var(--font-body)]
 
-                text-[12px]
+                text-[14px]
                 font-semibold
-                tracking-[0.01em]
+                uppercase
+                tracking-[0.12em]
 
                 text-white
 
-                shadow-[0_10px_28px_rgba(21,143,243,0.22)]
+                shadow-[0_10px_28px_rgba(0,168,232,0.28)]
 
-                transition-all
+                transition-colors
                 duration-200
 
-                hover:bg-[#2a9fff]
-                hover:shadow-[0_12px_32px_rgba(21,143,243,0.28)]
-
-                min-[380px]:text-[13px]
+                hover:bg-[#1fb4f2]
 
                 sm:min-h-[54px]
                 sm:px-8
-                sm:text-[14px]
 
                 md:min-h-[56px]
-                md:min-w-[165px]
+                md:min-w-[175px]
                 md:px-9
-                md:text-[15px]
 
-                lg:min-w-[175px]
+                lg:min-w-[185px]
               "
             >
               Browse Stock
@@ -514,15 +530,16 @@ export default function Hero() {
             {/* SELL CAR */}
             <motion.a
               href="#contact"
-              whileHover={{
-                y: -2,
-              }}
-              whileTap={{
-                scale: 0.98,
-              }}
-              transition={{
-                duration: 0.2,
-              }}
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      y: -2,
+                      borderColor: "rgba(255,255,255,0.75)",
+                    }
+              }
+              whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+              transition={{ duration: 0.2 }}
               className="
                 inline-flex
 
@@ -534,45 +551,41 @@ export default function Hero() {
                 rounded-[4px]
 
                 border
-                border-white/35
+                border-white/40
 
-                bg-black/[0.12]
+                bg-black/[0.28]
 
                 px-5
 
                 font-[var(--font-body)]
 
-                text-[12px]
+                text-[14px]
                 font-semibold
-                tracking-[0.01em]
+                uppercase
+                tracking-[0.12em]
 
                 text-white
 
-                backdrop-blur-[3px]
+                backdrop-blur-[4px]
 
-                transition-all
+                transition-colors
                 duration-200
 
-                hover:border-white/65
-                hover:bg-white/[0.08]
-
-                min-[380px]:text-[13px]
+                hover:bg-white/[0.1]
 
                 sm:min-h-[54px]
                 sm:px-8
-                sm:text-[14px]
 
                 md:min-h-[56px]
-                md:min-w-[165px]
+                md:min-w-[175px]
                 md:px-9
-                md:text-[15px]
 
-                lg:min-w-[175px]
+                lg:min-w-[185px]
               "
             >
               Sell your car
             </motion.a>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* =====================================================
@@ -608,7 +621,7 @@ export default function Hero() {
           }}
           transition={{
             duration: 0.75,
-            delay: 0.15,
+            delay: 0.55,
             ease: EASE_OUT,
           }}
           className="
