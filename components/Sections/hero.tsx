@@ -40,8 +40,8 @@ export default function Hero() {
           w-full
 
           object-cover
-          object-[58%_78%]
-          scale-[1.08]
+          object-[72%_86%]
+          scale-[1.02]
 
           md:hidden
         "
@@ -114,7 +114,7 @@ export default function Hero() {
         "
         style={{
           background:
-            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.84) 0%, rgba(2,8,14,0.62) 27%, rgba(2,8,14,0.34) 48%, rgba(2,8,14,0.12) 67%, transparent 84%)",
+            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.90) 0%, rgba(2,8,14,0.70) 27%, rgba(2,8,14,0.34) 48%, rgba(2,8,14,0.12) 67%, transparent 84%)",
         }}
       />
 
@@ -217,7 +217,7 @@ export default function Hero() {
 
           px-5
           pb-7
-          pt-[96px]
+          pt-[118px]
 
           sm:px-7
           sm:pb-8
@@ -258,7 +258,7 @@ export default function Hero() {
           className="
             mt-[5vh]
 
-            max-w-[390px]
+            max-w-[350px]
 
             sm:mt-[6vh]
             sm:max-w-[540px]
@@ -358,7 +358,7 @@ export default function Hero() {
 
               text-white
 
-              min-[380px]:text-[52px]
+              min-[380px]:text-[46px]
 
               sm:text-[62px]
 
@@ -388,7 +388,7 @@ export default function Hero() {
           <p
             className="
               mt-5
-              max-w-[350px]
+              max-w-[330px]
 
               font-[var(--font-body)]
 
