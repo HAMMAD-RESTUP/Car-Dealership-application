@@ -231,20 +231,20 @@ export default function CarListing() {
               className="
                 font-[var(--font-display)]
 
-                text-[48px]
-                font-semibold
-                leading-[0.88]
-                tracking-[-0.025em]
+                text-[56px]
+                font-bold
+                leading-[0.92]
+                tracking-[-0.035em]
 
                 text-[#f5f5f3]
 
-                sm:text-[64px]
+                sm:text-[72px]
 
-                md:text-[72px]
+                md:text-[82px]
 
-                lg:text-[80px]
+                lg:text-[90px]
 
-                xl:text-[88px]
+                xl:text-[96px]
               "
             >
               Featured{" "}
@@ -391,12 +391,15 @@ export default function CarListing() {
 
                 overflow-hidden
 
-                rounded-none
+                rounded-[8px]
 
                 border
-                border-white/[0.06]
+                border-white/[0.12]
 
-                bg-transparent
+                bg-[rgba(255,255,255,0.045)]
+
+                backdrop-blur-[18px]
+                backdrop-saturate-[1.4]
 
                 shadow-[0_35px_100px_rgba(0,0,0,0.55)]
 
@@ -591,6 +594,8 @@ export default function CarListing() {
                   flex-1
                   flex-col
 
+                  relative
+
                   px-5
                   pb-5
                   pt-4
@@ -648,12 +653,14 @@ export default function CarListing() {
                     grid
                     grid-cols-3
 
-                    rounded-none
+                    rounded-[6px]
 
                     border
-                    border-white/[0.055]
+                    border-white/[0.10]
 
-                    bg-white/[0.035]
+                    bg-[rgba(255,255,255,0.045)]
+
+                    backdrop-blur-[12px]
 
                     px-3
                     py-4

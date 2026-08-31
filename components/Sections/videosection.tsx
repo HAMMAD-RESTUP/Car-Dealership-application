@@ -67,7 +67,7 @@ export default function VideoSection() {
         "
       >
         <source
-          src="/images/demo-video.mp4"
+          src="/images/car-video.mp4"
           type="video/mp4"
         />
       </motion.video>
