@@ -24,7 +24,7 @@ export default function Hero() {
           MOBILE BACKGROUND
       ====================================================== */}
       <img
-        src="/images/mobile-mock.png"
+        src="/images/mobile-image-hero.png"
         alt=""
         aria-hidden="true"
         className="
@@ -36,7 +36,8 @@ export default function Hero() {
           w-full
 
           object-cover
-          object-[66%_center]
+          object-[58%_78%]
+          scale-[1.08]
 
           md:hidden
         "
@@ -109,7 +110,7 @@ export default function Hero() {
         "
         style={{
           background:
-            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.78) 0%, rgba(2,8,14,0.58) 27%, rgba(2,8,14,0.34) 48%, rgba(2,8,14,0.12) 67%, transparent 84%)",
+            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.84) 0%, rgba(2,8,14,0.62) 27%, rgba(2,8,14,0.34) 48%, rgba(2,8,14,0.12) 67%, transparent 84%)",
         }}
       />
 

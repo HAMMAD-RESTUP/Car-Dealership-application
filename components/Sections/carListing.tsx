@@ -53,7 +53,7 @@ export default function CarListing() {
       className="
         relative
         overflow-hidden
-        bg-[#080b0f]
+        bg-[#0b0e13]
 
         px-5
         py-20
@@ -234,17 +234,17 @@ export default function CarListing() {
                 text-[48px]
                 font-semibold
                 leading-[0.88]
-                tracking-[-0.035em]
+                tracking-[-0.025em]
 
                 text-[#f5f5f3]
 
-                sm:text-[58px]
+                sm:text-[64px]
 
-                md:text-[66px]
+                md:text-[72px]
 
-                lg:text-[72px]
+                lg:text-[80px]
 
-                xl:text-[78px]
+                xl:text-[88px]
               "
             >
               Featured{" "}
@@ -391,14 +391,14 @@ export default function CarListing() {
 
                 overflow-hidden
 
-                rounded-[10px]
+                rounded-none
 
                 border
-                border-white/[0.075]
+                border-white/[0.06]
 
-                bg-[#0c1117]
+                bg-transparent
 
-                shadow-[0_24px_70px_rgba(0,0,0,0.32)]
+                shadow-[0_35px_100px_rgba(0,0,0,0.55)]
 
                 transition-all
                 duration-500
@@ -443,12 +443,12 @@ export default function CarListing() {
                 className="
                   relative
 
-                  aspect-[16/10]
+                  aspect-[16/11]
                   w-full
 
                   overflow-hidden
 
-                  bg-[#080b0f]
+                  bg-[#0b0e13]
                 "
               >
                 <Image
@@ -648,12 +648,12 @@ export default function CarListing() {
                     grid
                     grid-cols-3
 
-                    rounded-[5px]
+                    rounded-none
 
                     border
                     border-white/[0.055]
 
-                    bg-white/[0.018]
+                    bg-white/[0.035]
 
                     px-3
                     py-4
