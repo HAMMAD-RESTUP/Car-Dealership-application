@@ -78,10 +78,11 @@ export default function Header() {
 
           border-y
           border-white/[0.05]
-          bg-[linear-gradient(180deg,rgba(11,13,15,0.30)_0%,rgba(17,22,29,0.18)_50%,rgba(11,13,15,0.24)_100%)]
+          bg-[rgba(7,12,18,0.86)]
 
-          backdrop-blur-[6px]
-          backdrop-saturate-[1.08]
+          shadow-[0_22px_50px_rgba(0,0,0,0.35)]
+
+          backdrop-blur-[18px]
 
           px-5
 
@@ -90,6 +91,7 @@ export default function Header() {
 
           xl:border-y
           xl:border-white/[0.05]
+          xl:bg-[linear-gradient(180deg,rgba(11,13,15,0.30)_0%,rgba(17,22,29,0.18)_50%,rgba(11,13,15,0.24)_100%)]
           xl:backdrop-blur-[6px]
           xl:backdrop-saturate-[1.08]
           xl:px-9
