@@ -116,89 +116,29 @@ export default function VehicleSearchBar() {
       className="
         relative
         w-full
-        overflow-hidden
+        
 
-        rounded-[6px]
+        rounded-none
 
-        border
-        border-white/[0.08]
+        
 
-        bg-[rgba(11,13,15,0.44)]
+        bg-transparent
 
-        px-4
-        py-4
+        px-0
+        py-0
 
-        shadow-[0_20px_55px_rgba(0,0,0,0.24)]
+        
 
-        backdrop-blur-[14px]
-        backdrop-saturate-[1.08]
+        
+        
 
-        sm:px-5
-        sm:py-5
+        sm:px-0
+        sm:py-0
       "
     >
-      {/* =====================================================
-          BACKGROUND
-      ====================================================== */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-0
 
-          bg-[linear-gradient(180deg,rgba(11,13,15,0.48)_0%,rgba(17,22,29,0.34)_50%,rgba(11,13,15,0.44)_100%)]
-        "
-      />
+  
 
-      {/* =====================================================
-          BLUE AMBIENCE
-      ====================================================== */}
-      <div
-        className="
-          pointer-events-none
-
-          absolute
-          left-1/2
-          top-1/2
-
-          h-[230px]
-          w-[760px]
-
-          -translate-x-1/2
-          -translate-y-1/2
-
-          rounded-full
-
-          bg-[#00A8E8]/[0.035]
-
-          blur-[110px]
-        "
-      />
-
-      {/* =====================================================
-          TOP CYAN DETAIL LINE
-      ====================================================== */}
-      <div
-        className="
-          pointer-events-none
-
-          absolute
-          left-1/2
-          top-0
-
-          h-px
-          w-[65%]
-
-          -translate-x-1/2
-
-          bg-gradient-to-r
-          from-transparent
-          via-[#00A8E8]/45
-          to-transparent
-
-          shadow-[0_0_14px_rgba(0,168,232,0.16)]
-        "
-      />
 
       {/* =====================================================
           CONTENT
@@ -230,9 +170,6 @@ export default function VehicleSearchBar() {
                 h-px
                 w-7
 
-                bg-gradient-to-r
-                from-[#00A8E8]
-                to-transparent
 
                 sm:w-9
               "
@@ -257,24 +194,6 @@ export default function VehicleSearchBar() {
             </h3>
           </div>
 
-          <span
-            className="
-              hidden
-
-              font-[var(--font-body)]
-
-              text-[9px]
-              font-medium
-              uppercase
-              tracking-[0.16em]
-
-              text-white/30
-
-              lg:block
-            "
-          >
-            Search our inventory
-          </span>
         </div>
 
         {/* ===================================================
@@ -284,7 +203,7 @@ export default function VehicleSearchBar() {
           className="
             grid
             grid-cols-1
-            gap-[8px]
+            gap-3
 
             sm:grid-cols-2
 
@@ -356,14 +275,14 @@ export default function VehicleSearchBar() {
               relative
 
               flex
-              min-h-[62px]
+              min-h-[58px]
               items-center
               justify-center
               gap-[8px]
 
-              overflow-hidden
+              
 
-              rounded-[4px]
+              rounded-none
 
               border
               border-[#41adff]/20
@@ -464,26 +383,25 @@ function SearchSelect({
         group
         relative
 
-        min-h-[62px]
+        min-h-[58px]
 
-        overflow-hidden
+        
 
-        rounded-[4px]
+        rounded-none
 
-        border
-        border-white/[0.10]
+        border-0
 
-        bg-[rgba(6,10,14,0.30)]
+        bg-transparent
 
-        backdrop-blur-[6px]
+        
 
         transition-all
         duration-300
 
-        hover:border-white/[0.22]
+        
         hover:bg-[rgba(8,13,18,0.38)]
 
-        focus-within:border-[#00A8E8]/55
+        
         focus-within:bg-[rgba(8,13,18,0.46)]
         focus-within:shadow-[0_0_0_1px_rgba(0,168,232,0.06)]
       "

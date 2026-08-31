@@ -43,55 +43,38 @@ export default function Hero() {
       />
 
       {/* =====================================================
-          DESKTOP VIDEO
+          STATIC HERO BACKGROUND
+          No video - premium cinematic image treatment
       ====================================================== */}
-      {!reduceMotion ? (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="/images/hero-image.png"
-          className="
-            absolute
-            inset-0
+      <img
+        src="/images/home-desktop-hero.png"
+        alt=""
+        aria-hidden="true"
+        className="
+          absolute
+          inset-0
+          h-full
+          w-full
+          object-cover
+          object-center
+        "
+      />
 
-            hidden
-            h-full
-            w-full
-
-            object-cover
-            object-center
-
-            md:block
-          "
-        >
-          <source
-            src="/images/cinematic-vieo.mp4"
-            type="video/mp4"
-          />
-        </video>
-      ) : (
-        <img
-          src="/images/desktop-mock.png"
-          alt=""
-          aria-hidden="true"
-          className="
-            absolute
-            inset-0
-
-            hidden
-            h-full
-            w-full
-
-            object-cover
-            object-center
-
-            md:block
-          "
-        />
-      )}
+      {/* subtle chrome glow behind heading */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-[-120px]
+          top-[220px]
+          h-[360px]
+          w-[520px]
+          rounded-full
+          bg-[#00A8E8]/20
+          blur-[120px]
+          animate-pulse
+        "
+      />
 
       {/* =====================================================
           VERY LIGHT GENERAL TONE
@@ -327,7 +310,7 @@ export default function Hero() {
                 font-[var(--font-body)]
 
                 text-[13px]
-                font-semibold
+                font-medium
                 uppercase
                 leading-none
                 tracking-[0.14em]
@@ -366,7 +349,7 @@ export default function Hero() {
               text-[48px]
               font-semibold
               leading-[0.92]
-              tracking-[-0.035em]
+              tracking-[-0.01em]
 
               text-white
 
@@ -438,8 +421,8 @@ export default function Hero() {
               grid
               w-full
               max-w-[380px]
-              grid-cols-2
-              gap-3
+              grid-cols-1
+              gap-4
 
               sm:mt-8
               sm:max-w-[430px]
@@ -486,7 +469,7 @@ export default function Hero() {
 
                 text-white
 
-                shadow-[0_10px_28px_rgba(21,143,243,0.22)]
+                
 
                 transition-all
                 duration-200
@@ -622,13 +605,13 @@ export default function Hero() {
             md:block
           "
         >
-          <VehicleSearchBar />
         </motion.div>
       </div>
 
       {/* =====================================================
           AI ASSISTANT
-      ====================================================== */}
+          ====================================================== */}
+          <VehicleSearchBar />
       <AiAssistant />
     </section>
   );
