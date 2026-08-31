@@ -24,7 +24,7 @@ export default function Hero() {
           MOBILE BACKGROUND
       ====================================================== */}
       <img
-        src="/images/hero-mobile.png"
+        src="/images/mobile-mock.png"
         alt=""
         aria-hidden="true"
         className="
@@ -47,7 +47,7 @@ export default function Hero() {
           No video - premium cinematic image treatment
       ====================================================== */}
       <img
-        src="/images/home-desktop-hero.png"
+        src="/images/midnight-desktop.png"
         alt=""
         aria-hidden="true"
         className="
@@ -611,7 +611,7 @@ export default function Hero() {
       {/* =====================================================
           AI ASSISTANT
           ====================================================== */}
-          <VehicleSearchBar />
+      
       <AiAssistant />
     </section>
   );

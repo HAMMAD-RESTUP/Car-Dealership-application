@@ -7,6 +7,7 @@ import WhyChooseUs from "@/components/Sections/whychooseus";
 import VideoSection from "@/components/Sections/videosection";
 import Testimonials from "@/components/Sections/testimonials";
 import SellYourCar from "@/components/Sections/sellyourcar";
+import VehicleSearchBar from "@/components/Sections/VehicleSearchBar";
 
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
 
       <Header />
       <Hero />
+    <VehicleSearchBar />
       <CarListing />
       <BrandMarquee />
       <VideoSection/>

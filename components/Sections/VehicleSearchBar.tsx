@@ -116,29 +116,93 @@ export default function VehicleSearchBar() {
       className="
         relative
         w-full
+        overflow-hidden
+
+        rounded-t-[18px]
+
+        border
+        border-white/[0.18]
+
+        bg-white/[0.06]
+
+        px-3
+        py-3
+
+        shadow-[0_-25px_70px_rgba(0,0,0,0.55)]
+        backdrop-blur-[28px]
+        backdrop-saturate-[1.6]
+
         
 
-        rounded-none
-
-        
-
-        bg-transparent
-
-        px-0
-        py-0
-
-        
-
         
         
 
-        sm:px-0
-        sm:py-0
+        sm:px-5
+        sm:py-4
       "
     >
+      {/* =====================================================
+          BACKGROUND
+      ====================================================== */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-0
 
-  
+          bg-[linear-gradient(180deg,rgba(11,13,15,0.48)_0%,rgba(17,22,29,0.34)_50%,rgba(11,13,15,0.44)_100%)]
+        "
+      />
 
+      {/* =====================================================
+          BLUE AMBIENCE
+      ====================================================== */}
+      <div
+        className="
+          pointer-events-none
+
+          absolute
+          left-1/2
+          top-1/2
+
+          h-[230px]
+          w-[760px]
+
+          -translate-x-1/2
+          -translate-y-1/2
+
+          rounded-full
+
+          bg-[#00A8E8]/[0.035]
+
+          blur-[110px]
+        "
+      />
+
+      {/* =====================================================
+          TOP CYAN DETAIL LINE
+      ====================================================== */}
+      <div
+        className="
+          pointer-events-none
+
+          absolute
+          left-1/2
+          top-0
+
+          h-px
+          w-full
+
+          -translate-x-1/2
+
+          bg-gradient-to-r
+          from-transparent
+          via-[#00A8E8]/45
+          to-transparent
+
+          shadow-[0_0_14px_rgba(0,168,232,0.16)]
+        "
+      />
 
       {/* =====================================================
           CONTENT
@@ -170,6 +234,9 @@ export default function VehicleSearchBar() {
                 h-px
                 w-7
 
+                bg-gradient-to-r
+                from-[#00A8E8]
+                to-transparent
 
                 sm:w-9
               "
@@ -193,6 +260,7 @@ export default function VehicleSearchBar() {
               Find Your Next Car
             </h3>
           </div>
+
 
         </div>
 
@@ -275,14 +343,14 @@ export default function VehicleSearchBar() {
               relative
 
               flex
-              min-h-[58px]
+              min-h-[56px]
               items-center
               justify-center
               gap-[8px]
 
-              
+              overflow-hidden
 
-              rounded-none
+              rounded-[4px]
 
               border
               border-[#41adff]/20
@@ -300,7 +368,7 @@ export default function VehicleSearchBar() {
 
               text-white
 
-              shadow-[0_9px_26px_rgba(21,143,243,0.20)]
+              shadow-[0_12px_35px_rgba(0,168,232,0.28)]
 
               transition-all
               duration-300
@@ -383,25 +451,26 @@ function SearchSelect({
         group
         relative
 
-        min-h-[58px]
+        min-h-[56px]
 
-        
+        overflow-hidden
 
-        rounded-none
+        rounded-[4px]
 
-        border-0
+        border
+        border-white/[0.20]
 
-        bg-transparent
+        bg-white/[0.06]
 
-        
+        backdrop-blur-[14px]
 
         transition-all
         duration-300
 
-        
+        hover:border-white/[0.22]
         hover:bg-[rgba(8,13,18,0.38)]
 
-        
+        focus-within:border-[#00A8E8]/55
         focus-within:bg-[rgba(8,13,18,0.46)]
         focus-within:shadow-[0_0_0_1px_rgba(0,168,232,0.06)]
       "
