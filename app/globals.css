@@ -34,13 +34,11 @@
 
   /* =========================================================
      TYPOGRAPHY
-     Rule Three: Serif speaks, sans informs.
-     Cormorant Garamond = names, headlines, vehicle names.
-     Inter = everything the customer needs to read quickly.
+     Exo = names, headlines, vehicle names.
+     Exo (body weights) = everything the customer needs to read quickly.
   ========================================================= */
 
-  /* DISPLAY / HEADLINES ONLY. Weights in use: 300, 400, 500, 600.
-     Fallback is Inter, NEVER a system serif (per guideline p.5). */
+  /* DISPLAY / HEADLINES. Weights in use: 400, 500, 600, 700, 800. */
   --font-display: "Exo", sans-serif;
   --font-body: "Exo", sans-serif;
 }
@@ -94,7 +92,6 @@ body {
 
   font-family: var(--font-body);
   font-size: 16px;
-  /* Quick Reference: "Body text on dark: Titanium, Inter Light 300" */
   font-weight: 300;
   line-height: 1.65;
 
@@ -104,8 +101,6 @@ body {
 
 /* =========================================================
    HEADINGS
-   Quick Reference: "Headlines: Cormorant Garamond Medium 500,
-   minus one percent tracking"
 ========================================================= */
 
 h1,
@@ -121,27 +116,21 @@ h6 {
 
   color: var(--paper);
 
-  /* minus one percent, per spec */
   letter-spacing: -0.035em;
 
   text-rendering: optimizeLegibility;
 }
 
-/* Never set Cormorant below 18px on screen, and never in Light 300
-   on a dark surface (guideline p.4). Component sizes below already
-   respect the 18px floor. */
-
 /* =========================================================
-   HERO / DISPLAY HEADING  (scale: Display 64/68)
+   HERO / DISPLAY HEADING
 ========================================================= */
 
 .display-heading,
 .hero-heading {
   font-family: var(--font-display);
 
-  font-size: clamp(2.8rem, 5vw, 4.75rem);
+  font-size: clamp(3.2rem, 6.5vw, 5.5rem);
 
-  /* SemiBold is the heaviest weight in use */
   font-weight: 800;
 
   line-height: 1.02;
@@ -157,7 +146,7 @@ h6 {
   color: var(--signal-blue);
 }
 
-/* italic for emphasis / pull quotes, per guideline p.4 */
+/* italic for emphasis / pull quotes */
 .hero-heading em,
 .hero-heading .italic-accent {
   font-family: var(--font-display);
@@ -169,24 +158,24 @@ h6 {
 }
 
 /* =========================================================
-   H1  (scale: H1 44/50)
+   H1
 ========================================================= */
 
 h1,
 .h1 {
   font-family: var(--font-display);
 
-  font-size: clamp(2.6rem, 4.6vw, 2.75rem);
+  font-size: clamp(2.8rem, 5.5vw, 3.75rem);
 
-  font-weight: 500;
+  font-weight: 600;
 
-  line-height: 1.14;
+  line-height: 1.1;
 
   letter-spacing: -0.035em;
 }
 
 /* =========================================================
-   H2  (scale: H2 32/40)
+   H2
 ========================================================= */
 
 h2,
@@ -194,36 +183,34 @@ h2,
 .section-heading {
   font-family: var(--font-display);
 
-  font-size: clamp(1.8rem, 3.2vw, 2rem);
+  font-size: clamp(2rem, 4vw, 2.75rem);
 
-  font-weight: 500;
+  font-weight: 600;
 
-  line-height: 1.25;
+  line-height: 1.2;
 
   letter-spacing: -0.035em;
 }
 
 /* =========================================================
-   H3  (scale: H3 20/28)
+   H3
 ========================================================= */
 
 h3,
 .h3 {
   font-family: var(--font-display);
 
-  /* floor of 18px on screen for Cormorant */
-  font-size: clamp(1.15rem, 1.7vw, 1.25rem);
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
 
-  font-weight: 500;
+  font-weight: 600;
 
-  line-height: 1.4;
+  line-height: 1.35;
 
   letter-spacing: -0.035em;
 }
 
 /* =========================================================
-   BODY COPY  (scale: Body 16/26, never below 14px)
-   Inter Light 300 on dark surfaces
+   BODY COPY
 ========================================================= */
 
 p {
@@ -251,14 +238,12 @@ p {
 
   color: var(--titanium);
 
-  /* line length capped at roughly 75 characters */
   max-width: 75ch;
 }
 
 .small-copy {
   font-family: var(--font-body);
 
-  /* body copy floor is 14px on any device */
   font-size: 14px;
   line-height: 22px;
 
@@ -268,7 +253,7 @@ p {
 }
 
 /* =========================================================
-   EYEBROWS / LABELS  (scale: Label 12/16, uppercase, +12%)
+   EYEBROWS / LABELS
 ========================================================= */
 
 .eyebrow,
@@ -283,7 +268,6 @@ p {
 
   text-transform: uppercase;
 
-  /* plus twelve percent, per spec */
   letter-spacing: 0.12em;
 
   color: rgba(255, 255, 255, 0.72);
@@ -294,7 +278,7 @@ p {
 }
 
 /* =========================================================
-   NAVIGATION (Inter — interface labels)
+   NAVIGATION
 ========================================================= */
 
 nav,
@@ -332,10 +316,6 @@ nav,
 
 /* =========================================================
    BUTTONS
-   Quick Reference: "Signal Blue fill, white Inter SemiBold,
-   uppercase, plus twelve percent tracking"
-   Contrast table: White on Signal Blue is only approved
-   "at 14pt or larger and semibold" — never smaller.
 ========================================================= */
 
 a,
@@ -367,7 +347,6 @@ button {
 
   font-family: var(--font-body);
 
-  /* 14pt minimum for the White-on-Signal-Blue contrast pairing */
   font-size: 14px;
 
   font-weight: 600;
@@ -432,7 +411,6 @@ button {
 
 /* =========================================================
    VEHICLE NAME
-   Quick Reference: "Vehicle names: Cormorant Garamond Medium 500"
 ========================================================= */
 
 .vehicle-name {
@@ -448,9 +426,7 @@ button {
 }
 
 /* =========================================================
-   PRICE  (scale: Price 24/28)
-   Quick Reference: "Prices: Inter SemiBold 600, Signal Blue,
-   tabular figures, pound sign with no space"
+   PRICE
 ========================================================= */
 
 .price {
@@ -471,7 +447,6 @@ button {
 
 /* =========================================================
    SPECIFICATIONS / FIGURES
-   Tabular figures on every price and mileage so columns align
 ========================================================= */
 
 .specification,
@@ -485,7 +460,7 @@ button {
 }
 
 /* =========================================================
-   HERO SPEC TEXT (kept at/above the 14px body-copy floor)
+   HERO SPEC TEXT
 ========================================================= */
 
 .hero-feature-title,
@@ -556,7 +531,7 @@ button {
 }
 
 /* =========================================================
-   STATUS — interface use only, never as brand/marketing colour
+   STATUS
 ========================================================= */
 
 .status-available {
@@ -617,7 +592,6 @@ button:focus-visible {
 
 /* =========================================================
    RESPONSIVE
-   ("Scale down by roughly twenty percent on mobile")
 ========================================================= */
 
 @media (max-width: 1024px) {
@@ -627,7 +601,7 @@ button:focus-visible {
 
   .display-heading,
   .hero-heading {
-    font-size: clamp(2.8rem, 6vw, 4rem);
+    font-size: clamp(3rem, 7vw, 4.5rem);
   }
 }
 
@@ -642,29 +616,33 @@ button:focus-visible {
 
   .display-heading,
   .hero-heading {
-    font-size: clamp(2.55rem, 11vw, 3.4rem);
+    font-size: clamp(2.75rem, 12vw, 3.6rem);
 
-    font-weight: 600;
+    font-weight: 700;
 
-    line-height: 0.98;
+    line-height: 1;
 
     letter-spacing: -0.035em;
   }
 
   h1,
   .h1 {
-    font-size: clamp(2rem, 10vw, 2.4rem);
+    font-size: clamp(2.2rem, 10vw, 2.75rem);
   }
 
   h2,
   .h2,
   .section-heading {
-    font-size: clamp(1.6rem, 8vw, 1.9rem);
+    font-size: clamp(1.75rem, 8vw, 2.1rem);
+  }
+
+  h3,
+  .h3 {
+    font-size: clamp(1.25rem, 6vw, 1.5rem);
   }
 
   .body-copy,
   .hero-copy {
-    /* stays at the 14px floor, do not go below */
     font-size: 14px;
 
     line-height: 1.6;
@@ -691,7 +669,7 @@ button:focus-visible {
 
   .display-heading,
   .hero-heading {
-    font-size: clamp(2.35rem, 12vw, 3rem);
+    font-size: clamp(2.5rem, 13vw, 3.1rem);
   }
 
   .hero-eyebrow,
@@ -704,7 +682,6 @@ button:focus-visible {
 
   .hero-copy,
   .body-copy {
-    /* held at the 14px minimum per guideline, not reduced further */
     font-size: 14px;
   }
 }

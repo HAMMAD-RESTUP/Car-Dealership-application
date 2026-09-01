@@ -25,47 +25,38 @@ export default function Hero() {
       "
     >
       {/* =====================================================
-          MOBILE BACKGROUND
+          HERO VIDEO
+          Same video now plays on mobile too — muted/looped/
+          inline + preload metadata keeps it autoplay-safe on
+          iOS/Android. Poster matches the old desktop still so
+          first paint looks identical while it loads.
       ====================================================== */}
-      <img
-        src="/images/mobile-image-hero.png"
-        alt=""
-        aria-hidden="true"
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/images/midnight-desktop.png"
         className="
           absolute
           inset-0
-
           block
           h-full
           w-full
-
           object-cover
           object-[72%_86%]
           scale-[1.02]
 
-          md:hidden
+          md:object-center
+          md:scale-100
         "
-      />
+      >
+        <source src="/images/banner-video.mp4" type="video/mp4" />
+      </video>
 
-      {/* =====================================================
-          STATIC HERO BACKGROUND
-          No video - premium cinematic image treatment
-      ====================================================== */}
-      <img
-        src="/images/midnight-desktop.png"
-        alt=""
-        aria-hidden="true"
-        className="
-          absolute
-          inset-0
-          h-full
-          w-full
-          object-cover
-          object-center
-        "
-      />
-
-      {/* subtle chrome glow behind heading */}
+      {/* subtle chrome glow behind heading — dimmed so it reads
+          as ambient light, not a competing animated element */}
       <div
         className="
           pointer-events-none
@@ -75,24 +66,8 @@ export default function Hero() {
           h-[360px]
           w-[520px]
           rounded-full
-          bg-[#00A8E8]/20
+          bg-[#00A8E8]/10
           blur-[120px]
-          animate-pulse
-        "
-      />
-
-      {/* =====================================================
-          VERY LIGHT GENERAL TONE
-      ====================================================== */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-
-          bg-black/[0.05]
-
-          md:bg-black/[0.03]
         "
       />
 
@@ -114,7 +89,7 @@ export default function Hero() {
         "
         style={{
           background:
-            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.90) 0%, rgba(2,8,14,0.70) 27%, rgba(2,8,14,0.34) 48%, rgba(2,8,14,0.12) 67%, transparent 84%)",
+            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.92) 0%, rgba(2,8,14,0.74) 27%, rgba(2,8,14,0.38) 48%, rgba(2,8,14,0.14) 67%, transparent 84%)",
         }}
       />
 
@@ -131,12 +106,15 @@ export default function Hero() {
         "
         style={{
           background:
-            "linear-gradient(180deg, rgba(2,8,14,0.24) 0%, transparent 30%, transparent 67%, rgba(2,8,14,0.44) 100%)",
+            "linear-gradient(180deg, rgba(2,8,14,0.28) 0%, transparent 30%, transparent 67%, rgba(2,8,14,0.48) 100%)",
         }}
       />
 
       {/* =====================================================
           DESKTOP TEXT SHADE
+          Wider and stronger than before — a moving video needs
+          a more reliable scrim than a static photo does, so text
+          stays legible no matter what's playing behind it.
       ====================================================== */}
       <div
         className="
@@ -144,17 +122,17 @@ export default function Hero() {
 
           absolute
           left-0
-          top-[125px]
+          top-0
 
           hidden
-          h-[540px]
-          w-[860px]
+          h-full
+          w-[1000px]
 
           md:block
         "
         style={{
           background:
-            "radial-gradient(ellipse at 18% 48%, rgba(2,8,14,0.50) 0%, rgba(2,8,14,0.36) 27%, rgba(2,8,14,0.20) 48%, rgba(2,8,14,0.08) 64%, transparent 79%)",
+            "linear-gradient(105deg, rgba(2,8,14,0.82) 0%, rgba(2,8,14,0.62) 32%, rgba(2,8,14,0.32) 55%, rgba(2,8,14,0.08) 75%, transparent 88%)",
         }}
       />
 
@@ -173,7 +151,7 @@ export default function Hero() {
         "
         style={{
           background:
-            "linear-gradient(0deg, rgba(2,8,14,0.52) 0%, rgba(2,8,14,0.17) 52%, transparent 100%)",
+            "linear-gradient(0deg, rgba(2,8,14,0.55) 0%, rgba(2,8,14,0.18) 52%, transparent 100%)",
         }}
       />
 
@@ -191,11 +169,11 @@ export default function Hero() {
           h-[115px]
 
           bg-gradient-to-b
-          from-black/25
+          from-black/30
           to-transparent
 
-          md:h-[120px]
-          md:from-black/20
+          md:h-[130px]
+          md:from-black/28
         "
       />
 
@@ -358,6 +336,8 @@ export default function Hero() {
 
               text-white
 
+              drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]
+
               min-[380px]:text-[46px]
 
               sm:text-[62px]
@@ -396,7 +376,9 @@ export default function Hero() {
               font-normal
               leading-[1.65]
 
-              text-white/72
+              text-white/78
+
+              drop-shadow-[0_1px_12px_rgba(0,0,0,0.4)]
 
               min-[380px]:text-[14px]
 
@@ -418,6 +400,10 @@ export default function Hero() {
 
           {/* =================================================
               BUTTONS
+              Solid fill + a defined border on the secondary gives
+              both a real physical presence against moving footage,
+              instead of relying on blur alone to separate them
+              from the background.
           ================================================== */}
           <div
             className="
@@ -474,13 +460,13 @@ export default function Hero() {
 
                 text-white
 
-                
+                shadow-[0_10px_30px_rgba(21,143,243,0.35)]
 
                 transition-all
                 duration-200
 
                 hover:bg-[#2a9fff]
-                hover:shadow-[0_12px_32px_rgba(21,143,243,0.28)]
+                hover:shadow-[0_14px_36px_rgba(21,143,243,0.45)]
 
                 min-[380px]:text-[13px]
 
@@ -522,9 +508,9 @@ export default function Hero() {
                 rounded-[4px]
 
                 border
-                border-white/35
+                border-white/45
 
-                bg-black/[0.12]
+                bg-black/[0.22]
 
                 px-5
 
@@ -536,13 +522,13 @@ export default function Hero() {
 
                 text-white
 
-                backdrop-blur-[3px]
+                backdrop-blur-[6px]
 
                 transition-all
                 duration-200
 
-                hover:border-white/65
-                hover:bg-white/[0.08]
+                hover:border-white/75
+                hover:bg-white/[0.10]
 
                 min-[380px]:text-[13px]
 
@@ -616,7 +602,7 @@ export default function Hero() {
       {/* =====================================================
           AI ASSISTANT
           ====================================================== */}
-      
+
       <AiAssistant />
     </section>
   );
