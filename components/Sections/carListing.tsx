@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -18,34 +19,84 @@ const cars = [
     image: "/images/cars/ferrari.jpeg",
     price: "£175,000",
     year: "2023",
-    mileage: "2,500 miles",
+    mileage: "2,500",
     fuel: "Petrol",
     badge: "Low Mileage",
   },
+
   {
     name: "Porsche 911 Turbo S",
     subtitle: "3.7T 992 Turbo S PDK 4WD",
     image: "/images/cars/porsche.jpeg",
     price: "£125,000",
     year: "2022",
-    mileage: "8,900 miles",
+    mileage: "8,900 ",
     fuel: "Petrol",
-    badge: "One Owner",
+    badge: "First Owner",
   },
+
   {
     name: "Rolls Royce Cullinan",
     subtitle: "6.75 V12 Auto 4WD Euro 6",
     image: "/images/cars/Rolls Royce Cullinan.jpeg",
     price: "£325,000",
     year: "2023",
-    mileage: "5,200 miles",
+    mileage: "5,200",
     fuel: "Petrol",
     badge: "Premium",
+  },
+
+  {
+    name: "Lamborghini Aventador ",
+    subtitle: "6.5 V12 LP770-4 ISR Coupe",
+    image: "/images/cars/lamborghini.jpeg",
+    price: "£420,000",
+    year: "2022",
+    mileage: "1,800",
+    fuel: "Petrol",
+    badge: "Limited Edition",
+  },
+
+  {
+    name: "Mercedes AMG GT ",
+    subtitle: "4.0 V8 BiTurbo Coupe Premium",
+    image: "/images/cars/mercedes-gt.jpeg",
+    price: "£210,000",
+    year: "2023",
+    mileage: "3,200",
+    fuel: "Petrol",
+    badge: "Performance",
+  },
+
+  {
+    name: "Mustang  GT",
+    subtitle: "6.0 W12 Mulliner Automatic AWD",
+    image: "/images/cars/mustang.jpeg",
+    price: "£260,000",
+    year: "2024",
+    mileage: "1,500 ",
+    fuel: "Petrol",
+    badge: "Luxury Choice",
   },
 ];
 
 export default function CarListing() {
   const reduceMotion = useReducedMotion();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollCars = (direction: "left" | "right") => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const card = container.querySelector<HTMLElement>("[data-car-card]");
+    const gap = 28;
+    const amount = card ? card.offsetWidth + gap : container.clientWidth * 0.8;
+
+    container.scrollBy({
+      left: direction === "left" ? -amount : amount,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
+  };
 
   return (
     <section
@@ -53,19 +104,19 @@ export default function CarListing() {
       className="
         relative
         overflow-hidden
-        bg-[#0b0e13]
+        bg-transparent
 
-        px-5
-        py-20
+        px-4
+        py-12
 
-        sm:px-7
-        sm:py-24
+        sm:px-5
+        sm:py-16
 
-        lg:px-10
-        lg:py-28
+        lg:px-7
+        lg:py-20
 
-        xl:px-12
-        xl:py-32
+        xl:px-8
+        xl:py-24
       "
     >
       {/* BACKGROUND */}
@@ -75,7 +126,7 @@ export default function CarListing() {
           absolute
           inset-0
 
-          bg-[linear-gradient(180deg,#080b0f_0%,#0d1218_48%,#080b0f_100%)]
+          bg-[linear-gradient(180deg,#080b0f_0%,#0d1218_48%,transparent)]
         "
       />
 
@@ -141,7 +192,7 @@ export default function CarListing() {
           z-10
 
           mx-auto
-          max-w-[1500px]
+          max-w-[1800px]
         "
       >
         {/* =====================================================
@@ -169,64 +220,23 @@ export default function CarListing() {
             ease: EASE,
           }}
           className="
-            mb-12
+            mb-6
 
             flex
             flex-col
             gap-8
 
-            sm:mb-14
+            sm:mb-8
 
-            lg:mb-16
+            lg:mb-10
             lg:flex-row
             lg:items-end
             lg:justify-between
           "
         >
           <div className="max-w-[760px]">
-            {/* EYEBROW */}
-            <div
-              className="
-                mb-6
 
-                flex
-                items-center
-                gap-4
-              "
-            >
-              <span
-                className="
-                  h-px
-                  w-10
-
-                  bg-gradient-to-r
-                  from-[#129cff]
-                  via-[#129cff]/70
-                  to-transparent
-
-                  sm:w-12
-                "
-              />
-
-              <span
-                className="
-                  font-[var(--font-body)]
-
-                  text-[11px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.22em]
-
-                  text-[#61bdff]
-
-                  sm:text-[12px]
-                "
-              >
-                Selected Collection
-              </span>
-            </div>
-
-            {/* HEADING */}
+           {/* HEADING */}
             <h2
               className="
                 font-[var(--font-display)]
@@ -341,471 +351,425 @@ export default function CarListing() {
         </motion.div>
 
         {/* =====================================================
-            VEHICLE GRID
+            VEHICLE ROW — HORIZONTAL SCROLL
         ====================================================== */}
-        <div
-          className="
-            grid
-            grid-cols-1
-            gap-6
+        <div className="relative">
+          <div
+            ref={scrollRef}
+            className="
+              flex
+              gap-5
+              overflow-x-auto
+              overscroll-x-contain
+              scroll-smooth
+              snap-x
+              snap-mandatory
+              pb-2
 
-            md:grid-cols-2
+              [scrollbar-width:none]
+              [-ms-overflow-style:none]
+              [&::-webkit-scrollbar]:hidden
 
-            lg:grid-cols-3
-            lg:gap-6
-
-            xl:gap-8
-          "
-        >
-          {cars.map((car, index) => (
-            <motion.article
-              key={car.name}
-              initial={
-                reduceMotion
-                  ? false
-                  : {
-                      opacity: 0,
-                      y: 35,
-                    }
-              }
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-                margin: "-60px",
-              }}
-              transition={{
-                duration: 0.65,
-                delay: index * 0.08,
-                ease: EASE,
-              }}
-              className="
-                group
-                relative
-
-                flex
-                h-full
-                flex-col
-
-                overflow-hidden
-
-                rounded-[8px]
-
-                border
-                border-white/[0.12]
-
-                bg-[rgba(255,255,255,0.045)]
-
-                backdrop-blur-[18px]
-                backdrop-saturate-[1.4]
-
-                shadow-[0_35px_100px_rgba(0,0,0,0.55)]
-
-                transition-all
-                duration-500
-
-                hover:-translate-y-[7px]
-                hover:border-[#129cff]/30
-
-                hover:shadow-[0_32px_90px_rgba(0,0,0,0.48)]
-              "
-            >
-              {/* TOP HIGHLIGHT */}
-              <span
+              lg:gap-7
+              xl:gap-8
+            "
+          >
+            {cars.map((car, index) => (
+              <motion.a
+                href="#contact"
+                data-car-card
+                key={car.name}
+                initial={
+                  reduceMotion
+                    ? false
+                    : {
+                        opacity: 0,
+                        y: 35,
+                      }
+                }
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  margin: "-60px",
+                }}
+                transition={{
+                  duration: 0.65,
+                  delay: index * 0.08,
+                  ease: EASE,
+                }}
                 className="
-                  pointer-events-none
+                  group
+                  relative
 
-                  absolute
-                  left-1/2
-                  top-0
-                  z-30
+                  flex
+                  h-full
+                  min-w-0
+                  shrink-0
+                  snap-start
+                  cursor-pointer
+                  flex-col
 
-                  h-px
-                  w-[75%]
+                  overflow-hidden
 
-                  -translate-x-1/2
+                  rounded-[8px]
 
-                  bg-gradient-to-r
-                  from-transparent
-                  via-[#129cff]/0
-                  to-transparent
+                  border
+                  border-white/[0.12]
+
+                  bg-transparent
+
+                  backdrop-blur-[6px]
+
+                  
 
                   transition-all
                   duration-500
 
-                  group-hover:via-[#129cff]/70
-                "
-              />
+                  basis-[86%]
+                  sm:basis-[52%]
+                  lg:basis-[33%]
+                  xl:basis-[25%]
+                  2xl:basis-[20%]
 
-              {/* =================================================
-                  FULL WIDTH VEHICLE IMAGE
-              ================================================== */}
-              <div
-                className="
-                  relative
+                  hover:-translate-y-[7px]
+                  hover:border-[#129cff]/35
+                  hover:bg-transparent
 
-                  aspect-[16/11]
-                  w-full
-
-                  overflow-hidden
-
-                  bg-[#0b0e13]
+                  
                 "
               >
-                <Image
-                  src={car.image}
-                  alt={car.name}
-                  fill
-                  sizes="
-                    (max-width: 768px) 100vw,
-                    (max-width: 1024px) 50vw,
-                    33vw
-                  "
-                  className="
-                    object-cover
-
-                    transition-transform
-                    duration-[900ms]
-                    ease-out
-
-                    group-hover:scale-[1.055]
-                  "
-                />
-
-                {/* DARK IMAGE GRADIENT */}
-                <div
-                  className="
-                    pointer-events-none
-                    absolute
-                    inset-0
-
-                    bg-gradient-to-t
-                    from-[#0c1117]
-                    via-transparent
-                    to-black/10
-                  "
-                />
-
-                {/* SIDE VIGNETTE */}
-                <div
-                  className="
-                    pointer-events-none
-                    absolute
-                    inset-0
-
-                    bg-[linear-gradient(90deg,rgba(0,0,0,0.12),transparent_40%,transparent)]
-                  "
-                />
-
-                {/* BADGE */}
+                {/* TOP HIGHLIGHT */}
                 <span
                   className="
+                    pointer-events-none
+
                     absolute
-                    left-4
-                    top-4
+                    left-1/2
+                    top-0
+                    z-30
 
-                    inline-flex
-                    min-h-[30px]
-                    items-center
+                    h-px
+                    w-[75%]
 
-                    rounded-[3px]
+                    -translate-x-1/2
 
-                    border
-                    border-[#129cff]/30
-
-                    bg-black/55
-
-                    px-3
-
-                    font-[var(--font-body)]
-
-                    text-[9px]
-                    font-semibold
-                    uppercase
-                    tracking-[0.14em]
-
-                    text-[#85ceff]
-
-                    backdrop-blur-[10px]
-
-                    sm:left-5
-                    sm:top-5
-                  "
-                >
-                  {car.badge}
-                </span>
-
-                {/* TOP RIGHT CTA */}
-                <a
-                  href="#contact"
-                  aria-label={`View ${car.name}`}
-                  className="
-                    absolute
-                    right-4
-                    top-4
-
-                    flex
-                    h-[40px]
-                    w-[40px]
-                    items-center
-                    justify-center
-
-                    rounded-full
-
-                    border
-                    border-white/[0.13]
-
-                    bg-black/40
-
-                    text-white
-
-                    backdrop-blur-[10px]
-
-                    opacity-100
+                    bg-gradient-to-r
+                    from-transparent
+                    via-[#129cff]/0
+                    to-transparent
 
                     transition-all
-                    duration-300
+                    duration-500
 
-                    hover:border-[#129cff]/60
-                    hover:bg-[#129cff]
+                    group-hover:via-[#129cff]/70
+                  "
+                />
 
-                    sm:right-5
-                    sm:top-5
+                {/* =================================================
+                    FULL WIDTH VEHICLE IMAGE
+                ================================================== */}
+                <div
+                  className="
+                    relative
 
-                    lg:opacity-0
-                    lg:group-hover:opacity-100
+                    aspect-[16/11]
+                    w-full
+
+                    overflow-hidden
+
+                    bg-transparent
                   "
                 >
-                  <ArrowUpRight
-                    size={16}
-                    strokeWidth={1.6}
-                  />
-                </a>
-              </div>
-
-              {/* =================================================
-                  CARD CONTENT
-              ================================================== */}
-              <div
-                className="
-                  flex
-                  flex-1
-                  flex-col
-
-                  relative
-
-                  px-5
-                  pb-5
-                  pt-4
-
-                  sm:px-6
-                  sm:pb-6
-                  sm:pt-5
-                "
-              >
-                {/* VEHICLE NAME */}
-                <div>
-                  <h3
+                  <Image
+                    src={car.image}
+                    alt={car.name}
+                    fill
+                    sizes="
+                      (max-width: 640px) 86vw,
+                      (max-width: 1024px) 52vw,
+                      (max-width: 1280px) 33vw,
+                      (max-width: 1536px) 25vw,
+                      20vw
+                    "
                     className="
-                      font-[var(--font-display)]
+                      object-cover
 
-                      text-[28px]
-                      font-semibold
-                      leading-[1]
+                      transition-transform
+                      duration-[900ms]
+                      ease-out
 
-                      tracking-[-0.025em]
+                      group-hover:scale-[1.055]
+                    "
+                  />
 
-                      text-[#f7f7f5]
+                  {/* DARK IMAGE GRADIENT */}
+                  <div
+                    className="
+                      pointer-events-none
+                      absolute
+                      inset-0
 
-                      sm:text-[31px]
+                      bg-gradient-to-t
+                      from-[#0c1117]
+                      via-transparent
+                      to-black/10
+                    "
+                  />
+
+                  {/* PRICE — FLUSH TOP-LEFT, GLASSY BLACK, NO GAP */}
+                  <div
+                    className="
+                      absolute
+                      left-0
+                      top-0
+                      z-20
+
+                      rounded-br-[10px]
+
+                      bg-black/60
+
+                      px-4
+                      py-2.5
+
+                      backdrop-blur-xl
+                      backdrop-saturate-150
+
+                      shadow-[0_10px_25px_rgba(0,0,0,0.35)]
                     "
                   >
-                    {car.name}
-                  </h3>
+                    <span
+                      className="
+                        font-[var(--font-display)]
 
-                  <p
+                        text-[17px]
+                        font-bold
+                        leading-none
+                        tracking-[-0.01em]
+
+                        text-white
+
+                        sm:text-[18px]
+                      "
+                    >
+                      {car.price}
+                    </span>
+                  </div>
+
+                  {/* SECONDARY BADGE */}
+                  <span
                     className="
-                      mt-2.5
+                      absolute
+                      bottom-3
+                      left-3
+
+                      inline-flex
+                      min-h-[26px]
+                      items-center
+
+                      rounded-[3px]
+
+                      border
+                      border-[#129cff]/30
+
+                      bg-black/55
+
+                      px-2.5
 
                       font-[var(--font-body)]
 
-                      text-[11px]
-                      leading-[1.6]
+                      text-[8px]
+                      font-semibold
+                      uppercase
+                      tracking-[0.13em]
 
-                      text-white/42
+                      text-[#85ceff]
 
-                      sm:text-[12px]
+                      backdrop-blur-[10px]
                     "
                   >
-                    {car.subtitle}
-                  </p>
+                    {car.badge}
+                  </span>
+
+                  {/* HOVER CLICK INDICATOR */}
+                  <span
+                    className="
+                      absolute
+                      right-4
+                      top-4
+
+                      flex
+                      h-[38px]
+                      w-[38px]
+                      items-center
+                      justify-center
+
+                      rounded-full
+
+                      border
+                      border-white/[0.15]
+
+                      bg-black/40
+
+                      text-white
+
+                      backdrop-blur-[10px]
+
+                      opacity-0
+                      scale-90
+
+                      transition-all
+                      duration-300
+
+                      group-hover:opacity-100
+                      group-hover:scale-100
+                      group-hover:border-[#129cff]/60
+                      group-hover:bg-[#129cff]
+
+                      sm:right-5
+                      sm:top-5
+                    "
+                  >
+                    <ArrowUpRight
+                      size={16}
+                      strokeWidth={1.6}
+                    />
+                  </span>
                 </div>
 
                 {/* =================================================
-                    SPECS
+                    CARD CONTENT
                 ================================================== */}
                 <div
                   className="
-                    mt-6
+                    flex
+                    flex-1
+                    flex-col
 
-                    grid
-                    grid-cols-3
-
-                    rounded-[6px]
-
-                    border
-                    border-white/[0.10]
-
-                    bg-[rgba(255,255,255,0.045)]
-
-                    backdrop-blur-[12px]
+                    relative
 
                     px-3
-                    py-4
+                    pb-3
+                    pt-3
+
+                    sm:px-4
+                    sm:pb-4
+                    sm:pt-3
+
+                    lg:px-4
                   "
                 >
-                  <Spec
-                    icon={
-                      <CalendarDays
-                        size={15}
-                        strokeWidth={1.5}
-                      />
-                    }
-                    label="Year"
-                    value={car.year}
-                  />
-
-                  <Spec
-                    icon={
-                      <Gauge
-                        size={15}
-                        strokeWidth={1.5}
-                      />
-                    }
-                    label="Mileage"
-                    value={car.mileage}
-                    bordered
-                  />
-
-                  <Spec
-                    icon={
-                      <Fuel
-                        size={15}
-                        strokeWidth={1.5}
-                      />
-                    }
-                    label="Fuel"
-                    value={car.fuel}
-                  />
-                </div>
-
-                {/* =================================================
-                    PRICE / VIEW DETAILS
-                ================================================== */}
-                <div
-                  className="
-                    mt-auto
-
-                    flex
-                    items-end
-                    justify-between
-                    gap-4
-
-                    pt-6
-                  "
-                >
+                  {/* VEHICLE NAME */}
                   <div>
-                    <p
+                    <h3
                       className="
-                        font-[var(--font-body)]
+                        font-[var(--font-display)]
 
-                        text-[9px]
+                        text-[16px]
                         font-semibold
-                        uppercase
-                        tracking-[0.17em]
+                        leading-[1.08]
 
-                        text-white/35
+                        tracking-[-0.02em]
+
+                        text-[#f7f7f5]
+
+                        sm:text-[18px]
+
+                        lg:text-[19px]
                       "
                     >
-                      Asking Price
-                    </p>
+                      {car.name}
+                    </h3>
 
                     <p
                       className="
                         mt-2
 
-                        font-[var(--font-display)]
+                        font-[var(--font-body)]
 
-                        text-[30px]
-                        font-semibold
-                        leading-none
+                        text-[10px]
+                        leading-[1.6]
 
-                        tracking-[-0.025em]
+                        text-white/42
 
-                        text-[#129cff]
-
-                        sm:text-[34px]
+                        sm:mt-2.5
+                        sm:text-[12px]
                       "
                     >
-                      {car.price}
+                      {car.subtitle}
                     </p>
                   </div>
 
-                  <a
-                    href="#contact"
+                  {/* =================================================
+                      SPECS
+                  ================================================== */}
+                  <div
                     className="
-                      group/button
+                      mt-3
 
-                      inline-flex
-                      min-h-[44px]
-                      items-center
-                      justify-center
-                      gap-2
+                      grid
+                      grid-cols-3
+                      gap-1
 
-                      rounded-[4px]
+                      rounded-[6px]
 
                       border
-                      border-white/[0.10]
+                      border-white/[0.14]
 
-                      bg-white/[0.025]
+                      bg-white/[0.03]
 
-                      px-4
+                      backdrop-blur-[10px]
 
-                      font-[var(--font-body)]
+                      shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
 
-                      text-[11px]
-                      font-semibold
+                      px-2
+                      py-2
 
-                      text-white/75
-
-                      transition-all
-                      duration-300
-
-                      hover:border-[#129cff]/40
-                      hover:bg-[#129cff]
-                      hover:text-white
+                      sm:mt-4
+                      sm:px-2
+                      sm:py-3
                     "
                   >
-                    Details
-
-                    <ArrowUpRight
-                      size={14}
-                      strokeWidth={1.6}
-                      className="
-                        transition-transform
-                        duration-300
-
-                        group-hover/button:translate-x-[2px]
-                        group-hover/button:-translate-y-[2px]
-                      "
+                    <Spec
+                      icon={
+                        <CalendarDays
+                          size={13}
+                          strokeWidth={1.6}
+                        />
+                      }
+                      label="Year"
+                      value={car.year}
                     />
-                  </a>
+
+                    <Spec
+                      icon={
+                        <Gauge
+                          size={14}
+                          strokeWidth={1.6}
+                        />
+                      }
+                      label="Mileage"
+                      value={car.mileage}
+                      bordered
+                    />
+
+                    <Spec
+                      icon={
+                        <Fuel
+                          size={13}
+                          strokeWidth={1.6}
+                        />
+                      }
+                      label="Fuel"
+                      value={car.fuel}
+                    />
+                  </div>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.a>
+            ))}
+          </div>
         </div>
 
         {/* =====================================================
@@ -893,8 +857,10 @@ function Spec({
       <div
         className="
           flex
+          flex-col
           items-center
-          gap-[6px]
+          justify-center
+          gap-1
 
           text-[#129cff]
         "
@@ -928,11 +894,12 @@ function Spec({
           font-[var(--font-body)]
 
           text-[10px]
+          text-center
           font-semibold
 
           text-white/72
 
-          sm:text-[11px]
+          sm:text-xs
         "
       >
         {value}

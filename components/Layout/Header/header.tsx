@@ -5,11 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Check,
   ChevronDown,
-  Mail,
   Menu,
-  MessageCircle,
-  Phone,
-  Star,
   X,
 } from "lucide-react";
 
@@ -20,15 +16,22 @@ import {
 
 type Language = "en" | "de";
 
-const navItems = [
-  { label: "Home", href: "#home", active: true, dropdown: false },
-  { label: "Stocklist", href: "#stocklist", active: false, dropdown: true },
-  { label: "Part Exchange", href: "#part-exchange", active: false, dropdown: true },
-  { label: "Finance", href: "#finance", active: false, dropdown: false },
-  { label: "Bimta", href: "#bimta", active: false, dropdown: false },
-  { label: "Warranty", href: "#warranty", active: false, dropdown: false },
-  { label: "Reviews", href: "#reviews", active: false, dropdown: true },
-  { label: "Contact Us", href: "#contact", active: false, dropdown: true },
+const leftNavItems = [
+  { label: "Home", href: "#home" },
+  { label: "Used Cars", href: "#models" },
+  { label: "Sell Your Car", href: "#sell" },
+  { label: "Finance", href: "#finance" },
+  { label: "Services", href: "#services" },
+];
+
+const rightNavItems = [
+  { label: "About Us", href: "#about" },
+  { label: "Contact", href: "#contact" },
+];
+
+const mobileNavItems = [
+  ...leftNavItems,
+  ...rightNavItems,
 ];
 
 export default function Header() {
@@ -52,136 +55,157 @@ export default function Header() {
       "
     >
       {/* =====================================================
-          ROW 1 — TOP UTILITY BAR
-          Compare/WhatsApp left, logo centered, language +
-          contact actions right. Mobile collapses to logo + menu.
+          MAIN NAVIGATION
+          
+          MOBILE:
+          - completely transparent
+          - no border
+          - no blur
+          
+          DESKTOP XL+:
+          - existing glass effect
       ====================================================== */}
       <div
         className="
           relative
 
           flex
-          h-[64px]
+          h-[80px]
           w-full
           items-center
 
-          border-b
-          border-white/[0.08]
+          overflow-visible
 
-          bg-[linear-gradient(180deg,rgba(7,12,18,0.58)_0%,rgba(7,12,18,0.32)_100%)]
+          border-y
+          border-white/[0.10]
+          bg-[linear-gradient(180deg,rgba(7,12,18,0.35)_0%,rgba(7,12,18,0.18)_100%)]
 
-          backdrop-blur-[10px]
+          shadow-[0_18px_45px_rgba(0,0,0,0.18)]
+
+          backdrop-blur-[8px]
 
           px-5
 
           sm:px-6
-
-          md:h-[72px]
           md:px-7
 
+          xl:border-y
+          xl:border-white/[0.05]
+          xl:bg-[linear-gradient(180deg,rgba(11,13,15,0.30)_0%,rgba(17,22,29,0.18)_50%,rgba(11,13,15,0.24)_100%)]
+          xl:backdrop-blur-[6px]
+          xl:backdrop-saturate-[1.08]
           xl:px-9
 
           2xl:px-12
         "
       >
-        {/* LEFT — COMPARE + WHATSAPP */}
+        {/* =================================================
+            DESKTOP HEADER TINT ONLY
+
+            MOBILE = HIDDEN
+        ================================================== */}
         <div
           className="
-            relative
-            z-20
+            pointer-events-none
 
-            hidden
-            min-w-0
-            flex-1
-            items-center
-            gap-3
+            absolute
+            inset-0
 
-            xl:flex
+            block
+            overflow-hidden
           "
         >
-          <a
-            href="#compare"
+          {/* DARK GLASS TINT */}
+          <div
             className="
-              group
+              absolute
+              inset-0
 
-              inline-flex
-              h-[38px]
-              items-center
-              gap-[7px]
-
-              rounded-[4px]
-
-              border
-              border-white/[0.10]
-
-              bg-white/[0.04]
-
-              px-[14px]
-
-              font-[var(--font-body)]
-
-              text-[12px]
-              font-medium
-
-              text-white
-
-              transition-all
-              duration-200
-
-              hover:border-[#00A8E8]/40
-              hover:bg-[#00A8E8]/[0.08]
-
-              2xl:text-[13px]
+              bg-[linear-gradient(180deg,rgba(11,13,15,0.30)_0%,rgba(17,22,29,0.18)_50%,rgba(11,13,15,0.24)_100%)]
             "
-          >
-            <Star
-              size={13}
-              strokeWidth={1.8}
-              className="text-[#00A8E8]"
-            />
-            Compare Vehicles
-            <span className="text-white/45">(0)</span>
-          </a>
+          />
 
-          <a
-            href="#whatsapp"
-            aria-label="Chat on WhatsApp"
+          {/* BLUE AMBIENCE */}
+          <div
             className="
-              inline-flex
-              h-[38px]
-              w-[38px]
-              items-center
-              justify-center
+              absolute
+
+              left-1/2
+              top-1/2
+
+              h-[240px]
+              w-[720px]
+
+              -translate-x-1/2
+              -translate-y-1/2
 
               rounded-full
 
-              border
-              border-white/[0.10]
+              bg-[#00A8E8]/[0.022]
 
-              bg-white/[0.04]
-
-              text-white/85
-
-              transition-all
-              duration-200
-
-              hover:border-[#00A8E8]/40
-              hover:text-white
+              blur-[115px]
             "
-          >
-            <MessageCircle
-              size={16}
-              strokeWidth={1.8}
-            />
-          </a>
+          />
+
+          {/* TOP DETAIL LINE */}
+          <div
+            className="
+              absolute
+
+              left-1/2
+              top-0
+
+              h-px
+              w-[65%]
+
+              -translate-x-1/2
+
+              bg-gradient-to-r
+              from-transparent
+              via-[#00A8E8]/45
+              to-transparent
+
+              shadow-[0_0_14px_rgba(0,168,232,0.14)]
+            "
+          />
+
+          {/* BOTTOM DETAIL LINE */}
+          <div
+            className="
+              absolute
+
+              bottom-0
+              left-1/2
+
+              h-px
+              w-[80%]
+
+              -translate-x-1/2
+
+              bg-gradient-to-r
+              from-transparent
+              via-white/[0.045]
+              to-transparent
+            "
+          />
         </div>
 
-        {/* CENTER LOGO — DESKTOP */}
+        {/* =================================================
+            CENTER LOGO TEXT — DESKTOP
+        ================================================== */}
         <motion.a
           href="#home"
-          initial={{ opacity: 0, y: -3 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
+          initial={{
+            opacity: 0,
+            y: -3,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.45,
+          }}
           className="
             absolute
             left-1/2
@@ -199,12 +223,22 @@ export default function Header() {
           <LogoText />
         </motion.a>
 
-        {/* CENTER LOGO — MOBILE */}
+        {/* =================================================
+            CENTER LOGO TEXT — MOBILE
+        ================================================== */}
         <motion.a
           href="#home"
-          initial={{ opacity: 0, y: -3 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
+          initial={{
+            opacity: 0,
+            y: -3,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.45,
+          }}
           className="
             absolute
             left-1/2
@@ -220,7 +254,190 @@ export default function Header() {
           <LogoText mobile />
         </motion.a>
 
-        {/* RIGHT — LANGUAGE + EMAIL + PHONE CTA */}
+        {/* =================================================
+            LEFT NAVIGATION
+        ================================================== */}
+        <div
+          className="
+            relative
+            z-20
+
+            hidden
+            min-w-0
+            flex-1
+            items-center
+
+            xl:flex
+          "
+        >
+          <div
+            aria-hidden="true"
+            className="
+              w-[75px]
+              shrink-0
+
+              2xl:w-[95px]
+
+              min-[1700px]:w-[115px]
+            "
+          />
+
+          <nav
+            className="
+              flex
+
+              -translate-x-[12px]
+              items-center
+
+              2xl:-translate-x-[16px]
+            "
+          >
+            {leftNavItems.map((item, index) => (
+              <div
+                key={item.label}
+                className="
+                  relative
+                  flex
+                  items-center
+                "
+              >
+                <a
+                  href={item.href}
+                  className="
+                    group
+                    relative
+
+                    flex
+                    h-[65px]
+                    items-center
+                    justify-center
+
+                    whitespace-nowrap
+
+                    px-[14px]
+
+                    font-[var(--font-body)]
+
+                    text-[13px]
+                    font-medium
+
+                    text-white
+
+                    transition-all
+                    duration-300
+
+                    2xl:px-[17px]
+                    2xl:text-[14px]
+
+                    min-[1700px]:px-[20px]
+                    min-[1700px]:text-[15px]
+                  "
+                >
+                  {/* SUBTLE HOVER GLOW */}
+                  <span
+                    className="
+                      pointer-events-none
+
+                      absolute
+                      left-1/2
+                      top-1/2
+
+                      h-[45px]
+                      w-[90px]
+
+                      -translate-x-1/2
+                      -translate-y-1/2
+
+                      rounded-full
+
+                      bg-[#00A8E8]/0
+
+                      blur-[28px]
+
+                      transition-all
+                      duration-500
+
+                      group-hover:bg-[#00A8E8]/[0.07]
+                    "
+                  />
+
+                  <span
+                    className="
+                      relative
+                      z-10
+                    "
+                  >
+                    {item.label}
+                  </span>
+
+                  {/* HOVER BOTTOM LINE */}
+                  <span
+                    className="
+                      absolute
+                      bottom-[5px]
+                      left-1/2
+
+                      h-[2px]
+                      w-0
+
+                      -translate-x-1/2
+
+                      rounded-full
+
+                      bg-[#00A8E8]
+
+                      shadow-[0_0_10px_rgba(0,168,232,0.32)]
+
+                      transition-all
+                      duration-300
+
+                      group-hover:w-[28px]
+                    "
+                  />
+                </a>
+
+                {index < leftNavItems.length - 1 && (
+                  <span
+                    className="
+                      h-[30px]
+                      w-px
+
+                      bg-gradient-to-b
+                      from-transparent
+                      via-white/10
+                      to-transparent
+                    "
+                  />
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+
+        {/* =================================================
+            CENTER SAFE SPACE
+        ================================================== */}
+        <div
+          className="
+            relative
+            z-20
+
+            hidden
+
+            w-[245px]
+            shrink-0
+
+            xl:block
+
+            2xl:w-[270px]
+
+            min-[1700px]:w-[290px]
+          "
+        />
+
+        {/* =================================================
+            RIGHT SIDE
+        ================================================== */}
         <div
           className="
             relative
@@ -231,23 +448,165 @@ export default function Header() {
             flex-1
             items-center
             justify-end
-            gap-3
 
             xl:flex
           "
         >
-          {/* LANGUAGE */}
+          {/* RIGHT NAV */}
+          <nav className="flex items-center">
+            {rightNavItems.map((item, index) => (
+              <div
+                key={item.label}
+                className="
+                  relative
+                  flex
+                  items-center
+                "
+              >
+                <a
+                  href={item.href}
+                  className="
+                    group
+                    relative
+
+                    flex
+                    h-[65px]
+                    items-center
+                    justify-center
+
+                    whitespace-nowrap
+
+                    px-[16px]
+
+                    font-[var(--font-body)]
+
+                    text-[13px]
+                    font-medium
+
+                    text-white
+
+                    transition-all
+                    duration-300
+
+                    2xl:px-[19px]
+                    2xl:text-[14px]
+
+                    min-[1700px]:text-[15px]
+                  "
+                >
+                  {/* HOVER GLOW */}
+                  <span
+                    className="
+                      pointer-events-none
+
+                      absolute
+                      left-1/2
+                      top-1/2
+
+                      h-[45px]
+                      w-[90px]
+
+                      -translate-x-1/2
+                      -translate-y-1/2
+
+                      rounded-full
+
+                      bg-[#00A8E8]/0
+
+                      blur-[28px]
+
+                      transition-all
+                      duration-500
+
+                      group-hover:bg-[#00A8E8]/[0.07]
+                    "
+                  />
+
+                  <span
+                    className="
+                      relative
+                      z-10
+                    "
+                  >
+                    {item.label}
+                  </span>
+
+                  {/* HOVER LINE */}
+                  <span
+                    className="
+                      absolute
+                      bottom-[5px]
+                      left-1/2
+
+                      h-[2px]
+                      w-0
+
+                      -translate-x-1/2
+
+                      rounded-full
+
+                      bg-[#00A8E8]
+
+                      shadow-[0_0_10px_rgba(0,168,232,0.32)]
+
+                      transition-all
+                      duration-300
+
+                      group-hover:w-[28px]
+                    "
+                  />
+                </a>
+
+                {index < rightNavItems.length - 1 && (
+                  <span
+                    className="
+                      h-[30px]
+                      w-px
+
+                      bg-gradient-to-b
+                      from-transparent
+                      via-white/10
+                      to-transparent
+                    "
+                  />
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* SEPARATOR */}
+          <span
+            className="
+              mx-[17px]
+
+              h-[30px]
+              w-px
+
+              bg-gradient-to-b
+              from-transparent
+              via-white/10
+              to-transparent
+            "
+          />
+
+          {/* =================================================
+              LANGUAGE
+          ================================================== */}
           <div className="relative">
             <button
               type="button"
               aria-label="Select language"
               aria-expanded={languageOpen}
-              onClick={() => setLanguageOpen((previous) => !previous)}
+              onClick={() =>
+                setLanguageOpen(
+                  (previous) => !previous
+                )
+              }
               className="
                 group
 
                 flex
-                h-[38px]
+                h-[44px]
                 items-center
                 gap-[7px]
 
@@ -269,33 +628,83 @@ export default function Header() {
                 hover:opacity-80
               "
             >
-              <span className="h-[14px] w-[21px] overflow-hidden rounded-[1px]">
+              <span
+                className="
+                  h-[14px]
+                  w-[21px]
+
+                  overflow-hidden
+
+                  rounded-[1px]
+                "
+              >
                 {language === "en" ? (
-                  <GB title="United Kingdom" className="h-full w-full object-cover" />
+                  <GB
+                    title="United Kingdom"
+                    className="
+                      h-full
+                      w-full
+                      object-cover
+                    "
+                  />
                 ) : (
-                  <DE title="Germany" className="h-full w-full object-cover" />
+                  <DE
+                    title="Germany"
+                    className="
+                      h-full
+                      w-full
+                      object-cover
+                    "
+                  />
                 )}
               </span>
-              <span>{language === "en" ? "EN" : "DE"}</span>
+
+              <span>
+                {language === "en"
+                  ? "EN"
+                  : "DE"}
+              </span>
+
               <ChevronDown
                 size={11}
                 strokeWidth={1.5}
                 className={`
                   text-white/55
+
                   transition-transform
                   duration-200
-                  ${languageOpen ? "rotate-180" : ""}
+
+                  ${
+                    languageOpen
+                      ? "rotate-180"
+                      : ""
+                  }
                 `}
               />
             </button>
 
+            {/* LANGUAGE DROPDOWN */}
             <AnimatePresence>
               {languageOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: -7, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                  transition={{ duration: 0.17 }}
+                  initial={{
+                    opacity: 0,
+                    y: -7,
+                    scale: 0.98,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -6,
+                    scale: 0.98,
+                  }}
+                  transition={{
+                    duration: 0.17,
+                  }}
                   className="
                     absolute
                     right-0
@@ -311,7 +720,7 @@ export default function Header() {
                     border
                     border-white/[0.08]
 
-                    bg-[rgba(11,13,15,0.9)]
+                    bg-[rgba(11,13,15,0.74)]
 
                     p-[6px]
 
@@ -320,40 +729,55 @@ export default function Header() {
                     backdrop-blur-[16px]
                   "
                 >
+                  {/* BACKGROUND */}
                   <div
                     className="
                       pointer-events-none
+
                       absolute
                       inset-0
+
                       bg-[linear-gradient(180deg,rgba(11,13,15,0.78)_0%,rgba(17,22,29,0.66)_50%,rgba(11,13,15,0.74)_100%)]
                     "
                   />
 
+                  {/* BLUE AMBIENCE */}
                   <div
                     className="
                       pointer-events-none
+
                       absolute
                       left-1/2
                       top-1/2
+
                       h-[160px]
                       w-[300px]
+
                       -translate-x-1/2
                       -translate-y-1/2
+
                       rounded-full
+
                       bg-[#00A8E8]/[0.04]
+
                       blur-[80px]
                     "
                   />
 
+                  {/* TOP LINE */}
                   <div
                     className="
                       pointer-events-none
+
                       absolute
                       left-1/2
                       top-0
+
                       h-px
                       w-[65%]
+
                       -translate-x-1/2
+
                       bg-gradient-to-r
                       from-transparent
                       via-[#00A8E8]/45
@@ -367,11 +791,14 @@ export default function Header() {
                         px-3
                         pb-2
                         pt-2
+
                         font-[var(--font-body)]
+
                         text-[9px]
                         font-semibold
                         uppercase
                         tracking-[0.18em]
+
                         text-white/35
                       "
                     >
@@ -382,8 +809,18 @@ export default function Header() {
                       active={language === "en"}
                       title="English"
                       subtitle="United Kingdom"
-                      flag={<GB title="United Kingdom" className="h-[16px] w-[24px]" />}
-                      onClick={() => selectLanguage("en")}
+                      flag={
+                        <GB
+                          title="United Kingdom"
+                          className="
+                            h-[16px]
+                            w-[24px]
+                          "
+                        />
+                      }
+                      onClick={() =>
+                        selectLanguage("en")
+                      }
                     />
 
                     <div className="mt-[3px]">
@@ -391,8 +828,18 @@ export default function Header() {
                         active={language === "de"}
                         title="Deutsch"
                         subtitle="Deutschland"
-                        flag={<DE title="Germany" className="h-[16px] w-[24px]" />}
-                        onClick={() => selectLanguage("de")}
+                        flag={
+                          <DE
+                            title="Germany"
+                            className="
+                              h-[16px]
+                              w-[24px]
+                            "
+                          />
+                        }
+                        onClick={() =>
+                          selectLanguage("de")
+                        }
                       />
                     </div>
                   </div>
@@ -401,10 +848,14 @@ export default function Header() {
             </AnimatePresence>
           </div>
 
+          {/* SEPARATOR */}
           <span
             className="
-              h-[26px]
+              mx-[17px]
+
+              h-[30px]
               w-px
+
               bg-gradient-to-b
               from-transparent
               via-white/10
@@ -412,49 +863,28 @@ export default function Header() {
             "
           />
 
-          {/* EMAIL ICON */}
-          <a
-            href="#contact"
-            aria-label="Email us"
-            className="
-              inline-flex
-              h-[38px]
-              w-[38px]
-              items-center
-              justify-center
-
-              rounded-[4px]
-
-              bg-white/[0.05]
-
-              border
-              border-white/[0.10]
-
-              text-white
-
-              transition-all
-              duration-200
-
-              hover:border-[#00A8E8]/40
-              hover:bg-[#00A8E8]/[0.08]
-            "
-          >
-            <Mail size={15} strokeWidth={1.8} />
-          </a>
-
-          {/* PHONE CTA */}
+          {/* =================================================
+              DESKTOP CTA
+          ================================================== */}
           <motion.a
-            href="tel:+440000000000"
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.18 }}
+            href="#contact"
+            whileHover={{
+              y: -1,
+            }}
+            whileTap={{
+              scale: 0.98,
+            }}
+            transition={{
+              duration: 0.18,
+            }}
             className="
               inline-flex
-              h-[38px]
+
+              h-[44px]
+
               shrink-0
               items-center
               justify-center
-              gap-[7px]
 
               whitespace-nowrap
 
@@ -465,11 +895,11 @@ export default function Header() {
 
               bg-[#158ff3]
 
-              px-[16px]
+              px-[20px]
 
               font-[var(--font-body)]
 
-              text-[12px]
+              text-[14px]
               font-semibold
 
               text-white
@@ -481,22 +911,35 @@ export default function Header() {
 
               hover:bg-[#2a9fff]
 
-              2xl:px-[18px]
+              2xl:px-[24px]
               2xl:text-[13px]
             "
           >
-            <Phone size={13} strokeWidth={2} />
-            Get In Touch
+           Contact Us
           </motion.a>
         </div>
 
-        {/* MOBILE MENU BUTTON */}
+        {/* =================================================
+            MOBILE MENU BUTTON
+
+            NO BORDER
+            NO BACKGROUND
+            NO BLOCK
+            NO BLUR
+        ================================================== */}
         <button
           type="button"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-label={
+            menuOpen
+              ? "Close menu"
+              : "Open menu"
+          }
           aria-expanded={menuOpen}
           onClick={() => {
-            setMenuOpen((previous) => !previous);
+            setMenuOpen(
+              (previous) => !previous
+            );
+
             setLanguageOpen(false);
           }}
           className="
@@ -512,9 +955,10 @@ export default function Header() {
             justify-center
 
             border-0
-
+            border-l
+            border-white/[0.12]
             bg-transparent
-
+            pl-4
             p-0
 
             text-white
@@ -530,131 +974,18 @@ export default function Header() {
             xl:hidden
           "
         >
-          {menuOpen ? <X size={24} strokeWidth={1.7} /> : <Menu size={25} strokeWidth={1.7} />}
+          {menuOpen ? (
+            <X
+              size={24}
+              strokeWidth={1.7}
+            />
+          ) : (
+            <Menu
+              size={25}
+              strokeWidth={1.7}
+            />
+          )}
         </button>
-      </div>
-
-      {/* =====================================================
-          ROW 2 — NAV BAR
-          Desktop only. Full-width, evenly spaced, Home shown
-          as an active solid block the way the reference does it.
-      ====================================================== */}
-      <div
-        className="
-          relative
-
-          hidden
-          w-full
-
-          border-b
-          border-white/[0.06]
-
-          bg-[linear-gradient(180deg,rgba(198, 205, 213, 0.62)_0%,rgba(121, 134, 151, 0.78)_100%)]
-
-       
-
-          xl:block
-        "
-      >
-        <nav
-          className="
-            mx-auto
-
-            flex
-            h-[52px]
-            w-full
-            max-w-[1920px]
-            items-center
-            justify-between
-
-            px-9
-
-            2xl:h-[56px]
-            2xl:px-12
-          "
-        >
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className={`
-                group
-
-                relative
-
-                flex
-                h-full
-                items-center
-                justify-center
-                gap-[5px]
-
-                whitespace-nowrap
-
-                px-5
-
-                font-[var(--font-body)]
-
-                text-[13px]
-                font-medium
-
-                transition-colors
-                duration-200
-
-                2xl:px-6
-                2xl:text-[14px]
-
-                ${
-                  item.active
-                    ? "bg-[#158ff3] text-white"
-                    : "text-white/85 hover:text-white"
-                }
-              `}
-            >
-              {item.label}
-
-              {item.dropdown && (
-                <ChevronDown
-                  size={13}
-                  strokeWidth={1.8}
-                  className={`
-                    transition-colors
-                    duration-200
-
-                    ${item.active ? "text-white/80" : "text-white/45 group-hover:text-white/75"}
-                  `}
-                />
-              )}
-
-              {!item.active && (
-                <span
-                  className="
-                    pointer-events-none
-
-                    absolute
-                    bottom-0
-                    left-1/2
-
-                    h-[2px]
-                    w-0
-
-                    -translate-x-1/2
-
-                    rounded-full
-
-                    bg-[#00A8E8]
-
-                    shadow-[0_0_10px_rgba(0,168,232,0.32)]
-
-                    transition-all
-                    duration-300
-
-                    group-hover:w-[24px]
-                  "
-                />
-              )}
-            </a>
-          ))}
-        </nav>
       </div>
 
       {/* =====================================================
@@ -663,10 +994,22 @@ export default function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            initial={{
+              opacity: 0,
+              y: -8,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -8,
+            }}
+            transition={{
+              duration: 0.2,
+              ease: "easeOut",
+            }}
             className="
               relative
 
@@ -676,7 +1019,7 @@ export default function Header() {
 
               border-0
 
-              bg-[rgba(7,12,18,0.88)]
+              bg-[rgba(7,12,18,0.82)]
 
               shadow-[0_22px_50px_rgba(0,0,0,0.28)]
 
@@ -685,46 +1028,68 @@ export default function Header() {
               xl:hidden
             "
           >
+            {/* MENU BACKGROUND */}
             <div
               className="
                 pointer-events-none
+
                 absolute
                 inset-0
+
                 bg-[linear-gradient(180deg,rgba(7,12,18,0.86)_0%,rgba(11,17,24,0.78)_100%)]
               "
             />
 
+            {/* SUBTLE BLUE GLOW */}
             <div
               className="
                 pointer-events-none
+
                 absolute
                 left-1/2
                 top-0
+
                 h-[220px]
                 w-[420px]
+
                 -translate-x-1/2
+
                 rounded-full
+
                 bg-[#00A8E8]/[0.045]
+
                 blur-[100px]
               "
             />
 
-            <div className="relative z-10 px-5 pb-6 pt-2 sm:px-6">
-              {/* NAV ITEMS */}
+            <div
+              className="
+                relative
+                z-10
+
+                px-5
+                pb-6
+                pt-2
+
+                sm:px-6
+              "
+            >
+              {/* MOBILE NAV */}
               <nav className="flex flex-col">
-                {navItems.map((item) => (
+                {mobileNavItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
-                    onClick={() => setMenuOpen(false)}
-                    className={`
+                    onClick={() =>
+                      setMenuOpen(false)
+                    }
+                    className="
                       group
                       relative
 
                       flex
-                      min-h-[52px]
+                      min-h-[56px]
                       items-center
-                      justify-between
 
                       border-b
                       border-white/[0.05]
@@ -734,103 +1099,54 @@ export default function Header() {
                       text-[15px]
                       font-medium
 
+                      text-white
+
                       transition-colors
                       duration-200
 
-                      ${item.active ? "text-[#2a9fff]" : "text-white hover:text-[#2a9fff]"}
-                    `}
+                      hover:text-[#2a9fff]
+                    "
                   >
                     {item.label}
-                    {item.dropdown && (
-                      <ChevronDown size={16} strokeWidth={1.8} className="text-white/40" />
-                    )}
+
+                    <span
+                      className="
+                        absolute
+                        bottom-0
+                        left-0
+
+                        h-[2px]
+                        w-0
+
+                        bg-[#00A8E8]
+
+                        transition-all
+                        duration-300
+
+                        group-hover:w-[30px]
+                      "
+                    />
                   </a>
                 ))}
               </nav>
 
-              {/* COMPARE + WHATSAPP + EMAIL */}
-              <div className="mt-4 flex items-center gap-3">
-                <a
-                  href="#compare"
-                  className="
-                    inline-flex
-                    h-[42px]
-                    flex-1
-                    items-center
-                    justify-center
-                    gap-[7px]
+              {/* =================================================
+                  MOBILE LANGUAGES
+              ================================================== */}
+              <div
+                className="
+                  mt-5
 
-                    rounded-[4px]
-
-                    border
-                    border-white/[0.10]
-
-                    bg-white/[0.04]
-
-                    font-[var(--font-body)]
-
-                    text-[12px]
-                    font-medium
-
-                    text-white
-                  "
-                >
-                  <Star size={13} strokeWidth={1.8} className="text-[#00A8E8]" />
-                  Compare (0)
-                </a>
-
-                <a
-                  href="#whatsapp"
-                  aria-label="Chat on WhatsApp"
-                  className="
-                    inline-flex
-                    h-[42px]
-                    w-[42px]
-                    items-center
-                    justify-center
-
-                    rounded-[4px]
-
-                    border
-                    border-white/[0.10]
-
-                    bg-white/[0.04]
-
-                    text-white/85
-                  "
-                >
-                  <MessageCircle size={17} strokeWidth={1.8} />
-                </a>
-
-                <a
-                  href="#contact"
-                  aria-label="Email us"
-                  className="
-                    inline-flex
-                    h-[42px]
-                    w-[42px]
-                    items-center
-                    justify-center
-
-                    rounded-[4px]
-
-                    border
-                    border-white/[0.10]
-
-                    bg-white/[0.04]
-
-                    text-white/85
-                  "
-                >
-                  <Mail size={16} strokeWidth={1.8} />
-                </a>
-              </div>
-
-              {/* MOBILE LANGUAGES */}
-              <div className="mt-3 grid grid-cols-2 gap-2">
+                  grid
+                  grid-cols-2
+                  gap-2
+                "
+              >
                 <button
                   type="button"
-                  onClick={() => selectLanguage("en")}
+                  onClick={() =>
+                    selectLanguage("en")
+                  }
                   className={`
                     flex
                     min-h-[46px]
@@ -858,13 +1174,22 @@ export default function Header() {
                     }
                   `}
                 >
-                  <GB title="United Kingdom" className="h-[14px] w-[21px]" />
+                  <GB
+                    title="United Kingdom"
+                    className="
+                      h-[14px]
+                      w-[21px]
+                    "
+                  />
+
                   English
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => selectLanguage("de")}
+                  onClick={() =>
+                    selectLanguage("de")
+                  }
                   className={`
                     flex
                     min-h-[46px]
@@ -892,15 +1217,26 @@ export default function Header() {
                     }
                   `}
                 >
-                  <DE title="Germany" className="h-[14px] w-[21px]" />
+                  <DE
+                    title="Germany"
+                    className="
+                      h-[14px]
+                      w-[21px]
+                    "
+                  />
+
                   Deutsch
                 </button>
               </div>
 
-              {/* PHONE CTA */}
+              {/* =================================================
+                  MOBILE CTA
+              ================================================== */}
               <a
-                href="tel:+440000000000"
-                onClick={() => setMenuOpen(false)}
+                href="#contact"
+                onClick={() =>
+                  setMenuOpen(false)
+                }
                 className="
                   mt-4
 
@@ -909,7 +1245,6 @@ export default function Header() {
                   w-full
                   items-center
                   justify-center
-                  gap-[8px]
 
                   rounded-[3px]
 
@@ -930,8 +1265,7 @@ export default function Header() {
                   hover:bg-[#2a9fff]
                 "
               >
-                <Phone size={14} strokeWidth={2} />
-                Get In Touch
+                Book a Test Drive
               </a>
             </div>
           </motion.div>
@@ -978,7 +1312,11 @@ function LanguageItem({
         transition-colors
         duration-200
 
-        ${active ? "bg-white/[0.06]" : "hover:bg-white/[0.035]"}
+        ${
+          active
+            ? "bg-white/[0.06]"
+            : "hover:bg-white/[0.035]"
+        }
       `}
     >
       <span
@@ -1001,8 +1339,28 @@ function LanguageItem({
       </span>
 
       <span className="flex flex-col">
-        <span className="text-[12px] font-medium text-white">{title}</span>
-        <span className="mt-[2px] text-[9px] text-white/35">{subtitle}</span>
+        <span
+          className="
+            text-[12px]
+            font-medium
+
+            text-white
+          "
+        >
+          {title}
+        </span>
+
+        <span
+          className="
+            mt-[2px]
+
+            text-[9px]
+
+            text-white/35
+          "
+        >
+          {subtitle}
+        </span>
       </span>
 
       {active && (
@@ -1023,7 +1381,10 @@ function LanguageItem({
             text-[#00A8E8]
           "
         >
-          <Check size={11} strokeWidth={2} />
+          <Check
+            size={11}
+            strokeWidth={2}
+          />
         </span>
       )}
     </button>
@@ -1034,7 +1395,11 @@ function LanguageItem({
    CENTER LOGO TEXT ONLY
 ========================================================= */
 
-function LogoText({ mobile = false }: { mobile?: boolean }) {
+function LogoText({
+  mobile = false,
+}: {
+  mobile?: boolean;
+}) {
   return (
     <span
       className={`

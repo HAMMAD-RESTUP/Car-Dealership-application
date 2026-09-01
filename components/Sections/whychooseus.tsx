@@ -71,13 +71,13 @@ export default function WhyChooseUs() {
 
         bg-[#0B0D0F]
 
-        py-16
+        py-10
 
-        sm:py-20
+        sm:py-12
 
-        md:py-24
+        md:py-14
 
-        lg:py-28
+        lg:py-16
       "
     >
       {/* =====================================================
@@ -109,7 +109,7 @@ export default function WhyChooseUs() {
 
           rounded-full
 
-          bg-[#00A8E8]/[0.045]
+          bg-transparent
 
           blur-[140px]
 
@@ -131,7 +131,7 @@ export default function WhyChooseUs() {
 
           rounded-full
 
-          bg-[#00A8E8]/[0.025]
+          bg-transparent
 
           blur-[140px]
         "
@@ -208,88 +208,40 @@ export default function WhyChooseUs() {
             ease: EASE,
           }}
           className="
-            mb-10
+            mb-8
 
             max-w-[760px]
 
-            sm:mb-12
+            sm:mb-9
 
-            md:mb-14
+            md:mb-10
 
-            lg:mb-16
+            lg:mb-12
           "
         >
-          {/* EYEBROW */}
-          <div
-            className="
-              mb-4
-
-              flex
-              items-center
-              gap-3
-
-              sm:mb-5
-            "
-          >
-            <span
-              className="
-                h-px
-                w-7
-
-                shrink-0
-
-                bg-gradient-to-r
-                from-[#00A8E8]
-                to-transparent
-
-                sm:w-9
-              "
-            />
-
-            <span
-              className="
-                font-[var(--font-body)]
-
-                text-[10px]
-                font-semibold
-                uppercase
-                tracking-[0.18em]
-
-                text-[#7cc9ff]
-
-                sm:text-[11px]
-                sm:tracking-[0.22em]
-
-                md:text-[12px]
-
-                lg:text-[13px]
-              "
-            >
-              Why Choose YM Motors
-            </span>
-          </div>
+       
 
           {/* HEADING */}
           <h2
             className="
               font-[var(--font-display)]
 
-              text-[38px]
+              text-[32px]
               font-semibold
               leading-[0.96]
               tracking-[-0.035em]
 
               text-[#f5f5f3]
 
-              min-[380px]:text-[42px]
+              min-[380px]:text-[36px]
 
-              sm:text-[48px]
+              sm:text-[42px]
 
-              md:text-[54px]
+              md:text-[46px]
 
-              lg:text-[62px]
+              lg:text-[54px]
 
-              xl:text-[68px]
+              xl:text-[58px]
             "
           >
             Driven by Trust.
@@ -336,12 +288,12 @@ export default function WhyChooseUs() {
 
             grid-cols-1
 
-            gap-3
+            gap-4
 
             sm:grid-cols-2
-            sm:gap-4
+            sm:gap-5
 
-            xl:grid-cols-4
+            lg:grid-cols-4
           "
         >
           {features.map((item, index) => {
@@ -380,12 +332,16 @@ export default function WhyChooseUs() {
 
                   overflow-hidden
 
-                  rounded-[6px]
+                  rounded-3xl
 
                   border
-                  border-white/[0.07]
+                  border-white/[0.14]
 
-                  bg-[rgba(14,19,25,0.65)]
+                  bg-white/[0.045]
+
+                  backdrop-blur-xl
+
+                  shadow-[0_20px_60px_rgba(0,0,0,0.35)]
 
                   p-5
 
@@ -393,37 +349,13 @@ export default function WhyChooseUs() {
                   duration-500
 
                   hover:-translate-y-[3px]
-                  hover:border-[#00A8E8]/30
+                  hover:border-[#00A8E8]/45
 
                   sm:min-h-[230px]
-                  sm:p-6
+                  sm:p-5
                 "
               >
-                {/* CARD TOP LINE */}
-                <span
-                  className="
-                    pointer-events-none
-
-                    absolute
-                    left-1/2
-                    top-0
-
-                    h-px
-                    w-[70%]
-
-                    -translate-x-1/2
-
-                    bg-gradient-to-r
-                    from-transparent
-                    via-white/[0.10]
-                    to-transparent
-
-                    transition-all
-                    duration-500
-
-                    group-hover:via-[#00A8E8]/45
-                  "
-                />
+             
 
                 {/* HOVER LIGHT */}
                 <span
@@ -450,90 +382,77 @@ export default function WhyChooseUs() {
                   "
                 />
 
-                <div className="relative z-10">
+                <div className="relative z-10 text-center">
                   {/* TOP */}
                   <div
                     className="
                       flex
-                      items-start
-                      justify-between
+                      items-center
+                      justify-center
                     "
                   >
                     <span
                       className="
                         flex
-                        h-[42px]
-                        w-[42px]
+                        h-[82px]
+                        w-[82px]
                         shrink-0
                         items-center
                         justify-center
 
-                        rounded-[4px]
+                        
 
-                        border
-                        border-[#00A8E8]/20
-
-                        bg-[#00A8E8]/[0.07]
+                     
 
                         text-[#4db8ff]
 
-                        sm:h-[44px]
-                        sm:w-[44px]
+                        sm:h-[88px]
+                        sm:w-[88px]
                       "
                     >
                       <Icon
-                        size={19}
-                        strokeWidth={1.5}
+                        size={30}
+                        strokeWidth={1.6}
                       />
                     </span>
 
-                    <span
-                      className="
-                        font-[var(--font-body)]
-
-                        text-[9px]
-                        font-medium
-                        tracking-[0.15em]
-
-                        text-white/20
-                      "
-                    >
-                      {item.number}
-                    </span>
+                    
                   </div>
 
                   {/* TITLE */}
-                  <h3
+                  <h4
                     className="
-                      mt-6
+                  
 
                       font-[var(--font-display)]
 
-                      text-[21px]
+                      text-[16px]
                       font-semibold
                       leading-[1.08]
                       tracking-[-0.02em]
 
                       text-white
 
-                      sm:mt-7
-                      sm:text-[23px]
+                      sm:text-[17px]
                     "
                   >
                     {item.title}
-                  </h3>
+                  </h4>
 
                   {/* DESCRIPTION */}
                   <p
                     className="
                       mt-3
 
+                      mx-auto
+                      max-w-[260px]
+
                       font-[var(--font-body)]
 
                       text-[12px]
                       leading-[1.65]
 
-                      text-white/43
+                      text-white/55
 
                       sm:text-[13px]
                     "
@@ -563,9 +482,8 @@ export default function WhyChooseUs() {
             );
           })}
         </div>
-
-        {/* =====================================================
-            FINANCE PANEL
+            {/* =====================================================
+            FINANCE SECTION
         ====================================================== */}
         <motion.div
           initial={
@@ -592,19 +510,19 @@ export default function WhyChooseUs() {
           className="
             relative
 
-            mt-5
+            mt-4
 
             w-full
             min-w-0
 
             overflow-hidden
 
-            rounded-[7px]
+            rounded-2xl
 
             border
-            border-white/[0.07]
+            border-white/[0.12]
 
-            bg-[#0D1116]
+            bg-white/[0.04]
 
             sm:mt-6
           "
@@ -693,7 +611,7 @@ export default function WhyChooseUs() {
               src="/images/finance-car-display.png"
               alt="Finance vehicle"
               fill
-              sizes="640px"
+              sizes="800px"
               className="
                 object-contain
                 object-right-bottom
@@ -729,11 +647,11 @@ export default function WhyChooseUs() {
               w-full
 
               px-5
-              pb-0
-              pt-8
+              pb-6
+              pt-7
 
-              sm:px-6
-              sm:pt-9
+              sm:px-7
+              sm:pt-8
 
               md:px-8
               md:pt-10
@@ -741,11 +659,11 @@ export default function WhyChooseUs() {
               lg:px-10
               lg:pt-12
 
-              xl:min-h-[420px]
-              xl:pr-[480px]
+              xl:min-h-[380px]
+              xl:pr-[420px]
               xl:pb-12
 
-              2xl:pr-[550px]
+              2xl:pr-[480px]
             "
           >
             {/* =================================================
@@ -776,27 +694,10 @@ export default function WhyChooseUs() {
                   "
                 />
 
-                <p
-                  className="
-                    font-[var(--font-body)]
-
-                    text-[9px]
-                    font-semibold
-                    uppercase
-                    tracking-[0.18em]
-
-                    text-[#7cc9ff]
-
-                    min-[380px]:text-[10px]
-
-                    sm:text-[11px]
-                  "
-                >
-                  Drive Now, Pay Monthly
-                </p>
+             
               </div>
 
-              <h3
+              <h2
                 className="
                   mt-5
 
@@ -826,7 +727,7 @@ export default function WhyChooseUs() {
                 <span className="text-[#129cff]">
                   for Your Next Car.
                 </span>
-              </h3>
+              </h2>
 
               <p
                 className="
@@ -852,70 +753,7 @@ export default function WhyChooseUs() {
               </p>
 
               {/* CTA */}
-              <motion.a
-                href="#finance"
-                whileHover={{
-                  y: -2,
-                }}
-                whileTap={{
-                  scale: 0.98,
-                }}
-                transition={{
-                  duration: 0.18,
-                }}
-                className="
-                  group
-
-                  mt-6
-
-                  flex
-                  min-h-[48px]
-                  w-full
-                  items-center
-                  justify-center
-                  gap-2
-
-                  rounded-[3px]
-
-                  border
-                  border-[#2a9fff]/25
-
-                  bg-[#158ff3]
-
-                  px-5
-
-                  font-[var(--font-body)]
-
-                  text-[11px]
-                  font-semibold
-
-                  text-white
-
-                  transition-all
-                  duration-300
-
-                  hover:bg-[#2a9fff]
-
-                  sm:inline-flex
-                  sm:w-auto
-                  sm:px-6
-                  sm:text-[12px]
-                "
-              >
-                Explore Finance Options
-
-                <ArrowUpRight
-                  size={14}
-                  strokeWidth={1.6}
-                  className="
-                    transition-transform
-                    duration-300
-
-                    group-hover:translate-x-[2px]
-                    group-hover:-translate-y-[2px]
-                  "
-                />
-              </motion.a>
+        
             </div>
 
             {/* =================================================
@@ -945,12 +783,12 @@ export default function WhyChooseUs() {
                     items-center
                     gap-3
 
-                    rounded-[4px]
+                    rounded-xl
 
                     border
                     border-white/[0.06]
 
-                    bg-white/[0.02]
+                    bg-white/[0.05] backdrop-blur-xl
 
                     px-3
                     py-3
@@ -1098,6 +936,8 @@ export default function WhyChooseUs() {
             />
           </div>
         </motion.div>
+
+    
       </div>
     </section>
   );

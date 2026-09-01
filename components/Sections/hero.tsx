@@ -1,8 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import AiAssistant from "../Layout/AIchatboard/AI-Assistant";
-import VehicleSearchBar from "./VehicleSearchBar";
+
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
@@ -52,7 +51,7 @@ export default function Hero() {
           md:scale-100
         "
       >
-        <source src="/images/banner-video.mp4" type="video/mp4" />
+        <source src="/images/hero-video.mp4" type="video/mp4" />
       </video>
 
       {/* subtle chrome glow behind heading — dimmed so it reads
@@ -80,7 +79,7 @@ export default function Hero() {
 
           absolute
           left-0
-          top-[72px]
+          top-0
 
           h-[590px]
           w-full
@@ -600,11 +599,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* =====================================================
-          AI ASSISTANT
-          ====================================================== */}
-
-      <AiAssistant />
+  
     </section>
   );
 }

@@ -265,67 +265,6 @@ ease
 >
 
 
-<div
-
-className="
-mb-4
-
-flex
-
-items-center
-
-gap-3
-
-"
-
->
-
-
-<span
-
-className="
-h-px
-
-w-8
-
-
-bg-[#00A8E8]
-
-
-shadow-[0_0_8px_rgba(0,168,232,0.25)]
-
-"
-
-/>
-
-
-
-
-<span
-
-className="
-font-sans
-
-text-[9px]
-
-font-semibold
-
-uppercase
-
-tracking-[0.16em]
-
-text-[#00A8E8]
-
-"
-
->
-
-What Our Customers Say
-
-</span>
-
-
-</div>
 
 
 
@@ -355,7 +294,7 @@ lg:text-[48px]
 
 >
 
-Trusted by Drivers
+Trusted Customers
 
 <br/>
 

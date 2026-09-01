@@ -86,6 +86,7 @@ export default function VehicleSearchBar() {
   const [minPrice, setMinPrice] = useState("Any Price");
   const [bodyType, setBodyType] = useState("Any Body Type");
   const [fuelType, setFuelType] = useState("Any Fuel Type");
+  const [advancedOpen, setAdvancedOpen] = useState(false);
 
   const handleSearch = () => {
     console.log({
@@ -118,15 +119,15 @@ export default function VehicleSearchBar() {
         w-full
         overflow-hidden
 
-        rounded-t-[18px]
+        rounded-[8px]
 
         border
-        border-white/[0.18]
+        border-transparent
 
-        bg-[rgba(255,255,255,0.06)]
+        bg-[#0b0e13]
 
-        px-3
-        py-3
+        px-5
+        py-5
 
         shadow-[0_-25px_70px_rgba(0,0,0,0.55)]
 
@@ -138,8 +139,8 @@ export default function VehicleSearchBar() {
         
         
 
-        sm:px-5
-        sm:py-4
+        sm:px-7
+        sm:py-6
       "
     >
       {/* =====================================================
@@ -151,76 +152,48 @@ export default function VehicleSearchBar() {
           absolute
           inset-0
 
-          bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.035)_35%,rgba(7,12,18,0.28)_100%)]
+          bg-[#0b0e13]
         "
       />
 
       {/* =====================================================
           BLUE AMBIENCE
       ====================================================== */}
-      <div
-        className="
-          pointer-events-none
-
-          absolute
-          left-1/2
-          top-1/2
-
-          h-[230px]
-          w-[760px]
-
-          -translate-x-1/2
-          -translate-y-1/2
-
-          rounded-full
-
-          bg-[#00A8E8]/[0.035]
-
-          blur-[110px]
-        "
-      />
+      
 
       {/* =====================================================
           TOP CYAN DETAIL LINE
       ====================================================== */}
-      <div
-        className="
-          pointer-events-none
-
-          absolute
-          left-1/2
-          top-0
-
-          h-px
-          w-full
-
-          -translate-x-1/2
-
-          bg-gradient-to-r
-          from-transparent
-          via-[#00A8E8]/45
-          to-transparent
-
-          shadow-[0_0_14px_rgba(0,168,232,0.16)]
-        "
-      />
+      
 
       {/* =====================================================
           CONTENT
       ====================================================== */}
+      <div
+        className="
+          absolute
+          bottom-0
+          left-0
+          h-px
+          w-full
+          bg-[#3a4148]
+        "
+      />
+
       <div className="relative z-10">
         {/* ===================================================
             HEADER
         ==================================================== */}
         <div
           className="
-            mb-4
+            mb-5
 
             flex
-            items-center
-            justify-between
+            flex-col
+         
+            
 
-            sm:mb-5
+            sm:mb-6
           "
         >
           <div
@@ -232,11 +205,12 @@ export default function VehicleSearchBar() {
           >
             <span
               className="
+                hidden
                 h-px
                 w-7
 
                 bg-gradient-to-r
-                from-[#00A8E8]
+                from-white/20
                 to-transparent
 
                 sm:w-9
@@ -247,9 +221,9 @@ export default function VehicleSearchBar() {
               className="
                 font-[var(--font-body)]
 
-                text-[12px]
+                text-[14px]
                 font-semibold
-                uppercase
+                
                 leading-none
                 tracking-[0.12em]
 
@@ -369,14 +343,14 @@ export default function VehicleSearchBar() {
 
               text-white
 
-              shadow-[0_12px_35px_rgba(0,168,232,0.28)]
+              
 
               transition-all
               duration-300
 
               hover:border-[#56b5ff]/35
               hover:bg-[#2a9fff]
-              hover:shadow-[0_12px_30px_rgba(21,143,243,0.28)]
+              
 
               sm:text-[12px]
 
@@ -385,26 +359,6 @@ export default function VehicleSearchBar() {
               xl:col-span-1
             "
           >
-            {/* subtle button shine */}
-            <span
-              className="
-                pointer-events-none
-
-                absolute
-                inset-x-0
-                top-0
-
-                h-px
-
-                bg-gradient-to-r
-                from-transparent
-                via-white/55
-                to-transparent
-
-                opacity-60
-              "
-            />
-
             <Search
               size={15}
               strokeWidth={1.8}
@@ -424,6 +378,43 @@ export default function VehicleSearchBar() {
             </span>
           </motion.button>
         </div>
+
+        {/* ADVANCED OPTIONS */}
+        <button
+          type="button"
+          onClick={() => setAdvancedOpen((prev) => !prev)}
+          className="
+            mx-auto
+            mt-6
+            block
+            font-[var(--font-body)]
+            text-[13px]
+            font-semibold
+            text-white/85
+            transition
+            hover:text-white
+          "
+        >
+          {advancedOpen ? "Less Options" : "Advanced Options"}
+        </button>
+
+        {advancedOpen && (
+          <div
+            className="
+              mt-6
+              grid
+              grid-cols-1
+              gap-3
+              sm:grid-cols-2
+              lg:grid-cols-4
+            "
+          >
+            <SearchSelect label="Body Colour" value={bodyType} options={bodyTypes} onChange={setBodyType} />
+            <SearchSelect label="Doors" value={fuelType} options={fuelTypes} onChange={setFuelType} />
+            <SearchSelect label="Seats" value={model} options={models} onChange={setModel} />
+            <SearchSelect label="Transmission" value={make} options={makes} onChange={setMake} />
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -474,7 +465,7 @@ function SearchSelect({
 
         focus-within:border-[#00A8E8]/55
         focus-within:bg-[rgba(8,13,18,0.46)]
-        focus-within:shadow-[0_0_0_1px_rgba(0,168,232,0.06)]
+        
       "
     >
       {/* =====================================================
