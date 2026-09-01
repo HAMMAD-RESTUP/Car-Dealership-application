@@ -193,24 +193,24 @@ export default function Hero() {
           max-w-[1920px]
           flex-col
 
-          px-5
-          pb-7
-          pt-[118px]
+          px-6
+          pb-8
+          pt-[150px]
 
-          sm:px-7
-          sm:pb-8
-          sm:pt-[104px]
+          sm:px-9
+          sm:pb-9
+          sm:pt-[145px]
 
-          md:px-8
-          md:pb-6
-          md:pt-[120px]
+          md:px-11
+          md:pb-7
+          md:pt-[160px]
 
-          lg:px-10
-          lg:pt-[126px]
+          lg:px-14
+          lg:pt-[172px]
 
-          xl:px-12
+          xl:px-16
 
-          2xl:px-14
+          2xl:px-20
         "
       >
         {/* =================================================
@@ -234,20 +234,20 @@ export default function Hero() {
             ease: EASE_OUT,
           }}
           className="
-            mt-[5vh]
+            mt-[6vh]
 
             max-w-[350px]
 
-            sm:mt-[6vh]
+            sm:mt-[7vh]
             sm:max-w-[540px]
 
-            md:mt-[9vh]
+            md:mt-[10vh]
             md:max-w-[720px]
 
-            lg:mt-[10vh]
+            lg:mt-[12vh]
             lg:max-w-[790px]
 
-            xl:mt-[11vh]
+            xl:mt-[13vh]
             xl:max-w-[850px]
           "
         >
@@ -256,16 +256,16 @@ export default function Hero() {
           ================================================== */}
           <div
             className="
-              mb-5
+              mb-6
 
               flex
               items-center
               gap-3
 
-              sm:mb-6
+              sm:mb-8
               sm:gap-4
 
-              md:mb-7
+              md:mb-9
             "
           >
             <span
@@ -367,7 +367,7 @@ export default function Hero() {
           ================================================== */}
           <p
             className="
-              mt-5
+              mt-7
               max-w-[330px]
 
               font-[var(--font-body)]
@@ -382,10 +382,11 @@ export default function Hero() {
 
               min-[380px]:text-[14px]
 
-              sm:mt-6
+              sm:mt-8
               sm:max-w-[430px]
               sm:text-[15px]
 
+              md:mt-9
               md:max-w-[500px]
               md:text-[16px]
 
@@ -407,7 +408,7 @@ export default function Hero() {
           ================================================== */}
           <div
             className="
-              mt-7
+              mt-9
 
               grid
               w-full
@@ -415,11 +416,11 @@ export default function Hero() {
               grid-cols-1
               gap-4
 
-              sm:mt-8
+              sm:mt-10
               sm:max-w-[430px]
               sm:gap-4
 
-              md:mt-9
+              md:mt-11
               md:flex
               md:max-w-none
               md:items-center
