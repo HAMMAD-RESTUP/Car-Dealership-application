@@ -61,8 +61,7 @@ export default function Hero() {
           h-[360px]
           w-[520px]
           rounded-full
-          bg-[#00A8E8]/10
-          blur-[120px]
+       
         "
       />
 
