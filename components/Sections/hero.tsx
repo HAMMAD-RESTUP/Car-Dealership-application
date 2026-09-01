@@ -51,7 +51,7 @@ export default function Hero() {
           md:scale-100
         "
       >
-        <source src="/images/hero-video.mp4" type="video/mp4" />
+        <source src="/images/cinematic-video.mp4" type="video/mp4" />
       </video>
 
       {/* subtle chrome glow behind heading — dimmed so it reads
