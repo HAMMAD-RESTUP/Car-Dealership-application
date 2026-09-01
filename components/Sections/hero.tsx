@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 
 
-const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -30,30 +30,26 @@ export default function Hero() {
           iOS/Android. Poster matches the old desktop still so
           first paint looks identical while it loads.
       ====================================================== */}
-      <video
+      <motion.video
+        initial={reduceMotion ? false : { scale: 1.05 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.8, ease: EASE }}
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
-        poster="/images/midnight-desktop.png"
         className="
           absolute
           inset-0
-          block
           h-full
           w-full
           object-cover
-          object-[72%_86%]
-          scale-[1.02]
-
-          md:object-center
-          md:scale-100
+          object-center
         "
       >
         <source src="/images/demo-video.mp4" type="video/mp4" />
-      </video>
-
+      </motion.video>
       {/* subtle chrome glow behind heading — dimmed so it reads
           as ambient light, not a competing animated element */}
       <div
@@ -220,9 +216,9 @@ export default function Hero() {
             reduceMotion
               ? false
               : {
-                  opacity: 0,
-                  x: -20,
-                }
+                opacity: 0,
+                x: -20,
+              }
           }
           animate={{
             opacity: 1,
@@ -230,7 +226,7 @@ export default function Hero() {
           }}
           transition={{
             duration: 0.8,
-            ease: EASE_OUT,
+            ease: EASE,
           }}
           className="
             mt-[6vh]
@@ -572,9 +568,9 @@ export default function Hero() {
             reduceMotion
               ? false
               : {
-                  opacity: 0,
-                  y: 18,
-                }
+                opacity: 0,
+                y: 18,
+              }
           }
           animate={{
             opacity: 1,
@@ -583,7 +579,7 @@ export default function Hero() {
           transition={{
             duration: 0.75,
             delay: 0.15,
-            ease: EASE_OUT,
+            ease: EASE,
           }}
           className="
             relative
@@ -599,7 +595,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-  
+
     </section>
   );
 }
