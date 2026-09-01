@@ -332,16 +332,16 @@ export default function WhyChooseUs() {
 
                   overflow-hidden
 
-                  rounded-3xl
+                  rounded-2xl
 
                   border
-                  border-white/[0.14]
+                  border-white/[0.12]
 
-                  bg-white/[0.045]
+                  bg-white/[0.04]
 
                   backdrop-blur-xl
 
-                  shadow-[0_20px_60px_rgba(0,0,0,0.35)]
+                  shadow-none
 
                   p-5
 
@@ -349,7 +349,8 @@ export default function WhyChooseUs() {
                   duration-500
 
                   hover:-translate-y-[3px]
-                  hover:border-[#00A8E8]/45
+                  hover:border-[#00A8E8]/30
+                  hover:bg-white/[0.06]
 
                   sm:min-h-[230px]
                   sm:p-5
@@ -379,6 +380,18 @@ export default function WhyChooseUs() {
                     duration-500
 
                     group-hover:bg-[#00A8E8]/[0.05]
+                  "
+                />
+
+                <div
+                  className="
+                    pointer-events-none
+                    absolute
+                    inset-0
+
+                    bg-[linear-gradient(120deg,#0B0D0F_0%,#101720_55%,#0B0D0F_100%)]
+
+                    opacity-70
                   "
                 />
 
@@ -753,7 +766,70 @@ export default function WhyChooseUs() {
               </p>
 
               {/* CTA */}
-        
+              <motion.a
+                href="#finance"
+                whileHover={{
+                  y: -2,
+                }}
+                whileTap={{
+                  scale: 0.98,
+                }}
+                transition={{
+                  duration: 0.18,
+                }}
+                className="
+                  group
+
+                  mt-6
+
+                  flex
+                  min-h-[48px]
+                  w-full
+                  items-center
+                  justify-center
+                  gap-2
+
+                  rounded-[3px]
+
+                  border
+                  border-[#2a9fff]/25
+
+                  bg-[#158ff3]
+
+                  px-5
+
+                  font-[var(--font-body)]
+
+                  text-[14px]
+                  font-semibold
+
+                  text-white
+
+                  transition-all
+                  duration-300
+
+                  hover:bg-[#2a9fff]
+
+                  sm:inline-flex
+                  sm:w-auto
+                  sm:px-6
+                  sm:text-[16px]
+                "
+              >
+                Explore Finance Options
+
+                <ArrowUpRight
+                  size={14}
+                  strokeWidth={1.6}
+                  className="
+                    transition-transform
+                    duration-300
+
+                    group-hover:translate-x-[2px]
+                    group-hover:-translate-y-[2px]
+                  "
+                />
+              </motion.a>
             </div>
 
             {/* =================================================

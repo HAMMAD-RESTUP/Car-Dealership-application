@@ -4,500 +4,307 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
 const brands = [
-  {
-    name: "Ferrari",
-    logo: "/images/ferrari.png",
-  },
-  {
-    name: "Porsche",
-    logo: "/images/porsche.png",
-  },
-  {
-    name: "Mercedes",
-    logo: "/images/mercedes.jpeg",
-  },
-  {
-    name: "Lamborghini",
-    logo: "/images/brands/lamborghini.png",
-  },
-  {
-    name: "Rolls Royce",
-    logo: "/images/brands/rolls.png",
-  },
-  {
-    name: "Range Rover",
-    logo: "/images/brands/range.png",
-  },
-  {
-    name: "Audi",
-    logo: "/images/brands/audi.png",
-  },
-  {
-    name: "Ford",
-    logo: "/images/brands/ford.png",
-  },
+  { name: "Mercedes", logo: "/images/mercedes.png" },
+  { name: "Ford", logo: "/images/ford.png" },
+  { name: "Peugoet", logo: "/images/peugoet.png" },
 ];
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-
 export default function BrandMarquee() {
-
   const reduceMotion = useReducedMotion();
 
-
   return (
+    <section
+      className="
+        relative
+        overflow-hidden
 
-<section
-className="
-relative
-overflow-hidden
+        border-y
+        border-white/[0.08]
 
-border-y
-border-white/[0.08]
+        bg-[#0B0E13]
 
-bg-[#0B0E13]
+        py-7
 
-py-10
-"
->
+        sm:py-9
+      "
+    >
 
-{/* BACKGROUND */}
-<div
-className="
-absolute
-inset-0
+      {/* BACKGROUND */}
+      <div
+        className="
+          absolute
+          inset-0
 
-bg-[linear-gradient(180deg,#070b10_0%,#101720_50%,#070b10_100%)]
-"
-/>
+          bg-[linear-gradient(180deg,#070b10_0%,#101720_50%,#070b10_100%)]
+        "
+      />
 
+      <div
+        className="
+          absolute
+          inset-0
 
-{/* GLASS OVERLAY */}
-<div
-className="
-absolute
-inset-0
+          bg-white/[0.025]
 
-bg-white/[0.025]
+          backdrop-blur-[20px]
+        "
+      />
 
-backdrop-blur-[20px]
-"
-/>
 
+      {/* HEADING */}
+      <motion.div
+        initial={
+          reduceMotion
+            ? false
+            : {
+                opacity:0,
+                y:20
+              }
+        }
 
-{/* BLUE GLOW */}
-<div
-className="
-pointer-events-none
+        whileInView={{
+          opacity:1,
+          y:0
+        }}
+
+        viewport={{
+          once:true
+        }}
+
+        transition={{
+          duration:.7,
+          ease
+        }}
+
+        className="
+          relative
+          z-10
 
-absolute
-left-1/2
-top-1/2
+          mb-6
 
-h-[300px]
-w-[800px]
+          flex
+          items-center
+          justify-center
 
--translate-x-1/2
--translate-y-1/2
+          text-center
+        "
+      >
 
-rounded-full
+        <h2
+          className="
+            font-[var(--font-display)]
 
-bg-[#00A8E8]/[0.07]
+            text-[28px]
 
-blur-[150px]
-"
-/>
+            font-semibold
 
+            tracking-[-0.03em]
 
-{/* TOP LINE */}
-<div
-className="
-absolute
-top-0
-left-1/2
+            text-white
 
-h-px
+            sm:text-[34px]
 
-w-[70%]
+            lg:text-[40px]
+          "
+        >
+          Search{" "}
+          <span className="text-[#00A8E8]">
+            Manufacturers
+          </span>
 
--translate-x-1/2
+        </h2>
 
-bg-gradient-to-r
-from-transparent
-via-[#00A8E8]/60
-to-transparent
+      </motion.div>
 
-shadow-[0_0_20px_rgba(0,168,232,.25)]
-"
-/>
 
 
+      {/* MARQUEE */}
 
-<motion.div
+      <motion.div
+        initial={
+          reduceMotion
+            ? false
+            : {
+                opacity:0,
+                y:15
+              }
+        }
 
-initial={
-reduceMotion
-?
-{
-opacity:1
-}
-:
-{
-opacity:0,
-y:20
-}
-}
+        whileInView={{
+          opacity:1,
+          y:0
+        }}
 
-whileInView={{
-opacity:1,
-y:0
-}}
+        viewport={{
+          once:true
+        }}
 
-viewport={{
-once:false,
-amount:0.3
-}}
+        transition={{
+          duration:.7,
+          ease
+        }}
 
-transition={{
-duration:.7,
-ease
-}}
+        className="
+          relative
+          z-10
+          overflow-hidden
+        "
+      >
 
-className="
-relative
-z-10
 
-overflow-hidden
-"
+        <motion.div
+          animate={
+            reduceMotion
+              ? {}
+              : {
+                  x:["0%","-50%"]
+                }
+          }
 
->
+          transition={{
+            x:{
+              duration:35,
+              repeat:Infinity,
+              ease:"linear"
+            }
+          }}
 
+          className="
+            flex
+            w-max
+            items-center
+          "
+        >
 
-<motion.div
 
-animate={
-reduceMotion
-?
-{}
-:
-{
-x:["0%","-50%"]
-}
-}
+          {[...brands,...brands].map((brand,index)=>(
 
-transition={
-reduceMotion
-?
-{}
-:
-{
-x:{
-duration:35,
-repeat:Infinity,
-ease:"linear"
-}
-}
-}
+            <div
+              key={`${brand.name}-${index}`}
 
-className="
-flex
-w-max
-items-center
-gap-0
-"
+              className="
+                group
 
->
+                relative
 
+                flex
 
-{[...brands,...brands].map((brand,index)=>(
+                h-[90px]
 
+                w-[150px]
 
-<div
+                shrink-0
 
-key={`${brand.name}-${index}`}
+                items-center
+                justify-center
 
-className="
-group
 
-relative
+                sm:h-[100px]
 
-flex
+                sm:w-[190px]
 
-h-[90px]
 
-w-[170px]
+                lg:h-[110px]
 
-shrink-0
+                lg:w-[220px]
+              "
+            >
 
-items-center
-justify-center
 
-px-5
+              {/* GLASS CARD */}
 
-sm:w-[210px]
+              <div
+                className="
+                  absolute
 
-lg:w-[240px]
+                  inset-x-3
 
-"
+                  inset-y-2
 
->
+                  rounded-xl
 
+                  border
 
-{/* GLASS CARD */}
+                  border-white/[0.08]
 
-<div
+                  bg-white/[0.025]
 
-className="
-absolute
+                  opacity-0
 
-inset-x-3
-inset-y-2
+                  backdrop-blur-xl
 
-rounded-[10px]
+                  transition-all
 
-border
+                  duration-500
 
-border-white/[0.08]
+                  group-hover:opacity-100
 
-bg-white/[0.025]
+                  group-hover:border-[#00A8E8]/30
 
-opacity-0
+                  group-hover:bg-white/[0.06]
+                "
+              />
 
-backdrop-blur-[18px]
 
-transition-all
+              <Image
+                src={brand.logo}
 
-duration-500
+                alt={brand.name}
 
-group-hover:opacity-100
+                width={220}
 
-group-hover:border-[#00A8E8]/30
+                height={100}
 
-group-hover:bg-white/[0.06]
+                className="
+                  relative
+                  z-10
 
-"
+                  max-h-[55px]
 
-/>
+                  max-w-[150px]
 
+                  sm:max-h-[65px]
 
+                  sm:max-w-[180px]
 
-{/* SEPARATOR */}
+                  object-contain
 
-<span
+                  select-none
 
-className="
-absolute
+                  grayscale
 
-right-0
+                  brightness-[1.7]
 
-top-1/2
+                  opacity-55
 
-h-[38px]
+                  transition-all
 
-w-px
+                  duration-500
 
--translate-y-1/2
+                  group-hover:scale-110
 
-bg-gradient-to-b
+                  group-hover:grayscale-0
 
-from-transparent
+                  group-hover:opacity-100
 
-via-white/10
+                  group-hover:brightness-125
+                "
+              />
 
-to-transparent
 
-"
+            </div>
 
-/>
+          ))}
 
 
+        </motion.div>
 
-{/* BRAND GLOW */}
 
-<span
+      </motion.div>
 
-className="
-pointer-events-none
 
-absolute
-
-left-1/2
-top-1/2
-
-h-[70px]
-
-w-[130px]
-
--translate-x-1/2
--translate-y-1/2
-
-rounded-full
-
-bg-[#00A8E8]/0
-
-blur-[35px]
-
-transition-all
-
-duration-500
-
-group-hover:bg-[#00A8E8]/15
-
-"
-
-/>
-
-
-
-<Image
-
-src={brand.logo}
-
-alt={brand.name}
-
-width={180}
-
-height={80}
-
-
-className="
-relative
-z-10
-
-
-max-h-[42px]
-
-max-w-[130px]
-
-
-object-contain
-
-
-select-none
-
-
-grayscale
-
-
-brightness-[1.7]
-
-
-opacity-55
-
-
-transition-all
-
-duration-500
-
-
-group-hover:scale-110
-
-
-group-hover:grayscale-0
-
-
-group-hover:opacity-100
-
-
-group-hover:brightness-125
-
-
-group-hover:drop-shadow-[0_0_18px_rgba(0,168,232,.35)]
-
-"
-
-/>
-
-
-
-</div>
-
-
-))}
-
-
-</motion.div>
-
-
-
-{/* LEFT FADE */}
-
-<div
-
-className="
-pointer-events-none
-
-absolute
-
-inset-y-0
-
-left-0
-
-z-20
-
-
-w-24
-
-
-bg-gradient-to-r
-
-from-[#0B0E13]
-
-via-[#0B0E13]/90
-
-to-transparent
-
-
-lg:w-40
-
-"
-
-/>
-
-
-
-{/* RIGHT FADE */}
-
-<div
-
-className="
-pointer-events-none
-
-absolute
-
-inset-y-0
-
-right-0
-
-z-20
-
-
-w-24
-
-
-bg-gradient-to-l
-
-from-[#0B0E13]
-
-via-[#0B0E13]/90
-
-to-transparent
-
-
-lg:w-40
-
-"
-
-/>
-
-
-
-</motion.div>
-
-
-
-</section>
-
+    </section>
   );
 }

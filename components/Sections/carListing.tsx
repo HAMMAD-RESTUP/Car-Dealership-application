@@ -8,6 +8,8 @@ import {
   CalendarDays,
   Fuel,
   Gauge,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -354,6 +356,70 @@ export default function CarListing() {
             VEHICLE ROW — HORIZONTAL SCROLL
         ====================================================== */}
         <div className="relative">
+
+          {/* SCROLL BUTTONS */}
+          <button
+            type="button"
+            onClick={() => scrollCars("left")}
+            className="
+              absolute
+              left-2
+              top-1/2
+              z-30
+              hidden
+              h-11
+              w-11
+              -translate-y-1/2
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-white/15
+              bg-black/50
+              text-white
+              backdrop-blur-xl
+              transition
+              hover:border-[#129cff]/50
+              hover:bg-[#129cff]/20
+
+              lg:flex
+            "
+            aria-label="Scroll left"
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => scrollCars("right")}
+            className="
+              absolute
+              right-2
+              top-1/2
+              z-30
+              hidden
+              h-11
+              w-11
+              -translate-y-1/2
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-white/15
+              bg-black/50
+              text-white
+              backdrop-blur-xl
+              transition
+              hover:border-[#129cff]/50
+              hover:bg-[#129cff]/20
+
+              lg:flex
+            "
+            aria-label="Scroll right"
+          >
+            <ChevronRight size={20} />
+          </button>
+
           <div
             ref={scrollRef}
             className="
@@ -364,6 +430,7 @@ export default function CarListing() {
               scroll-smooth
               snap-x
               snap-mandatory
+              touch-pan-x
               pb-2
 
               [scrollbar-width:none]

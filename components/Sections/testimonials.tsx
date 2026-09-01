@@ -11,19 +11,19 @@ const ease = [0.22,1,0.36,1] as const;
 const testimonials = [
 
 {
-name:"James H.",
+name:"James Harward.",
 review:
 "Outstanding service from start to finish. The team were helpful, honest and made the whole process so easy."
 },
 
 {
-name:"Sarah L.",
+name:"Sarah Lewwan.",
 review:
 "Bought my Porsche 911 from YM Motors and couldn’t be happier. Beautiful car and fantastic experience."
 },
 
 {
-name:"David R.",
+name:"David Romeo.",
 review:
 "Great selection of cars and very transparent service. Professional, friendly and highly recommended."
 }
