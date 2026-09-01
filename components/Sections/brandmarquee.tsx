@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 const brands = [
   { name: "Mercedes", logo: "/images/mercedes.png" },
   { name: "Ford", logo: "/images/ford.png" },
-  { name: "Peugoet", logo: "/images/peugoet-logo.png.png" },
+  { name: "Peugoet", logo: "/images/peugoet-logo.png" },
 ];
 
 const ease = [0.22, 1, 0.36, 1] as const;
