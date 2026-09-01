@@ -82,9 +82,7 @@ export default function Header() {
           border-b
           border-white/[0.06]
 
-          bg-[linear-gradient(180deg,rgba(11,13,15,0.92)_0%,rgba(17,22,29,0.86)_100%)]
-
-          backdrop-blur-[10px]
+         bg-[#0B0D0F]
 
           px-5
 
@@ -191,7 +189,7 @@ export default function Header() {
         <motion.a
           href="#home"
           initial={{ opacity: 0, y: -3 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.45 }}
           className="
             absolute
@@ -214,7 +212,7 @@ export default function Header() {
         <motion.a
           href="#home"
           initial={{ opacity: 0, y: -3 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.45 }}
           className="
             absolute
@@ -501,6 +499,49 @@ export default function Header() {
           </motion.a>
         </div>
 
+        {/* MOBILE CONTACT ICONS */}
+        <div
+          className="
+            absolute
+            right-4
+            top-1/2
+            -translate-y-1/2
+            flex
+            items-center
+            gap-2
+            xl:hidden
+          "
+        >
+          <a
+            href="https://wa.me/440000000000"
+            className="
+              flex h-[38px] w-[38px]
+              items-center justify-center
+              rounded-full
+              border border-white/10
+              bg-white/[0.04]
+            "
+            aria-label="Whatsapp"
+          >
+            <WhatsAppIcon size={18} />
+          </a>
+
+          <a
+            href="#contact"
+            className="
+              flex h-[38px] w-[38px]
+              items-center justify-center
+              rounded-full
+              border border-white/10
+              bg-white/[0.04]
+              text-white
+            "
+            aria-label="Email"
+          >
+            <Mail size={16} />
+          </a>
+        </div>
+
         {/* MOBILE MENU BUTTON */}
         <button
           type="button"
@@ -538,10 +579,50 @@ export default function Header() {
             focus:outline-none
             focus-visible:outline-none
 
-            xl:hidden
+            hidden
           "
         >
           {menuOpen ? <X size={24} strokeWidth={1.7} /> : <Menu size={25} strokeWidth={1.7} />}
+        </button>
+      </div>
+
+
+      {/* =====================================================
+          MOBILE SECOND HEADER
+      ====================================================== */}
+      <div
+        className="
+          flex
+          h-[55px]
+          w-full
+          items-center
+          justify-end
+          bg-[#0B0D0F]
+          px-5
+          xl:hidden
+        "
+      >
+        <button
+          type="button"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          onClick={() => {
+            setMenuOpen((previous) => !previous);
+            setLanguageOpen(false);
+          }}
+          className="
+            flex
+            h-[42px]
+            w-[42px]
+            items-center
+            justify-center
+            text-white
+          "
+        >
+          {menuOpen ? (
+            <X size={26} strokeWidth={1.7} />
+          ) : (
+            <Menu size={28} strokeWidth={1.7} />
+          )}
         </button>
       </div>
 
@@ -560,9 +641,7 @@ export default function Header() {
           border-b
           border-white/[0.06]
 
-          bg-[linear-gradient(180deg,rgba(11,13,15,0.92)_0%,rgba(17,22,29,0.86)_100%)]
-
-       
+         bg-[#0B0D0F]
 
           xl:block
         "
@@ -673,20 +752,25 @@ export default function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, x: "-100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "-100%" }}
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="
-              relative
-
-              w-full
+              fixed
+              left-0
+              top-0
+              z-[60]
+              h-screen
+              w-[82%]
+              max-w-[340px]
 
               overflow-hidden
 
-              border-0
+              border-r
+              border-white/[0.08]
 
-              bg-[rgba(11,13,15,0.94)]
+              bg-[#0B0E13]
 
               shadow-[0_22px_50px_rgba(0,0,0,0.28)]
 
