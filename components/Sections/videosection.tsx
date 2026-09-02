@@ -253,7 +253,7 @@ export default function VideoSection() {
               lg:text-[18px]
             "
           >
-            Surrey&apos;s trusted specialist in premium, low-mileage{" "}
+            Crawley&apos;s trusted specialist in premium, low-mileage{" "}
             <span className="font-semibold text-white">
               Japanese imported vehicles
             </span>

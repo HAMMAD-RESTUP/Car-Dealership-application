@@ -222,8 +222,7 @@ export default function Footer() {
             >
               <p className="font-semibold text-white/90">YM Motors Ltd</p>
               <p className="mt-2 max-w-[300px]">
-                Heathview Eastbourne Road, Blindley Heath, Lingfield, Surrey,
-                RH7 6LG
+               Address: Unit 56, Barns Court, RH10 4HQ, Copthorne, Crawley
               </p>
             </div>
           </div>
@@ -451,7 +450,7 @@ export default function Footer() {
             lender. Lenders&apos; commissions may vary. The commission
             received does not influence the interest rate you will pay. For
             questions about commission, please speak to us. YM Motors Ltd,
-            Heathview Eastbourne Road, Blindley Heath, Lingfield, Surrey, RH7
+            Heathview Eastbourne Road, Blindley Heath, Lingfield, Crawley, RH7
             6LG.
           </p>
         </div>

@@ -16,10 +16,10 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const cars = [
   {
-    name: "Ferrari 488 GTB",
+    name: "Mercedes A-250",
     subtitle: "3.9 V8 GTB F1 DCT Euro 6",
-    image: "/images/cars/ferrari-car.jpeg",
-    price: "£175,000",
+    image: "/images/cars/mercedes.png",
+    price: "£10,749",
     year: "2023",
     mileage: "2,500",
     fuel: "Petrol",
@@ -27,10 +27,10 @@ const cars = [
   },
 
   {
-    name: "Porsche 911 Turbo S",
+    name: "BMW 3-Series",
     subtitle: "3.7T 992 Turbo S PDK 4WD",
-    image: "/images/cars/porsche-car.jpeg",
-    price: "£125,000",
+    image: "/images/cars/bmw.png",
+    price: "£11,449",
     year: "2022",
     mileage: "8,900 ",
     fuel: "Petrol",
@@ -38,10 +38,10 @@ const cars = [
   },
 
   {
-    name: "Rolls Royce Cullinan",
+    name: "Audi A3",
     subtitle: "6.75 V12 Auto 4WD Euro 6",
-    image: "/images/cars/Rolls-Royce-car.jpeg",
-    price: "£325,000",
+    image: "/images/cars/audi.png",
+    price: "£8,249",
     year: "2023",
     mileage: "5,200",
     fuel: "Petrol",
@@ -49,10 +49,10 @@ const cars = [
   },
 
   {
-    name: "Lamborghini Aventador ",
+    name: "Toyota Prius",
     subtitle: "6.5 V12 LP770-4 ISR Coupe",
-    image: "/images/cars/Lamborghini-car.jpeg",
-    price: "£420,000",
+    image: "/images/cars/toyota.png",
+    price: "£9,449",
     year: "2022",
     mileage: "1,800",
     fuel: "Petrol",
@@ -62,7 +62,7 @@ const cars = [
   {
     name: "Mercedes AMG GT ",
     subtitle: "4.0 V8 BiTurbo Coupe Premium",
-    image: "/images/cars/Mercedes-sport.jpeg",
+    image: "/images/cars/mazda.png",
     price: "£210,000",
     year: "2023",
     mileage: "3,200",
@@ -71,10 +71,10 @@ const cars = [
   },
 
   {
-    name: "Mustang  GT",
+    name: "Honda Insight",
     subtitle: "6.0 W12 Mulliner Automatic AWD",
-    image: "/images/cars/Mustang-sport.jpeg",
-    price: "£260,000",
+    image: "/images/cars/honda.png",
+    price: "£4,949",
     year: "2024",
     mileage: "1,500 ",
     fuel: "Petrol",
