@@ -163,28 +163,28 @@ export default function WhyChooseUs() {
       {/* =====================================================
           MAIN CONTAINER
       ====================================================== */}
-      <div
-        className="
-          relative
-          z-10
+  <div
+  className="
+    relative
+    z-10
 
-          mx-auto
-          w-full
-          max-w-[1500px]
+    mx-auto
+    w-full
 
-          px-4
-        py-12
+    max-w-[1700px]
 
-        sm:px-5
-        sm:py-16
+    px-3
+    py-8
 
-        lg:px-7
-        lg:py-20
+    sm:px-4
+    sm:py-10
 
-        xl:px-8
-        xl:py-24
-        "
-      >
+    lg:px-5
+    lg:py-12
+
+    xl:px-6
+  "
+>
         {/* =================================================
             HEADER
         ================================================== */}
