@@ -172,15 +172,17 @@ export default function WhyChooseUs() {
           w-full
           max-w-[1500px]
 
-          px-5
+          px-4
+        py-12
 
-          sm:px-6
+        sm:px-5
+        sm:py-16
 
-          md:px-8
+        lg:px-7
+        lg:py-20
 
-          lg:px-10
-
-          xl:px-12
+        xl:px-8
+        xl:py-24
         "
       >
         {/* =================================================
@@ -191,9 +193,9 @@ export default function WhyChooseUs() {
             reduceMotion
               ? false
               : {
-                  opacity: 0,
-                  y: 24,
-                }
+                opacity: 0,
+                y: 24,
+              }
           }
           whileInView={{
             opacity: 1,
@@ -219,7 +221,7 @@ export default function WhyChooseUs() {
             lg:mb-12
           "
         >
-       
+
 
           {/* HEADING */}
           <h2
@@ -306,9 +308,9 @@ export default function WhyChooseUs() {
                   reduceMotion
                     ? false
                     : {
-                        opacity: 0,
-                        y: 24,
-                      }
+                      opacity: 0,
+                      y: 24,
+                    }
                 }
                 whileInView={{
                   opacity: 1,
@@ -356,7 +358,7 @@ export default function WhyChooseUs() {
                   sm:p-5
                 "
               >
-             
+
 
                 {/* HOVER LIGHT */}
                 <span
@@ -429,7 +431,7 @@ export default function WhyChooseUs() {
                       />
                     </span>
 
-                    
+
                   </div>
 
                   {/* TITLE */}
@@ -495,7 +497,7 @@ export default function WhyChooseUs() {
             );
           })}
         </div>
-            {/* =====================================================
+        {/* =====================================================
             FINANCE SECTION
         ====================================================== */}
         <motion.div
@@ -503,9 +505,9 @@ export default function WhyChooseUs() {
             reduceMotion
               ? false
               : {
-                  opacity: 0,
-                  y: 30,
-                }
+                opacity: 0,
+                y: 30,
+              }
           }
           whileInView={{
             opacity: 1,
@@ -707,7 +709,7 @@ export default function WhyChooseUs() {
                   "
                 />
 
-             
+
               </div>
 
               <h2
@@ -1013,7 +1015,7 @@ export default function WhyChooseUs() {
           </div>
         </motion.div>
 
-    
+
       </div>
     </section>
   );
