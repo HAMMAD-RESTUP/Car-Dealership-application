@@ -424,17 +424,14 @@ export default function CarListing() {
             ref={scrollRef}
             className="
               flex
-              flex-col
               gap-5
+              overflow-x-auto
+              overscroll-x-contain
+              scroll-smooth
+              snap-x
+              snap-mandatory
+              touch-pan-x
               pb-2
-
-              lg:flex-row
-              lg:overflow-x-auto
-              lg:overscroll-x-contain
-              lg:scroll-smooth
-              lg:snap-x
-              lg:snap-mandatory
-              lg:touch-pan-x
 
               [scrollbar-width:none]
               [-ms-overflow-style:none]
@@ -477,8 +474,8 @@ export default function CarListing() {
                   flex
                   h-full
                   min-w-0
-                  lg:shrink-0
-                  lg:snap-start
+                  shrink-0
+                  snap-start
                   cursor-pointer
                   flex-col
 
@@ -498,8 +495,8 @@ export default function CarListing() {
                   transition-all
                   duration-500
 
-                  w-full
-
+                  basis-[86%]
+                  sm:basis-[52%]
                   lg:basis-[33%]
                   xl:basis-[25%]
                   2xl:basis-[20%]
