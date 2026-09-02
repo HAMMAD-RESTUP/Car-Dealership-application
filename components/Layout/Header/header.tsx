@@ -21,7 +21,7 @@ type Language = "en" | "de";
 
 const navItems = [
   { label: "Home", href: "#home", active: true, dropdown: false },
-  { label: "Stocklist", href: "#stocklist", active: false, dropdown: true },
+  { label: "Stocklist", href: "#stocklist", active: false, dropdown: true, submenu: [{ label: "Used Cars", href: "/used-vehicles" }] },
   { label: "Part Exchange", href: "#part-exchange", active: false, dropdown: true },
   { label: "Finance", href: "#finance", active: false, dropdown: false },
   { label: "Bimta", href: "#bimta", active: false, dropdown: false },
@@ -49,6 +49,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [language, setLanguage] = useState<Language>("en");
+  const [stockHover, setStockHover] = useState(false);
 
   const selectLanguage = (value: Language) => {
     setLanguage(value);
@@ -81,8 +82,7 @@ export default function Header() {
 
           border-b
           border-white/[0.06]
-
-         bg-[#0B0D0F]
+    bg-[linear-gradient(180deg,#0B0D0F_0%,#11161D_100%)]
 
           px-5
 
@@ -641,7 +641,7 @@ export default function Header() {
           border-b
           border-white/[0.06]
 
-         bg-[#0B0D0F]
+             bg-[linear-gradient(180deg,#0B0D0F_0%,#11161D_100%)]
 
           xl:block
         "
@@ -663,8 +663,13 @@ export default function Header() {
           "
         >
           {navItems.map((item) => (
-            <a
+            <div
               key={item.label}
+              className="relative h-full"
+              onMouseEnter={() => item.label === "Stocklist" && setStockHover(true)}
+              onMouseLeave={() => item.label === "Stocklist" && setStockHover(false)}
+            >
+            <a
               href={item.href}
               className={`
                 group
@@ -675,10 +680,9 @@ export default function Header() {
                 h-full
                 items-center
                 justify-center
-                gap-[5px]
-
+                gap-[20px]
+                uppercase
                 whitespace-nowrap
-
                 px-5
 
                 font-[var(--font-body)]
@@ -742,6 +746,27 @@ export default function Header() {
                 />
               )}
             </a>
+
+            {item.submenu && stockHover && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18 }}
+                className="absolute left-0 top-full z-50 w-[190px] overflow-hidden rounded-b-md border border-white/10 bg-[#11161D] shadow-xl"
+              >
+                {item.submenu.map((sub) => (
+                  <a
+                    key={sub.label}
+                    href={sub.href}
+                    className="block px-5 py-3 text-[13px] text-white/80 transition hover:bg-[#158ff3] hover:text-white"
+                  >
+                    {sub.label}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+            </div>
           ))}
         </nav>
       </div>

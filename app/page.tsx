@@ -6,8 +6,8 @@ import Footer from "@/components/Layout/Footer/footer";
 import WhyChooseUs from "@/components/Sections/whychooseus";
 import VideoSection from "@/components/Sections/videosection";
 import Testimonials from "@/components/Sections/testimonials";
-import SellYourCar from "@/components/Sections/sellyourcar";
 import VehicleSearchBar from "@/components/Sections/VehicleSearchBar";
+import Welcome from "@/components/Sections/Welcome";
 
 
 const Home = () => {
@@ -21,10 +21,10 @@ const Home = () => {
     <VehicleSearchBar />
       <CarListing />
       <BrandMarquee />
+      <Welcome/>
+      <Testimonials/>
       <VideoSection/>
       <WhyChooseUs/>
-      <SellYourCar/>
-      <Testimonials/>
       <Footer />
 
     </main>

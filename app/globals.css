@@ -35,12 +35,12 @@
   /* =========================================================
      TYPOGRAPHY
      Exo = names, headlines, vehicle names.
-     Exo (body weights) = everything the customer needs to read quickly.
+     Inter = everything the customer needs to read quickly (paragraphs/body copy).
   ========================================================= */
 
   /* DISPLAY / HEADLINES. Weights in use: 400, 500, 600, 700, 800. */
   --font-display: "Exo", sans-serif;
-  --font-body: "Exo", sans-serif;
+  --font-body: "Inter", sans-serif;
 }
 
 /* =========================================================
@@ -212,6 +212,9 @@ h3,
    BODY COPY
 ========================================================= */
 
+p {
+  font-family: var(--font-body);
+}
 
 .body-copy,
 .hero-copy {
@@ -692,6 +695,7 @@ button:focus-visible {
 }
 
 .feature-card-title {
+  font-family: var(--font-display);
   font-size: 20px;
   line-height: 1.15;
   font-weight: 600;
@@ -699,6 +703,7 @@ button:focus-visible {
 }
 
 .feature-card-copy {
+  font-family: var(--font-body);
   font-size: 13px;
   line-height: 1.6;
   color: rgba(255,255,255,0.55);

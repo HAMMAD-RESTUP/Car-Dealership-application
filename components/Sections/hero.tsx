@@ -45,10 +45,10 @@ export default function Hero() {
           h-full
           w-full
           object-cover
-          object-center
+      
         "
       >
-        <source src="/images/demo-video.mp4" type="video/mp4" />
+        <source src="/images/cinematic-video.mp4" type="video/mp4" />
       </motion.video>
       {/* subtle chrome glow behind heading — dimmed so it reads
           as ambient light, not a competing animated element */}
@@ -83,7 +83,7 @@ export default function Hero() {
         "
         style={{
           background:
-            "radial-gradient(ellipse at 17% 38%, rgba(2,8,14,0.92) 0%, rgba(2,8,14,0.74) 27%, rgba(2,8,14,0.38) 48%, rgba(2,8,14,0.14) 67%, transparent 84%)",
+            "linear-gradient(180deg,#080b0f_0%,#0d1218_48%,transparent)",
         }}
       />
 
@@ -99,8 +99,8 @@ export default function Hero() {
           md:hidden
         "
         style={{
-          background:
-            "linear-gradient(180deg, rgba(2,8,14,0.28) 0%, transparent 30%, transparent 67%, rgba(2,8,14,0.48) 100%)",
+           background:
+            "linear-gradient(180deg,#080b0f_0%,#0d1218_48%,transparent)",
         }}
       />
 
@@ -125,8 +125,8 @@ export default function Hero() {
           md:block
         "
         style={{
-          background:
-            "linear-gradient(105deg, rgba(2,8,14,0.82) 0%, rgba(2,8,14,0.62) 32%, rgba(2,8,14,0.32) 55%, rgba(2,8,14,0.08) 75%, transparent 88%)",
+         background:
+            "linear-gradient(180deg,#080b0f_0%,#0d1218_48%,transparent)",
         }}
       />
 
