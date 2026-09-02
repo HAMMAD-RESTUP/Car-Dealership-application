@@ -255,7 +255,7 @@ export default function Welcome() {
               text-white/90
             "
           >
-            YM Motors — Great Deals on Premium Cars in Surrey
+            YM Motors — Great Deals on Premium Cars in Crawley
           </p>
 
           <p
@@ -293,7 +293,7 @@ export default function Welcome() {
           >
             <p>
               If you are looking for great savings on quality used cars in
-              the Surrey area, you have reached the right place.
+              the Crawley area, you have reached the right place.
             </p>
 
             <p>
@@ -308,7 +308,7 @@ export default function Welcome() {
 
             <p>
               We realise that buying a car can be a daunting experience, but
-              don&apos;t worry — we are well established within the Surrey
+              don&apos;t worry — we are well established within the Crawley
               area and have built our reputation on trust, transparency and
               exceptional customer service from first enquiry to final
               handover.
