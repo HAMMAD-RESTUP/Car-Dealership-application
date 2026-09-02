@@ -48,7 +48,7 @@ export default function Hero() {
       
         "
       >
-        <source src="/images/cinematic-video.mp4" type="video/mp4" />
+        <source src="/images/ym-motors-video.mp4" type="video/mp4" />
       </motion.video>
       {/* subtle chrome glow behind heading — dimmed so it reads
           as ambient light, not a competing animated element */}

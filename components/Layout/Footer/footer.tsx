@@ -56,10 +56,10 @@ export default function Footer() {
         overflow-hidden
         border-t
         border-white/[0.06]
-        bg-[#0B0D0F]
-        pt-16
-        sm:pt-20
-        lg:pt-24
+        bg-[#090A0C]
+        pt-10
+        sm:pt-12
+        lg:pt-14
       "
     >
       {/* BACKGROUND */}
@@ -68,7 +68,7 @@ export default function Footer() {
           pointer-events-none
           absolute
           inset-0
-          bg-[linear-gradient(180deg,#0B0D0F_0%,#11161D_46%,#0B0D0F_100%)]
+          bg-[#090A0C]
         "
       />
 
@@ -81,7 +81,7 @@ export default function Footer() {
           h-[470px]
           w-[470px]
           rounded-full
-          bg-[#00A8E8]/[0.055]
+          bg-[#00A8E8]/[0.08]
           blur-[150px]
         "
       />
@@ -95,7 +95,7 @@ export default function Footer() {
           h-[420px]
           w-[420px]
           rounded-full
-          bg-[#00A8E8]/[0.03]
+          bg-[#00A8E8]/[0.06]
           blur-[145px]
         "
       />
@@ -124,13 +124,10 @@ export default function Footer() {
           z-10
           mx-auto
           w-full
-          max-w-[1720px]
-          px-5
-          sm:px-7
-          md:px-9
-          lg:px-12
-          xl:px-16
-          2xl:px-20
+          max-w-[1500px]
+          px-4
+          sm:px-5
+          lg:px-6
         "
       >
         {/* LOGO */}
@@ -139,7 +136,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease }}
-          className="max-w-max"
+          className="max-w-max mb-8"
         >
           <Logo />
         </motion.div>
@@ -149,8 +146,8 @@ export default function Footer() {
           className="
             grid
             grid-cols-1
-            gap-14
-            py-16
+            gap-8
+            py-10
 
             border-b
             border-white/[0.08]
@@ -160,8 +157,8 @@ export default function Footer() {
             sm:gap-y-14
 
             lg:grid-cols-[1fr_1.3fr_0.8fr]
-            lg:gap-20
-            lg:py-20
+            lg:gap-12
+            lg:py-12
           "
         >
           {/* CONTACT US */}
@@ -173,7 +170,7 @@ export default function Footer() {
                 font-semibold
                 uppercase
                 tracking-[0.12em]
-                text-white/85
+                text-white
               "
             >
               Contact Us
@@ -220,7 +217,7 @@ export default function Footer() {
                 text-[14px]
                 leading-[1.9]
 
-                text-white/65
+                text-white/75
               "
             >
               <p className="font-semibold text-white/90">YM Motors Ltd</p>
@@ -240,7 +237,7 @@ export default function Footer() {
                 font-semibold
                 uppercase
                 tracking-[0.12em]
-                text-white/85
+                text-white
               "
             >
               Sales
@@ -253,7 +250,7 @@ export default function Footer() {
                   className={
                     item.day === "Wednesday"
                       ? "flex items-center justify-between px-3 py-2.5 bg-[#00A8E8]/[0.14] text-white"
-                      : "flex items-center justify-between px-3 py-2.5 text-white/65"
+                      : "flex items-center justify-between px-3 py-2.5 text-white/75"
                   }
                 >
                   <span
@@ -276,7 +273,7 @@ export default function Footer() {
                 text-[13px]
                 leading-[1.8]
 
-                text-white/50
+                text-white/65
               "
             >
               Viewings are by appointment only within opening hours. Please
@@ -293,7 +290,7 @@ export default function Footer() {
                 font-semibold
                 uppercase
                 tracking-[0.12em]
-                text-white/85
+                text-white
               "
             >
               Useful Links
@@ -306,7 +303,7 @@ export default function Footer() {
 
                 font-sans
                 text-[14px]
-                text-white/65
+                text-white/75
               "
             >
               {usefulLinks.map((link) => (
@@ -390,7 +387,7 @@ export default function Footer() {
             border-b
             border-white/[0.08]
 
-            py-8
+            py-5
           "
         >
           <p
@@ -419,14 +416,14 @@ export default function Footer() {
             items-center
             gap-3
 
-            py-8
+            py-5
 
             text-center
 
             font-sans
             text-[12px]
 
-            text-white/50
+            text-white/65
           "
         >
           <p>© {currentYear} YM Motors Ltd. All Rights Reserved.</p>
@@ -441,7 +438,7 @@ export default function Footer() {
               text-[11.5px]
               leading-[1.85]
 
-              text-white/40
+              text-white/55
             "
           >
             We are trading as a credit broker and not a lender, and are
