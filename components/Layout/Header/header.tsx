@@ -82,7 +82,7 @@ export default function Header() {
 
           border-b
           border-white/[0.06]
-    bg-[linear-gradient(180deg,#0B0D0F_0%,#11161D_100%)]
+    bg-[#090A0C]
 
           px-5
 
@@ -152,7 +152,7 @@ export default function Header() {
               className="text-[#00A8E8]"
             />
             Compare Vehicles
-            <span className="text-white/45">(0)</span>
+            <span className="text-white/60">(0)</span>
           </a>
 
           <a
@@ -172,7 +172,7 @@ export default function Header() {
 
               bg-white/[0.04]
 
-              text-white/85
+              text-white/90
 
               transition-all
               duration-200
@@ -381,7 +381,7 @@ export default function Header() {
                         font-semibold
                         uppercase
                         tracking-[0.18em]
-                        text-white/35
+                        text-white/50
                       "
                     >
                       Language
@@ -593,11 +593,11 @@ export default function Header() {
       <div
         className="
           flex
-          h-[55px]
+          h-[48px]
           w-full
           items-center
           justify-end
-          bg-[#0B0D0F]
+          bg-[#090A0C]
           px-5
           xl:hidden
         "
@@ -641,7 +641,7 @@ export default function Header() {
           border-b
           border-white/[0.06]
 
-             bg-[linear-gradient(180deg,#0B0D0F_0%,#11161D_100%)]
+             bg-[#090A0C]
 
           xl:block
         "
@@ -699,7 +699,7 @@ export default function Header() {
                 ${
                   item.active
                     ? "bg-[#158ff3] text-white"
-                    : "text-white/85 hover:text-white"
+                    : "text-white/90 hover:text-white"
                 }
               `}
             >
@@ -713,7 +713,7 @@ export default function Header() {
                     transition-colors
                     duration-200
 
-                    ${item.active ? "text-white/80" : "text-white/45 group-hover:text-white/75"}
+                    ${item.active ? "text-white/80" : "text-white/60 group-hover:text-white/75"}
                   `}
                 />
               )}
@@ -784,9 +784,9 @@ export default function Header() {
             className="
               fixed
               left-0
-              top-0
+              top-[64px]
               z-[60]
-              h-screen
+              h-[calc(100vh-64px)]
               w-[82%]
               max-w-[340px]
 
@@ -795,7 +795,7 @@ export default function Header() {
               border-r
               border-white/[0.08]
 
-              bg-[#0B0E13]
+              bg-[#090A0C]
 
               shadow-[0_22px_50px_rgba(0,0,0,0.28)]
 
@@ -809,7 +809,7 @@ export default function Header() {
                 pointer-events-none
                 absolute
                 inset-0
-                bg-[linear-gradient(180deg,rgba(7,12,18,0.86)_0%,rgba(11,17,24,0.78)_100%)]
+                bg-[#090A0C]
               "
             />
 
@@ -1120,7 +1120,7 @@ function LanguageItem({
 
       <span className="flex flex-col">
         <span className="text-[12px] font-medium text-white">{title}</span>
-        <span className="mt-[2px] text-[9px] text-white/35">{subtitle}</span>
+        <span className="mt-[2px] text-[9px] text-white/50">{subtitle}</span>
       </span>
 
       {active && (
