@@ -1,1181 +1,1381 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+
 import {
-  Check,
   ChevronDown,
-  Mail,
+  ChevronRight,
   Menu,
   Phone,
-  Star,
+  Search,
   X,
 } from "lucide-react";
 
 import {
-  GB,
-  DE,
-} from "country-flag-icons/react/3x2";
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa";
 
-type Language = "en" | "de";
+/* =========================================================
+   TYPES
+========================================================= */
 
-const navItems = [
-  { label: "Home", href: "#home", active: true, dropdown: false },
-  { label: "Stocklist", href: "#stocklist", active: false, dropdown: true, submenu: [{ label: "Used Cars", href: "/used-vehicles" }] },
-  { label: "Part Exchange", href: "#part-exchange", active: false, dropdown: true },
-  { label: "Finance", href: "#finance", active: false, dropdown: false },
-  { label: "Bimta", href: "#bimta", active: false, dropdown: false },
-  { label: "Warranty", href: "#warranty", active: false, dropdown: false },
-  { label: "Reviews", href: "#reviews", active: false, dropdown: true },
-  { label: "Contact Us", href: "#contact", active: false, dropdown: true },
+type NavItem = {
+  label: string;
+  href: string;
+  dropdown?: boolean;
+  submenu?: {
+    label: string;
+    href: string;
+  }[];
+};
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+const leftNavItems: NavItem[] = [
+  {
+    label: "Home",
+    href: "#home",
+  },
+  {
+    label: "Current Stock",
+    href: "/used-vehicles",
+  },
+  {
+    label: "Sell Your Car",
+    href: "#sell-your-car",
+  },
 ];
 
+const rightNavItems: NavItem[] = [
+  {
+    label: "Finance",
+    href: "#finance",
+  },
+  {
+    label: "About Us",
+    href: "#about",
+    dropdown: true,
+    submenu: [
+      {
+        label: "Our Story",
+        href: "#our-story",
+      },
+      {
+        label: "Why YM Motors",
+        href: "#why-us",
+      },
+    ],
+  },
+  {
+    label: "Contact Us",
+    href: "#contact",
+  },
+];
 
-function WhatsAppIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="#25D366"
-      aria-hidden="true"
-    >
-      <path d="M20.52 3.48A11.78 11.78 0 0 0 12.05 0C5.53 0 .22 5.31.22 11.83c0 2.09.55 4.13 1.6 5.93L.12 24l6.42-1.68a11.82 11.82 0 0 0 5.51 1.4h.01c6.52 0 11.82-5.31 11.82-11.83 0-3.16-1.23-6.13-3.36-8.41ZM12.06 21.7h-.01a9.83 9.83 0 0 1-5.01-1.37l-.36-.21-3.81 1 1.02-3.71-.23-.38a9.84 9.84 0 1 1 8.4 4.67Zm5.39-7.38c-.29-.15-1.72-.85-1.99-.95-.27-.1-.47-.15-.67.15-.2.29-.76.95-.93 1.14-.17.2-.34.22-.63.07-.29-.15-1.23-.45-2.35-1.44-.87-.77-1.46-1.72-1.63-2.01-.17-.29-.02-.45.13-.6.14-.14.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.29-1.04 1.02-1.04 2.48s1.06 2.87 1.2 3.07c.15.2 2.08 3.18 5.04 4.46.7.3 1.24.48 1.66.61.7.22 1.34.19 1.84.12.56-.08 1.72-.7 1.96-1.37.24-.68.24-1.25.17-1.37-.07-.12-.27-.2-.56-.34Z"/>
-    </svg>
-  );
-}
+const mobileItems: NavItem[] = [
+  ...leftNavItems,
+  ...rightNavItems,
+];
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [languageOpen, setLanguageOpen] = useState(false);
-  const [language, setLanguage] = useState<Language>("en");
-  const [stockHover, setStockHover] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
 
-  const selectLanguage = (value: Language) => {
-    setLanguage(value);
-    setLanguageOpen(false);
-  };
+  /* =======================================================
+     SCROLL
+  ======================================================== */
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 55);
+    };
+
+    onScroll();
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  /* =======================================================
+     LOCK BODY WHEN MOBILE MENU IS OPEN
+  ======================================================== */
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
-    <header
-      className="
-        absolute
-        left-0
-        top-0
-        z-50
-        w-full
-      "
-    >
+    <>
       {/* =====================================================
-          ROW 1 — TOP UTILITY BAR
-          Compare/WhatsApp left, logo centered, language +
-          contact actions right. Mobile collapses to logo + menu.
+          DESKTOP HEADER
       ====================================================== */}
-      <div
+
+      <header
         className="
-          relative
-
-          flex
-          h-[64px]
+          fixed
+          left-0
+          top-0
+          z-[100]
+          hidden
           w-full
-          items-center
-
-          border-b
-          border-white/[0.06]
-    bg-[#090A0C]
-
-          px-5
-
-          sm:px-6
-
-          md:h-[72px]
-          md:px-7
-
-          xl:px-9
-
-          2xl:px-12
+          lg:block
         "
       >
-        {/* LEFT — COMPARE + WHATSAPP */}
         <div
-          className="
+          className={`
             relative
-            z-20
-
-            hidden
-            min-w-0
-            flex-1
+            flex
+            h-[88px] xl:h-[100px] 2xl:h-[108px]
+            w-full
             items-center
-            gap-3
+            overflow-visible
+            border-b
+            transition-[border-color,box-shadow]
+            duration-500
 
-            xl:flex
-          "
+            ${
+              scrolled
+                ? `
+                  border-white/[0.07]
+                  shadow-[0_12px_38px_rgba(0,0,0,0.28)]
+                `
+                : `
+                  border-transparent
+                  shadow-none
+                `
+            }
+          `}
         >
-          <a
-            href="#compare"
+          {/* =================================================
+              BOTTOM → TOP SCROLL BACKGROUND
+          ================================================== */}
+
+          <motion.div
+            aria-hidden="true"
+            initial={false}
+            animate={{
+              clipPath: scrolled
+                ? "inset(0% 0% 0% 0%)"
+                : "inset(100% 0% 0% 0%)",
+            }}
+            transition={{
+              duration: 0.52,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="
-              group
-
-              inline-flex
-              h-[38px]
-              items-center
-              gap-[7px]
-
-              rounded-[4px]
-
-              border
-              border-white/[0.10]
-
-              bg-white/[0.04]
-
-              px-[14px]
-
-              font-[var(--font-body)]
-
-              text-[12px]
-              font-medium
-
-              text-white
-
-              transition-all
-              duration-200
-
-              hover:border-[#00A8E8]/40
-              hover:bg-[#00A8E8]/[0.08]
-
-              2xl:text-[13px]
+              pointer-events-none
+              absolute
+              inset-0
+              z-0
+              bg-[#080B10]/[0.94]
+              backdrop-blur-[18px]
             "
-          >
-            <Star
-              size={13}
-              strokeWidth={1.8}
-              className="text-[#00A8E8]"
-            />
-            Compare Vehicles
-            <span className="text-white/60">(0)</span>
-          </a>
+          />
 
-          <a
-            href="https://wa.me/440000000000"
-            aria-label="Chat on WhatsApp"
+          {/* subtle blue bottom glow */}
+
+          <motion.div
+            aria-hidden="true"
+            initial={false}
+            animate={{
+              opacity: scrolled ? 1 : 0,
+              scaleX: scrolled ? 1 : 0.25,
+            }}
+            transition={{
+              duration: 0.45,
+              delay: scrolled ? 0.12 : 0,
+              ease: "easeOut",
+            }}
             className="
-              inline-flex
-              h-[38px]
-              w-[38px]
-              items-center
-              justify-center
-
-              rounded-full
-
-              border
-              border-white/[0.10]
-
-              bg-white/[0.04]
-
-              text-white/90
-
-              transition-all
-              duration-200
-
-              hover:border-[#00A8E8]/40
-              hover:text-white
-            "
-          >
-            <WhatsAppIcon size={18} />
-          </a>
-        </div>
-
-        {/* CENTER LOGO — DESKTOP */}
-        <motion.a
-          href="#home"
-          initial={{ opacity: 0, y: -3 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.45 }}
-          className="
-            absolute
-            left-1/2
-            top-1/2
-            z-30
-
-            hidden
-
-            -translate-x-1/2
-            -translate-y-1/2
-
-            xl:block
-          "
-        >
-          <LogoText />
-        </motion.a>
-
-        {/* CENTER LOGO — MOBILE */}
-        <motion.a
-          href="#home"
-          initial={{ opacity: 0, y: -3 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.45 }}
-          className="
-            absolute
-            left-1/2
-            top-1/2
-            z-30
-
-            -translate-x-1/2
-            -translate-y-1/2
-
-            xl:hidden
-          "
-        >
-          <LogoText mobile />
-        </motion.a>
-
-        {/* RIGHT — LANGUAGE + EMAIL + PHONE CTA */}
-        <div
-          className="
-            relative
-            z-20
-
-            hidden
-            min-w-0
-            flex-1
-            items-center
-            justify-end
-            gap-3
-
-            xl:flex
-          "
-        >
-          {/* LANGUAGE */}
-          <div className="relative">
-            <button
-              type="button"
-              aria-label="Select language"
-              aria-expanded={languageOpen}
-              onClick={() => setLanguageOpen((previous) => !previous)}
-              className="
-                group
-
-                flex
-                h-[38px]
-                items-center
-                gap-[7px]
-
-                border-0
-                bg-transparent
-
-                p-0
-
-                font-[var(--font-body)]
-
-                text-[12px]
-                font-medium
-
-                text-white
-
-                transition-opacity
-                duration-200
-
-                hover:opacity-80
-              "
-            >
-              <span className="h-[14px] w-[21px] overflow-hidden rounded-[1px]">
-                {language === "en" ? (
-                  <GB title="United Kingdom" className="h-full w-full object-cover" />
-                ) : (
-                  <DE title="Germany" className="h-full w-full object-cover" />
-                )}
-              </span>
-              <span>{language === "en" ? "EN" : "DE"}</span>
-              <ChevronDown
-                size={11}
-                strokeWidth={1.5}
-                className={`
-                  text-white/55
-                  transition-transform
-                  duration-200
-                  ${languageOpen ? "rotate-180" : ""}
-                `}
-              />
-            </button>
-
-            <AnimatePresence>
-              {languageOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -7, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                  transition={{ duration: 0.17 }}
-                  className="
-                    absolute
-                    right-0
-                    top-[calc(100%+15px)]
-                    z-[100]
-
-                    w-[220px]
-
-                    overflow-hidden
-
-                    rounded-[6px]
-
-                    border
-                    border-white/[0.06]
-
-                    bg-[rgba(11,13,15,0.9)]
-
-                    p-[6px]
-
-                    shadow-[0_24px_55px_rgba(0,0,0,0.40)]
-
-                    backdrop-blur-[16px]
-                  "
-                >
-                  <div
-                    className="
-                      pointer-events-none
-                      absolute
-                      inset-0
-                      bg-[linear-gradient(180deg,rgba(11,13,15,0.78)_0%,rgba(17,22,29,0.66)_50%,rgba(11,13,15,0.74)_100%)]
-                    "
-                  />
-
-                  <div
-                    className="
-                      pointer-events-none
-                      absolute
-                      left-1/2
-                      top-1/2
-                      h-[160px]
-                      w-[300px]
-                      -translate-x-1/2
-                      -translate-y-1/2
-                      rounded-full
-                      bg-[#00A8E8]/[0.04]
-                      blur-[80px]
-                    "
-                  />
-
-                  <div
-                    className="
-                      pointer-events-none
-                      absolute
-                      left-1/2
-                      top-0
-                      h-px
-                      w-[65%]
-                      -translate-x-1/2
-                      bg-gradient-to-r
-                      from-transparent
-                      via-[#00A8E8]/45
-                      to-transparent
-                    "
-                  />
-
-                  <div className="relative z-10">
-                    <p
-                      className="
-                        px-3
-                        pb-2
-                        pt-2
-                        font-[var(--font-body)]
-                        text-[9px]
-                        font-semibold
-                        uppercase
-                        tracking-[0.18em]
-                        text-white/50
-                      "
-                    >
-                      Language
-                    </p>
-
-                    <LanguageItem
-                      active={language === "en"}
-                      title="English"
-                      subtitle="United Kingdom"
-                      flag={<GB title="United Kingdom" className="h-[16px] w-[24px]" />}
-                      onClick={() => selectLanguage("en")}
-                    />
-
-                    <div className="mt-[3px]">
-                      <LanguageItem
-                        active={language === "de"}
-                        title="Deutsch"
-                        subtitle="Deutschland"
-                        flag={<DE title="Germany" className="h-[16px] w-[24px]" />}
-                        onClick={() => selectLanguage("de")}
-                      />
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <span
-            className="
-              h-[26px]
-              w-px
-              bg-gradient-to-b
+              pointer-events-none
+              absolute
+              bottom-0
+              left-1/2
+              z-[1]
+              h-px
+              w-[72%]
+              -translate-x-1/2
+              bg-gradient-to-r
               from-transparent
-              via-white/10
+              via-[#00A8E8]/35
               to-transparent
             "
           />
 
-          {/* EMAIL ICON */}
-          <a
-            href="#contact"
-            aria-label="Email us"
+          {/* =================================================
+              HEADER CONTENT
+          ================================================== */}
+
+          <div
             className="
-              inline-flex
-              h-[38px]
-              w-[38px]
+              relative
+              z-10
+              mx-auto
+              flex
+              h-full
+              w-full
+              max-w-[1440px]
               items-center
-              justify-center
-
-              rounded-[4px]
-
-              bg-white/[0.05]
-
-              border
-              border-white/[0.10]
-
-              text-white
-
-              transition-all
-              duration-200
-
-              hover:border-[#00A8E8]/40
-              hover:bg-[#00A8E8]/[0.08]
+              px-6 xl:px-10 2xl:max-w-[1600px] 2xl:px-[76px]
             "
           >
-            <Mail size={15} strokeWidth={1.8} />
-          </a>
+            {/* =============================================
+                LEFT NAVIGATION
+            ============================================== */}
 
-          {/* PHONE CTA */}
-          <motion.a
-            href="tel:+440000000000"
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.18 }}
-            className="
-              inline-flex
-              h-[38px]
-              shrink-0
-              items-center
-              justify-center
-              gap-[7px]
-
-              whitespace-nowrap
-
-              rounded-[3px]
-
-              border
-              border-[#2a9fff]/25
-
-              bg-[#158ff3]
-
-              px-[16px]
-
-              font-[var(--font-body)]
-
-              text-[14px]
-              font-semibold
-
-              text-white
-
-              shadow-[0_7px_20px_rgba(21,143,243,0.17)]
-
-              transition-all
-              duration-200
-
-              hover:bg-[#2a9fff]
-
-              2xl:px-[18px]
-              2xl:text-[13px]
-            "
-          >
-        
-            Get In Touch
-          </motion.a>
-        </div>
-
-        {/* MOBILE CONTACT ICONS */}
-        <div
-          className="
-            absolute
-            right-4
-            top-1/2
-            -translate-y-1/2
-            flex
-            items-center
-            gap-2
-            xl:hidden
-          "
-        >
-          <a
-            href="https://wa.me/440000000000"
-            className="
-              flex h-[38px] w-[38px]
-              items-center justify-center
-              rounded-full
-              border border-white/10
-              bg-white/[0.04]
-            "
-            aria-label="Whatsapp"
-          >
-            <WhatsAppIcon size={18} />
-          </a>
-
-          <a
-            href="#contact"
-            className="
-              flex h-[38px] w-[38px]
-              items-center justify-center
-              rounded-full
-              border border-white/10
-              bg-white/[0.04]
-              text-white
-            "
-            aria-label="Email"
-          >
-            <Mail size={16} />
-          </a>
-        </div>
-
-        {/* MOBILE MENU BUTTON */}
-        <button
-          type="button"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          onClick={() => {
-            setMenuOpen((previous) => !previous);
-            setLanguageOpen(false);
-          }}
-          className="
-            relative
-            z-30
-
-            ml-auto
-
-            flex
-            h-[44px]
-            w-[44px]
-            items-center
-            justify-center
-
-            border-0
-
-            bg-transparent
-
-            p-0
-
-            text-white
-
-            transition-opacity
-            duration-200
-
-            hover:opacity-75
-
-            focus:outline-none
-            focus-visible:outline-none
-
-            hidden
-          "
-        >
-          {menuOpen ? <X size={24} strokeWidth={1.7} /> : <Menu size={25} strokeWidth={1.7} />}
-        </button>
-      </div>
-
-
-      {/* =====================================================
-          MOBILE SECOND HEADER
-      ====================================================== */}
-      <div
-        className="
-          flex
-          h-[48px]
-          w-full
-          items-center
-          justify-end
-          bg-[#090A0C]
-          px-5
-          xl:hidden
-        "
-      >
-        <button
-          type="button"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          onClick={() => {
-            setMenuOpen((previous) => !previous);
-            setLanguageOpen(false);
-          }}
-          className="
-            flex
-            h-[42px]
-            w-[42px]
-            items-center
-            justify-center
-            text-white
-          "
-        >
-          {menuOpen ? (
-            <X size={26} strokeWidth={1.7} />
-          ) : (
-            <Menu size={28} strokeWidth={1.7} />
-          )}
-        </button>
-      </div>
-
-      {/* =====================================================
-          ROW 2 — NAV BAR
-          Desktop only. Full-width, evenly spaced, Home shown
-          as an active solid block the way the reference does it.
-      ====================================================== */}
-      <div
-        className="
-          relative
-
-          hidden
-          w-full
-
-          border-b
-          border-white/[0.06]
-
-             bg-[#090A0C]
-
-          xl:block
-        "
-      >
-        <nav
-          className="
-            mx-auto
-
-            flex
-            h-[52px]
-            w-full
-            max-w-[1920px]
-            items-center
-            justify-center
-
-         
-            2xl:h-[56px]
-          
-          "
-        >
-          {navItems.map((item) => (
-            <div
-              key={item.label}
-              className="relative h-full"
-              onMouseEnter={() => item.label === "Stocklist" && setStockHover(true)}
-              onMouseLeave={() => item.label === "Stocklist" && setStockHover(false)}
-            >
-            <a
-              href={item.href}
-              className={`
-                group
-
-                relative
-
+            <nav
+              className="
                 flex
                 h-full
+                flex-1
                 items-center
-                justify-center
-                gap-[20px]
-                uppercase
-                whitespace-nowrap
-                px-5
-
-                font-[var(--font-body)]
-
-                text-[13px]
-                font-medium
-
-                transition-colors
-                duration-200
-
-                2xl:px-6
-                2xl:text-[14px]
-
-                ${
-                  item.active
-                    ? "bg-[#158ff3] text-white"
-                    : "text-white/90 hover:text-white"
-                }
-              `}
-            >
-              {item.label}
-
-              {item.dropdown && (
-                <ChevronDown
-                  size={13}
-                  strokeWidth={1.8}
-                  className={`
-                    transition-colors
-                    duration-200
-
-                    ${item.active ? "text-white/80" : "text-white/60 group-hover:text-white/75"}
-                  `}
-                />
-              )}
-
-              {!item.active && (
-                <span
-                  className="
-                    pointer-events-none
-
-                    absolute
-                    bottom-0
-                    left-1/2
-
-                    h-[2px]
-                    w-0
-
-                    -translate-x-1/2
-
-                    rounded-full
-
-                    bg-[#00A8E8]
-
-                    shadow-[0_0_10px_rgba(0,168,232,0.32)]
-
-                    transition-all
-                    duration-300
-
-                    group-hover:w-[24px]
-                  "
-                />
-              )}
-            </a>
-
-            {item.submenu && stockHover && (
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.18 }}
-                className="absolute left-0 top-full z-50 w-[190px] overflow-hidden rounded-b-md border border-white/10 bg-[#11161D] shadow-xl"
-              >
-                {item.submenu.map((sub) => (
-                  <a
-                    key={sub.label}
-                    href={sub.href}
-                    className="block px-5 py-3 text-[13px] text-white/80 transition hover:bg-[#158ff3] hover:text-white"
-                  >
-                    {sub.label}
-                  </a>
-                ))}
-              </motion.div>
-            )}
-            </div>
-          ))}
-        </nav>
-      </div>
-
-      {/* =====================================================
-          MOBILE MENU
-      ====================================================== */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: "-100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "-100%" }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="
-              fixed
-              left-0
-              top-[64px]
-              z-[60]
-              h-[calc(100vh-64px)]
-              w-[82%]
-              max-w-[340px]
-
-              overflow-hidden
-
-              border-r
-              border-white/[0.08]
-
-              bg-[#090A0C]
-
-              shadow-[0_22px_50px_rgba(0,0,0,0.28)]
-
-              backdrop-blur-[18px]
-
-              xl:hidden
-            "
-          >
-            <div
-              className="
-                pointer-events-none
-                absolute
-                inset-0
-                bg-[#090A0C]
+                justify-start
               "
-            />
+            >
+              {leftNavItems.map((item) => (
+                <DesktopNavLink
+                  key={item.label}
+                  item={item}
+                />
+              ))}
+            </nav>
 
-            <div
+            {/* =============================================
+                CENTER LOGO
+            ============================================== */}
+
+            <motion.a
+              href="#home"
+              aria-label="YM Motors home"
+              initial={{
+                opacity: 0,
+                y: -5,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.65,
+                ease: "easeOut",
+              }}
               className="
-                pointer-events-none
                 absolute
                 left-1/2
-                top-0
-                h-[220px]
-                w-[420px]
+                top-1/2
+                z-20
                 -translate-x-1/2
-                rounded-full
-                bg-[#00A8E8]/[0.045]
-                blur-[100px]
+                -translate-y-1/2
               "
-            />
+            >
+              <Logo />
+            </motion.a>
 
-            <div className="relative z-10 px-5 pb-6 pt-2 sm:px-6">
-              {/* NAV ITEMS */}
-              <nav className="flex flex-col">
-                {navItems.map((item) => (
-                  <a
+            {/* =============================================
+                RIGHT NAVIGATION
+            ============================================== */}
+
+            <div
+              className="
+                flex
+                h-full
+                flex-1
+                items-center
+                justify-end
+              "
+            >
+              <nav
+                className="
+                  flex
+                  h-full
+                  items-center
+                "
+              >
+                {rightNavItems.map((item) => (
+                  <DesktopNavLink
                     key={item.label}
-                    href={item.href}
-                    onClick={() => setMenuOpen(false)}
-                    className={`
-                      group
-                      relative
-
-                      flex
-                      min-h-[52px]
-                      items-center
-                      justify-between
-
-                      border-b
-                      border-white/[0.05]
-
-                      font-[var(--font-body)]
-
-                      text-[15px]
-                      font-medium
-
-                      transition-colors
-                      duration-200
-
-                      ${item.active ? "text-[#2a9fff]" : "text-white hover:text-[#2a9fff]"}
-                    `}
-                  >
-                    {item.label}
-                    {item.dropdown && (
-                      <ChevronDown size={16} strokeWidth={1.8} className="text-white/40" />
-                    )}
-                  </a>
+                    item={item}
+                    contactButton={
+                      item.label === "Contact Us"
+                    }
+                  />
                 ))}
               </nav>
 
-              {/* COMPARE + WHATSAPP + EMAIL */}
-              <div className="mt-4 flex items-center gap-3">
-                <a
-                  href="#compare"
-                  className="
-                    inline-flex
-                    h-[42px]
-                    flex-1
-                    items-center
-                    justify-center
-                    gap-[7px]
+              {/* PHONE */}
 
-                    rounded-[4px]
-
-                    border
-                    border-white/[0.10]
-
-                    bg-white/[0.04]
-
-                    font-[var(--font-body)]
-
-                    text-[12px]
-                    font-medium
-
-                    text-white
-                  "
-                >
-                  <Star size={13} strokeWidth={1.8} className="text-[#00A8E8]" />
-                  Compare (0)
-                </a>
-
-                <a
-                  href="https://wa.me/440000000000"
-                  aria-label="Chat on WhatsApp"
-                  className="
-                    inline-flex
-                    h-[42px]
-                    w-[42px]
-                    items-center
-                    justify-center
-
-                    rounded-[4px]
-
-                    border
-                    border-white/[0.10]
-
-                    bg-white/[0.04]
-
-                    text-[#25D366]
-                  "
-                >
-                  <WhatsAppIcon size={19} />
-                </a>
-
-                <a
-                  href="#contact"
-                  aria-label="Email us"
-                  className="
-                    inline-flex
-                    h-[42px]
-                    w-[42px]
-                    items-center
-                    justify-center
-
-                    rounded-[4px]
-
-                    border
-                    border-white/[0.10]
-
-                    bg-white/[0.04]
-
-                    text-[#25D366]
-                  "
-                >
-                  <Mail size={16} strokeWidth={1.8} />
-                </a>
-              </div>
-
-              {/* MOBILE LANGUAGES */}
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => selectLanguage("en")}
-                  className={`
-                    flex
-                    min-h-[46px]
-                    items-center
-                    gap-2
-
-                    rounded-[4px]
-
-                    border
-                    border-white/[0.06]
-
-                    px-3
-
-                    font-[var(--font-body)]
-
-                    text-[12px]
-
-                    transition-colors
-                    duration-200
-
-                    ${
-                      language === "en"
-                        ? "bg-white/[0.07] text-white"
-                        : "bg-white/[0.02] text-white/65"
-                    }
-                  `}
-                >
-                  <GB title="United Kingdom" className="h-[14px] w-[21px]" />
-                  English
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => selectLanguage("de")}
-                  className={`
-                    flex
-                    min-h-[46px]
-                    items-center
-                    gap-2
-
-                    rounded-[4px]
-
-                    border
-                    border-white/[0.06]
-
-                    px-3
-
-                    font-[var(--font-body)]
-
-                    text-[12px]
-
-                    transition-colors
-                    duration-200
-
-                    ${
-                      language === "de"
-                        ? "bg-white/[0.07] text-white"
-                        : "bg-white/[0.02] text-white/65"
-                    }
-                  `}
-                >
-                  <DE title="Germany" className="h-[14px] w-[21px]" />
-                  Deutsch
-                </button>
-              </div>
-
-              {/* PHONE CTA */}
               <a
                 href="tel:+440000000000"
-                onClick={() => setMenuOpen(false)}
+                aria-label="Call YM Motors"
                 className="
-                  mt-4
-
+                  ml-3 xl:ml-[18px] 2xl:ml-[28px]
                   flex
-                  min-h-[50px]
-                  w-full
+                  h-[42px]
+                  w-[42px]
+                  xl:h-[44px]
+                  xl:w-[44px]
+                  shrink-0
                   items-center
                   justify-center
-                  gap-[8px]
-
-                  rounded-[3px]
-
-                  bg-[#158ff3]
-
-                  font-[var(--font-body)]
-
-                  text-[13px]
-                  font-semibold
-
                   text-white
-
-                  shadow-[0_8px_24px_rgba(21,143,243,0.20)]
-
-                  transition-colors
-                  duration-200
-
-                  hover:bg-[#2a9fff]
+                  transition-all
+                  duration-300
+                  hover:text-[#00A8E8]
+                  2xl:ml-[28px]
                 "
               >
-                Get In Touch
+                <Phone
+                  size={23}
+                  strokeWidth={2}
+                />
               </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* =====================================================
+          MOBILE HEADER
+      ====================================================== */}
+
+      <header
+        className="
+          fixed
+          left-0
+          top-0
+          z-[110]
+          w-full
+          lg:hidden
+        "
+      >
+        <div
+          className={`
+            relative
+            flex
+            h-[68px] sm:h-[72px]
+            w-full
+            items-center
+            overflow-hidden
+            border-b
+            px-3 sm:px-4
+            transition-[border-color,box-shadow]
+            duration-500
+
+            ${
+              scrolled
+                ? `
+                  border-white/[0.07]
+                  shadow-[0_10px_30px_rgba(0,0,0,0.28)]
+                `
+                : `
+                  border-transparent
+                  shadow-none
+                `
+            }
+          `}
+        >
+          {/* MOBILE BOTTOM → TOP BG */}
+
+          <motion.div
+            aria-hidden="true"
+            initial={false}
+            animate={{
+              clipPath: scrolled
+                ? "inset(0% 0% 0% 0%)"
+                : "inset(100% 0% 0% 0%)",
+            }}
+            transition={{
+              duration: 0.45,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              z-0
+              bg-[#080B10]/[0.95]
+              backdrop-blur-[18px]
+            "
+          />
+
+          {/* SEARCH */}
+
+          <button
+            type="button"
+            aria-label="Search"
+            className="
+              relative
+              z-20
+              flex
+              h-[46px]
+              w-[46px]
+              items-center
+              justify-center
+              border-0
+              bg-transparent
+              p-0
+              text-white
+              transition-colors
+              duration-300
+              hover:text-[#00A8E8]
+            "
+          >
+            <Search
+              size={23}
+              strokeWidth={1.8}
+            />
+          </button>
+
+          {/* CENTER LOGO */}
+
+          <a
+            href="#home"
+            aria-label="YM Motors home"
+            className="
+              absolute
+              left-1/2
+              top-1/2
+              z-20
+              -translate-x-1/2
+              -translate-y-1/2
+            "
+          >
+            <Logo mobile />
+          </a>
+
+          {/* HAMBURGER */}
+
+          <button
+            type="button"
+            aria-label={
+              menuOpen
+                ? "Close menu"
+                : "Open menu"
+            }
+            aria-expanded={menuOpen}
+            onClick={() => {
+              setMenuOpen(
+                (previous) => !previous,
+              );
+            }}
+            className="
+              relative
+              z-30
+              ml-auto
+              flex
+              h-[46px]
+              w-[46px]
+              items-center
+              justify-center
+              border-0
+              bg-transparent
+              p-0
+              text-white
+              transition-colors
+              duration-300
+              hover:text-[#00A8E8]
+            "
+          >
+            <Menu
+              size={28}
+              strokeWidth={1.65}
+            />
+          </button>
+        </div>
+      </header>
+
+      {/* =====================================================
+          MOBILE DRAWER
+      ====================================================== */}
+
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            {/* BACKDROP */}
+
+            <motion.button
+              type="button"
+              aria-label="Close navigation"
+              onClick={() =>
+                setMenuOpen(false)
+              }
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                duration: 0.25,
+              }}
+              className="
+                fixed
+                inset-0
+                z-[115]
+                bg-black/65
+                backdrop-blur-[3px]
+                lg:hidden
+              "
+            />
+
+            {/* ===============================================
+                DARK MOBILE MENU
+            ================================================ */}
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: -22,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              exit={{
+                opacity: 0,
+                y: -20,
+              }}
+              transition={{
+                duration: 0.3,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="
+                fixed
+                left-0
+                top-0
+                z-[130]
+                h-[100dvh]
+                w-full
+                overflow-y-auto
+                border-b
+                border-white/[0.08]
+                bg-[#080B10]
+                text-white
+                shadow-[0_28px_80px_rgba(0,0,0,0.55)]
+                lg:hidden
+              "
+            >
+              {/* =============================================
+                  DRAWER TOP
+              ============================================== */}
+
+              <div
+                className="
+                  relative
+                  flex
+                  h-[68px] sm:h-[72px]
+                  items-center
+                  border-b
+                  border-white/[0.08]
+                  bg-[#080B10]
+                  px-3 sm:px-4
+                "
+              >
+                <button
+                  type="button"
+                  aria-label="Search"
+                  className="
+                    flex
+                    h-[46px]
+                    w-[46px]
+                    items-center
+                    justify-center
+                    text-white
+                    transition-colors
+                    duration-300
+                    hover:text-[#00A8E8]
+                  "
+                >
+                  <Search
+                    size={23}
+                    strokeWidth={1.8}
+                  />
+                </button>
+
+                {/* DRAWER LOGO */}
+
+                <div
+                  className="
+                    absolute
+                    left-1/2
+                    top-1/2
+                    -translate-x-1/2
+                    -translate-y-1/2
+                  "
+                >
+                  <Logo mobile />
+                </div>
+
+                {/* CLOSE */}
+
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={() =>
+                    setMenuOpen(false)
+                  }
+                  className="
+                    ml-auto
+                    flex
+                    h-[46px]
+                    w-[46px]
+                    items-center
+                    justify-center
+                    text-white
+                    transition-colors
+                    duration-300
+                    hover:text-[#00A8E8]
+                  "
+                >
+                  <X
+                    size={25}
+                    strokeWidth={1.65}
+                  />
+                </button>
+              </div>
+
+              {/* =============================================
+                  MOBILE NAVIGATION
+              ============================================== */}
+
+              <nav
+                className="
+                  px-4 sm:px-5
+                  pt-2
+                "
+              >
+                {mobileItems.map((item) => (
+                  <MobileNavLink
+                    key={item.label}
+                    item={item}
+                    aboutOpen={aboutOpen}
+                    setAboutOpen={setAboutOpen}
+                    closeMenu={() =>
+                      setMenuOpen(false)
+                    }
+                    contactButton={
+                      item.label ===
+                      "Contact Us"
+                    }
+                  />
+                ))}
+              </nav>
+
+              {/* =============================================
+                  LOWER AREA
+              ============================================== */}
+
+              <div
+                className="
+                  px-4 sm:px-5
+                  pb-7
+                  pt-7
+                "
+              >
+                {/* CALL BUTTON */}
+
+                <a
+                  href="tel:+440000000000"
+                  className="
+                    group
+                    flex
+                    min-h-[50px]
+                    w-full
+                    items-center
+                    justify-center
+                    gap-[9px]
+                    border
+                    border-white/[0.10]
+                    bg-[#151C26]
+                    px-5
+                    font-[var(--font-body)]
+                    text-[12px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.15em]
+                    text-white
+                    transition-all
+                    duration-300
+                    hover:border-[#00A8E8]/40
+                    hover:bg-[#1A222D]
+                  "
+                >
+                  <Phone
+                    size={16}
+                    strokeWidth={2}
+                    className="
+                      transition-colors
+                      group-hover:text-[#00A8E8]
+                    "
+                  />
+
+                  Call YM Motors
+                </a>
+
+                {/* SOCIAL ICONS */}
+
+                <div
+                  className="
+                    mt-7
+                    flex
+                    items-center
+                    justify-center
+                    gap-7
+                    text-white/65
+                  "
+                >
+                  <a
+                    href="#youtube"
+                    aria-label="YouTube"
+                    className="
+                      transition-all
+                      duration-300
+                      hover:-translate-y-[2px]
+                      hover:text-[#00A8E8]
+                    "
+                  >
+                    <FaYoutube size={19} />
+                  </a>
+
+                  <a
+                    href="#facebook"
+                    aria-label="Facebook"
+                    className="
+                      transition-all
+                      duration-300
+                      hover:-translate-y-[2px]
+                      hover:text-[#00A8E8]
+                    "
+                  >
+                    <FaFacebookF size={17} />
+                  </a>
+
+                  <a
+                    href="#instagram"
+                    aria-label="Instagram"
+                    className="
+                      transition-all
+                      duration-300
+                      hover:-translate-y-[2px]
+                      hover:text-[#00A8E8]
+                    "
+                  >
+                    <FaInstagram size={18} />
+                  </a>
+
+                  <a
+                    href="#linkedin"
+                    aria-label="LinkedIn"
+                    className="
+                      transition-all
+                      duration-300
+                      hover:-translate-y-[2px]
+                      hover:text-[#00A8E8]
+                    "
+                  >
+                    <FaLinkedinIn size={18} />
+                  </a>
+                </div>
+
+                {/* SMALL BRAND LINE */}
+
+                <div
+                  className="
+                    mt-7
+                    flex
+                    items-center
+                    justify-center
+                    gap-3
+                  "
+                >
+                  <span
+                    className="
+                      h-px
+                      w-7
+                      bg-white/10
+                    "
+                  />
+
+                  <span
+                    className="
+                      font-[var(--font-body)]
+                      text-[8px]
+                      font-medium
+                      uppercase
+                      tracking-[0.25em]
+                      text-white/30
+                    "
+                  >
+                    Premium Automotive
+                  </span>
+
+                  <span
+                    className="
+                      h-px
+                      w-7
+                      bg-white/10
+                    "
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+/* =========================================================
+   DESKTOP NAVIGATION LINK
+========================================================= */
+
+function DesktopNavLink({
+  item,
+  contactButton = false,
+}: {
+  item: NavItem;
+  contactButton?: boolean;
+}) {
+  const [open, setOpen] =
+    useState(false);
+
+  const hasDropdown = Boolean(
+    item.dropdown &&
+      item.submenu &&
+      item.submenu.length > 0,
+  );
+
+  /* =======================================================
+     CONTACT BUTTON
+  ======================================================== */
+
+  if (contactButton) {
+    return (
+      <a
+        href={item.href}
+        className="
+          group
+          relative
+          ml-2 xl:ml-[14px]
+          inline-flex
+          h-[42px] xl:h-[46px]
+          items-center
+          justify-center
+          overflow-hidden
+          bg-[#00A8E8]
+          px-4 xl:px-[22px]
+          font-[var(--font-body)]
+          text-[11px] xl:text-[12px]
+          font-semibold
+          uppercase
+          tracking-[0.14em]
+          text-white
+          shadow-[0_8px_24px_rgba(0,168,232,0.20)]
+          transition-all
+          duration-300
+          hover:-translate-y-[1px]
+          hover:bg-[#12B7F4]
+          hover:shadow-[0_12px_30px_rgba(0,168,232,0.30)]
+          2xl:ml-[18px]
+          2xl:px-[27px]
+          2xl:text-[13px]
+        "
+      >
+        {/* subtle shine */}
+
+        <span
+          className="
+            pointer-events-none
+            absolute
+            inset-y-0
+            left-[-70%]
+            w-[45%]
+            skew-x-[-20deg]
+            bg-white/15
+            transition-all
+            duration-700
+            group-hover:left-[125%]
+          "
+        />
+
+        <span
+          className="
+            relative
+            z-10
+          "
+        >
+          {item.label}
+        </span>
+      </a>
+    );
+  }
+
+  /* =======================================================
+     NORMAL NAV ITEM
+  ======================================================== */
+
+  return (
+    <div
+      className="
+        relative
+        flex
+        h-full
+        items-center
+      "
+      onMouseEnter={() => {
+        if (hasDropdown) {
+          setOpen(true);
+        }
+      }}
+      onMouseLeave={() => {
+        if (hasDropdown) {
+          setOpen(false);
+        }
+      }}
+    >
+      <a
+        href={item.href}
+        className="
+          group
+          relative
+          flex
+          h-full
+          items-center
+          gap-[6px]
+          whitespace-nowrap
+          px-3 xl:px-[18px]
+          font-[var(--font-body)]
+          text-[11px] xl:text-[13px]
+          font-semibold
+          uppercase
+          tracking-[0.14em]
+          text-white/90
+          transition-colors
+          duration-300
+          hover:text-white
+          2xl:px-[22px]
+          2xl:text-[14px]
+        "
+      >
+        {item.label}
+
+        {item.dropdown && (
+          <ChevronDown
+            size={14}
+            strokeWidth={1.5}
+            className={`
+              text-white/55
+              transition-transform
+              duration-300
+
+              ${
+                open
+                  ? "rotate-180"
+                  : ""
+              }
+            `}
+          />
+        )}
+
+        {/* LUXURY HOVER LINE */}
+
+        <span
+          className="
+            pointer-events-none
+            absolute
+            bottom-[24px]
+            left-1/2
+            h-px
+            w-0
+            -translate-x-1/2
+            bg-[#00A8E8]
+            transition-all
+            duration-300
+            group-hover:w-[28px]
+          "
+        />
+      </a>
+
+      {/* ===================================================
+          DROPDOWN
+      ==================================================== */}
+
+      <AnimatePresence>
+        {hasDropdown && open && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -8,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -6,
+            }}
+            transition={{
+              duration: 0.18,
+            }}
+            className="
+              absolute
+              left-1/2
+              top-[78%] xl:top-[80%]
+              z-[150]
+              w-[210px]
+              -translate-x-1/2
+              overflow-hidden
+              border
+              border-white/[0.08]
+              bg-[#080B10]/95
+              p-[5px]
+              shadow-[0_22px_55px_rgba(0,0,0,0.42)]
+              backdrop-blur-[18px]
+            "
+          >
+            {item.submenu?.map(
+              (sub) => (
+                <a
+                  key={sub.label}
+                  href={sub.href}
+                  className="
+                    relative
+                    block
+                    px-4
+                    py-[13px]
+                    font-[var(--font-body)]
+                    text-[11px]
+                    font-medium
+                    uppercase
+                    tracking-[0.14em]
+                    text-white/65
+                    transition-all
+                    duration-200
+                    hover:bg-[#151C26]
+                    hover:pl-5
+                    hover:text-[#00A8E8]
+                  "
+                >
+                  {sub.label}
+                </a>
+              ),
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+function MobileNavLink({
+  item,
+  aboutOpen,
+  setAboutOpen,
+  closeMenu,
+  contactButton = false,
+}: {
+  item: NavItem;
+  aboutOpen: boolean;
+  setAboutOpen: (
+    value: boolean,
+  ) => void;
+  closeMenu: () => void;
+  contactButton?: boolean;
+}) {
+  const hasDropdown = Boolean(
+    item.dropdown &&
+      item.submenu &&
+      item.submenu.length > 0,
+  );
+
+  const open =
+    item.label === "About Us" &&
+    aboutOpen;
+
+  /* =======================================================
+     MOBILE CONTACT BUTTON
+  ======================================================== */
+
+  if (contactButton) {
+    return (
+      <div
+        className="
+          border-b
+          border-white/[0.08]
+          py-[13px]
+        "
+      >
+        <a
+          href={item.href}
+          onClick={closeMenu}
+          className="
+            group
+            relative
+            flex
+            min-h-[49px]
+            w-full
+            items-center
+            justify-center
+            overflow-hidden
+            bg-[#00A8E8]
+            px-5
+            font-[var(--font-body)]
+            text-[12px]
+            font-semibold
+            uppercase
+            tracking-[0.16em]
+            text-white
+            shadow-[0_8px_24px_rgba(0,168,232,0.18)]
+            transition-all
+            duration-300
+            hover:bg-[#12B7F4]
+          "
+        >
+          <span
+            className="
+              pointer-events-none
+              absolute
+              inset-y-0
+              left-[-60%]
+              w-[40%]
+              skew-x-[-20deg]
+              bg-white/15
+              transition-all
+              duration-700
+              group-hover:left-[120%]
+            "
+          />
+
+          <span
+            className="
+              relative
+              z-10
+            "
+          >
+            Contact Us
+          </span>
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="
+        border-b
+        border-white/[0.08]
+      "
+    >
+      <div
+        className="
+          flex
+          min-h-[56px]
+          items-center
+        "
+      >
+        <a
+          href={item.href}
+          onClick={(event) => {
+            if (hasDropdown) {
+              event.preventDefault();
+              setAboutOpen(!aboutOpen);
+              return;
+            }
+
+            closeMenu();
+          }}
+          className="
+            flex
+            min-h-[56px]
+            flex-1
+            items-center
+            font-[var(--font-body)]
+            text-[12px]
+            font-medium
+            uppercase
+            tracking-[0.16em]
+            text-white/85
+            transition-all
+            duration-300
+            hover:pl-[4px]
+            hover:text-[#00A8E8]
+          "
+        >
+          {item.label}
+        </a>
+
+        {hasDropdown && (
+          <button
+            type="button"
+            onClick={() =>
+              setAboutOpen(!aboutOpen)
+            }
+            aria-label={`Open ${item.label}`}
+            className="
+              flex
+              h-[46px]
+              w-[46px]
+              items-center
+              justify-center
+              text-white/40
+              transition-colors
+              hover:text-[#00A8E8]
+            "
+          >
+            <ChevronRight
+              size={17}
+              strokeWidth={1.5}
+              className={`
+                transition-transform
+                duration-300
+
+                ${
+                  open
+                    ? "rotate-90"
+                    : ""
+                }
+              `}
+            />
+          </button>
+        )}
+      </div>
+
+      {/* MOBILE SUBMENU */}
+
+      <AnimatePresence>
+        {hasDropdown && open && (
+          <motion.div
+            initial={{
+              height: 0,
+              opacity: 0,
+            }}
+            animate={{
+              height: "auto",
+              opacity: 1,
+            }}
+            exit={{
+              height: 0,
+              opacity: 0,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
+            className="
+              overflow-hidden
+              bg-[#111720]
+            "
+          >
+            <div className="px-4">
+              {item.submenu?.map(
+                (sub) => (
+                  <a
+                    key={sub.label}
+                    href={sub.href}
+                    onClick={closeMenu}
+                    className="
+                      flex
+                      min-h-[46px]
+                      items-center
+                      border-b
+                      border-white/[0.05]
+                      font-[var(--font-body)]
+                      text-[11px]
+                      font-medium
+                      uppercase
+                      tracking-[0.14em]
+                      text-white/50
+                      transition-all
+                      duration-300
+                      hover:pl-[4px]
+                      hover:text-[#00A8E8]
+                    "
+                  >
+                    {sub.label}
+                  </a>
+                ),
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </div>
   );
 }
 
 /* =========================================================
-   LANGUAGE ITEM
+   YM MOTORS LOGO
 ========================================================= */
 
-function LanguageItem({
-  active,
-  title,
-  subtitle,
-  flag,
-  onClick,
+function Logo({
+  mobile = false,
 }: {
-  active: boolean;
-  title: string;
-  subtitle: string;
-  flag: ReactNode;
-  onClick: () => void;
+  mobile?: boolean;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`
-        flex
-        w-full
-        items-center
-        gap-3
-
-        rounded-[4px]
-
-        px-3
-        py-[10px]
-
-        text-left
-
-        transition-colors
-        duration-200
-
-        ${active ? "bg-white/[0.06]" : "hover:bg-white/[0.035]"}
-      `}
-    >
-      <span
-        className="
-          flex
-          h-[32px]
-          w-[40px]
-          items-center
-          justify-center
-
-          rounded-[3px]
-
-          border
-          border-white/[0.05]
-
-          bg-white/[0.03]
-        "
-      >
-        {flag}
-      </span>
-
-      <span className="flex flex-col">
-        <span className="text-[12px] font-medium text-white">{title}</span>
-        <span className="mt-[2px] text-[9px] text-white/50">{subtitle}</span>
-      </span>
-
-      {active && (
-        <span
-          className="
-            ml-auto
-
-            flex
-            h-[19px]
-            w-[19px]
-            items-center
-            justify-center
-
-            rounded-full
-
-            bg-[#00A8E8]/10
-
-            text-[#00A8E8]
-          "
-        >
-          <Check size={11} strokeWidth={2} />
-        </span>
-      )}
-    </button>
-  );
-}
-
-/* =========================================================
-   CENTER LOGO TEXT ONLY
-========================================================= */
-
-function LogoText({ mobile = false }: { mobile?: boolean }) {
-  return (
     <span
-      className={`
-        block
-
+      className="
+        flex
+        flex-col
+        items-center
         whitespace-nowrap
-
-        font-[var(--font-body)]
-
-        font-semibold
-        uppercase
-        leading-none
-
-        text-white
-
-        ${
-          mobile
-            ? "text-[14px] tracking-[0.18em] sm:text-[15px]"
-            : "text-[17px] tracking-[0.22em] 2xl:text-[18px]"
-        }
-      `}
+      "
     >
-      Your Logo
+      <h2
+        className={`
+          m-0
+          bg-[linear-gradient(100deg,#00A8E8_0%,#38C2F5_18%,#BCEBFC_38%,#FFFFFF_62%,#D9E0E7_82%,#AAB4BE_100%)]
+          bg-clip-text
+          font-[var(--font-display)]
+          font-semibold
+          uppercase
+          leading-none
+          tracking-[-0.035em]
+          !text-transparent
+          [-webkit-background-clip:text]
+          [-webkit-text-fill-color:transparent]
+
+          ${
+            mobile
+              ? "text-[19px] sm:text-[22px]"
+              : "text-[28px] xl:text-[34px] 2xl:text-[42px]"
+          }
+        `}
+      >
+        YM MOTORS
+      </h2>
     </span>
   );
 }

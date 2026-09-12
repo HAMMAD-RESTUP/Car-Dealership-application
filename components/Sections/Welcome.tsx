@@ -2,15 +2,31 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import {
+  ArrowUpRight,
+  BadgeCheck,
+  CarFront,
+  ShieldCheck,
+} from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const words = [
-  { text: "WELCOME", color: "text-white" },
-  { text: "TO", color: "text-white" },
-  { text: "YM", color: "text-[#00A8E8]" },
-  { text: "MOTORS", color: "text-[#00A8E8]" },
-  { text: "LTD", color: "text-[#00A8E8]" },
+const benefits = [
+  {
+    icon: BadgeCheck,
+    title: "Top Rated Dealer",
+    text: "Recognised by CarGurus in 2021, 2022, 2023 & 2024.",
+  },
+  {
+    icon: CarFront,
+    title: "Japanese Imports",
+    text: "Low-mileage vehicles carefully sourced for quality and reliability.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Buy With Confidence",
+    text: "Transparent service from first enquiry through to final handover.",
+  },
 ];
 
 export default function Welcome() {
@@ -21,343 +37,458 @@ export default function Welcome() {
       className="
         relative
         overflow-hidden
-
-        bg-[#0B0D0F]
+        bg-[#080B10]
       "
     >
-      {/* BACKGROUND AMBIENCE */}
+      {/* BACKGROUND */}
       <div
+        aria-hidden="true"
         className="
           pointer-events-none
           absolute
           inset-0
-
-          bg-[linear-gradient(180deg,#0B0D0F_0%,#11161D_50%,#0B0D0F_100%)]
+          bg-[linear-gradient(180deg,#080B10_0%,#0D1218_50%,#080B10_100%)]
         "
       />
 
+      {/* SUBTLE BLUE AMBIENCE */}
       <div
+        aria-hidden="true"
         className="
           pointer-events-none
           absolute
-
-          right-[-220px]
-          top-[10%]
-
-          h-[420px]
-          w-[420px]
-
+          right-[-260px]
+          top-[20%]
+          h-[520px]
+          w-[520px]
           rounded-full
-
-          bg-[#00A8E8]/[0.05]
-
-          blur-[150px]
+          bg-[#00A8E8]/[0.045]
+          blur-[170px]
         "
       />
 
+      {/* TOP DIVIDER */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-0
+          h-px
+          w-[75%]
+          -translate-x-1/2
+          bg-gradient-to-r
+          from-transparent
+          via-white/[0.10]
+          to-transparent
+        "
+      />
+
+      {/* MAIN GRID */}
       <div
         className="
           relative
           z-10
-
+          mx-auto
           grid
+          max-w-[1800px]
           grid-cols-1
-
-          lg:grid-cols-2
+          lg:min-h-[740px]
+          lg:grid-cols-[1.03fr_0.97fr]
         "
       >
-        {/* LEFT — IMAGE */}
+        {/* =====================================================
+            LEFT IMAGE
+        ====================================================== */}
         <motion.div
-          initial={{ opacity: 0, scale: 1.05 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: EASE }}
+          initial={
+            reduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  x: -24,
+                }
+          }
+          whileInView={{
+            opacity: 1,
+            x: 0,
+          }}
+          viewport={{
+            once: true,
+            margin: "-80px",
+          }}
+          transition={{
+            duration: 0.9,
+            ease: EASE,
+          }}
           className="
             relative
-
-            h-[380px]
-
-            sm:h-[460px]
-
+            h-[350px]
+            sm:h-[450px]
+            md:h-[520px]
             lg:h-auto
+            lg:min-h-[740px]
           "
         >
           <Image
             src="/images/welcome.png"
-            alt="YM Motors — Premium Vehicle"
+            alt="Premium vehicle available from YM Motors"
             fill
-            className="object-cover"
-            priority
+            sizes="(max-width: 1024px) 100vw, 52vw"
+            className="
+              object-cover
+              object-center
+              lg:object-[52%_center]
+            "
           />
 
-          {/* subtle dark overlay to blend with theme */}
+          {/* DESKTOP IMAGE BLEND */}
           <div
+            aria-hidden="true"
             className="
               pointer-events-none
               absolute
               inset-0
-
-              bg-gradient-to-r
-              from-[#0B0D0F]/10
-              via-transparent
-              to-[#0B0D0F]/40
-            "
-          />
-
-          {/* blue edge accent where image meets text */}
-          <div
-            className="
-              pointer-events-none
-              absolute
-              inset-y-0
-              right-0
-
               hidden
-              w-px
-
-              bg-gradient-to-b
+              bg-gradient-to-r
               from-transparent
-              via-[#00A8E8]/50
-              to-transparent
-
-              shadow-[0_0_12px_rgba(0,168,232,0.25)]
-
+              via-transparent
+              to-[#080B10]/65
               lg:block
             "
           />
+
+          {/* MOBILE IMAGE BLEND */}
+          <div
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute
+              inset-x-0
+              bottom-0
+              h-[130px]
+              bg-gradient-to-t
+              from-[#080B10]
+              to-transparent
+              lg:hidden
+            "
+          />
+
+     
         </motion.div>
 
-        {/* RIGHT — CONTENT */}
+        {/* =====================================================
+            RIGHT CONTENT
+        ====================================================== */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
+          initial={
+            reduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  y: 24,
+                }
+          }
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            margin: "-80px",
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.08,
+            ease: EASE,
+          }}
           className="
             flex
             flex-col
             justify-center
-
-            px-6
-            py-14
-
-            sm:px-10
-            sm:py-16
-
-            md:px-14
-
-            lg:px-16
-            lg:py-20
-
-            xl:px-20
+            px-5
+            pb-16
+            pt-10
+            sm:px-8
+            sm:pb-20
+            sm:pt-12
+            md:px-12
+            lg:px-12
+            lg:py-16
+            xl:px-16
+            2xl:px-20
           "
         >
-    
-          {/* HEADING */}
+          {/* =====================================================
+              MAIN HEADING
+              One line on normal screens.
+              Mobile size automatically stays inside viewport.
+          ====================================================== */}
           <h2
             className="
-              max-w-[600px]
+              whitespace-nowrap
+              font-[var(--font-display)]
+              text-[26px]
+              font-semibold
+              leading-none
+              tracking-[-0.035em]
+              text-white
 
-              font-heading
+              min-[360px]:text-[28px]
+              min-[400px]:text-[31px]
 
-              text-[32px]
-              font-bold
+              sm:text-[38px]
+              md:text-[44px]
 
-              uppercase
-
-              leading-[1.15]
-
-              tracking-[-0.02em]
-
-              sm:text-[40px]
-
-              lg:text-[46px]
+              lg:text-[38px]
+              xl:text-[44px]
+              2xl:text-[50px]
             "
           >
-            {words.map((word, index) => (
-              <motion.span
-                key={word.text}
-                initial={
-                  reduceMotion
-                    ? false
-                    : {
-                        opacity: 0,
-                        y: 60,
-                        scale: 0.92,
-                        filter: "blur(12px)",
-                      }
-                }
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  filter: "blur(0px)",
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.5,
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: index * 0.18,
-                  ease: EASE,
-                }}
-                className={`
-                  relative
-                  inline-block
-                  mr-3
-
-                  sm:mr-5
-
-                  ${
-                    word.color === "text-white"
-                      ? "text-white"
-                      : "bg-gradient-to-b from-[#7fd4ff] via-[#129cff] to-[#0a6fc2] bg-clip-text text-transparent"
-                  }
-                `}
-                style={
-                  word.color === "text-white"
-                    ? undefined
-                    : {
-                        filter:
-                          "drop-shadow(0 0 28px rgba(18,156,255,0.45))",
-                      }
-                }
-              >
-                {word.text}
-              </motion.span>
-            ))}
+            Welcome to{" "}
+            <span
+              className="
+                bg-gradient-to-r
+                from-[#6DD0FF]
+                via-[#00A8E8]
+                to-[#168BD5]
+                bg-clip-text
+                text-transparent
+              "
+            >
+              YM Motors
+            </span>
           </h2>
 
-          <span
+          {/* INTRO */}
+          <p
             className="
               mt-6
-              mb-8
-
-              h-[3px]
-              w-16
-
-              bg-[#00A8E8]
-
-              shadow-[0_0_10px_rgba(0,168,232,0.35)]
-            "
-          />
-
-          {/* INTRO LINES */}
-          <p
-            className="
-              font-sans
+              max-w-[620px]
+              font-[var(--font-body)]
               text-[15px]
-              font-semibold
-
-              leading-[1.8]
-
-              text-white/90
+              font-medium
+              leading-[1.75]
+              text-white/80
+              sm:text-[16px]
+              lg:text-[16px]
+              xl:text-[17px]
             "
           >
-            YM Motors — Great Deals on Premium Cars in Crawley
+            Great deals on quality used cars in Crawley, with specialist
+            knowledge in low-mileage Japanese imports.
           </p>
 
           <p
             className="
-              mt-3
-
-              font-sans
-              text-[15px]
-              font-semibold
-
+              mt-4
+              max-w-[620px]
+              font-[var(--font-body)]
+              text-[14px]
+              font-normal
               leading-[1.8]
-
-              text-white/90
+              text-white/52
+              sm:text-[15px]
             "
           >
-            We&apos;re proud to be recognised as a Car Guru&apos;s Top Rated
-            Dealer in 2021, 2022, 2023 &amp; 2024!
+            We carefully select vehicles for quality, reliability and value,
+            while keeping the buying process clear, straightforward and
+            personal from your first enquiry to final handover.
           </p>
 
-          {/* BODY COPY */}
+          {/* =====================================================
+              BENEFITS
+          ====================================================== */}
           <div
             className="
-              mt-6
-
-              space-y-5
-
-              font-sans
-              text-[15px]
-              font-normal
-
-              leading-[1.9]
-
-              text-white/70
+              mt-8
+              grid
+              grid-cols-1
+              border-y
+              border-white/[0.07]
+              sm:grid-cols-3
             "
           >
-            <p>
-              If you are looking for great savings on quality used cars in
-              the Crawley area, you have reached the right place.
-            </p>
+            {benefits.map((benefit, index) => {
+              const Icon = benefit.icon;
 
-            <p>
-              YM Motors is a specialist used car dealer offering competitive
-              pricing and a carefully selected range of vehicles to suit most
-              budgets and lifestyles. We also specialise in sourcing low
-              mileage Japanese imported vehicles, chosen for their quality
-              and reliability. Our expertise in Japanese imports allows us to
-              offer unique and high-quality vehicles that stand out from the
-              crowd.
-            </p>
+              return (
+                <div
+                  key={benefit.title}
+                  className={`
+                    group
+                    relative
+                    py-5
 
-            <p>
-              We realise that buying a car can be a daunting experience, but
-              don&apos;t worry — we are well established within the Crawley
-              area and have built our reputation on trust, transparency and
-              exceptional customer service from first enquiry to final
-              handover.
-            </p>
+                    sm:px-4
+                    sm:py-6
+
+                    xl:px-5
+
+                    ${
+                      index !== benefits.length - 1
+                        ? "border-b border-white/[0.07] sm:border-b-0 sm:border-r"
+                        : ""
+                    }
+                  `}
+                >
+                  <Icon
+                    size={28}
+                    strokeWidth={1.45}
+                    className="
+                      mb-5
+                      text-[#00A8E8]
+                      transition-transform
+                      duration-300
+                      group-hover:-translate-y-[2px]
+                    "
+                  />
+
+                  <h3
+                    className="
+                      font-[var(--font-body)]
+                      text-[12px]
+                      font-semibold
+                      leading-[1.3]
+                      text-white
+                      xl:text-[13px]
+                    "
+                  >
+                    {benefit.title}
+                  </h3>
+
+                  <p
+                    className="
+                      mt-2
+                      font-[var(--font-body)]
+                      text-[11px]
+                      font-normal
+                      leading-[1.65]
+                      text-white/45
+                      xl:text-[12px]
+                    "
+                  >
+                    {benefit.text}
+                  </p>
+                </div>
+              );
+            })}
           </div>
 
-          {/* CTA */}
-          <a
-            href="#stock"
+          {/* =====================================================
+              BUTTONS
+          ====================================================== */}
+          <div
             className="
-              group
-              relative
-
-              mt-9
-
-              inline-flex
-              w-max
-
-              items-center
-              gap-2.5
-
-              border
-              border-[#00A8E8]/50
-
-              bg-[#00A8E8]/[0.08]
-
-              px-7
-              py-3.5
-
-              font-sans
-              text-[12px]
-              font-semibold
-              uppercase
-
-              tracking-[0.08em]
-
-              text-[#00A8E8]
-
-              transition-all
-              duration-300
-
-              hover:bg-[#00A8E8]
-              hover:text-white
-
-              hover:shadow-[0_10px_30px_rgba(0,168,232,0.25)]
+              mt-8
+              flex
+              flex-col
+              gap-3
+              min-[420px]:flex-row
             "
           >
-            View Our Stock
-          </a>
+            {/* VIEW STOCK — NO GLOW */}
+            <motion.a
+              href="#stock"
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      y: -2,
+                    }
+              }
+              whileTap={{
+                scale: 0.98,
+              }}
+              className="
+                group
+                inline-flex
+                min-h-[50px]
+                items-center
+                justify-center
+                gap-2.5
+                rounded-[5px]
+                border
+                border-[#00A8E8]
+                bg-[#00A8E8]
+                px-7
+                font-[var(--font-body)]
+                text-[11px]
+                font-semibold
+                uppercase
+                tracking-[0.12em]
+                text-white
+                transition-all
+                duration-300
+
+                hover:border-[#12B7F4]
+                hover:bg-[#12B7F4]
+
+                sm:text-[12px]
+              "
+            >
+              View Our Stock
+
+              <ArrowUpRight
+                size={17}
+                strokeWidth={1.7}
+                className="
+                  transition-transform
+                  duration-300
+                  group-hover:-translate-y-[2px]
+                  group-hover:translate-x-[2px]
+                "
+              />
+            </motion.a>
+
+            {/* CONTACT */}
+            <a
+              href="#contact"
+              className="
+                inline-flex
+                min-h-[50px]
+                items-center
+                justify-center
+                rounded-[5px]
+                border
+                border-white/[0.13]
+                bg-transparent
+                px-7
+                font-[var(--font-body)]
+                text-[11px]
+                font-semibold
+                uppercase
+                tracking-[0.12em]
+                text-white/75
+                transition-all
+                duration-300
+
+                hover:border-white/[0.25]
+                hover:bg-white/[0.055]
+                hover:text-white
+
+                sm:text-[12px]
+              "
+            >
+              Contact Us
+            </a>
+          </div>
+
+          {/* TRUST TEXT */}
+          <p
+            className="
+              mt-6
+              font-[var(--font-body)]
+              text-[10px]
+              leading-[1.6]
+              tracking-[0.02em]
+              text-white/30
+              sm:text-[11px]
+            "
+          >
+            CarGurus Top Rated Dealer — 2021, 2022, 2023 &amp; 2024
+          </p>
         </motion.div>
       </div>
     </section>

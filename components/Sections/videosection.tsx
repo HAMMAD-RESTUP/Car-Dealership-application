@@ -1,386 +1,389 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+const stats = [
+  {
+    value: "JDM",
+    label: "Import Specialists",
+  },
+  {
+    value: "100%",
+    label: "Inspected & Verified",
+  },
+  {
+    value: "Top Rated",
+    label: "CarGurus Dealer",
+  },
+];
+
 export default function VideoSection() {
   const reduceMotion = useReducedMotion();
-
-  const words = [
-    { text: "IMPORTED", color: "text-white" },
-    { text: "JAPANESE", color: "text-[#00A8E8]" },
-    { text: "EXCELLENCE", color: "text-[#00A8E8]" },
-  ];
 
   return (
     <section
       className="
         relative
-        min-h-[680px]
+        min-h-[620px]
         w-full
         overflow-hidden
-        bg-[#0B0D0F]
+        bg-[#080B10]
 
-        sm:min-h-[720px]
-        lg:min-h-[780px]
+        sm:min-h-[680px]
+        lg:min-h-[740px]
       "
     >
-      <motion.div
-        initial={reduceMotion ? false : { scale: 1.08 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.8, ease: EASE }}
+      {/* BACKGROUND VIDEO */}
+      <motion.video
+        initial={
+          reduceMotion
+            ? false
+            : {
+                scale: 1.04,
+              }
+        }
+        whileInView={{
+          scale: 1,
+        }}
+        viewport={{
+          once: true,
+        }}
+        transition={{
+          duration: 1.8,
+          ease: EASE,
+        }}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
         className="
           absolute
           inset-0
           h-full
           w-full
+          object-cover
+          object-center
         "
       >
-        <Image
-          src="/images/introduction-image.png"
-          alt="YM Motors — Imported Japanese Vehicles"
-          fill
-          priority
-          className="object-cover object-center"
+        <source
+          src="/images/demo-video.mp4"
+          type="video/mp4"
         />
-      </motion.div>
+      </motion.video>
 
+      {/* CINEMATIC OVERLAY */}
       <div
+        aria-hidden="true"
         className="
+          pointer-events-none
           absolute
           inset-0
-          z-10
-          bg-black/45
+
+          bg-[linear-gradient(180deg,rgba(3,6,10,0.58)_0%,rgba(3,6,10,0.28)_45%,rgba(3,6,10,0.76)_100%)]
         "
       />
 
+      {/* SIDE SHADE */}
       <div
+        aria-hidden="true"
         className="
+          pointer-events-none
           absolute
           inset-0
-          z-10
-          bg-[linear-gradient(180deg,rgba(11,13,15,.75),transparent_32%,transparent_68%,rgba(11,13,15,.9))]
+
+          bg-[radial-gradient(circle_at_center,rgba(5,8,12,0.02)_0%,rgba(5,8,12,0.18)_55%,rgba(5,8,12,0.42)_100%)]
         "
       />
 
+      {/* BOTTOM BLEND */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          inset-x-0
+          bottom-0
+
+          h-[230px]
+
+          bg-gradient-to-t
+          from-[#080B10]/90
+          via-[#080B10]/40
+          to-transparent
+        "
+      />
+
+      {/* CONTENT */}
       <div
         className="
           relative
-          z-20
+          z-10
+
           mx-auto
+
           flex
-          min-h-[680px]
+
+          min-h-[620px]
           w-full
           max-w-[1500px]
-          flex-col
-          items-center
-          justify-center
 
           px-5
-          pb-16
-          pt-28
+          pb-8
+          pt-20
 
-          sm:min-h-[720px]
-          sm:pt-32
+          sm:min-h-[680px]
+          sm:px-8
+          sm:pb-10
+          sm:pt-24
 
-          lg:min-h-[780px]
-          lg:pt-36
+          lg:min-h-[740px]
+          lg:px-12
+          lg:pb-12
+          lg:pt-28
         "
       >
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: EASE }}
-          className="text-center"
+          initial={
+            reduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  y: 24,
+                }
+          }
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.3,
+          }}
+          transition={{
+            duration: 0.85,
+            ease: EASE,
+          }}
+          className="
+            mx-auto
+
+            flex
+            min-h-0
+            w-full
+            max-w-[920px]
+            flex-1
+            flex-col
+
+            text-center
+          "
         >
-          {/* EYEBROW LINE */}
-          <motion.div
-            initial={
-              reduceMotion
-                ? false
-                : {
-                    opacity: 0,
-                    y: 14,
-                  }
-            }
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.5,
-            }}
-            transition={{
-              duration: 0.7,
-              ease: EASE,
-            }}
-            className="
-              mb-5
-
-              flex
-              items-center
-              justify-center
-              gap-3
-
-              sm:mb-7
-            "
-          >
-            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#00A8E8]/70 sm:w-12" />
-            <span
+          {/* TOP CONTENT */}
+          <div>
+            <h2
               className="
-                font-[var(--font-body)]
-                text-[10px]
-                font-semibold
-                uppercase
-                tracking-[0.4em]
-                text-white/55
+                font-[var(--font-display)]
 
-                sm:text-[11px]
+                text-[36px]
+                font-semibold
+
+                leading-[1.02]
+
+                tracking-[-0.035em]
+
+                text-white
+
+                min-[380px]:text-[40px]
+
+                sm:text-[48px]
+
+                md:text-[54px]
+
+                lg:text-[60px]
+
+                xl:text-[66px]
               "
             >
-              Established Excellence
-            </span>
-            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#00A8E8]/70 sm:w-12" />
-          </motion.div>
+              Imported Japanese{" "}
+              <span className="text-[#00A8E8]">
+                Excellence
+              </span>
+            </h2>
 
-          {/* HEADLINE — JAPANESE IMPORT FOCUS (no repeat of Welcome section) */}
-          <h2
+            <p
+              className="
+                mx-auto
+
+                mt-6
+
+                max-w-[680px]
+
+                font-[var(--font-body)]
+
+                text-[14px]
+                font-normal
+
+                leading-[1.8]
+
+                text-white/70
+
+                sm:mt-7
+                sm:text-[16px]
+
+                lg:text-[17px]
+              "
+            >
+              Low-mileage Japanese vehicles, carefully sourced,
+              inspected and prepared to deliver the quality,
+              reliability and specification discerning buyers expect.
+            </p>
+          </div>
+
+          {/* PUSHES STATS + BUTTON TO BOTTOM */}
+          <div className="flex-1" />
+
+          {/* BOTTOM CONTENT */}
+          <div
             className="
-              font-[var(--font-display)]
-              text-[32px]
-              font-bold
-              uppercase
-              leading-[1.05]
-              tracking-[0.02em]
+              mt-12
 
-              drop-shadow-[0_20px_55px_rgba(0,0,0,0.95)]
-
-              sm:text-[52px]
-              sm:tracking-[0.03em]
-
-              lg:text-[72px]
-
-              xl:text-[82px]
+              sm:mt-14
+              lg:mt-16
             "
           >
-            {words.map((word, index) => (
-              <motion.span
-                key={word.text}
-                initial={
-                  reduceMotion
-                    ? false
-                    : {
-                        opacity: 0,
-                        y: 60,
-                        scale: 0.92,
-                        filter: "blur(12px)",
-                      }
-                }
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  filter: "blur(0px)",
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.5,
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: index * 0.18,
-                  ease: EASE,
-                }}
-                className={`
-                  relative
-                  inline-block
-                  mr-3
+            {/* TRANSPARENT STATS BAR */}
+            <div
+              className="
+                mx-auto
 
-                  sm:mr-5
+                grid
+                max-w-[720px]
+                grid-cols-1
 
-                  ${
-                    word.color === "text-white"
-                      ? "text-white"
-                      : "bg-gradient-to-b from-[#7fd4ff] via-[#129cff] to-[#0a6fc2] bg-clip-text text-transparent"
-                  }
-                `}
-                style={
-                  word.color === "text-white"
-                    ? undefined
-                    : {
-                        filter:
-                          "drop-shadow(0 0 28px rgba(18,156,255,0.45))",
-                      }
-                }
-              >
-                {word.text}
-              </motion.span>
-            ))}
-          </h2>
+                overflow-hidden
 
-          {/* JAPANESE IMPORT SPECIALIST — BUSINESS COPY */}
-          <motion.p
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.7 }}
-            className="
-              mx-auto
+                border
+                border-white/[0.14]
 
-              mt-7
+                bg-black/[0.16]
 
-              max-w-[720px]
+                backdrop-blur-[8px]
 
-              font-[var(--font-body)]
+                sm:grid-cols-3
+              "
+            >
+              {stats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className={`
+                    px-5
+                    py-4
 
-              text-[15px]
-              font-normal
+                    text-center
 
-              leading-[1.9]
+                    sm:px-6
+                    sm:py-5
 
-              text-white/75
-
-              drop-shadow-[0_8px_24px_rgba(0,0,0,0.9)]
-
-              sm:mt-9
-              sm:text-[17px]
-
-              lg:text-[18px]
-            "
-          >
-            Crawley&apos;s trusted specialist in premium, low-mileage{" "}
-            <span className="font-semibold text-white">
-              Japanese imported vehicles
-            </span>
-            . From carefully sourced JDM icons to hand-picked used cars, every
-            vehicle is inspected, verified and prepared to the highest
-            standard — bringing rare quality and reliability you won&apos;t
-            find on the average forecourt.
-          </motion.p>
-
-          {/* STAT / TRUST STRIP */}
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.9 }}
-            className="
-              mx-auto
-
-              mt-10
-
-              flex
-              max-w-[640px]
-              flex-wrap
-              items-center
-              justify-center
-
-              gap-x-10
-              gap-y-6
-
-              sm:mt-12
-            "
-          >
-            {[
-              { value: "JDM", label: "Import Specialists" },
-              { value: "100%", label: "Inspected & Verified" },
-              { value: "Top Rated", label: "CarGuru Dealer" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p
-                  className="
-                    font-[var(--font-display)]
-                    text-[20px]
-                    font-bold
-
-                    text-[#00A8E8]
-
-                    drop-shadow-[0_0_18px_rgba(0,168,232,0.4)]
-
-                    sm:text-[24px]
-                  "
+                    ${
+                      index !== stats.length - 1
+                        ? "border-b border-white/[0.09] sm:border-b-0 sm:border-r"
+                        : ""
+                    }
+                  `}
                 >
-                  {stat.value}
-                </p>
-                <p
-                  className="
-                    mt-1
+                  <p
+                    className="
+                      font-[var(--font-display)]
 
-                    font-[var(--font-body)]
-                    text-[10px]
-                    font-medium
-                    uppercase
+                      text-[18px]
+                      font-semibold
 
-                    tracking-[0.14em]
+                      text-white
 
-                    text-white/50
+                      sm:text-[20px]
+                      lg:text-[21px]
+                    "
+                  >
+                    {stat.value}
+                  </p>
 
-                    sm:text-[11px]
-                  "
-                >
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
+                  <p
+                    className="
+                      mt-1.5
 
-          {/* CTA */}
-          <motion.a
-            href="#stocklist"
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 1.1 }}
-            whileHover={{ y: -2 }}
-            className="
-              group
+                      font-[var(--font-body)]
 
-              mt-10
+                      text-[9px]
+                      font-medium
+                      uppercase
 
-              inline-flex
-              items-center
-              gap-2.5
+                      tracking-[0.14em]
 
-              rounded-[3px]
+                      text-white/45
 
-              border
-              border-[#00A8E8]/50
+                      sm:text-[10px]
+                    "
+                  >
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
 
-              bg-white/[0.04]
+            {/* CTA */}
+            <motion.a
+              href="#stocklist"
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      y: -2,
+                    }
+              }
+              whileTap={{
+                scale: 0.98,
+              }}
+              className="
+                mt-5
 
-              px-8
-              py-4
+                inline-flex
+                min-h-[50px]
 
-              font-[var(--font-body)]
-              text-[12px]
-              font-semibold
-              uppercase
+                items-center
+                justify-center
 
-              tracking-[0.1em]
+                border
+                border-white/35
 
-              text-white
+                bg-transparent
 
-              backdrop-blur-md
+                px-8
 
-              shadow-[0_8px_28px_rgba(0,0,0,0.25)]
+                font-[var(--font-body)]
 
-              transition-all
-              duration-300
+                text-[11px]
+                font-semibold
+                uppercase
 
-              hover:border-[#00A8E8]
-              hover:bg-[#00A8E8]/[0.12]
-              hover:shadow-[0_12px_36px_rgba(0,168,232,0.3)]
+                tracking-[0.11em]
 
-              sm:mt-12
-            "
-          >
-            Explore Our Japanese Imports
-          </motion.a>
+                text-white
+
+                backdrop-blur-[4px]
+
+                transition-all
+                duration-300
+
+                hover:border-[#00A8E8]
+                hover:bg-[#00A8E8]
+
+                sm:text-[12px]
+              "
+            >
+              Explore Japanese Imports
+            </motion.a>
+          </div>
         </motion.div>
       </div>
     </section>

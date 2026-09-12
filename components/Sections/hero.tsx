@@ -238,11 +238,11 @@ export default function Hero() {
             md:mt-[10vh]
             md:max-w-[720px]
 
-            lg:mt-[12vh]
-            lg:max-w-[790px]
+            lg:mt-[10vh]
+                lg:max-w-[720px]
 
-            xl:mt-[13vh]
-            xl:max-w-[850px]
+                xl:mt-[11vh]
+                xl:max-w-[760px]
           "
         >
           {/* =================================================
@@ -297,15 +297,15 @@ export default function Hero() {
 
                 min-[380px]:text-[14px]
 
-                sm:text-[16px]
-                sm:tracking-[0.16em]
+                sm:text-[14px]
+                sm:tracking-[0.15em]
 
-                md:text-[18px]
-                md:tracking-[0.17em]
+                md:text-[15px]
+                md:tracking-[0.16em]
 
-                lg:text-[20px]
+                lg:text-[16px]
 
-                xl:text-[22px]
+                xl:text-[17px]
               "
               style={{
                 backgroundImage:
@@ -319,49 +319,49 @@ export default function Hero() {
           {/* =================================================
               MAIN HEADING
           ================================================== */}
-          <h1
-            className="
-              font-[var(--font-display)]
+     <h1
+  className="
+    font-[var(--font-display)]
 
-              text-[48px]
-              font-semibold
-              leading-[0.92]
-              tracking-[-0.01em]
+    text-[30px]
+    font-semibold
+    leading-[0.98]
+    tracking-[-0.02em]
 
-              text-white
+    text-white
 
-              drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]
+    drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]
 
-              min-[380px]:text-[46px]
+    min-[380px]:text-[34px]
 
-              sm:text-[62px]
+    sm:text-[40px]
 
-              md:text-[72px]
+    md:text-[46px]
 
-              lg:text-[82px]
+    lg:text-[52px]
 
-              xl:text-[90px]
+    xl:text-[60px]
 
-              2xl:text-[96px]
-            "
-          >
-            <span className="text-[#f5f5f3]">
-              Fewer kilometres.
-            </span>
+    2xl:text-[66px]
+  "
+>
+  <span className="text-[#f5f5f3]">
+    Fewer kilometres.
+  </span>
 
-            <br />
+  <br />
 
-            <span className="text-[#129cff]">
-              Better cars.
-            </span>
-          </h1>
+  <span className="text-[#129cff]">
+    Better cars.
+  </span>
+</h1>
 
           {/* =================================================
               DESCRIPTION
           ================================================== */}
           <p
             className="
-              mt-7
+              mt-6
               max-w-[330px]
 
               font-[var(--font-body)]
@@ -376,16 +376,16 @@ export default function Hero() {
 
               min-[380px]:text-[14px]
 
-              sm:mt-8
-              sm:max-w-[430px]
-              sm:text-[15px]
+              sm:mt-7
+                sm:max-w-[430px]
+                sm:text-[14px]
 
-              md:mt-9
-              md:max-w-[500px]
-              md:text-[16px]
+                md:mt-8
+                md:max-w-[500px]
+                md:text-[15px]
 
-              xl:max-w-[530px]
-              xl:text-[17px]
+                xl:max-w-[520px]
+                xl:text-[16px]
             "
           >
             Low mileage Japanese vehicles, sourced at auction,
@@ -402,7 +402,7 @@ export default function Hero() {
           ================================================== */}
           <div
             className="
-              mt-9
+              mt-8
 
               grid
               w-full
@@ -410,11 +410,11 @@ export default function Hero() {
               grid-cols-1
               gap-4
 
-              sm:mt-10
-              sm:max-w-[430px]
+              sm:mt-9
+                sm:max-w-[430px]
               sm:gap-4
 
-              md:mt-11
+              md:mt-10
               md:flex
               md:max-w-none
               md:items-center

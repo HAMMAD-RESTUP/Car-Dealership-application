@@ -217,23 +217,24 @@ export default function VehicleSearchBar() {
               "
             />
 
-            <h3
-              className="
-                font-[var(--font-body)]
+  <h3
+  className="
+    font-[var(--font-body)]
 
-                text-[14px]
-                font-semibold
-                
-                leading-none
-                tracking-[0.12em]
+    text-[18px]
+    font-semibold
+    leading-none
+    tracking-[0.10em]
+    text-white
 
-                text-white
-
-                sm:text-[13px]
-              "
-            >
-              Find Your Next Car
-            </h3>
+    sm:text-[20px]
+    md:text-[22px]
+    lg:text-[24px]
+    xl:text-[26px]
+  "
+>
+  Find Your Next Car
+</h3>
           </div>
 
 

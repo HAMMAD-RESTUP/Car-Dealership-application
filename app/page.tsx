@@ -22,9 +22,9 @@ const Home = () => {
       <CarListing />
       <BrandMarquee />
       <Welcome/>
+      <WhyChooseUs/>
       <Testimonials/>
       <VideoSection/>
-      <WhyChooseUs/>
       <Footer />
 
     </main>

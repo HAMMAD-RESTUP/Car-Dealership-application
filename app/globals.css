@@ -1,721 +1,165 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap");
+
 @import "tailwindcss";
 
 /* =========================================================
    YM MOTORS LTD
-   MIDNIGHT CHROME
-   Corrected to match Brand Guidelines v1.0 (Aug 2026)
+   GLOBAL FOUNDATION
+   Only mandatory global styles
 ========================================================= */
 
 :root {
-  /* BRAND COLOURS */
-  --obsidian: #0b0e13;
-  --graphite: #151c26;
-  --titanium: #c9d2dc;
-  --signal-blue: #00a8e8;
-  --paper: #f6f8fa;
-
-  /* STATUS */
-  --status-available: #2e7d32;
-  --status-sold: #c0392b;
-  --status-transit: #d89b0c;
-
-  /* SEMANTIC */
-  --background: var(--obsidian);
-  --foreground: var(--paper);
-  --card: var(--graphite);
-  --muted: var(--titanium);
-  --primary: var(--signal-blue);
-
-
-
-  --border: rgba(201, 210, 220, 0.16);
-  --border-soft: rgba(201, 210, 220, 0.09);
-
-  /* =========================================================
-     TYPOGRAPHY
-     Exo = names, headlines, vehicle names.
-     Inter = everything the customer needs to read quickly (paragraphs/body copy).
-  ========================================================= */
-
-  /* DISPLAY / HEADLINES. Weights in use: 400, 500, 600, 700, 800. */
+  /* Fonts — SAME AS BEFORE */
   --font-display: "Exo", sans-serif;
   --font-body: "Inter", sans-serif;
+
+  /* Global Background */
+  --background: #0b0e13;
 }
 
 /* =========================================================
    TAILWIND THEME
+   Keeps font utilities available throughout the project
 ========================================================= */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --color-obsidian: var(--obsidian);
-  --color-graphite: var(--graphite);
-  --color-titanium: var(--titanium);
-  --color-signal-blue: var(--signal-blue);
-  --color-paper: var(--paper);
-
   --font-sans: var(--font-body);
   --font-heading: var(--font-display);
 }
 
 /* =========================================================
-   RESET
+   GLOBAL RESET
 ========================================================= */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  background: var(--obsidian);
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-}
-
-body {
-  overflow-x: hidden;
-
-  /* Obsidian is the default background everywhere (Rule One) */
-  background: var(--obsidian);
-  color: var(--titanium);
-
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.65;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* =========================================================
-   HEADINGS
-========================================================= */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-
-  font-family: var(--font-display);
-  font-weight: 500;
-
-  color: var(--paper);
-
-  letter-spacing: -0.035em;
-
-  text-rendering: optimizeLegibility;
-}
-
-/* =========================================================
-   HERO / DISPLAY HEADING
-========================================================= */
-
-.display-heading,
-.hero-heading {
-  font-family: var(--font-display);
-
-  font-size: clamp(3.2rem, 6.5vw, 5.5rem);
-
-  font-weight: 800;
-
-  line-height: 1.02;
-
-  letter-spacing: -0.035em;
-
-  color: var(--paper);
-}
-
-/* blue second line like reference */
-.hero-heading .accent,
-.hero-heading .blue-text {
-  color: var(--signal-blue);
-}
-
-/* italic for emphasis / pull quotes */
-.hero-heading em,
-.hero-heading .italic-accent {
-  font-family: var(--font-display);
-
-  font-weight: 500;
-  font-style: italic;
-
-  color: var(--titanium);
-}
-
-/* =========================================================
-   H1
-========================================================= */
-
-h1,
-.h1 {
-  font-family: var(--font-display);
-
-  font-size: clamp(2.8rem, 5.5vw, 3.75rem);
-
-  font-weight: 600;
-
-  line-height: 1.1;
-
-  letter-spacing: -0.035em;
-}
-
-/* =========================================================
-   H2
-========================================================= */
-
-h2,
-.h2,
-.section-heading {
-  font-family: var(--font-display);
-
-  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
-
-  font-weight: 600;
-
-  line-height: 1.2;
-
-  letter-spacing: -0.035em;
-}
-
-/* =========================================================
-   H3
-========================================================= */
-
-h3,
-.h3 {
-  font-family: var(--font-display);
-
-  font-size: clamp(1.2rem, 2vw, 1.55rem);
-
-  font-weight: 600;
-
-  line-height: 1.35;
-
-  letter-spacing: -0.035em;
-}
-
-/* =========================================================
-   BODY COPY
-========================================================= */
-
-p {
-  font-family: var(--font-body);
-}
-
-.body-copy,
-.hero-copy {
-  font-family: var(--font-body);
-
-  font-size: 15px;
-  line-height: 24px;
-
-  font-weight: 300;
-
-  letter-spacing: 0;
-
-  color: var(--titanium);
-
-  max-width: 75ch;
-}
-
-.small-copy {
-  font-family: var(--font-body);
-
-  font-size: 13px;
-  line-height: 21px;
-
-  font-weight: 300;
-
-  color: var(--titanium);
-}
-
-/* =========================================================
-   EYEBROWS / LABELS
-========================================================= */
-
-.eyebrow,
-.label,
-.hero-eyebrow {
-  font-family: var(--font-body);
-
-  font-size: 12px;
-  line-height: 16px;
-
-  font-weight: 600;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.12em;
-
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.eyebrow-accent {
-  color: var(--signal-blue);
-}
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-nav,
-.nav-text {
-  font-family: var(--font-body);
-
-  font-weight: 500;
-
-  letter-spacing: 0;
-}
-
-.nav-link {
-  position: relative;
-
-  font-family: var(--font-body);
-
-  font-size: 14px;
-
-  font-weight: 500;
-
-  text-transform: none;
-
-  letter-spacing: 0;
-
-  color: rgba(255, 255, 255, 0.88);
-
-  transition:
-    color 220ms ease,
-    opacity 220ms ease;
-}
-
-.nav-link:hover {
-  color: #ffffff;
-}
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-a,
-button {
-  font-family: var(--font-body);
-}
-
-button {
-  cursor: pointer;
-}
-
-.btn-primary {
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  min-height: 44px;
-
-  padding-inline: 22px;
-
-  border: 0;
-
-  border-radius: 3px;
-
-  background: var(--signal-blue);
-
-  color: #ffffff;
-
-  font-family: var(--font-body);
-
-  font-size: 14px;
-
-  font-weight: 600;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.12em;
-
-  transition:
-    opacity 220ms ease,
-    transform 220ms ease,
-    background 220ms ease;
-}
-
-.btn-primary:hover {
-  opacity: 0.92;
-
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  min-height: 44px;
-
-  padding-inline: 22px;
-
-  border: 1px solid rgba(255, 255, 255, 0.32);
-
-  border-radius: 3px;
-
-  background: rgba(0, 0, 0, 0.14);
-
-  color: #ffffff;
-
-  font-family: var(--font-body);
-
-  font-size: 14px;
-
-  font-weight: 600;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.12em;
-
-  backdrop-filter: blur(4px);
-
-  transition:
-    border-color 220ms ease,
-    color 220ms ease,
-    background 220ms ease;
-}
-
-.btn-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.65);
-
-  background: rgba(255, 255, 255, 0.08);
-}
-
-/* =========================================================
-   VEHICLE NAME
-========================================================= */
-
-.vehicle-name {
-  font-family: var(--font-display);
-
-  font-weight: 500;
-
-  color: var(--paper);
-
-  letter-spacing: -0.035em;
-
-  line-height: 1;
-}
-
-/* =========================================================
-   PRICE
-========================================================= */
-
-.price {
-  font-family: var(--font-body);
-
-  font-size: 24px;
-
-  line-height: 28px;
-
-  font-weight: 600;
-
-  color: var(--signal-blue);
-
-  font-variant-numeric: tabular-nums;
-
-  letter-spacing: 0;
-}
-
-/* =========================================================
-   SPECIFICATIONS / FIGURES
-========================================================= */
-
-.specification,
-.mileage,
-.numeric {
-  font-family: var(--font-body);
-
-  font-weight: 400;
-
-  font-variant-numeric: tabular-nums;
-}
-
-/* =========================================================
-   HERO SPEC TEXT
-========================================================= */
-
-.hero-feature-title,
-.feature-title {
-  font-family: var(--font-body);
-
-  font-size: 14px;
-
-  font-weight: 600;
-
-  line-height: 1.3;
-
-  letter-spacing: 0;
-
-  color: #ffffff;
-}
-
-.hero-feature-copy,
-.feature-copy {
-  font-family: var(--font-body);
-
-  font-size: 14px;
-
-  font-weight: 300;
-
-  line-height: 1.5;
-
-  letter-spacing: 0;
-
-  color: rgba(255, 255, 255, 0.62);
-}
-
-/* =========================================================
-   SURFACES
-========================================================= */
-
-.surface-primary {
-  background: var(--obsidian);
-}
-
-.surface-secondary {
-  background: var(--graphite);
-}
-
-.surface-light {
-  background: var(--paper);
-
-  color: var(--obsidian);
-}
-
-.card,
-.premium-card {
-  background: var(--graphite);
-
-  border: 0;
-}
-
-/* =========================================================
-   DIVIDER
-========================================================= */
-
-.divider {
-  width: 100%;
-
-  height: 1px;
-
-  background: rgba(201, 210, 220, 0.16);
-}
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status-available {
-  color: var(--status-available);
-}
-
-.status-sold {
-  color: var(--status-sold);
-}
-
-.status-transit,
-.status-reserved {
-  color: var(--status-transit);
-}
-
-/* =========================================================
-   CONTAINER
-========================================================= */
-
-.container {
-  width: 100%;
-
-  max-width: 1440px;
-
-  margin-inline: auto;
-
-  padding-inline: 32px;
-}
-
-/* =========================================================
-   SECTION SPACING
-========================================================= */
-
-.section-padding {
-  padding-block: 84px;
-}
-
-/* =========================================================
-   FOCUS
-========================================================= */
-
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--signal-blue);
-
-  outline-offset: 4px;
-}
-
-/* =========================================================
-   SELECTION
-========================================================= */
-
-::selection {
-  background: var(--signal-blue);
-
-  color: #ffffff;
-}
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 1024px) {
-  .container {
-    padding-inline: 24px;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 
-  .display-heading,
-  .hero-heading {
-    font-size: clamp(3rem, 7vw, 4.5rem);
-  }
-}
+  html {
+    margin: 0;
+    padding: 0;
 
-@media (max-width: 768px) {
-  .container {
-    padding-inline: 18px;
-  }
+    width: 100%;
+    min-height: 100%;
 
-  .section-padding {
-    padding-block: 70px;
+    scroll-behavior: smooth;
+
+    background: var(--background);
   }
 
-  .display-heading,
-  .hero-heading {
-    font-size: clamp(2.75rem, 12vw, 3.6rem);
+  body {
+    margin: 0;
+    padding: 0;
 
-    font-weight: 700;
+    width: 100%;
+    min-height: 100%;
 
-    line-height: 1;
+    overflow-x: hidden;
 
-    letter-spacing: -0.035em;
+    background: var(--background);
+
+    font-family: var(--font-body);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
+
+  /* =========================================
+     HEADINGS
+     Only font family globally.
+     Size, weight, color etc. = component.
+  ========================================== */
 
   h1,
-  .h1 {
-    font-size: clamp(2.2rem, 10vw, 2.75rem);
-  }
-
   h2,
-  .h2,
-  .section-heading {
-    font-size: clamp(1.75rem, 8vw, 2.1rem);
-  }
-
   h3,
-  .h3 {
-    font-size: clamp(1.25rem, 6vw, 1.5rem);
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    font-family: var(--font-display);
   }
 
-  .body-copy,
-  .hero-copy {
-    font-size: 14px;
+  /* =========================================
+     BODY TEXT
+  ========================================== */
 
-    line-height: 1.6;
+  p {
+    margin: 0;
+    font-family: var(--font-body);
   }
 
-  .nav-link {
-    font-size: 14px;
+  /* =========================================
+     LINKS
+  ========================================== */
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 
-  .btn-primary,
-  .btn-secondary {
-    min-height: 42px;
+  /* =========================================
+     FORM ELEMENTS
+  ========================================== */
 
-    padding-inline: 18px;
-
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding-inline: 16px;
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
   }
 
-  .display-heading,
-  .hero-heading {
-    font-size: clamp(2.5rem, 13vw, 3.1rem);
+  button {
+    cursor: pointer;
   }
 
-  .hero-eyebrow,
-  .eyebrow,
-  .label {
-    font-size: 12px;
+  /* =========================================
+     MEDIA
+  ========================================== */
 
-    letter-spacing: 0.12em;
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
   }
 
-  .hero-copy,
-  .body-copy {
-    font-size: 14px;
+  img {
+    user-select: none;
+  }
+
+  /* =========================================
+     ACCESSIBILITY
+  ========================================== */
+
+  :focus-visible {
+    outline-offset: 3px;
   }
 }
 
 /* =========================================================
-   YM MOTORS UI REFINEMENTS
-   Supporting elements only - main brand headings unchanged
+   REDUCED MOTION
 ========================================================= */
 
-.feature-card-icon {
-  width: 52px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  background: rgba(0,168,232,0.08);
-  border: 1px solid rgba(0,168,232,0.22);
-  color: var(--signal-blue);
-}
-
-.feature-card-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  line-height: 1.15;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.feature-card-copy {
-  font-family: var(--font-body);
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.55);
-}
-
-@media (max-width: 768px) {
-  .feature-card-icon {
-    width: 46px;
-    height: 46px;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 
-  .feature-card-title {
-    font-size: 18px;
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
   }
 }
