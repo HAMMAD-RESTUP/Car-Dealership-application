@@ -40,11 +40,11 @@ type NavItem = {
 const leftNavItems: NavItem[] = [
   {
     label: "Home",
-    href: "#home",
+    href: "/",
   },
   {
     label: "Current Stock",
-    href: "/used-vehicles",
+    href: "/current-stock",
   },
   {
     label: "Sell Your Car",

@@ -16,16 +16,14 @@ const Home = () => {
 
     <main className="luxury-bg min-h-screen">
 
-      <Header />
       <Hero />
     <VehicleSearchBar />
       <CarListing />
+      <WhyChooseUs/>
       <BrandMarquee />
       <Welcome/>
-      <WhyChooseUs/>
       <Testimonials/>
-      <VideoSection/>
-      <Footer />
+    
 
     </main>
 

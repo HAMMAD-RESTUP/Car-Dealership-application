@@ -9,17 +9,17 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const cards = [
   {
     title: "Current Stock",
-    image: "/images/current-stock.jpg",
-    href: "/used-vehicles",
+    image: "/images/stock-image.png",
+    href: "/current-stock",
   },
   {
     title: "Sell Your Car",
-    image: "/images/sell-your-car.jpg",
+    image: "/images/sell-your-car.png",
     href: "#sell-your-car",
   },
   {
     title: "Finance",
-    image: "/images/finance-card.jpg",
+    image: "/images/finance.png",
     href: "#finance",
   },
   {

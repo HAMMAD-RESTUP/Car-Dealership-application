@@ -5,76 +5,165 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowUpRight,
-  CalendarDays,
   ChevronLeft,
   ChevronRight,
-  Fuel,
   Gauge,
-  Palette,
 } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const cars = [
+type Car = {
+  id: string;
+  name: string;
+  subtitle: string;
+  image: string;
+  price: string;
+  year: string;
+  mileage: string;
+  fuel: string;
+  colour: string;
+  colourHex: string;
+  features?: string[];
+  priceRating?: "Fair price" | "Low price";
+};
+
+const cars: Car[] = [
   {
-    name: "Mercedes A-250",
-    subtitle: "3.9 V8 GTB F1 DCT Euro 6",
-    image: "/images/cars/mercedes.png",
-    price: "£10,749",
-    year: "2023",
-    mileage: "2,500",
-    fuel: "Petrol",
-    colour: "Obsidian Black",
+    id: "mazda-cx5-2016",
+    name: "Mazda CX-5",
+    subtitle: "2.2 SKYACTIV-D Sport Nav 4WD Euro 6 (s/s) 5dr",
+    image: "/images/cars/mazda-cx-5.jpg",
+    price: "£5,995",
+    year: "2016",
+    mileage: "82,000",
+    fuel: "Diesel",
+    colour: "White",
+    colourHex: "#ffffff",
+    features: ["Low mileage"],
+    priceRating: "Fair price",
   },
   {
-    name: "BMW 3-Series",
-    subtitle: "3.7T 992 Turbo S PDK 4WD",
-    image: "/images/cars/bmw.png",
-    price: "£11,449",
-    year: "2022",
-    mileage: "8,900",
+    id: "volkswagen-golf-gti-2010",
+    name: "Volkswagen Golf",
+    subtitle: "2.0 TSI GTI DSG Euro 5 5dr",
+    image: "/images/cars/Volkswagen-Golf.jpg",
+    price: "£9,250",
+    year: "2010",
+    mileage: "35,000",
     fuel: "Petrol",
-    colour: "Alpine White",
+    colour: "Silver",
+    colourHex: "#C0C0C0",
   },
   {
-    name: "Audi A3",
-    subtitle: "6.75 V12 Auto 4WD Euro 6",
-    image: "/images/cars/audi.png",
-    price: "£8,249",
-    year: "2023",
-    mileage: "5,200",
+    id: "bmw-520i-2012",
+    name: "BMW 5 Series",
+    subtitle: "2.0 520i M Sport Touring Steptronic Euro 5 (s/s) 5dr",
+    image: "/images/cars/BMW-5-Series.jpg",
+    price: "£11,995",
+    year: "2012",
+    mileage: "42,000",
     fuel: "Petrol",
-    colour: "Navarra Blue",
+    colour: "White",
+    colourHex: "#ffffff",
+    features: ["Low mileage"],
+    priceRating: "Low price",
   },
   {
-    name: "Toyota Prius",
+    id: "volkswagen-golf-2017",
+    name: "Volkswagen Golf",
+    // TODO: Replace this supplied placeholder; a 6.5 V12 is not a Golf specification.
     subtitle: "6.5 V12 LP770-4 ISR Coupe",
-    image: "/images/cars/toyota.png",
-    price: "£9,449",
-    year: "2022",
-    mileage: "1,800",
+    image: "/images/cars/Volkswagen-Golf-2.jpg",
+    price: "£11,995",
+    year: "2017",
+    mileage: "46,000",
     fuel: "Petrol",
-    colour: "Pearl White",
+    colour: "Black",
+    colourHex: "#000000",
   },
   {
-    name: "Mercedes AMG GT",
-    subtitle: "4.0 V8 BiTurbo Coupe Premium",
-    image: "/images/cars/mazda.png",
-    price: "£210,000",
-    year: "2023",
-    mileage: "3,200",
+    id: "mercedes-a250-2016",
+    name: "Mercedes-Benz A Class",
+    subtitle: "2.0 A250 AMG (Premium) 7G-DCT 4MATIC Euro 6 (s/s) 5dr",
+    image: "/images/cars/Mercedes-Benz-A-class.jpg",
+    price: "£12,450",
+    year: "2016",
+    mileage: "52,000",
     fuel: "Petrol",
-    colour: "Graphite Grey",
+    colour: "Black",
+    colourHex: "#000000",
   },
   {
-    name: "Honda Insight",
-    subtitle: "6.0 W12 Mulliner Automatic AWD",
-    image: "/images/cars/honda.png",
-    price: "£4,949",
-    year: "2024",
-    mileage: "1,500",
+    id: "bmw-m135i-2015",
+    name: "BMW 1 Series",
+    subtitle: "3.0 M135i Auto Euro 6 (s/s) 5dr",
+    image: "/images/cars/BMW-Series-1.jpg",
+    price: "£13,495",
+    year: "2015",
+    mileage: "80,000",
     fuel: "Petrol",
-    colour: "Crystal Black",
+    colour: "White",
+    colourHex: "#ffffff",
+  },
+  {
+    id: "bmw-535i-2013",
+    name: "BMW 5 Series",
+    subtitle: "3.0 535i M Sport Touring Auto Euro 6 (s/s) 5dr",
+    image: "/images/cars/BMW-series-5.jpg",
+    price: "£13,995",
+    year: "2013",
+    mileage: "52,000",
+    fuel: "Petrol",
+    colour: "White",
+    colourHex: "#ffffff",
+  },
+  {
+    id: "toyota-estima-2014",
+    name: "Toyota Estima",
+    subtitle: "2.4 HYBRID AUTOMATIC PAN-ROOF 7 SEATS 5dr",
+    image: "/images/cars/Toyota-Estima.jpg",
+    price: "£13,995",
+    year: "2014",
+    mileage: "27,000",
+    fuel: "Petrol Hybrid",
+    colour: "Silver",
+    colourHex: "#C0C0C0",
+  },
+  {
+    id: "audi-s5-2013",
+    name: "Audi S5",
+    subtitle: "3.0 TFSI V6 Sportback 5dr Petrol S Tronic quattro Euro 6 (s/s) (333 ps)",
+    image: "/images/cars/Audi-S5.jpg",
+    price: "£14,250",
+    year: "2013",
+    mileage: "39,000",
+    fuel: "Petrol",
+    colour: "Black",
+    colourHex: "#000000",
+  },
+  {
+    id: "volkswagen-golf-r-2011",
+    name: "Volkswagen Golf",
+    subtitle: "2.0 TSI R Hatchback 5dr Petrol DSG 4Motion Euro 5 (270 ps)",
+    image: "/images/cars/Volkswagen-Golf-3.jpg",
+    price: "£14,895",
+    year: "2011",
+    mileage: "48,000",
+    fuel: "Petrol",
+    colour: "White",
+    colourHex: "#ffffff",
+  },
+  {
+    id: "audi-s3-2014",
+    name: "Audi S3",
+    subtitle: "2.0 TFSI Sportback S Tronic quattro Euro 6 (s/s) 5dr",
+    image: "/images/cars/Audi-S3.jpg",
+    price: "£15,750",
+    year: "2014",
+    mileage: "38,000",
+    fuel: "Petrol",
+    colour: "Blue",
+    colourHex: "#0000FF",
   },
 ];
 
@@ -86,16 +175,11 @@ export default function CarListing() {
     const container = scrollRef.current;
     if (!container) return;
 
-    const card =
-      container.querySelector<HTMLElement>("[data-car-card]");
-
+    const card = container.querySelector<HTMLElement>("[data-car-card]");
     if (!card) return;
 
-    const gap = 24;
-    const amount = card.offsetWidth + gap;
-
     container.scrollBy({
-      left: direction === "left" ? -amount : amount,
+      left: direction === "left" ? -(card.offsetWidth + 24) : card.offsetWidth + 24,
       behavior: reduceMotion ? "auto" : "smooth",
     });
   };
@@ -258,12 +342,10 @@ export default function CarListing() {
         </motion.div>
 
         {/* =====================================================
-            DESKTOP HORIZONTAL CAROUSEL
+            DESKTOP CAROUSEL — 4 / 5 VISIBLE CARDS
         ====================================================== */}
 
         <div className="relative hidden lg:block">
-
-          {/* LEFT BUTTON */}
           <button
             type="button"
             onClick={() => scrollCars("left")}
@@ -279,26 +361,23 @@ export default function CarListing() {
               -translate-y-1/2
               items-center
               justify-center
-              border
               rounded-full
-              border-white/[0.07]
-              bg-[#0A0F15]/85
+              border
+              border-white/[0.10]
+              bg-[#0A0F15]/90
               text-white
+              shadow-[0_10px_28px_rgba(0,0,0,0.35)]
               backdrop-blur-md
               transition-all
               duration-300
-              hover:border-[#00A8E8]/45
+              hover:border-[#00A8E8]/55
               hover:bg-[#0D1720]
               hover:text-[#00A8E8]
             "
           >
-            <ChevronLeft
-              size={21}
-              strokeWidth={1.5}
-            />
+            <ChevronLeft size={21} strokeWidth={1.6} />
           </button>
 
-          {/* RIGHT BUTTON */}
           <button
             type="button"
             onClick={() => scrollCars("right")}
@@ -314,33 +393,34 @@ export default function CarListing() {
               -translate-y-1/2
               items-center
               justify-center
-              border
               rounded-full
+              border
               border-white/[0.10]
-              bg-[#0A0F15]/85
+              bg-[#0A0F15]/90
               text-white
+              shadow-[0_10px_28px_rgba(0,0,0,0.35)]
               backdrop-blur-md
               transition-all
               duration-300
-              hover:border-[#00A8E8]/45
+              hover:border-[#00A8E8]/55
               hover:bg-[#0D1720]
               hover:text-[#00A8E8]
             "
           >
-            <ChevronRight
-              size={21}
-              strokeWidth={1.5}
-            />
+            <ChevronRight size={21} strokeWidth={1.6} />
           </button>
 
-          {/* SCROLL RAIL */}
           <div
             ref={scrollRef}
+            role="region"
+            aria-label="Featured vehicle carousel"
+            tabIndex={0}
             className="
               flex
+              snap-x
+              snap-mandatory
               gap-6
               overflow-x-auto
-              scroll-smooth
               pb-3
               [scrollbar-width:none]
               [-ms-overflow-style:none]
@@ -349,7 +429,7 @@ export default function CarListing() {
           >
             {cars.map((car, index) => (
               <VehicleCard
-                key={car.name}
+                key={car.id}
                 car={car}
                 index={index}
                 reduceMotion={!!reduceMotion}
@@ -359,21 +439,11 @@ export default function CarListing() {
           </div>
         </div>
 
-        {/* =====================================================
-            MOBILE / TABLET VERTICAL
-        ====================================================== */}
-
-        <div
-          className="
-            grid
-            grid-cols-1
-            gap-y-10
-            lg:hidden
-          "
-        >
+        {/* MOBILE / TABLET GRID */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
           {cars.map((car, index) => (
             <VehicleCard
-              key={car.name}
+              key={car.id}
               car={car}
               index={index}
               reduceMotion={!!reduceMotion}
@@ -395,7 +465,7 @@ function VehicleCard({
   reduceMotion,
   desktop = false,
 }: {
-  car: (typeof cars)[number];
+  car: Car;
   index: number;
   reduceMotion: boolean;
   desktop?: boolean;
@@ -427,9 +497,22 @@ function VehicleCard({
       className={`
         group
         relative
+        flex
+        min-w-0
+        flex-col
+        overflow-hidden
+        rounded-[10px]
+        border
+        border-white/[0.09]
+        bg-[linear-gradient(180deg,#111922_0%,#0D141D_100%)]
+        shadow-[0_14px_38px_rgba(0,0,0,0.16)]
+        transition-all
+        duration-300
+        hover:-translate-y-[3px]
+        hover:border-[#31556A]
         ${
           desktop
-            ? "w-[340px] shrink-0 xl:w-[360px] 2xl:w-[380px]"
+            ? "max-w-[325px] shrink-0 snap-start lg:w-[calc(25%_-_18px)] min-[1500px]:w-[calc(20%_-_19.2px)]"
             : "w-full"
         }
       `}
@@ -443,22 +526,16 @@ function VehicleCard({
         className="
           relative
           block
-          aspect-[1.58/1]
+          aspect-[1.68/1]
           overflow-hidden
-          rounded-t-[12px]
-          border-x border-t border-white/[0.08]
-          bg-[#11161d]
+          bg-[#17222E]
         "
       >
         <Image
           src={car.image}
           alt={car.name}
           fill
-          sizes={
-            desktop
-              ? "370px"
-              : "(max-width: 1024px) 100vw, 370px"
-          }
+          sizes="(max-width: 640px) 100vw, (max-width: 1023px) 50vw, (max-width: 1499px) 25vw, 20vw"
           className="
             object-cover
             transition-transform
@@ -475,26 +552,49 @@ function VehicleCard({
             absolute
             inset-0
             bg-gradient-to-t
-            from-[#080B10]/45
+            from-[#030A12]/55
             via-transparent
             to-transparent
           "
         />
 
-        {/* HOVER ACCENT */}
-        <span
-          className="
-            absolute
-            left-0
-            top-0
-            h-[2px]
-            w-0
-            bg-[#00A8E8]
-            transition-all
-            duration-500
-            group-hover:w-full
-          "
-        />
+        {/* DARK-BLUE IMAGE TAG */}
+        {car.features?.[0] && (
+          <span
+            className="
+              absolute
+              left-0
+              top-0
+              z-10
+              inline-flex
+              items-center
+              gap-1.5
+              rounded-br-[8px]
+              border-b
+              border-r
+              border-[#35566B]
+              border-l-[4px]
+              border-l-[#00A8E8]
+              bg-[linear-gradient(135deg,#12344A_0%,#0A1D2B_100%)]
+              px-2.5
+              py-2
+              font-[var(--font-body)]
+              text-[11px]
+              font-extrabold
+              leading-none
+              tracking-[0.01em]
+              text-[#F2FAFF]
+              shadow-[6px_8px_22px_rgba(0,11,18,0.56)]
+            "
+          >
+            <Gauge
+              size={14}
+              strokeWidth={2}
+              className="text-[#56CEF9]"
+            />
+            {car.features[0]}
+          </span>
+        )}
       </a>
 
       {/* =====================================================
@@ -503,268 +603,181 @@ function VehicleCard({
 
       <div
         className="
-          rounded-b-[12px]
-          border-x
-          border-b
-          border-white/[0.08]
-          bg-[linear-gradient(180deg,#0D131A_0%,#090E14_100%)]
-          px-5
-          pb-5
-          pt-5
-          shadow-[0_18px_50px_rgba(0,0,0,0.22)]
-          transition-all
-          duration-300
-          group-hover:border-white/[0.15]
-          group-hover:shadow-[0_22px_60px_rgba(0,0,0,0.30)]
+          flex
+          flex-1
+          flex-col
+          px-4
+          pb-4
+          pt-4
         "
       >
-        {/* NAME + PRICE */}
-
-        <div
+        <h3
           className="
-            flex
-            items-start
-            justify-between
-            gap-4
-          "
-        >
-          <div className="min-w-0">
-            <h3
-              className="
-                font-[var(--font-display)]
-                text-[19px]
-                font-semibold
-                leading-none
-                tracking-[-0.025em]
-                text-white
-                transition-colors
-                duration-300
-                group-hover:text-[#00A8E8]
-                sm:text-[20px]
-              "
-            >
-              {car.name}
-            </h3>
-
-            <p
-              className="
-                mt-2.5
-                truncate
-                font-[var(--font-body)]
-                text-[12px]
-                leading-[1.5]
-                text-white/50
-              "
-            >
-              {car.subtitle}
-            </p>
-          </div>
-
-          <span
-            className="
-              shrink-0
-              font-[var(--font-body)]
-              text-[18px]
-              font-semibold
-              leading-none
-              tracking-[-0.015em]
-              text-[#8DD6FF]
-
-              sm:text-[19px]
-              xl:text-[20px]
-            "
-          >
-            {car.price}
-          </span>
-        </div>
-
-        {/* =====================================================
-            SPECS
-        ====================================================== */}
-
-        <div
-          className="
-            mt-5
-            grid
-            grid-cols-2
-            gap-x-5
-            gap-y-5
-            border-t
-            border-white/[0.10]
-            pt-5
-          "
-        >
-          <SpecItem
-            icon={<CalendarDays />}
-            label="Year"
-            value={car.year}
-          />
-
-          <SpecItem
-            icon={<Palette />}
-            label="Colour"
-            value={car.colour}
-          />
-
-          <SpecItem
-            icon={<Gauge />}
-            label="Mileage"
-            value={`${car.mileage} mi`}
-          />
-
-          <SpecItem
-            icon={<Fuel />}
-            label="Fuel"
-            value={car.fuel}
-          />
-        </div>
-
-        {/* =====================================================
-            VIEW DETAILS
-        ====================================================== */}
-
-        <a
-          href="#contact"
-          className="
-            group/details
-            relative
-            mt-6
-            flex
-            min-h-[46px]
-            w-full
-            items-end
-            justify-between
-            border-t
-            border-white/[0.10]
-            bg-transparent
-            pt-4
-            font-[var(--font-body)]
-            text-[11px]
+            font-[var(--font-display)]
+            text-[18px]
             font-semibold
-            uppercase
-            tracking-[0.18em]
-            text-white/85
+            leading-[1.2]
+            tracking-[-0.025em]
+            text-white
             transition-colors
             duration-300
-            hover:text-white
+            group-hover:text-[#00A8E8]
           "
         >
-          <span className="relative pb-1">
-            View Details
+          {car.name}
+        </h3>
 
+        {/* DESCRIPTION + PRICE RATING */}
+        <div className="mt-2 grid min-h-[44px] grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
+          <p
+            className="
+              min-w-0
+              font-[var(--font-body)]
+              text-[11px]
+              leading-[1.5]
+              text-white/55
+            "
+          >
+            {car.subtitle}
+          </p>
+          {car.priceRating && (
             <span
-              className="
-                absolute
-                bottom-[-3px]
-                left-0
-                h-px
-                w-[24px]
-                bg-[#00A8E8]
-                transition-all
-                duration-300
-                ease-out
-                group-hover/details:w-full
-              "
+              className={`
+                inline-flex
+                min-h-[26px]
+                shrink-0
+                items-center
+                justify-center
+                whitespace-nowrap
+                rounded-full
+                border
+                px-2
+                py-1
+                font-[var(--font-body)]
+                text-[10px]
+                font-extrabold
+                leading-[1.35]
+                shadow-[0_7px_16px_rgba(0,0,0,0.20)]
+                ${
+                  car.priceRating === "Fair price"
+                    ? "border-[#F0BF58] bg-[#E2A82F] text-[#171005]"
+                    : "border-[#36BDE9] bg-[#008FCB] text-white"
+                }
+              `}
+            >
+              {car.priceRating}
+            </span>
+          )}
+        </div>
+
+        {/* =====================================================
+            INLINE VEHICLE DETAILS
+        ====================================================== */}
+
+        <div
+          className="
+            mb-4
+            mt-3
+            flex
+            min-h-[28px]
+            flex-wrap
+            items-center
+            gap-2
+          "
+        >
+          <span
+            className="
+              inline-flex
+              min-h-[28px]
+              items-center
+              gap-1.5
+              rounded-[4px]
+              border
+              border-[#536273]
+              bg-[#101A24]
+              px-2
+              py-1
+              font-[var(--font-body)]
+              text-[10px]
+              font-bold
+              leading-[1.4]
+              text-white
+            "
+            aria-label={car.colour}
+          >
+            <i
+              aria-hidden="true"
+              className="h-3.5 w-3.5 min-w-[14px] rounded-full border-2 border-white shadow-[0_0_0_1px_#536273]"
+              style={{ backgroundColor: car.colourHex }}
             />
+            {car.colour}
           </span>
 
-          <ArrowUpRight
-            size={20}
-            strokeWidth={1.5}
+          <span className="inline-flex min-h-[28px] items-center rounded-[4px] border border-white/[0.07] bg-[#172330] px-2 py-1 font-[var(--font-body)] text-[10px] leading-[1.4] text-[#C2D1E3]">
+            {car.mileage} miles
+          </span>
+
+          <span className="inline-flex min-h-[28px] items-center rounded-[4px] border border-white/[0.07] bg-[#172330] px-2 py-1 font-[var(--font-body)] text-[10px] leading-[1.4] text-[#C2D1E3]">
+            {car.year}
+          </span>
+        </div>
+
+        {/* =====================================================
+            PRICE + VIEW DETAILS
+        ====================================================== */}
+
+        <div
+          className="
+            mt-auto
+            flex
+            flex-wrap
+            items-center
+            justify-between
+            gap-3
+            border-t
+            border-white/[0.08]
+            pt-4
+          "
+        >
+          <div>
+            <span className="mb-1.5 block font-[var(--font-body)] text-[9px] font-semibold uppercase tracking-[0.13em] text-[#8A9BAE]">
+              Vehicle price
+            </span>
+            <strong className="font-[var(--font-body)] text-[20px] font-semibold leading-none tracking-[-0.025em] text-[#8DD6FF]">
+              {car.price}
+            </strong>
+          </div>
+
+          <a
+            href="#contact"
             className="
-              mb-[2px]
-              text-[#00A8E8]
-              transition-transform
+              group/details
+              inline-flex
+              min-h-[36px]
+              items-center
+              justify-between
+              gap-2
+              border-b
+              border-[#00A8E8]
+              py-2
+              font-[var(--font-body)]
+              text-[11px]
+              font-semibold
+              text-white/90
+              transition-colors
               duration-300
-              ease-out
-              group-hover/details:-translate-y-[3px]
-              group-hover/details:translate-x-[3px]
+              hover:text-[#00A8E8]
             "
-          />
-        </a>
+          >
+            View details
+            <ArrowUpRight
+              size={16}
+              strokeWidth={1.6}
+              className="text-[#00A8E8] transition-transform duration-300 group-hover/details:-translate-y-0.5 group-hover/details:translate-x-0.5"
+            />
+          </a>
+        </div>
       </div>
     </motion.article>
-  );
-}
-
-/* =========================================================
-   SPEC ITEM
-========================================================= */
-
-function SpecItem({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div
-      className="
-        flex
-        min-w-0
-        items-center
-        gap-3.5
-      "
-    >
-      {/* ICON — NO BOX / NO BORDER */}
-      <span
-        className="
-          flex
-          shrink-0
-          items-center
-          justify-center
-          text-[#00A8E8]
-
-          [&>svg]:h-[19px]
-          [&>svg]:w-[19px]
-          [&>svg]:stroke-[1.5]
-
-          sm:[&>svg]:h-[20px]
-          sm:[&>svg]:w-[20px]
-
-          transition-transform
-          duration-300
-          group-hover:scale-[1.06]
-        "
-      >
-        {icon}
-      </span>
-
-      {/* TEXT */}
-      <div className="min-w-0">
-        <span
-          className="
-            block
-            font-[var(--font-body)]
-            text-[10px]
-            font-semibold
-            uppercase
-            leading-none
-            tracking-[0.14em]
-            text-white/42
-          "
-        >
-          {label}
-        </span>
-
-        <span
-          className="
-            mt-[7px]
-            block
-            truncate
-            font-[var(--font-body)]
-            text-[13px]
-            font-medium
-            leading-none
-            text-white/90
-          "
-        >
-          {value}
-        </span>
-      </div>
-    </div>
   );
 }

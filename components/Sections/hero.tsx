@@ -312,7 +312,7 @@ export default function Hero() {
                   "linear-gradient(180deg, #ffffff 0%, #e7eaec 22%, #aeb5ba 48%, #f7f8f8 68%, #a2a9ae 100%)",
               }}
             >
-              Japanese Import Specialists
+              Imported Cars Excellence
             </span>
           </div>
 
@@ -346,13 +346,13 @@ export default function Hero() {
   "
 >
   <span className="text-[#f5f5f3]">
-    Fewer kilometres.
+    Fewer Kilometer.
   </span>
 
   <br />
 
   <span className="text-[#129cff]">
-    Better cars.
+    Better Cars.
   </span>
 </h1>
 
@@ -388,9 +388,9 @@ export default function Hero() {
                 xl:text-[16px]
             "
           >
-            Low mileage Japanese vehicles, sourced at auction,
-            graded on arrival and supplied with full documentation.
-            Every car we import can be checked before you commit to it.
+            Explore used cars across a wide range of makes and models,
+            from practical everyday cars to spacious SUVs and premium saloons.
+            Browse our stock or tell us what you need — your next car starts here.
           </p>
 
           {/* =================================================
