@@ -7,6 +7,7 @@ import WhyChooseUs from "@/components/Sections/whychooseus";
 import Testimonials from "@/components/Sections/testimonials";
 import VehicleSearchBar from "@/components/Sections/VehicleSearchBar";
 import Welcome from "@/components/Sections/Welcome";
+import FindCarsCta from "@/components/FindCarsCta";
 
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
       <BrandMarquee />
       <Welcome/>
       <Testimonials/>
+      <FindCarsCta/>
     
 
     </main>

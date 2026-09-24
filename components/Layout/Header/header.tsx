@@ -48,33 +48,33 @@ const leftNavItems: NavItem[] = [
   },
   {
     label: "Sell Your Car",
-    href: "#sell-your-car",
+    href: "/sell-your-car",
   },
 ];
 
 const rightNavItems: NavItem[] = [
   {
     label: "Finance",
-    href: "#finance",
+    href: "/finance",
   },
   {
     label: "About Us",
-    href: "#about",
+    href: "/about",
     dropdown: true,
     submenu: [
       {
         label: "Our Story",
-        href: "#our-story",
+        href: "/our-story",
       },
       {
         label: "Why YM Motors",
-        href: "#why-us",
+        href: "/why-us",
       },
     ],
   },
   {
     label: "Contact Us",
-    href: "#contact",
+    href: "/contact",
   },
 ];
 

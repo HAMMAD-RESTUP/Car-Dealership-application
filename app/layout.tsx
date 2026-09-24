@@ -5,9 +5,9 @@ import Footer from "@/components/Layout/Footer/footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "YM Motors | Premium Pre-Owned Vehicles",
+  title: "YM Motors | Used Cars in Crawley",
   description:
-    "Discover premium pre-owned vehicles with certified inspections, flexible financing, and trusted automotive services.",
+    "Discover Used pre-owned vehicles with certified inspections, flexible financing, and trusted automotive services.",
 };
 
 export default function RootLayout({

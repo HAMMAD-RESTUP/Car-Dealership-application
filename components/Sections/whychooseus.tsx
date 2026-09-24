@@ -14,17 +14,17 @@ const cards = [
   },
   {
     title: "Sell Your Car",
-    image: "/images/sell-your-car.png",
+    image: "/images/sell-car.png",
     href: "#sell-your-car",
   },
   {
     title: "Finance",
-    image: "/images/finance.png",
+    image: "/images/finance-car.png",
     href: "#finance",
   },
   {
     title: "News & Events",
-    image: "/images/news-events.jpg",
+    image: "/images/news-events.png",
     href: "#news",
   },
 ];

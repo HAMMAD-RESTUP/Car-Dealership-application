@@ -12,9 +12,9 @@ import {
   CarFront,
   Sparkles,
   Gauge,
-  Tag,
   Sun,
 } from "lucide-react";
+import Image from "next/image";
 
 // app/current-stock/page.tsx — Header / Footer stay in RootLayout.
 // Set --ym-stock-header-clearance to your fixed header height (default 96px).
@@ -40,9 +40,11 @@ interface Car {
   engineSize?: string;
   distanceMiles?: number;
   highlight?: string;
-  // Set one verified standout feature for the image badge, e.g. "Sunroof".
+  // Total registered owners/keepers, not the number of previous owners.
+  numberOfOwners?: number;
+  // Set one verified standout feature to override the automatic badge selection.
   featuredFeature?: string;
-  // Only supply verified features; omitted / empty arrays produce no feature line.
+  // Add only verified equipment or claims, e.g. "Sunroof" or "Low mileage".
   features?: string[];
   // Editorial price assessment, never inferred from the price alone.
   priceRating?: "Fair price" | "Low price" | "Lower price" | "Great price";
@@ -50,14 +52,43 @@ interface Car {
   detailHref?: string;
 }
 function standoutFeature(car: Car): string | undefined {
-  return (
-    car.featuredFeature?.trim() ||
-    (car.priceRating === "Lower price" || car.priceRating === "Low price"
-      ? "Low price"
-      : undefined) ||
-    car.features?.find((feature) => feature.trim()) ||
-    car.highlight?.trim()
-  );
+  // The featured feature is a deliberate, verified choice by the stock editor.
+  if (car.featuredFeature?.trim()) return car.featuredFeature.trim();
+
+  const features = car.features ?? [];
+  const details = [car.subtitle, ...features].join(" ");
+  const hasFeature = (pattern: RegExp) =>
+    features.some((feature) => pattern.test(feature.trim()));
+
+  // Select one factual, buyer-facing detail; never invent ownership or equipment.
+  if (/\b(?:panoramic|pan)[\s-]?roof\b/i.test(details)) return "Panoramic Roof";
+  if (/\bsun[\s-]?roof\b/i.test(details)) return "Sunroof";
+  if (
+    car.numberOfOwners === 1 ||
+    hasFeature(/^(?:1st|1|one)[\s-]?(?:owner|keeper)$/i)
+  ) return "1 Owner";
+  if (hasFeature(/^low[\s-]?mileage$/i)) return "Low Mileage";
+  if (/\bfull (?:dealer )?service history\b/i.test(details))
+    return "Full Service History";
+  if (/\b7[\s-]?seat(?:er|s)?\b/i.test(details)) return "7 Seats";
+  if (/\bheated (?:front )?seats?\b/i.test(details))
+    return "Heated Seats";
+  if (/\b(?:4wd|4matic|quattro|4motion|xdrive|awd)\b/i.test(details))
+    return "All-Wheel Drive";
+
+  // An exact figure is useful on a low-mileage listing without making a
+  // subjective "Low Mileage" claim about an unverified stock record.
+  const miles = Number(car.mileage.replace(/,/g, ""));
+  if (Number.isFinite(miles) && miles > 0 && miles < 50_000)
+    return `${miles.toLocaleString("en-GB")} Miles`;
+
+  if (/\bm sport\b/i.test(details)) return "M Sport";
+  if (/\b(?:automatic|auto|dsg|s[\s-]?tronic|g[\s-]?tronic|7g-dct|steptronic)\b/i.test(
+    `${car.gearbox ?? ""} ${car.subtitle}`,
+  )) return "Automatic";
+  if (/\belectric\b/i.test(car.fuel)) return "Electric";
+  if (/\bhybrid\b/i.test(car.fuel)) return "Hybrid";
+  return undefined;
 }
 
 function vehicleColourSwatch(car: Car): string {
@@ -84,9 +115,11 @@ function vehicleColourSwatch(car: Car): string {
 
 function FeatureIcon({ label }: { label: string }) {
   const text = label.toLowerCase();
-  if (text.includes("mileage")) return <Gauge size={16} />;
-  if (text.includes("price")) return <Tag size={16} />;
+  if (text.includes("mileage") || text.includes("miles"))
+    return <Gauge size={16} />;
   if (text.includes("roof")) return <Sun size={16} />;
+  if (text.includes("drive") || text.includes("automatic"))
+    return <CarFront size={16} />;
   return <Sparkles size={16} />;
 }
 const cars: Car[] = [
@@ -101,7 +134,6 @@ const cars: Car[] = [
     fuel: "Diesel",
     colour: "White",
     colourHex: "#ffffff",
-    features: ["Low mileage"],
     priceRating: "Fair price", // UI demo only: replace with a verified assessment.
   },
   {
@@ -425,8 +457,10 @@ export default function CurrentStockPage() {
       .filter(Boolean);
     const result = cars.filter((car) => {
       const text =
-        `${car.name} ${car.subtitle} ${car.colour} ${car.year} ${car.fuel} ${(car.features ?? []).join(" ")} ${car.highlight ?? ""} ${car.featuredFeature ?? ""} ${car.priceRating ?? ""}`.toLowerCase();
+        `${car.name} ${car.subtitle} ${car.colour} ${car.year} ${car.fuel} ${(car.features ?? []).join(" ")} ${car.highlight ?? ""} ${car.featuredFeature ?? ""} ${standoutFeature(car) ?? ""} ${car.priceRating ?? ""}`.toLowerCase();
       return (
+
+        
         words.every((word) => text.includes(word)) &&
         (!filters.make ||
           car.name === filters.make ||
@@ -470,6 +504,7 @@ export default function CurrentStockPage() {
           </div>
         </label>
       );
+
     const options = filterOptions(key);
     return (
       <fieldset className="stock-field stock-choice-field" disabled={!options.length}>
@@ -510,8 +545,33 @@ export default function CurrentStockPage() {
   return (
     <main className="reference-stock">
       <style>{styles}</style>
+    <section
+        aria-labelledby="contact-title"
+        className="relative isolate overflow-hidden border-b border-white/10"
+        style={{ paddingTop: "var(--ym-stock-header-clearance, 96px)" }}
+      >
+        <div aria-hidden="true" className="absolute inset-0">
+          <Image
+            src="/images/current-stock-banner.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_59%]"
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgba(5,11,18,0.82)_0%,rgba(5,11,18,0.38)_100%)] lg:bg-[linear-gradient(90deg,rgba(5,11,18,0.82)_0%,rgba(5,11,18,0.48)_46%,rgba(5,11,18,0.25)_100%)]"
+        />
+        <div className="relative mx-auto flex min-h-[270px] max-w-[1400px] items-end px-5 pb-11 pt-14 sm:min-h-[300px] sm:px-8 sm:pb-12 lg:min-h-[330px] lg:px-12">
+    
+        </div>
+      </section>
+
+    
       <div className="stock-container">
-        <div className="stock-filterbar" aria-label="Stock filters">
+        <div id="stock-filters" className="stock-filterbar" aria-label="Stock filters">
           <div className="stock-filter-scroll">
             {keys
               .filter((key) => key !== "query")
@@ -941,8 +1001,11 @@ function VehicleDetails({ car, onClose }: { car: Car; onClose: () => void }) {
 }
 
 const styles = `
-.reference-stock{--stock-blue:#00a8e8;--stock-ink:#f6f8fa;min-height:100vh;background:radial-gradient(ellipse at 95% 0%,#00a8e80c,transparent 45%),#090d12;color:var(--stock-ink);font-family:var(--font-body,Arial),sans-serif;color-scheme:dark;padding:calc(var(--ym-stock-header-clearance,96px) + 36px) 36px 80px}
+.reference-stock{--stock-blue:#00a8e8;--stock-ink:#f6f8fa;min-height:100vh;background:radial-gradient(ellipse at 95% 0%,#00a8e80c,transparent 45%),#090d12;color:var(--stock-ink);font-family:var(--font-body,Arial),sans-serif;color-scheme:dark;padding:0 36px 80px}
 .reference-stock *{box-sizing:border-box}.reference-stock button,.reference-stock select,.reference-stock input{font:inherit}.reference-stock button,.reference-stock select{cursor:pointer}.reference-stock button{color:inherit}.reference-stock a{color:inherit;text-decoration:none}.reference-stock h1,.reference-stock h2,.reference-stock p{margin:0}.reference-stock svg{flex-shrink:0}.reference-stock :focus-visible{outline:2px solid #00a8e8;outline-offset:4px}.reference-stock select:disabled{opacity:.55;cursor:default}.stock-container{max-width:1680px;margin:auto}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.stock-hero{position:relative;isolation:isolate;display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:clamp(390px,36vw,485px);margin:0 -36px 38px;padding:calc(var(--ym-stock-header-clearance,96px) + 30px) max(36px,calc(50vw - 804px)) 50px;overflow:hidden;border-bottom:1px solid #ffffff21;background:#090d12}
+.stock-hero-copy{position:relative;z-index:2;max-width:590px;padding-right:28px}.stock-hero h1{font-family:var(--font-display,Arial),sans-serif;font-size:clamp(44px,5vw,68px);font-weight:600;line-height:1.05;letter-spacing:-.047em}.stock-hero h1 span{background:linear-gradient(90deg,#27c1f3,#b7e9f9 55%,#fff);background-clip:text;-webkit-background-clip:text;color:transparent}.stock-hero p{max-width:470px;margin-top:18px!important;color:#c3ced9;font-size:16px;line-height:1.7}.stock-hero-cta{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:49px;margin-top:26px;padding:12px 22px;border:1px solid #00a8e8;border-radius:4px;background:#00a8e8;color:#fff!important;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s ease,transform .2s ease}.stock-hero-cta:hover{background:#0789c7;transform:translateY(-2px)}
+.stock-hero-media{position:absolute;z-index:1;inset:0 0 0 50%;overflow:hidden}.stock-hero-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 52%}.stock-hero-media:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#090d12 0%,#090d12a6 8%,transparent 35%);pointer-events:none}.stock-filterbar{scroll-margin-top:calc(var(--ym-stock-header-clearance,96px) + 12px)}
 .collection-intro{display:grid;grid-template-columns:1.1fr 1fr;align-items:end;gap:60px;padding-bottom:42px}.stock-back{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#9daabc!important;margin-bottom:30px}.stock-back:hover{color:#00a8e8!important}.collection-eyebrow{font-size:11px;letter-spacing:.19em;color:#8fa2b8;display:flex;align-items:center;gap:12px;margin-bottom:17px!important}.collection-eyebrow:before{content:'';width:27px;height:2px;background:#00a8e8}.collection-intro h1{font-family:var(--font-display,Arial),sans-serif;font-size:clamp(36px,3.6vw,60px);font-weight:600;line-height:1.07;letter-spacing:-.035em}.collection-intro h1 span{color:#00a8e8}.collection-description{font-size:15px;line-height:1.85;color:#a7b2c1;max-width:440px;margin-top:20px!important}.collection-search-block{padding-bottom:5px}.collection-search-label{font-size:11px;font-weight:600;letter-spacing:.13em;color:#a7b2c1;display:block;margin-bottom:13px}.collection-search{display:flex;align-items:center;gap:14px;min-height:64px;background:#111923;border:1px solid #344451;padding:15px 20px;border-bottom:2px solid #00a8e8;color:#00a8e8}.collection-search input{width:100%;min-width:0;background:none;color:#fff;border:0;font-size:16px;outline:none}.collection-search:focus-within{border-color:#00a8e8}.collection-search input::placeholder{color:#8593a5}.collection-search-block>p{font-size:13px;line-height:1.65;color:#8d9cae;margin-top:12px}
 .stock-filterbar{display:flex;align-items:center;gap:18px;padding:18px 0;border-top:1px solid #ffffff12;border-bottom:1px solid #ffffff12;margin-bottom:30px}.stock-filter-scroll{display:flex;gap:8px;min-width:0;flex:1;overflow:auto;padding:3px 1px 7px;scrollbar-width:thin;scrollbar-color:#334657 transparent}.stock-pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #ffffff22;background:#101721;padding:11px 15px;min-height:44px;border-radius:2px;white-space:nowrap;font-size:13px!important;color:#c6d0dd!important}.stock-pill:hover,.stock-pill.is-active{border-color:#00a8e8;color:#00a8e8!important;background:#102532}.stock-active-dot{height:5px;width:5px;border-radius:50%;background:#00a8e8}.stock-filter-sort,.stock-primary{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;background:#00a8e8;color:#05111c!important;border:1px solid #00a8e8;border-radius:0;padding:12px 20px;font-size:13px!important;font-weight:600;white-space:nowrap}.stock-filter-sort{flex-shrink:0}.stock-filter-sort:hover,.stock-primary:hover{background:#40bef0}.stock-filter-sort>span{padding:2px 6px;background:#071b2d;color:white}.stock-heading{margin-bottom:25px}.stock-heading-row{display:flex;justify-content:space-between;align-items:center;gap:16px}.stock-heading h2{font-family:var(--font-display,Arial),sans-serif;font-size:25px;letter-spacing:-.025em;font-weight:500}.stock-heading p{font-size:14px;color:#9aa8b8;margin-top:8px}.stock-heading strong{color:white}
 .stock-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;align-items:stretch}.stock-card{min-width:0;display:flex;flex-direction:column;overflow:hidden;border:1px solid #ffffff16;border-radius:12px;background:linear-gradient(180deg,#111922,#0d141d);box-shadow:0 14px 38px #0002;transition:border-color .25s,transform .25s}.stock-card:hover{border-color:#31556a;transform:translateY(-3px)}.stock-photo{position:relative;aspect-ratio:1.55;overflow:hidden;background:#17222e}.stock-image-button{display:block;width:100%;height:100%;border:0;padding:0;background:transparent}.stock-image-button img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s}.stock-image-button:hover img{transform:scale(1.035)}.stock-photo:after{content:'';position:absolute;inset:55% 0 0;background:linear-gradient(transparent,#030a1266);pointer-events:none}.stock-standout{position:absolute;left:0;top:0;z-index:2;display:inline-flex;align-items:center;gap:8px;max-width:calc(100% - 70px);padding:11px 16px 11px 12px;background:linear-gradient(135deg,#12344a,#0a1d2b);color:#f2faff;border:1px solid #35566b;border-left:4px solid #00a8e8;border-radius:0 0 10px 0;font-size:13px;font-weight:800;line-height:1.35;letter-spacing:.01em;box-shadow:6px 8px 22px #000b1290,inset 0 1px 0 #ffffff1c;pointer-events:none}.stock-standout svg{color:#56cef9;filter:drop-shadow(0 1px 1px #001a28)}.stock-heart{position:absolute;right:14px;top:14px;z-index:1;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid #ffffff40;background:#0a131de6;color:#d4e1ee!important}.stock-heart:hover,.stock-heart[aria-pressed=true]{background:#11354a;color:#00a8e8!important;border-color:#00a8e8}.stock-photo-count{position:absolute;bottom:14px;right:14px;z-index:1;font-size:12px;background:#08121de6;border:1px solid #ffffff26;border-radius:3px;padding:6px 9px}.stock-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;z-index:1}.stock-dots button{border:0;padding:0;background:transparent;width:22px;height:26px;position:relative}.stock-dots button:after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;top:10px;left:8px;background:#ffffff70}.stock-dots button.selected:after{background:#fff}.stock-gallery-arrow{position:absolute;top:50%;z-index:1;transform:translateY(-50%);border:1px solid #ffffff30;border-radius:2px;width:36px;height:42px;display:flex;align-items:center;justify-content:center;background:#09141de6}.stock-gallery-arrow.previous{left:10px}.stock-gallery-arrow.next{right:10px}.stock-photo-fallback{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;height:100%;color:#8093a8;background:#14202c}.stock-photo-fallback span{font-size:13px}
@@ -1002,4 +1065,7 @@ const styles = `
 @media(max-width:760px){.stock-filter-overlay{padding:14px}.stock-filter-panel{max-height:92dvh;border-radius:20px}.stock-filter-panel .stock-panel-title{padding:21px 20px 18px}.stock-fields,.stock-panel-actions{padding-left:20px;padding-right:20px}.stock-fields.all-fields{grid-template-columns:1fr;gap:25px}.stock-fields.all-fields>div:first-child,.stock-sort-field{grid-column:auto}.stock-filterbar .stock-pill{padding:11px 15px}}
 @media(max-width:560px){.stock-filterbar{padding:6px 0 18px}.stock-filter-sort{width:100%;margin-left:0;border-radius:14px}.stock-choice-grid,.stock-sort-options{grid-template-columns:1fr}.stock-panel-actions{align-items:stretch;flex-direction:column-reverse}.stock-panel-actions .stock-primary,.stock-panel-actions .stock-text-button{width:100%}.stock-filter-panel .stock-primary{min-width:0}.stock-standout{font-size:12px;padding:9px 11px}}
 @media(prefers-reduced-motion:reduce){.stock-filter-overlay,.stock-filter-panel{animation:none}.stock-filterbar .stock-pill:hover,.stock-filter-sort:hover,.stock-choice-grid button:hover,.stock-sort-options button:hover{transform:none}}
+@media(max-width:1100px){.stock-hero{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}}
+@media(max-width:760px){.stock-hero{display:flex;align-items:flex-end;min-height:430px;margin-bottom:32px;padding:calc(var(--ym-stock-header-clearance,96px) + 60px) 24px 44px}.stock-hero-copy{max-width:570px;padding-right:0}.stock-hero-media{inset:0}.stock-hero-media:after{background:linear-gradient(0deg,#050a11f2,#050a11ab 60%,#050a114d)}.stock-hero h1{font-size:clamp(41px,8vw,60px)}}
+@media(max-width:560px){.reference-stock{padding:0 16px 45px}.stock-hero{min-height:420px;margin:0 -16px 28px;padding:calc(var(--ym-stock-header-clearance,96px) + 55px) 20px 38px}.stock-hero h1{font-size:42px}.stock-hero p{font-size:14px}}
 `;

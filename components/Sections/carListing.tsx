@@ -8,6 +8,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Gauge,
+  Sun,
+  CarFront,
+  Sparkles,
 } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -23,9 +26,63 @@ type Car = {
   fuel: string;
   colour: string;
   colourHex: string;
+  // Total registered owners/keepers, not the number of previous owners.
+  numberOfOwners?: number;
+  // Set this only when a stock editor has verified the chosen badge.
+  featuredFeature?: string;
+  // Add only verified equipment or claims, e.g. "Sunroof" or "Low mileage".
   features?: string[];
   priceRating?: "Fair price" | "Low price";
 };
+
+function standoutFeature(car: Car): string | undefined {
+  if (car.featuredFeature?.trim()) return car.featuredFeature.trim();
+
+  const features = car.features ?? [];
+  const details = [car.subtitle, ...features].join(" ");
+  const hasFeature = (pattern: RegExp) =>
+    features.some((feature) => pattern.test(feature.trim()));
+
+  // Pick one buyer-facing fact; do not infer ownership or equipment.
+  if (/\b(?:panoramic|pan)[\s-]?roof\b/i.test(details)) return "Panoramic Roof";
+  if (/\bsun[\s-]?roof\b/i.test(details)) return "Sunroof";
+  if (
+    car.numberOfOwners === 1 ||
+    hasFeature(/^(?:1st|1|one)[\s-]?(?:owner|keeper)$/i)
+  ) return "1 Owner";
+  if (hasFeature(/^low[\s-]?mileage$/i)) return "Low Mileage";
+  if (/\bfull (?:dealer )?service history\b/i.test(details))
+    return "Full Service History";
+  if (/\b7[\s-]?seat(?:er|s)?\b/i.test(details)) return "7 Seats";
+  if (/\bheated (?:front )?seats?\b/i.test(details))
+    return "Heated Seats";
+  if (/\b(?:4wd|4matic|quattro|4motion|xdrive|awd)\b/i.test(details))
+    return "All-Wheel Drive";
+
+  // Show a precise mileage figure without assuming "Low Mileage".
+  const miles = Number(car.mileage.replace(/,/g, ""));
+  if (Number.isFinite(miles) && miles > 0 && miles < 50_000)
+    return `${miles.toLocaleString("en-GB")} Miles`;
+
+  if (/\bm sport\b/i.test(details)) return "M Sport";
+  if (/\b(?:automatic|auto|dsg|s[\s-]?tronic|g[\s-]?tronic|7g-dct|steptronic)\b/i.test(
+    car.subtitle,
+  )) return "Automatic";
+  if (/\belectric\b/i.test(car.fuel)) return "Electric";
+  if (/\bhybrid\b/i.test(car.fuel)) return "Hybrid";
+  return undefined;
+}
+
+function FeatureIcon({ label }: { label: string }) {
+  const text = label.toLowerCase();
+  if (text.includes("mileage") || text.includes("miles"))
+    return <Gauge size={14} strokeWidth={2} className="shrink-0 text-[#56CEF9]" />;
+  if (text.includes("roof"))
+    return <Sun size={14} strokeWidth={2} className="shrink-0 text-[#56CEF9]" />;
+  if (text.includes("drive") || text.includes("automatic"))
+    return <CarFront size={14} strokeWidth={2} className="shrink-0 text-[#56CEF9]" />;
+  return <Sparkles size={14} strokeWidth={2} className="shrink-0 text-[#56CEF9]" />;
+}
 
 const cars: Car[] = [
   {
@@ -39,7 +96,6 @@ const cars: Car[] = [
     fuel: "Diesel",
     colour: "White",
     colourHex: "#ffffff",
-    features: ["Low mileage"],
     priceRating: "Fair price",
   },
   {
@@ -470,6 +526,7 @@ function VehicleCard({
   reduceMotion: boolean;
   desktop?: boolean;
 }) {
+  const standout = standoutFeature(car);
   return (
     <motion.article
       data-car-card
@@ -558,8 +615,8 @@ function VehicleCard({
           "
         />
 
-        {/* DARK-BLUE IMAGE TAG */}
-        {car.features?.[0] && (
+        {/* VERIFIED VEHICLE HIGHLIGHT */}
+        {standout && (
           <span
             className="
               absolute
@@ -567,6 +624,7 @@ function VehicleCard({
               top-0
               z-10
               inline-flex
+              max-w-[calc(100%-16px)]
               items-center
               gap-1.5
               rounded-br-[8px]
@@ -587,12 +645,8 @@ function VehicleCard({
               shadow-[6px_8px_22px_rgba(0,11,18,0.56)]
             "
           >
-            <Gauge
-              size={14}
-              strokeWidth={2}
-              className="text-[#56CEF9]"
-            />
-            {car.features[0]}
+            <FeatureIcon label={standout} />
+            <span className="truncate">{standout}</span>
           </span>
         )}
       </a>
