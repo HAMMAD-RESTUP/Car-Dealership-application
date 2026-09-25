@@ -2,22 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, ChevronRight, Menu, Phone, Search, X,} from "lucide-react";
+import {FaFacebookF,FaInstagram,FaLinkedinIn,FaYoutube,} from "react-icons/fa";
 
-import {
-  ChevronDown,
-  ChevronRight,
-  Menu,
-  Phone,
-  Search,
-  X,
-} from "lucide-react";
-
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-} from "react-icons/fa";
+import YMLogo from "./Logo";
 
 /* =========================================================
    TYPES
@@ -157,13 +145,12 @@ export default function Header() {
             transition-[border-color,box-shadow]
             duration-500
 
-            ${
-              scrolled
-                ? `
+            ${scrolled
+              ? `
                   border-white/[0.07]
                   shadow-[0_12px_38px_rgba(0,0,0,0.28)]
                 `
-                : `
+              : `
                   border-transparent
                   shadow-none
                 `
@@ -268,32 +255,7 @@ export default function Header() {
                 CENTER LOGO
             ============================================== */}
 
-            <motion.a
-              href="#home"
-              aria-label="YM Motors home"
-              initial={{
-                opacity: 0,
-                y: -5,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.65,
-                ease: "easeOut",
-              }}
-              className="
-                absolute
-                left-1/2
-                top-1/2
-                z-20
-                -translate-x-1/2
-                -translate-y-1/2
-              "
-            >
-              <Logo />
-            </motion.a>
+            <YMLogo />
 
             {/* =============================================
                 RIGHT NAVIGATION
@@ -385,13 +347,12 @@ export default function Header() {
             transition-[border-color,box-shadow]
             duration-500
 
-            ${
-              scrolled
-                ? `
+            ${scrolled
+              ? `
                   border-white/[0.07]
                   shadow-[0_10px_30px_rgba(0,0,0,0.28)]
                 `
-                : `
+              : `
                   border-transparent
                   shadow-none
                 `
@@ -464,7 +425,7 @@ export default function Header() {
               -translate-y-1/2
             "
           >
-            <Logo mobile />
+            <YMLogo />
           </a>
 
           {/* HAMBURGER */}
@@ -869,8 +830,8 @@ function DesktopNavLink({
 
   const hasDropdown = Boolean(
     item.dropdown &&
-      item.submenu &&
-      item.submenu.length > 0,
+    item.submenu &&
+    item.submenu.length > 0,
   );
 
   /* =======================================================
@@ -996,10 +957,9 @@ function DesktopNavLink({
               transition-transform
               duration-300
 
-              ${
-                open
-                  ? "rotate-180"
-                  : ""
+              ${open
+                ? "rotate-180"
+                : ""
               }
             `}
           />
@@ -1117,8 +1077,8 @@ function MobileNavLink({
 }) {
   const hasDropdown = Boolean(
     item.dropdown &&
-      item.submenu &&
-      item.submenu.length > 0,
+    item.submenu &&
+    item.submenu.length > 0,
   );
 
   const open =
@@ -1262,10 +1222,9 @@ function MobileNavLink({
                 transition-transform
                 duration-300
 
-                ${
-                  open
-                    ? "rotate-90"
-                    : ""
+                ${open
+                  ? "rotate-90"
+                  : ""
                 }
               `}
             />
@@ -1367,10 +1326,9 @@ function Logo({
           [-webkit-background-clip:text]
           [-webkit-text-fill-color:transparent]
 
-          ${
-            mobile
-              ? "text-[19px] sm:text-[22px]"
-              : "text-[28px] xl:text-[34px] 2xl:text-[42px]"
+          ${mobile
+            ? "text-[19px] sm:text-[22px]"
+            : "text-[28px] xl:text-[34px] 2xl:text-[42px]"
           }
         `}
       >

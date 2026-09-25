@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
-export default function Logo() {
+export default function YMLogo() {
   return (
     <motion.div
       whileHover={{ x: 2 }}
@@ -10,24 +11,16 @@ export default function Logo() {
         duration: 0.3,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="
-        cursor-pointer
-
-        font-heading
-
-        text-[20px]
-        font-semibold
-
-        uppercase
-        tracking-[0.12em]
-
-        text-white
-
-        sm:text-[22px]
-        lg:text-[24px]
-      "
+      className="cursor-pointer"
     >
-      Your Logo
+      <Image
+        src="/images/YM-Motors-logo.png"
+        alt="Logo"
+        width={200}
+        height={80}
+        priority
+        className="h-[42px] w-auto sm:h-[52px] lg:h-[64px]"
+      />
     </motion.div>
   );
 }

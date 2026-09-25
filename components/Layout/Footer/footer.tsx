@@ -3,16 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-// Match the header logo without importing the Header component into the footer.
-function Logo() {
-  return (
-    <span className="flex flex-col items-center whitespace-nowrap">
-      <h2 className="m-0 bg-[linear-gradient(100deg,#00A8E8_0%,#38C2F5_18%,#BCEBFC_38%,#FFFFFF_62%,#D9E0E7_82%,#AAB4BE_100%)] bg-clip-text font-[var(--font-display)] text-[28px] font-semibold uppercase leading-none tracking-[-0.035em] !text-transparent [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] xl:text-[34px] 2xl:text-[42px]">
-        YM MOTORS
-      </h2>
-    </span>
-  );
-}
+import YMLogo from "../Header/Logo";
 
 type IconName = "whatsapp" | "phone" | "mapPin" | "instagram" | "facebook" | "youtube" | "arrowUpRight";
 
@@ -88,9 +79,8 @@ type FooterProps = {
 
 // These hours and the contact number came from the supplied footer.
 const salesHours = [
-  { day: "Monday – Friday", time: "09:30 – 17:30" },
-  { day: "Saturday", time: "08:30 – 17:30" },
-  { day: "Sunday", time: "Closed" },
+  { day: "Monday – Saturday", time: "09:30 – 18:00" },
+  { day: "Sunday", time: "10:00 - 1600" },
 ];
 
 const usefulLinks = [
@@ -99,12 +89,7 @@ const usefulLinks = [
   { label: "Contact us", href: "/contact" },
 ];
 
-const trustMarks = [
-  { src: "/images/blue-motor-finance.png", alt: "Blue Motor Finance" },
-  { src: "/images/financial-conduct-authority.png", alt: "Financial Conduct Authority" },
-  { src: "/images/hpi.png", alt: "HPI" },
-  { src: "/images/octane-finance.png", alt: "Octane Finance" },
-];
+
 
 const phoneHref = "tel:01737307007";
 const whatsappHref = "https://wa.me/441737307007";
@@ -112,7 +97,7 @@ const directionsHref = "https://www.google.com/maps/search/?api=1&query=Unit+56%
 
 type IconLink = { label: string; href?: string; icon: IconName; external: boolean };
 
-export default function Footer({ footerLogoSrc }: FooterProps = {}) {
+export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const iconLinks: IconLink[] = [
@@ -140,11 +125,9 @@ export default function Footer({ footerLogoSrc }: FooterProps = {}) {
               transition={{ duration: 0.65, ease: "easeOut" }}
               className="inline-flex w-fit items-center"
             >
-              {footerLogoSrc ? (
-                <Image src={footerLogoSrc} alt="YM Motors" width={220} height={80} className="max-h-[80px] w-auto max-w-[220px] object-contain" />
-              ) : (
-                <Logo />
-              )}
+             
+                <YMLogo />
+             
             </motion.a>
             <p className="mt-4 max-w-[350px] font-[var(--font-body)] text-[13px] leading-[1.75] text-white/65 sm:text-[14px]">
               Used cars and imports for every kind of drive. Explore a changing
@@ -220,24 +203,7 @@ export default function Footer({ footerLogoSrc }: FooterProps = {}) {
           </nav>
         </div>
 
-        <div className="border-b border-white/10 py-4">
-          <ul
-            aria-label="Finance and vehicle information logos"
-            className="mx-auto grid max-w-[450px] grid-cols-2 gap-2 lg:grid-cols-4"
-          >
-            {trustMarks.map(({ src, alt }) => (
-              <li key={src} className="flex min-h-[40px] items-center justify-center rounded-[5px] border border-[#D8E2E9] bg-[#F6F8FA] px-2 py-1 sm:min-h-[44px]">
-                <Image
-                  src={src}
-                  alt={alt}
-                  width={58}
-                  height={21}
-                  className="h-[18px] w-[50px] object-contain sm:h-[21px] sm:w-[58px]"
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+ 
 
         <div className="flex flex-col gap-2.5 py-5 font-[var(--font-body)] text-[11px] leading-[1.6] text-white/45 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6 sm:text-[12px]">
           <span>© {currentYear} YM Motors Ltd. All rights reserved.</span>

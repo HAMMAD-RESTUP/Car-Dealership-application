@@ -44,7 +44,7 @@ const benefits = [
 ];
 
 const stepNames = ["Your vehicle", "Your details", "Confirm details"] as const;
-const inputClass = "mt-2 block min-h-[52px] w-full rounded-[5px] border border-white/25 bg-[#0B121C] px-4 text-[15px] text-white outline-none transition placeholder:text-white/40 focus:border-[#00A8E8] focus:ring-2 focus:ring-[#00A8E8]/25";
+const inputClass = "mt-2 block min-h-[52px] w-full rounded-[10px] border border-white/20 bg-[#0A111A] px-4 text-[15px] text-white outline-none transition placeholder:text-white/40 focus:border-[#00A8E8] focus:ring-2 focus:ring-[#00A8E8]/25";
 const labelClass = "block text-[13px] font-medium text-white/85";
 const primaryCtaClass = "group relative inline-flex min-h-[52px] items-center justify-center overflow-hidden bg-[#00A8E8] px-7 font-[var(--font-body)] text-[12px] font-semibold uppercase tracking-[0.14em] text-white shadow-[0_8px_24px_rgba(0,168,232,0.20)] transition-all duration-300 hover:-translate-y-[1px] hover:bg-[#12B7F4] hover:shadow-[0_12px_30px_rgba(0,168,232,0.30)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00A8E8]";
 
@@ -130,7 +130,7 @@ export default function SellYourCarPage() {
 
       <section
         aria-labelledby="finance-heading"
-        className="relative isolate flex min-h-[390px] flex-col justify-end overflow-hidden border-b border-white/10 sm:min-h-[420px]"
+        className="relative isolate flex min-h-[440px] flex-col justify-end overflow-hidden border-b border-white/10 sm:min-h-[500px] lg:min-h-[560px]"
         style={{ paddingTop: "var(--ym-stock-header-clearance, 96px)" }}
       >
         <Image
@@ -140,32 +140,60 @@ export default function SellYourCarPage() {
           fill
           priority
           sizes="100vw"
-          className="z-0 object-cover object-[center_56%]"
+          className="z-0 object-cover object-[center_55%] scale-[1.015]"
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(4,10,17,0.96)_0%,rgba(4,10,17,0.82)_34%,rgba(4,10,17,0.52)_58%,rgba(4,10,17,0.20)_100%)]"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(4,10,17,0.91)_0%,rgba(4,10,17,0.77)_46%,rgba(4,10,17,0.36)_100%)]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[48%] bg-[linear-gradient(180deg,transparent_0%,rgba(9,13,18,0.86)_100%)]"
         />
-        <div className="relative z-20 mx-auto w-full max-w-[1400px] px-5 pb-12 pt-9 sm:px-8 sm:pb-14 lg:px-12">
-          <div className="max-w-[640px]">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[8%] top-[35%] z-10 h-56 w-56 rounded-full bg-[#00A8E8]/10 blur-[90px]"
+        />
+
+        <div className="relative z-20 mx-auto w-full max-w-[1400px] px-5 pb-12 pt-16 sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
+          <div className="max-w-[690px]">
+         
+
             <h1
               id="finance-heading"
-              className="font-[var(--font-display)] text-[clamp(40px,4.8vw,65px)] font-semibold leading-[1.06] tracking-[-0.046em] drop-shadow-[0_3px_12px_rgba(0,0,0,0.28)]"
+              className="font-[var(--font-display)] text-[clamp(43px,5.2vw,72px)] font-semibold leading-[1.02] tracking-[-0.052em] drop-shadow-[0_4px_20px_rgba(0,0,0,0.36)]"
             >
-              Sell  <span className="bg-[linear-gradient(90deg,#27C1F3_0%,#B7E9F9_58%,#FFFFFF_100%)] bg-clip-text text-transparent">your car.</span>
+              Sell <span className="bg-[linear-gradient(90deg,#27C1F3_0%,#AEE8FA_58%,#FFFFFF_100%)] bg-clip-text text-transparent">your car.</span>
             </h1>
-            <p className="mt-4 max-w-[520px] text-[15px] leading-[1.7] text-white/80 sm:text-[16px]">
-              A straightforward way to sell to YM Motors. Tell us about your vehicle and we&apos;ll talk through a possible offer.
+
+            <p className="mt-5 max-w-[560px] text-[15px] leading-[1.8] text-white/78 sm:text-[17px]">
+              A straightforward, personal way to sell your vehicle. Share a few details and our team will guide you through the next steps.
             </p>
 
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] text-white/70 sm:text-[13px]">
+              <span className="inline-flex items-center gap-2">
+                <span className="grid h-6 w-6 place-items-center rounded-full border border-[#00A8E8]/45 bg-[#00A8E8]/10 text-[#75D7FC]"><Icon name="check" className="h-3.5 w-3.5" /></span>
+                No obligation
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <span className="grid h-6 w-6 place-items-center rounded-full border border-[#00A8E8]/45 bg-[#00A8E8]/10 text-[#75D7FC]"><Icon name="check" className="h-3.5 w-3.5" /></span>
+                Direct contact
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <span className="grid h-6 w-6 place-items-center rounded-full border border-[#00A8E8]/45 bg-[#00A8E8]/10 text-[#75D7FC]"><Icon name="check" className="h-3.5 w-3.5" /></span>
+                Simple process
+              </span>
+            </div>
           </div>
         </div>
       </section>
       
 
-      <section id="why-ym-motors" aria-labelledby="why-heading" className="scroll-mt-20 py-20 sm:py-24 lg:py-28">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
-          <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-20">
+      <section id="why-ym-motors" aria-labelledby="why-heading" className="relative scroll-mt-20 overflow-hidden py-20 sm:py-24 lg:py-28">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-28 top-8 h-72 w-72 rounded-full bg-[#00A8E8]/[0.055] blur-[100px]" />
+        <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
+          <div className="grid gap-9 lg:grid-cols-[0.88fr_1.12fr] lg:items-end lg:gap-20">
             <div>
               <h2 id="why-heading" className="max-w-[540px] font-[var(--font-display)] text-[clamp(36px,4vw,58px)] font-semibold leading-[1.08] tracking-[-0.04em]">Why sell to <span className="text-[#00A8E8]">YM Motors?</span></h2>
             </div>
@@ -174,26 +202,30 @@ export default function SellYourCarPage() {
               <p>We&apos;re interested in well-presented vehicles that suit our stock. Share the registration and mileage to begin; we&apos;ll discuss the car&apos;s condition, history and what happens next before you make any decision.</p>
             </div>
           </div>
-          <div className="mt-12 grid gap-y-7 border-y border-white/15 py-9 md:grid-cols-3 md:gap-y-0">
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
             {benefits.map((benefit) => (
-              <article key={benefit.title} className="border-b border-white/10 pb-7 last:border-b-0 last:pb-0 md:border-b-0 md:border-l md:border-white/15 md:px-8 md:pb-0 md:first:border-l-0 md:first:pl-0 md:last:pr-0">
+              <article key={benefit.title} className="group relative overflow-hidden rounded-[14px] border border-white/12 bg-[linear-gradient(145deg,rgba(20,30,41,0.86),rgba(12,19,28,0.92))] p-6 shadow-[0_18px_45px_rgba(0,0,0,0.14)] transition duration-300 hover:-translate-y-1 hover:border-[#00A8E8]/35 sm:p-7">
+                  <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00A8E8]/70 to-transparent opacity-70" />
                 <Icon name={benefit.icon} className="h-7 w-7 text-[#75D7FC]" />
                 <h3 className="mt-5 font-[var(--font-display)] text-[22px] font-semibold leading-tight tracking-[-0.025em]">{benefit.title}</h3>
                 <p className="mt-3 max-w-[370px] text-[13px] leading-[1.8] text-white/60 sm:text-[14px]">{benefit.description}</p>
               </article>
             ))}
           </div>
-          <p className="mt-10 max-w-[850px] text-[14px] leading-[1.8] text-white/65 sm:text-[16px]">Want to see what your car could be worth? Complete the form below and we&apos;ll take a look. You can also call <a href="tel:01737307007" className="font-semibold text-[#8CDBF9] underline decoration-[#00A8E8]/60 underline-offset-4 hover:text-white">{PHONE_NUMBER}</a> to talk through your options.</p>
+          <div className="mt-10 flex max-w-[900px] flex-col gap-3 border-l-2 border-[#00A8E8] bg-white/[0.025] px-5 py-4 sm:px-6">
+            <p className="text-[14px] leading-[1.8] text-white/68 sm:text-[16px]">Want to see what your car could be worth? Complete the form below and we&apos;ll take a look. You can also call <a href="tel:01737307007" className="font-semibold text-[#8CDBF9] underline decoration-[#00A8E8]/60 underline-offset-4 hover:text-white">{PHONE_NUMBER}</a> to talk through your options.</p>
+          </div>
         </div>
       </section>
 
       {/* Three-step form: vehicle, contact details and review. */}
-      <section id="valuation-form" aria-labelledby="form-heading" className="scroll-mt-16 px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
-        <div className="mx-auto max-w-[620px]">
+      <section id="valuation-form" aria-labelledby="form-heading" className="relative scroll-mt-16 border-t border-white/[0.07] px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
+        <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-10 h-64 w-[min(720px,80vw)] -translate-x-1/2 rounded-full bg-[#00A8E8]/[0.04] blur-[110px]" />
+        <div className="relative mx-auto max-w-[650px]">
           <h2 id="form-heading" className="text-center font-[var(--font-display)] text-[clamp(34px,4vw,46px)] font-semibold tracking-[-0.04em]">Let&apos;s talk about <span className="text-[#00A8E8]">your car.</span></h2>
           <p className="mx-auto mt-3 max-w-[500px] text-center text-[13px] leading-[1.7] text-white/60 sm:text-[14px]">Start with your registration and mileage. We&apos;ll take it from there together.</p>
 
-          <ol aria-label="Enquiry progress" className="relative mt-10 flex justify-between before:absolute before:left-[16.66%] before:right-[16.66%] before:top-[14px] before:h-px before:bg-white/35 before:content-['']">
+          <ol aria-label="Enquiry progress" className="relative mt-11 flex justify-between before:absolute before:left-[16.66%] before:right-[16.66%] before:top-[15px] before:h-px before:bg-white/20 before:content-['']">
             {stepNames.map((name, index) => {
               const number = (index + 1) as Step;
               return (
@@ -207,7 +239,7 @@ export default function SellYourCarPage() {
             })}
           </ol>
 
-          <form onSubmit={handleSubmit} noValidate className="relative mt-10 overflow-hidden rounded-[12px] border border-white/15 bg-[linear-gradient(180deg,#111922,#0d141d)] p-5 shadow-[0_24px_65px_rgba(0,0,0,0.17)] sm:p-8">
+          <form onSubmit={handleSubmit} noValidate className="relative mt-10 overflow-hidden rounded-[18px] border border-white/15 bg-[linear-gradient(155deg,#121C27_0%,#0B121B_100%)] p-5 shadow-[0_28px_80px_rgba(0,0,0,0.28)] sm:p-8 md:p-9">
             <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00A8E8] to-transparent" />
             {step === 1 && (
               <div className="space-y-5">

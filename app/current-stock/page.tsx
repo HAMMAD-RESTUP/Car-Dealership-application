@@ -16,12 +16,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-// app/current-stock/page.tsx — Header / Footer stay in RootLayout.
-// Set --ym-stock-header-clearance to your fixed header height (default 96px).
-// Use 0px for a header that already occupies space in the document flow.
-// Existing sample inventory is preserved. Verify specifications before publishing.
-// Add real images to `images` for galleries. Optional fields enable extra filters.
-// distanceMiles must be calculated from the visitor's location by your application.
+
+
 interface Car {
   id: string;
   name: string;
@@ -547,12 +543,12 @@ export default function CurrentStockPage() {
       <style>{styles}</style>
     <section
         aria-labelledby="contact-title"
-        className="relative isolate overflow-hidden border-b border-white/10"
+        className="stock-banner relative isolate overflow-hidden border-b border-white/10"
         style={{ paddingTop: "var(--ym-stock-header-clearance, 96px)" }}
       >
         <div aria-hidden="true" className="absolute inset-0">
           <Image
-            src="/images/current-stock-banner.png"
+            src="/images/contact-banner.jpeg"
             alt=""
             fill
             priority
@@ -1002,6 +998,7 @@ function VehicleDetails({ car, onClose }: { car: Car; onClose: () => void }) {
 
 const styles = `
 .reference-stock{--stock-blue:#00a8e8;--stock-ink:#f6f8fa;min-height:100vh;background:radial-gradient(ellipse at 95% 0%,#00a8e80c,transparent 45%),#090d12;color:var(--stock-ink);font-family:var(--font-body,Arial),sans-serif;color-scheme:dark;padding:0 36px 80px}
+.stock-banner{width:calc(100% + 72px);margin-left:-36px;margin-right:-36px}
 .reference-stock *{box-sizing:border-box}.reference-stock button,.reference-stock select,.reference-stock input{font:inherit}.reference-stock button,.reference-stock select{cursor:pointer}.reference-stock button{color:inherit}.reference-stock a{color:inherit;text-decoration:none}.reference-stock h1,.reference-stock h2,.reference-stock p{margin:0}.reference-stock svg{flex-shrink:0}.reference-stock :focus-visible{outline:2px solid #00a8e8;outline-offset:4px}.reference-stock select:disabled{opacity:.55;cursor:default}.stock-container{max-width:1680px;margin:auto}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .stock-hero{position:relative;isolation:isolate;display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:clamp(390px,36vw,485px);margin:0 -36px 38px;padding:calc(var(--ym-stock-header-clearance,96px) + 30px) max(36px,calc(50vw - 804px)) 50px;overflow:hidden;border-bottom:1px solid #ffffff21;background:#090d12}
 .stock-hero-copy{position:relative;z-index:2;max-width:590px;padding-right:28px}.stock-hero h1{font-family:var(--font-display,Arial),sans-serif;font-size:clamp(44px,5vw,68px);font-weight:600;line-height:1.05;letter-spacing:-.047em}.stock-hero h1 span{background:linear-gradient(90deg,#27c1f3,#b7e9f9 55%,#fff);background-clip:text;-webkit-background-clip:text;color:transparent}.stock-hero p{max-width:470px;margin-top:18px!important;color:#c3ced9;font-size:16px;line-height:1.7}.stock-hero-cta{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:49px;margin-top:26px;padding:12px 22px;border:1px solid #00a8e8;border-radius:4px;background:#00a8e8;color:#fff!important;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s ease,transform .2s ease}.stock-hero-cta:hover{background:#0789c7;transform:translateY(-2px)}
@@ -1015,9 +1012,9 @@ const styles = `
 .stock-dialog{position:fixed;inset:0;margin:auto;width:calc(100% - 32px);max-width:580px;max-height:85dvh;overflow:auto;background:#101923;color:#f6f8fa;border:1px solid #ffffff26;border-radius:12px;padding:28px;font:inherit}.stock-dialog::backdrop{background:#02070dd9}.stock-dialog>p{color:#a6b4c5;font-size:15px;line-height:1.7}.stock-detail-price{display:block;color:#8dd6ff;font-size:32px;margin:25px 0}.stock-dialog dl{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0 30px}.stock-dialog dt{font-size:12px;color:#8fa1b6}.stock-dialog dd{font-size:16px;margin:7px 0 0}.stock-dialog>.stock-primary{width:100%;white-space:normal}
 @media(min-width:1700px){.stock-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:22px}.stock-card-body{padding:20px}.stock-card h2{font-size:23px}}
 @media(max-width:1250px){.stock-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}}
-@media(max-width:1100px){.reference-stock{padding-left:24px;padding-right:24px}.collection-intro{gap:35px}.stock-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.stock-fields.all-fields{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1100px){.reference-stock{padding-left:24px;padding-right:24px}.stock-banner{width:calc(100% + 48px);margin-left:-24px;margin-right:-24px}.collection-intro{gap:35px}.stock-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.stock-fields.all-fields{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:760px){.collection-intro{grid-template-columns:1fr;gap:28px;padding-bottom:28px}.collection-description{max-width:100%}.stock-back{margin-bottom:22px}.stock-fields.all-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.stock-filterbar{gap:10px}.stock-filter-sort{padding:12px}.stock-card-body{padding:18px}.stock-card h2{font-size:22px}.stock-heading h2{font-size:23px}.stock-card-footer{gap:12px}.stock-vehicle-price{font-size:25px}}
-@media(max-width:560px){.reference-stock{padding:calc(var(--ym-stock-header-clearance,96px) + 22px) 16px 45px}.collection-intro h1{font-size:38px}.collection-search{padding:13px;min-height:58px}.collection-search input{font-size:16px}.stock-filterbar{flex-wrap:wrap;padding:13px 0}.stock-filter-scroll{flex-basis:100%;width:100%}.stock-filter-sort{margin-left:auto}.stock-grid{grid-template-columns:1fr;gap:26px}.stock-card-body{padding:22px}.stock-card h2{font-size:25px}.stock-subtitle{font-size:15px}.stock-heading-row{flex-wrap:wrap}.stock-heading h2{font-size:23px}.stock-fields.all-fields{grid-template-columns:1fr}.stock-filter-panel{padding:18px}.stock-dialog{padding:22px}.stock-vehicle-price{font-size:28px}}
+@media(max-width:560px){.reference-stock{padding:calc(var(--ym-stock-header-clearance,96px) + 22px) 16px 45px}.stock-banner{width:calc(100% + 32px);margin-left:-16px;margin-right:-16px}.collection-intro h1{font-size:38px}.collection-search{padding:13px;min-height:58px}.collection-search input{font-size:16px}.stock-filterbar{flex-wrap:wrap;padding:13px 0}.stock-filter-scroll{flex-basis:100%;width:100%}.stock-filter-sort{margin-left:auto}.stock-grid{grid-template-columns:1fr;gap:26px}.stock-card-body{padding:22px}.stock-card h2{font-size:25px}.stock-subtitle{font-size:15px}.stock-heading-row{flex-wrap:wrap}.stock-heading h2{font-size:23px}.stock-fields.all-fields{grid-template-columns:1fr}.stock-filter-panel{padding:18px}.stock-dialog{padding:22px}.stock-vehicle-price{font-size:28px}}
 @media(prefers-reduced-motion:reduce){.reference-stock *{transition:none!important;scroll-behavior:auto!important}.stock-card:hover{transform:none}}
 
 /* Premium rounded filters and modal-based selection. */
