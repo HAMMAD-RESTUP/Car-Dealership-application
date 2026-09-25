@@ -133,7 +133,7 @@ export default function SellYourCarPage() {
         style={{ paddingTop: "var(--ym-stock-header-clearance, 96px)" }}
       >
         <Image
-          src="/images/Sell-banner.png"
+          src="/images/sell-banner.png"
           alt=""
           aria-hidden="true"
           fill
