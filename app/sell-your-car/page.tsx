@@ -3,8 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
 
-// Copy the accompanying image to public/images/sell-your-car-banner.png.
-const BANNER_IMAGE = "/images/sell-car-banner.png";
+
 const WHATSAPP_NUMBER = "441737307007";
 const PHONE_NUMBER = "01737 307 007";
 
@@ -134,7 +133,7 @@ export default function SellYourCarPage() {
         style={{ paddingTop: "var(--ym-stock-header-clearance, 96px)" }}
       >
         <Image
-          src="/images/Sell-car-banner.png"
+          src="/images/Sell-banner.png"
           alt=""
           aria-hidden="true"
           fill
