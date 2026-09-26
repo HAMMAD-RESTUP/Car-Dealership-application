@@ -14,12 +14,12 @@ export default function YMLogo() {
       className="cursor-pointer"
     >
       <Image
-        src="/images/YM-Motors-logo.png"
+        src="/images/Logo-YM-Motors.png"
         alt="Logo"
-        width={200}
-        height={80}
+        width={260}
+        height={104}
         priority
-        className="h-[42px] w-auto sm:h-[52px] lg:h-[64px]"
+        className="h-[56px] w-auto sm:h-[68px] lg:h-[84px]"
       />
     </motion.div>
   );
